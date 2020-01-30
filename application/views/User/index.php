@@ -1,5 +1,4 @@
 
-
     
     <div class="hero-wrap img" style="background-image: url(images/bg_1.jpg);">
       <div class="overlay"></div>
@@ -9,7 +8,7 @@
 	        	<div class="text text-center pt-5 mt-md-5">
 	        		<p class="mb-4">Ayo Uji Latihan Kerasmu Disini!</p>
 	            <h1 class="mb-5">Try Out Online Kedinasan</h1>
-							<div class="ftco-counter ftco-no-pt ftco-no-pb">
+					<div class="ftco-counter ftco-no-pt ftco-no-pb">
 			        	<div class="row">
 				          <div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate">
 				            <div class="block-18">
@@ -548,7 +547,7 @@
 		        </div>
 		        <div class="sidebar-box ftco-animate">
 		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-1.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
+			        	<a href="#" class="company-wrap"><img src="<?= base_url('assets/User/'); ?>images/company-1.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
 			        		<h3><a href="#">Company Company</a></h3>
 			        		<p><span class="number">500</span> <span>Open position</span></p>
@@ -557,7 +556,7 @@
 		        </div>
 		        <div class="sidebar-box ftco-animate">
 		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-2.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
+			        	<a href="#" class="company-wrap"><img src="<?= base_url('assets/User/'); ?>images/company-2.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
 			        		<h3><a href="#">Facebook Company</a></h3>
 			        		<p><span class="number">700</span> <span>Open position</span></p>
@@ -566,7 +565,7 @@
 		        </div>
 		        <div class="sidebar-box ftco-animate">
 		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-3.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
+			        	<a href="#" class="company-wrap"><img src="<?= base_url('assets/User/'); ?>images/company-3.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
 			        		<h3><a href="#">IT Programming INC</a></h3>
 			        		<p><span class="number">700</span> <span>Open position</span></p>
@@ -575,7 +574,7 @@
 		        </div>
 		        <div class="sidebar-box ftco-animate">
 		        	<div class="">
-			        	<a href="#" class="company-wrap"><img src="images/company-4.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
+			        	<a href="#" class="company-wrap"><img src="<?= base_url('assets/User/'); ?>images/company-4.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
 			        	<div class="text p-3">
 			        		<h3><a href="#">IT Programming INC</a></h3>
 			        		<p><span class="number">700</span> <span>Open position</span></p>
@@ -605,7 +604,7 @@
                   <div class="text">
                     <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                    	<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_1.jpg)"></div>
                     	<div class="pl-3">
 		                    <p class="name">Roger Scott</p>
 		                    <span class="position">Marketing Manager</span>
@@ -619,7 +618,7 @@
                   <div class="text">
                     <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+                    	<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_2.jpg)"></div>
                     	<div class="pl-3">
 		                    <p class="name">Roger Scott</p>
 		                    <span class="position">Marketing Manager</span>
@@ -633,7 +632,7 @@
                   <div class="text">
                     <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+                    	<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_3.jpg)"></div>
                     	<div class="pl-3">
 		                    <p class="name">Roger Scott</p>
 		                    <span class="position">Marketing Manager</span>
@@ -647,7 +646,7 @@
                   <div class="text">
                     <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                    	<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_1.jpg)"></div>
                     	<div class="pl-3">
 		                    <p class="name">Roger Scott</p>
 		                    <span class="position">Marketing Manager</span>
@@ -661,7 +660,7 @@
                   <div class="text">
                     <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <div class="d-flex align-items-center">
-                    	<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+                    	<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_2.jpg)"></div>
                     	<div class="pl-3">
 		                    <p class="name">Roger Scott</p>
 		                    <span class="position">Marketing Manager</span>
@@ -691,14 +690,14 @@
         		<div class="carousel-candidates owl-carousel">
         			<div class="item">
 		        		<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_1.jpg);"></div>
+		        			<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_1.jpg);"></div>
 		        			<h2>Danica Lewis</h2>
 		        			<span class="position">Western City, UK</span>
 		        		</a>
         			</div>
         			<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_2.jpg);"></div>
+		        			<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_2.jpg);"></div>
 		        			<h2>Nicole Simon</h2>
 		        			<span class="position">Western City, UK</span>
 		        		</a>
@@ -822,3 +821,67 @@
     	</div>
     </div>
 
+	<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Skillhunt Jobboard</h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Employers</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="pb-1 d-block">Browse Candidates</a></li>
+                        <li><a href="#" class="pb-1 d-block">Post a Job</a></li>
+                        <li><a href="#" class="pb-1 d-block">Employer Listing</a></li>
+                        <li><a href="#" class="pb-1 d-block">Resume Page</a></li>
+                        <li><a href="#" class="pb-1 d-block">Dashboard</a></li>
+                        <li><a href="#" class="pb-1 d-block">Job Packages</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-4">
+                    <h2 class="ftco-heading-2">Candidate</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="pb-1 d-block">Browse Jobs</a></li>
+                        <li><a href="#" class="pb-1 d-block">Submit Resume</a></li>
+                        <li><a href="#" class="pb-1 d-block">Dashboard</a></li>
+                        <li><a href="#" class="pb-1 d-block">Browse Categories</a></li>
+                        <li><a href="#" class="pb-1 d-block">My Bookmarks</a></li>
+                        <li><a href="#" class="pb-1 d-block">Candidate Listing</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4 ml-md-4">
+                    <h2 class="ftco-heading-2">Account</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="pb-1 d-block">My Account</a></li>
+                        <li><a href="#" class="pb-1 d-block">Sign In</a></li>
+                        <li><a href="#" class="pb-1 d-block">Create Account</a></li>
+                        <li><a href="#" class="pb-1 d-block">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="ftco-footer-widget mb-4">
+                    <h2 class="ftco-heading-2">Have a Questions?</h2>
+                    <div class="block-23 mb-3">
+                        <ul>
+                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
