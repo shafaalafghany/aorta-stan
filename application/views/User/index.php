@@ -1,6 +1,4 @@
-
-    
-    <div class="hero-wrap img" style="background-image: url(images/bg_1.jpg);">
+    <div class="hero-wrap img" style="background-image: url(<?= base_url('assets/User/'); ?>images/bg_1.jpg);">
       <div class="overlay"></div>
       <div class="container">
       	<div class="row d-md-flex no-gutters slider-text align-items-center justify-content-center">
@@ -739,7 +737,7 @@
     <div class="bg-modal ftco-animate" id="modal-login">
     	<div class="modal-content">
     		<div class="close" id="close-login">+</div>
-    		<img src="images/user2.png" class="avatar-img">
+    		<img src="<?= base_url('assets/User/'); ?>images/user2.png" class="avatar-img">
     		<h2>Login</h2>
 
     		<form>

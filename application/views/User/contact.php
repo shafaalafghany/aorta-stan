@@ -1,4 +1,4 @@
-    <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
@@ -65,7 +65,7 @@
         <img src="<?= base_url('assets/User/'); ?>images/user2.png" class="avatar-img">
         <h2>Login</h2>
 
-        <form>
+        <form method="POST">
           <div>
             <input type="email" id="email-login" required="">
             <label>Email</label>
