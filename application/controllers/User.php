@@ -13,11 +13,39 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['judul'] = 'Try Out Online';
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[to_user.email]');
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]');
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
-        $this->load->view('User/templates/header', $data);
-        $this->load->view('User/index');
-        $this->load->view('User/templates/footer');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['judul'] = 'Try Out Online';
+
+            $this->load->view('User/templates/header', $data);
+            $this->load->view('User/index');
+            $this->load->view('User/templates/footer');
+        } else {
+
+            $data = [
+                'name' => $this->input->post('user_name'),
+                'email' => $this->input->post('user_email'),
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'role_id' => 3,
+                'images' => 'default.jpg',
+                'is_active' => 1,
+                'date_created' => time()
+            ];
+
+            $this->db->insert('to_user', $data);
+            redirect('User');
+
+            // $data['judul'] = 'Try Out Online';
+
+            // $this->load->view('User/templates/header_login', $data);
+            // $this->load->view('User/index');
+            // $this->load->view('User/templates/footer');
+        }
     }
 
     public function tryout()

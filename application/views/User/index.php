@@ -742,11 +742,11 @@
 
     		<form>
     			<div>
-    				<input type="email" id="email-login" required="">
+    				<input type="email" id="email-login" required="" name="email">
     				<label>Email</label>
     			</div>
     			<div>
-    				<input type="password" id="password-login" required="">
+    				<input type="password" id="password-login" required="" name="password">
     				<label>Password</label>
     			</div>
     			<input type="submit" name="" value="Login" id="btn-login">
@@ -761,21 +761,22 @@
     		<div class="close" id="close-regist">+</div>
     		<h2>Registration</h2>
 
-    		<form>
+    		<form method="post" action="<?= base_url('User/index'); ?>">
     			<div>
-    				<input type="text" id="nama-lengkap" required="">
+    				<input type="text" class="form-control form-control-user" id="name" required="" name="name" value="<?= set_value('name') ?>">
     				<label>Nama Lengkap</label>
     			</div>
     			<div>
-    				<input type="email" id="email-regist" required="">
+    				<input type="email" id="email" required="" name="email" value="<?= set_value('email') ?>">
     				<label>Email</label>
     			</div>
     			<div>
-    				<input type="password" id="password-regist" required="">
+    				<input type="password" id="password1" required="" name="password1">
+					<?= form_error('password1', '<small class="text-danger">', '</small>') ?>
     				<label>Password</label>
     			</div>
     			<div>
-    				<input type="password" id="password-ulang-regist" required="">
+    				<input type="password" id="password2" required="" name="password2">
     				<label>Ulangi Password</label>
     			</div>
     			<input type="submit" name="" value="Daftar" id="btn-daftar">
