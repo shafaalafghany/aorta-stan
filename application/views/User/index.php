@@ -702,28 +702,28 @@
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_3.jpg);"></div>
+		        			<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_3.jpg);"></div>
 		        			<h2>Cloe Meyer</h2>
 		        			<span class="position">Western City, UK</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_4.jpg);"></div>
+		        			<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_4.jpg);"></div>
 		        			<h2>Rachel Clinton</h2>
 		        			<span class="position">Western City, UK</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_5.jpg);"></div>
+		        			<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_5.jpg);"></div>
 		        			<h2>Dave Buff</h2>
 		        			<span class="position">Western City, UK</span>
 		        		</a>
 	        		</div>
 	        		<div class="item">
 	        			<a href="#" class="team text-center">
-		        			<div class="img" style="background-image: url(images/person_6.jpg);"></div>
+		        			<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_6.jpg);"></div>
 		        			<h2>Dave Buff</h2>
 		        			<span class="position">Western City, UK</span>
 		        		</a>
@@ -733,7 +733,7 @@
         </div>
     	</div>
     </section>
-
+    
     <div class="bg-modal ftco-animate" id="modal-login">
     	<div class="modal-content">
     		<div class="close" id="close-login">+</div>
@@ -763,7 +763,7 @@
 
     		<form method="post" action="<?= base_url('User/index'); ?>">
     			<div>
-    				<input type="text" class="form-control form-control-user" id="name" required="" name="name" value="<?= set_value('name') ?>">
+    				<input type="text" id="name" required="" name="name" value="<?= set_value('name') ?>">
     				<label>Nama Lengkap</label>
     			</div>
     			<div>

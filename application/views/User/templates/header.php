@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/flaticon.css">
     <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/icomoon.css">
     <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/style.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/User/'); ?>css/pop-up.css">
 </head>
 
 <body>
@@ -43,7 +42,7 @@
                     <li class="nav-item"><a href="<?= base_url(); ?>tryout" class="nav-link">Try Out</a></li>
                     <li class="nav-item"><a href="<?= base_url(); ?>testimoni" class="nav-link">Testimoni</a></li>
                     <li class="nav-item"><a href="<?= base_url(); ?>contact" class="nav-link">Contact</a></li>
-                    <li class="nav-item cta mr-md-1"><a href="#" class="nav-link" id="nav-login">Login</a></li>
+                    <li class="nav-item cta mr-md-1"><a href="#modal-login" class="nav-link" id="nav-login">Login</a></li>
                 </ul>
             </div>
         </div>
