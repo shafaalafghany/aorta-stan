@@ -27,18 +27,19 @@ class User extends CI_Controller
             $this->load->view('User/templates/footer');
         } else {
 
-            $data = [
-                'name' => $this->input->post('user_name'),
-                'email' => $this->input->post('user_email'),
-                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            $data_user = [
+                'user_name' => $this->input->post('name'),
+                'user_email' => $this->input->post('user_email'),
+                'user_password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 3,
                 'images' => 'default.jpg',
                 'is_active' => 1,
                 'date_created' => time()
             ];
 
-            $this->db->insert('to_user', $data);
-            redirect('User');
+            // $this->db->insert('to_user', $data_user);
+            // redirect('User');
+            echo 'berhasil!';
 
             // $data['judul'] = 'Try Out Online';
 
