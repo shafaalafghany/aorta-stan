@@ -767,7 +767,7 @@
     				<label>Nama Lengkap</label>
     			</div>
     			<div>
-    				<input type="email" id="email" required="" name="email" value="<?= set_value('email') ?>">
+    				<input type="email" id="email" required="" name="user_semail" value="<?= set_value('email') ?>">
     				<label>Email</label>
     			</div>
     			<div>
@@ -779,7 +779,7 @@
     				<input type="password" id="password2" required="" name="password2">
     				<label>Ulangi Password</label>
     			</div>
-    			<input type="submit" name="" value="Daftar" id="btn-daftar">
+    			<button type="submit" class="btn btn-success">Daftar</button>
     			<p>Udah punya akun? <a href="#" id="kembali-login">Kembali ke login</a></p>
     		</form>
     	</div>
