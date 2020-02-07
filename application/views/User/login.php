@@ -3,6 +3,7 @@
 
 <head>
 	<title><?= $judul; ?></title>
+	<link rel="shortcut icon" type="text/css" href="<?= base_url('assets/User/'); ?>images/logo.ico">
 	<link rel="stylesheet" href="<?= base_url('assets/User/'); ?>plugins/fontawesome-free/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="<?= base_url('assets/User/'); ?>css/login.css">
