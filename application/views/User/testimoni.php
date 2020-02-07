@@ -67,32 +67,6 @@
     							</div>
     						</div>
     					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_5.jpg);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Western City, UK</span>
-    								<h2>Danica Lewis</h2>
-    								<span class="position">Graduate</span>
-    								<p class="mb-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-    								<span class="seen">Last Activity 4 months ago</span>
-    								<p><a href="#" class="btn btn-primary">Shortlist</a></p>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/person_6.jpg);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Western City, UK</span>
-    								<h2>Danica Lewis</h2>
-    								<span class="position">Graduate</span>
-    								<p class="mb-2">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-    								<span class="seen">Last Activity 4 months ago</span>
-    								<p><a href="#" class="btn btn-primary">Shortlist</a></p>
-    							</div>
-    						</div>
-    					</div>
     				</div>
     				<div class="row mt-5">
     					<div class="col text-center">

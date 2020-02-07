@@ -238,24 +238,6 @@
     						</div>
     					</div>
     				</div>
-    				<div class="sidebar-box ftco-animate">
-    					<div class="">
-    						<a href="#" class="company-wrap"><img src="<?= base_url('assets/User/'); ?>images/company-3.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
-    						<div class="text p-3">
-    							<h3><a href="#">IT Programming INC</a></h3>
-    							<p><span class="number">700</span> <span>Open position</span></p>
-    						</div>
-    					</div>
-    				</div>
-    				<div class="sidebar-box ftco-animate">
-    					<div class="">
-    						<a href="#" class="company-wrap"><img src="<?= base_url('assets/User/'); ?>images/company-4.jpg" class="img-fluid" alt="Colorlib Free Template"></a>
-    						<div class="text p-3">
-    							<h3><a href="#">IT Programming INC</a></h3>
-    							<p><span class="number">700</span> <span>Open position</span></p>
-    						</div>
-    					</div>
-    				</div>
     			</div>
     		</div>
     	</div>
@@ -410,92 +392,6 @@
     		</div>
     	</div>
     </section>
-
-    <div class="bg-modal ftco-animate" id="modal-login">
-    	<div class="modal-content">
-    		<div class="close" id="close-login">+</div>
-    		<img src="<?= base_url('assets/User/'); ?>images/user2.png" class="avatar-img">
-    		<h2>Login</h2>
-
-    		<form>
-    			<div>
-    				<input type="email" id="email-login" required="" name="email">
-    				<label>Email</label>
-    			</div>
-    			<div>
-    				<input type="password" id="password-login" required="" name="password">
-    				<label>Password</label>
-    			</div>
-    			<input type="submit" name="" value="Login" id="btn-login">
-    			<a href="#" id="lupa-password">Lupa Password?</a>
-    			<p>Belum punya akun? <a href="#" id="registrasi">Klik Disini</a></p>
-    		</form>
-    	</div>
-    </div>
-
-    <div class="bg-modal ftco-animate" id="modal-registrasi">
-    	<div class="modal-content">
-    		<div class="close" id="close-regist">+</div>
-    		<h2>Registration</h2>
-
-    		<form method="post" action="<?= base_url('User/index'); ?>">
-    			<div>
-    				<input type="text" class="form-control form-control-user" id="name" required="" name="name" value="<?= set_value('name') ?>">
-    				<label>Nama Lengkap</label>
-    			</div>
-    			<div>
-    				<input type="email" id="email" required="" name="user_semail" value="<?= set_value('email') ?>">
-    				<label>Email</label>
-    			</div>
-    			<div>
-    				<input type="password" id="password1" required="" name="password1">
-    				<?= form_error('password1', '<small class="text-danger">', '</small>') ?>
-    				<label>Password</label>
-    			</div>
-    			<div>
-    				<input type="password" id="password2" required="" name="password2">
-    				<label>Ulangi Password</label>
-    			</div>
-    			<button type="submit" class="btn btn-success">Daftar</button>
-    			<p>Udah punya akun? <a href="#" id="kembali-login">Kembali ke login</a></p>
-    		</form>
-    	</div>
-    </div>
-
-    <div class="bg-modal ftco-animate" id="modal-lupa-password">
-    	<div class="modal-content">
-    		<div class="close" id="close-lupa-password">+</div>
-    		<h2>Anda Lupa Password?</h2>
-
-    		<form>
-    			<div>
-    				<input type="email" id="email-lupa" required="">
-    				<label>Masukin Email Dulu Yuk</label>
-    			</div>
-    			<input type="submit" name="" value="Cek Email" id="btn-cek-email">
-    			<p>Belum punya akun? <a href="#" id="lupa-keregist">Klik Disini</a></p>
-    		</form>
-    	</div>
-    </div>
-
-    <div class="bg-modal ftco-animate" id="modal-ganti-password">
-    	<div class="modal-content">
-    		<h2 class="ganti-password">Ganti Password</h2>
-    		<h6 id="email-user">sobatkode@gmail.com</h6>
-
-    		<form>
-    			<div>
-    				<input type="password" id="password-ganti" required="">
-    				<label>Masukkan Password Baru</label>
-    			</div>
-    			<div>
-    				<input type="password" id="password-ulang-ganti" required="">
-    				<label>Ulangi Password</label>
-    			</div>
-    			<input type="submit" name="" value="Ganti Password" id="btn-ganti-password">
-    		</form>
-    	</div>
-    </div>
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
     	<div class="container">

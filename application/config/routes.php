@@ -56,3 +56,8 @@ $route['translate_uri_dashes'] = true;
 $route['tryout'] = 'User/Tryout';
 $route['testimoni'] = 'User/Testimoni';
 $route['contact'] = 'User/Contact';
+
+$route['login'] = 'User/login';
+$route['registration'] = 'User/registration';
+$route['forgot_password'] = 'User/forgot_password';
+$route['change_password'] = 'User/change_password';

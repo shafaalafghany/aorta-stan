@@ -20,7 +20,7 @@ class User extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            $data['judul'] = 'Try Out Online';
+            $data['judul'] = 'AORTASTAN Try Out Online';
 
             $this->load->view('User/templates/header', $data);
             $this->load->view('User/index');
@@ -51,7 +51,7 @@ class User extends CI_Controller
 
     public function tryout()
     {
-        $data['judul'] = 'Try Out Online - Pilih Tryout';
+        $data['judul'] = 'AORTASTAN Try Out Online - Pilih Tryout';
 
         $this->load->view('User/templates/header', $data);
         $this->load->view('User/Tryout');
@@ -60,7 +60,7 @@ class User extends CI_Controller
 
     public function testimoni()
     {
-        $data['judul'] = 'Try Out Online - Testimoni';
+        $data['judul'] = 'AORTASTAN Try Out Online - Testimoni';
 
         $this->load->view('User/templates/header', $data);
         $this->load->view('User/Testimoni');
@@ -69,10 +69,38 @@ class User extends CI_Controller
 
     public function contact()
     {
-        $data['judul'] = 'Try Out Online - Contact';
+        $data['judul'] = 'AORTASTAN Try Out Online - Contact';
 
         $this->load->view('User/templates/header', $data);
         $this->load->view('User/Contact');
         $this->load->view('User/templates/footer');
+    }
+
+    public function login()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online - Login';
+
+        $this->load->view('User/login', $data);
+    }
+
+    public function registration()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online - Register';
+
+        $this->load->view('User/registration', $data);
+    }
+
+    public function forgot_password()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online - Forgot Password';
+
+        $this->load->view('User/forgot_password', $data);
+    }
+
+    public function change()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online - Change Password';
+
+        $this->load->view('User/change_password', $data);
     }
 }
