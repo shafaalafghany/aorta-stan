@@ -69,13 +69,15 @@ class User extends CI_Controller
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
 
         if ($user) {
+            //jika user active
             if ($user['is_active'] == 1) {
+                //cek password
                 if (password_verify($password, $user['password'])) {
                     $data = [
                         'username' => $user['username'],
                         'role_id' => $user['role_id'],
                     ];
-                    // $this->session->set_userdata($data);
+                    $this->session->set_userdata($data);
                     redirect('Member');
                 } else {
                     // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Congratulation ! your account has been created. Please Login</div>');
@@ -89,12 +91,13 @@ class User extends CI_Controller
             // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Congratulation ! your account has been created. Please Login</div>');
             redirect('User/login');
         }
+    }
 
-        // $data['judul'] = 'AORTASTAN Try Out Online';
-
-        // $this->load->view('User/templates/header_login', $data);
-        // $this->load->view('User/index');
-        // $this->load->view('User/templates/footer');
+    public function logout()
+    {
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('role_id');
+        redirect('User');
     }
 
     public function registration()
@@ -114,13 +117,9 @@ class User extends CI_Controller
             $data['judul'] = 'AORTASTAN Try Out Online - Register';
             $this->load->view('User/registration', $data);
         } else {
-            // echo 'Data berhasil ditambahkan';
             $datauser = [
                 'username' => htmlspecialchars($this->input->post('username', true)),
-                // 'username' => $this->input->post('username'),
-                // 'name' => $this->input->post('name'),
                 'name' => htmlspecialchars($this->input->post('name', true)),
-                // 'email' => $this->input->post('email'),
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
