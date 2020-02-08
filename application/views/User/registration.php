@@ -15,6 +15,21 @@
 		<div class="img">
 			<img src="<?= base_url('assets/User/'); ?>images/regist.svg">
 		</div>
+		<!-- <?= form_error(
+					'username',
+					'<div class="alert alert-success" role="alert"><strong>',
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+				); ?>
+		<?= form_error(
+			'email',
+			'<div class="alert alert-success" role="alert"><strong>',
+			'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+		); ?>
+		<?= form_error(
+			'password1',
+			'<div class="alert alert-success" role="alert"><strong>',
+			'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+		); ?> -->
 		<div class="login-container">
 			<form method="POST" action="<?= base_url('User/registration'); ?>">
 				<h2>REGISTRASI</h2>
@@ -24,7 +39,7 @@
 					</div>
 					<div>
 						<h5>Username</h5>
-						<input type="text" class="input" id="username" name="username">
+						<input type="text" class="input" id="username" name="username" value="<?= set_value('username'); ?>">
 					</div>
 				</div>
 				<div class="input-div two">
@@ -33,7 +48,7 @@
 					</div>
 					<div>
 						<h5>Nama Lengkap</h5>
-						<input type="text" class="input" id="name" name="name">
+						<input type="text" class="input" id="name" name="name" value="<?= set_value('name'); ?>">
 					</div>
 				</div>
 				<div class="input-div three">
@@ -42,7 +57,7 @@
 					</div>
 					<div>
 						<h5>Email</h5>
-						<input type="text" class="input" id="email" name="email">
+						<input type="text" class="input" id="email" name="email" value="<?= set_value('email'); ?>">
 					</div>
 				</div>
 				<div class="input-div four">

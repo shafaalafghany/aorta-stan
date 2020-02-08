@@ -19,24 +19,24 @@
 			<form method="POST" action="<?= base_url('User/login'); ?>">
 				<img class="avatar" src="<?= base_url('assets/User/'); ?>images/user2.png">
 				<h2>LOG IN</h2>
-				<div class="alert alert-success" role="alert">
-				  <strong>Sukses!</strong> Registrasi Berhasil
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				    <span aria-hidden="true">&times;</span>
-				  </button>
+				<!-- <div class="alert alert-success" role="alert">
+					<strong>Sukses!</strong> Registrasi Berhasil
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="alert alert-info" role="alert">
-				  Email dan Password tibak boleh kosong!
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				    <span aria-hidden="true">&times;</span>
-				  </button>
+					Email dan Password tibak boleh kosong!
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="alert alert-danger" role="alert">
-				  Login gagal!
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				    <span aria-hidden="true">&times;</span>
-				  </button>
-				</div>
+					Login gagal!
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div> -->
 				<div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>
