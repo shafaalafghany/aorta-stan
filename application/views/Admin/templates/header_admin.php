@@ -85,7 +85,7 @@
             <img src="<?= base_url('assets/Admin/') ?>dist/img/LogoAorta.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="<?= base_url() ?>" class="d-block">AORTA STAN - ADMIN</a>
+            <a href="<?= base_url() ?>Admin" class="d-block">AORTA STAN - ADMIN</a>
           </div>
         </div>
 
@@ -95,7 +95,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview menu-open">
-              <a href="<?= base_url() ?>" class="nav-link active">
+              <a href="<?= base_url() ?>Admin" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -112,13 +112,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url() ?>modul/daftar_modul.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>daftar_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Modul</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="modul/tambah_modul.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>tambah_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Modul</p>
                   </a>
@@ -141,25 +141,25 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="event/daftar_event.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>daftar_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="event/soal.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>daftar_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Soal</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="event/tambah_event.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>tambah_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="event/tambah_soal.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>tambah_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Tambah Soal</p>
                   </a>
@@ -176,13 +176,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="admin/daftar_admin.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>daftar_admin" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Admin</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="admin/tambah_admin.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>tambah_admin" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Admin</p>
                   </a>
@@ -205,7 +205,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="peserta/daftar_peserta.html" class="nav-link">
+                  <a href="<?= base_url('Admin/') ?>daftar_peserta" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Peserta</p>
                   </a>

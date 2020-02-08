@@ -62,7 +62,7 @@ $route['registration'] = 'User/registration';
 $route['forgot_password'] = 'User/forgot_password';
 $route['change_password'] = 'User/change_password';
 
-$route['data_modul'] = 'Admin/modul/daftar_modul';
+$route['daftar_modul'] = 'Admin/modul/daftar_modul';
 $route['tambah_modul'] = 'Admin/modul/tambah_modul';
 
 $route['daftar_event'] = 'Admin/event/daftar_event';
