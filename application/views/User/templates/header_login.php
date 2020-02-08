@@ -50,7 +50,7 @@
                   <img src="../../../../assets/User/images/user2.png" class="img-circle" alt="User Image">
                 </div>
                 <div class="info">
-                  <span>Sobat Kode</span>
+                  <span><?= $user['name']; ?></span>
                 </div>
               </div>
             </a>
@@ -61,13 +61,13 @@
                 <p>
                   <span>Selamat Datang</span>
                   <br>
-                  <span>Sobat Kode</span>
+                  <span><?= $user['name']; ?></span>
                 </p>
               </div>
               <div class="dropdown-divider"></div>
               <div class="dropdown-item dropdown-footer">
                 <a href="#" class="btn btn-primary">Edit Profile</a>
-                <a href="#" class="btn btn-danger right">Log out</a>
+                <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right">Log out</a>
               </div>
             </div>
           </li>

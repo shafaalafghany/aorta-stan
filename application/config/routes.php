@@ -61,3 +61,16 @@ $route['login'] = 'User/login';
 $route['registration'] = 'User/registration';
 $route['forgot_password'] = 'User/forgot_password';
 $route['change_password'] = 'User/change_password';
+
+$route['data_modul'] = 'Admin/modul/daftar_modul';
+$route['tambah_modul'] = 'Admin/modul/tambah_modul';
+
+$route['daftar_event'] = 'Admin/event/daftar_event';
+$route['daftar_soal'] = 'Admin/event/daftar_soal';
+$route['tambah_event'] = 'Admin/event/tambah_event';
+$route['tambah_soal'] = 'Admin/event/tambah_soal';
+
+$route['daftar_admin'] = 'Admin/admin/daftar_admin';
+$route['tambah_admin'] = 'Admin/admin/tambah_admin';
+
+$route['daftar_peserta'] = 'Admin/peserta/daftar_peserta';

@@ -22,7 +22,7 @@ class User extends CI_Controller
 
     public function tryout()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online - Pilih Tryout';
+        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Tryout';
 
         $this->load->view('User/templates/header', $data);
         $this->load->view('User/Tryout');
@@ -31,7 +31,7 @@ class User extends CI_Controller
 
     public function testimoni()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online - Testimoni';
+        $data['judul'] = 'AORTASTAN Try Out Online | Testimoni';
 
         $this->load->view('User/templates/header', $data);
         $this->load->view('User/Testimoni');
@@ -40,7 +40,7 @@ class User extends CI_Controller
 
     public function contact()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online - Contact';
+        $data['judul'] = 'AORTASTAN Try Out Online | Contact';
 
         $this->load->view('User/templates/header', $data);
         $this->load->view('User/Contact');
@@ -53,7 +53,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $data['judul'] = 'AORTASTAN Try Out Online - Login';
+            $data['judul'] = 'AORTASTAN Try Out Online | Login';
 
             $this->load->view('User/login', $data);
         } else {
@@ -114,7 +114,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $data['judul'] = 'AORTASTAN Try Out Online - Register';
+            $data['judul'] = 'AORTASTAN Try Out Online | Register';
             $this->load->view('User/registration', $data);
         } else {
             $datauser = [
@@ -136,14 +136,14 @@ class User extends CI_Controller
 
     public function forgot_password()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online - Forgot Password';
+        $data['judul'] = 'AORTASTAN Try Out Online | Forgot Password';
 
         $this->load->view('User/forgot_password', $data);
     }
 
     public function change()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online - Change Password';
+        $data['judul'] = 'AORTASTAN Try Out Online | Change Password';
 
         $this->load->view('User/change_password', $data);
     }
