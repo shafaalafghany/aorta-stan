@@ -66,7 +66,7 @@
               </div>
               <div class="dropdown-divider"></div>
               <div class="dropdown-item dropdown-footer">
-                <a href="#" class="btn btn-danger right">Edit Profile</a>
+                <a href="#" class="btn btn-primary">Edit Profile</a>
                 <a href="#" class="btn btn-danger right">Log out</a>
               </div>
             </div>
