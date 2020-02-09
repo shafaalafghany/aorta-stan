@@ -57,6 +57,10 @@ $route['tryout'] = 'User/Tryout';
 $route['testimoni'] = 'User/Testimoni';
 $route['contact'] = 'User/Contact';
 
+$route['tryout_member'] = 'Member/Tryout';
+$route['testimoni_member'] = 'Member/Testimoni';
+$route['contact_member'] = 'Member/Contact';
+
 $route['login'] = 'User/login';
 $route['registration'] = 'User/registration';
 $route['forgot_password'] = 'User/forgot_password';
