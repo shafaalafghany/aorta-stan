@@ -24,7 +24,6 @@
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/jquery.timepicker.css">
 
-
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/flaticon.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/icomoon.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/style.css">
@@ -41,10 +40,10 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="<?= base_url('Member/'); ?>" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>tryout_member" class="nav-link">Try Out</a></li>
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>testimoni_member" class="nav-link">Testimoni</a></li>
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>contact_member" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>tryout" class="nav-link">Try Out</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>testimoni" class="nav-link">Testimoni</a></li>
+          <li class="nav-item active"><a href="<?= base_url('Member/'); ?>contact" class="nav-link">Contact</a></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
               <div class="user-panel d-flex">
@@ -57,19 +56,21 @@
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <div class="dropdown-item dropdown-header ">
-                <img src="<?= base_url('assets/User/'); ?>images/user2.png" class="img-circle elevation-2 mx-auto" alt="User Image" style="width: 100px; height: 100px;">
+              <div class="dropdown-item dropdown-header">
+                <div class="image" style="text-align: center;">
+                  <img src="<?= base_url('assets/User/'); ?>images/user2.png" class="img-circle elevation-2" alt="User Image" style="width: 100px; height: 100px;">
+                </div>
                 <br>
-                <p>
+                <p style="text-align: center;">
                   <span>Selamat Datang</span>
                   <br>
-                  <span><?= $user['name']; ?></span>
+                  <span style="font-size: 20px;"><strong><?= $user['name']; ?></strong></span>
                 </p>
               </div>
               <div class="dropdown-divider"></div>
               <div class="dropdown-item dropdown-footer">
                 <a href="#" class="btn btn-primary">Edit Profile</a>
-                <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right">Log out</a>
+                <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
               </div>
             </div>
           </li>

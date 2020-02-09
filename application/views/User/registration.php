@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary btn-user btn-block">DAFTAR</button>
-				<a href="<?= base_url(); ?>login">Sudah Punya Akun? Klik Disini</a>
+				<a href="<?= base_url(); ?>login" style="margin-bottom: 25px;">Sudah Punya Akun? Klik Disini</a>
 			</form>
 		</div>
 	</div>

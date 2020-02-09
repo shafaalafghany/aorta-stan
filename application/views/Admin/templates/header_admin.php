@@ -68,7 +68,7 @@
             </div>
             <div class="dropdown-divider"></div>
             <div class="dropdown-item dropdown-footer">
-              <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right">Log out</a>
+              <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
             </div>
           </div>
         </li>

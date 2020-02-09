@@ -24,6 +24,7 @@
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
+<script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
 <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="<?= base_url('assets/Admin/') ?>plugins/chart.js/Chart.min.js"></script>
@@ -49,6 +50,7 @@
 <script src="<?= base_url('assets/Admin/') ?>dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/Admin/') ?>dist/js/demo.js"></script>
+<script src="<?= base_url('assets/User/'); ?>js/logout.js"></script>
 </body>
 
 </html>
