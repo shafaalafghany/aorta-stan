@@ -39,10 +39,10 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="<?= base_url(); ?>" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="<?= base_url(); ?>tryout" class="nav-link">Try Out</a></li>
-          <li class="nav-item"><a href="<?= base_url(); ?>testimoni" class="nav-link">Testimoni</a></li>
-          <li class="nav-item"><a href="<?= base_url(); ?>contact" class="nav-link">Contact</a></li>
+          <li class="nav-item active"><a href="<?= base_url('Member/'); ?>" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>tryout_member" class="nav-link">Try Out</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>testimoni_member" class="nav-link">Testimoni</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>contact_member" class="nav-link">Contact</a></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
               <div class="user-panel d-flex">
