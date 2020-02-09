@@ -20,17 +20,17 @@
 				<h2>REGISTRASI</h2>
 				<?= form_error(
 					'username',
-					'<div class="alert alert-success" role="alert"><strong>',
+					'<div class="alert alert-danger" role="alert"><strong>',
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				); ?>
 				<?= form_error(
 					'email',
-					'<div class="alert alert-success" role="alert"><strong>',
+					'<div class="alert alert-danger" role="alert"><strong>',
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				); ?>
 				<?= form_error(
 					'password1',
-					'<div class="alert alert-success" role="alert"><strong>',
+					'<div class="alert alert-danger" role="alert"><strong>',
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				); ?>
 				<div class="input-div one">

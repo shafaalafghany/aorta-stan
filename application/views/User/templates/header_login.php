@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="shortcut icon" type="text/css" href="<?= base_url('assets/User/'); ?>images/logo.ico">
+
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/open-iconic-bootstrap.min.css">
@@ -47,7 +49,7 @@
             <a href="#" class="nav-link" data-toggle="dropdown">
               <div class="user-panel d-flex">
                 <div class="image">
-                  <img src="../../../../assets/User/images/user2.png" class="img-circle" alt="User Image">
+                  <img src="<?= base_url('assets/User/'); ?>images/user2.png" class="img-circle" alt="User Image" style="width: 37px; height: 37px; margin-right: 6px;">
                 </div>
                 <div class="info">
                   <span><?= $user['name']; ?></span>
@@ -55,8 +57,8 @@
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <div class="dropdown-item dropdown-header">
-                <img src="../../../../assets/User/images/user2.png" class="img-circle elevation-2" alt="User Image">
+              <div class="dropdown-item dropdown-header ">
+                <img src="<?= base_url('assets/User/'); ?>images/user2.png" class="img-circle elevation-2 mx-auto" alt="User Image" style="width: 100px; height: 100px;">
                 <br>
                 <p>
                   <span>Selamat Datang</span>

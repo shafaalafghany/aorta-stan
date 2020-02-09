@@ -1,3 +1,15 @@
+        <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="<?= base_url(); ?>" class="nav-link">Home</a></li>
+                    <li class="nav-item active"><a href="<?= base_url(); ?>tryout" class="nav-link">Try Out</a></li>
+                    <li class="nav-item"><a href="<?= base_url(); ?>testimoni" class="nav-link">Testimoni</a></li>
+                    <li class="nav-item"><a href="<?= base_url(); ?>contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item cta mr-md-1"><a href="<?= base_url(); ?>login" class="nav-link" id="nav-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
     <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg');" data-stellar-background-ratio="0.5">
     	<div class="overlay"></div>
     	<div class="container">
