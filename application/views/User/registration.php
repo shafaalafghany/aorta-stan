@@ -15,24 +15,24 @@
 		<div class="img">
 			<img src="<?= base_url('assets/User/'); ?>images/regist.svg">
 		</div>
-		<!-- <?= form_error(
-					'username',
-					'<div class="alert alert-success" role="alert"><strong>',
-					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-				); ?>
-		<?= form_error(
-			'email',
-			'<div class="alert alert-success" role="alert"><strong>',
-			'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-		); ?>
-		<?= form_error(
-			'password1',
-			'<div class="alert alert-success" role="alert"><strong>',
-			'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-		); ?> -->
 		<div class="login-container">
 			<form method="POST" action="<?= base_url('User/registration'); ?>">
 				<h2>REGISTRASI</h2>
+				<?= form_error(
+					'username',
+					'<div class="alert alert-success" role="alert"><strong>',
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				); ?>
+				<?= form_error(
+					'email',
+					'<div class="alert alert-success" role="alert"><strong>',
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				); ?>
+				<?= form_error(
+					'password1',
+					'<div class="alert alert-success" role="alert"><strong>',
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				); ?>
 				<div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>
