@@ -8,6 +8,8 @@
 
   <link rel="shortcut icon" type="text/css" href="<?= base_url('assets/User/'); ?>images/logo.ico">
 
+  <link rel="stylesheet" href="<?= base_url('assets/Admin/') ?>plugins/fontawesome-free/css/all.min.css">
+  
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/open-iconic-bootstrap.min.css">
@@ -69,7 +71,7 @@
               </div>
               <div class="dropdown-divider"></div>
               <div class="dropdown-item dropdown-footer">
-                <a href="#" class="btn btn-primary">Edit Profile</a>
+                <a href="<?= base_url('Member/profile_saya') ?>" class="btn btn-primary">Profile Saya</a>
                 <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
               </div>
             </div>

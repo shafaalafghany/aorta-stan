@@ -9,7 +9,7 @@
   <link rel="shortcut icon" type="text/css" href="<?= base_url('assets/User/'); ?>images/logo.ico">
 
   <link rel="stylesheet" href="<?= base_url('assets/Admin/') ?>plugins/fontawesome-free/css/all.min.css">
-
+  
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/open-iconic-bootstrap.min.css">
@@ -29,7 +29,8 @@
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/flaticon.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/icomoon.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/style.css">
-  <link rel="stylesheet" type="text/css" href="<?= base_url('assets/User/'); ?>css/pop-up.css">
+  <link rel="stylesheet" type="text/css" href="<?= base_url('assets/User/'); ?>css/card.css">
+
 </head>
 
 <body>
@@ -44,7 +45,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="<?= base_url('Member/'); ?>" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="<?= base_url('Member/'); ?>tryout" class="nav-link">Try Out</a></li>
-          <li class="nav-item active"><a href="<?= base_url('Member/'); ?>testimoni" class="nav-link">Testimoni</a></li>
+          <li class="nav-item"><a href="<?= base_url('Member/'); ?>testimoni" class="nav-link">Testimoni</a></li>
           <li class="nav-item"><a href="<?= base_url('Member/'); ?>contact" class="nav-link">Contact</a></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">

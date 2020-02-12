@@ -29,7 +29,7 @@ class Member extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->load->view('User/templates/header_mtestimoni', $data);
-        $this->load->view('User/testimoni');
+        $this->load->view('User/mtestimoni');
         $this->load->view('User/templates/footer');
     }
     public function contact()
@@ -39,6 +39,15 @@ class Member extends CI_Controller
 
         $this->load->view('User/templates/header_mcontact', $data);
         $this->load->view('User/contact');
+        $this->load->view('User/templates/footer');
+    }
+    public function profile_saya()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->view('User/templates/header_profile', $data);
+        $this->load->view('User/profile_saya');
         $this->load->view('User/templates/footer');
     }
 }

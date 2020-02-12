@@ -27,54 +27,54 @@
     		<div class="row">
     			<div class="col-lg-8 pr-lg-4">
     				<div class="row ftco-animate">
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Jawa Timur, Indonesia</span>
-    								<h2>Alfa Beta</h2>
-    								<span class="position">Peserta TO AKBAR 1</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">1 minggu yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Jawa Tengah, Indonesia</span>
-    								<h2>Beta Gamma</h2>
-    								<span class="position">Peserta TO AKBAR 1</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">1 minggu yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Jawa Barat, Indonesia</span>
-    								<h2>Andi Skuat</h2>
-    								<span class="position">Peserta TO AKBAR 2</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">3 hari yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">DKI Jakarta, Indonesia</span>
-    								<h2>Budi Harianto</h2>
-    								<span class="position">Peserta TO AKBAR 2</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">3 hari yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
+                        <div class="col-md-12">
+                            <div class="team d-md-flex p-4 bg-white">
+                                <div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
+                                <div class="text pl-md-4">
+                                    <span class="location mb-0">Jawa Timur, Indonesia</span>
+                                    <h2>Alfa Beta</h2>
+                                    <span class="position">Peserta TO AKBAR 1</span>
+                                    <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="seen">1 minggu yang lalu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="team d-md-flex p-4 bg-white">
+                                <div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
+                                <div class="text pl-md-4">
+                                    <span class="location mb-0">Jawa Tengah, Indonesia</span>
+                                    <h2>Beta Gamma</h2>
+                                    <span class="position">Peserta TO AKBAR 1</span>
+                                    <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="seen">1 minggu yang lalu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="team d-md-flex p-4 bg-white">
+                                <div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
+                                <div class="text pl-md-4">
+                                    <span class="location mb-0">Jawa Barat, Indonesia</span>
+                                    <h2>Andi Skuat</h2>
+                                    <span class="position">Peserta TO AKBAR 2</span>
+                                    <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="seen">3 hari yang lalu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="team d-md-flex p-4 bg-white">
+                                <div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
+                                <div class="text pl-md-4">
+                                    <span class="location mb-0">DKI Jakarta, Indonesia</span>
+                                    <h2>Budi Harianto</h2>
+                                    <span class="position">Peserta TO AKBAR 2</span>
+                                    <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="seen">3 hari yang lalu</span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="team d-md-flex p-4 bg-white">
                                 <div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-    				</div>
+                    </div>
     				<div class="row mt-5">
     					<div class="col text-center">
     						<div class="block-27">
@@ -110,11 +110,11 @@
                     <form action="#" class="contact-form mb-3">
                       <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" class="form-control" disabled="disabled">
+                        <input type="text" class="form-control" disabled="disabled" value="<?= $user['name']; ?>">
                       </div>
                       <div class="form-group">
                         <label>Email</label>
-                        <input type="text" class="form-control" disabled="disabled">
+                        <input type="text" class="form-control" disabled="disabled" value="<?= $user['email']; ?>">
                       </div>
                       <div class="form-group">
                         <label>Subject</label>

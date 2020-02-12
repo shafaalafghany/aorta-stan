@@ -25,6 +25,9 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
+
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
 <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="<?= base_url('assets/Admin/') ?>plugins/chart.js/Chart.min.js"></script>

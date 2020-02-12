@@ -599,14 +599,14 @@
                 <textarea id="inputDescription" class="form-control" rows="4"></textarea>
               </div>
               <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                    </div>
+                <label for="exampleInputFile">File input</label>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                   </div>
+                </div>
+              </div>
               <div class="col-12">
                 <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">
               </div>
