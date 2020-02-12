@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="category-wrap ftco-animate mr-3">
                     <div class="text-center">
-                        <img src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image" style="width: 210px; height: 230px;">
+                        <img src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image" style="width: 230px; height: 230px;">
                     </div>
                 </div>
                 <div class="col-md-7 ftco-animate">
@@ -92,10 +92,18 @@
                   <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <h4 style="margin-bottom: 20px;"><strong>Pengaturan Profile Akun</strong></h4>
                     <form action="#" class="contact-form mb-3">
-                      <div class="form-group">
+                      <div class="form-group col-md-12">
                         <label>Foto Diri</label>
                         <br>
-                        <img src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image" style="width: 200px; height: 200px;">
+                        <div style="display: flex;">
+                          <img src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image" style="width: 150px; height: 150px; margin-right: 40px;">
+                          <div style="display: all; margin-top: 4%">
+                            <form action="/action_page.php">
+                            <label>Foto Profile sebaiknya memiliki rasio 1:1 dan tidak lebih dari 2MB.</label>
+                            <input type="file" id="img" name="img" accept="image/*">
+                          </form>
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label>Nama*</label>
@@ -117,7 +125,7 @@
                         <label>Password*</label>
                         <input type="password" class="form-control">
                       </div>
-                      <div class="form-group" style="visibility: hidden;">
+                      <div class="form-group">
                         <label>Ulangi Password*</label>
                         <input type="password" class="form-control">
                       </div>

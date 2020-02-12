@@ -380,7 +380,7 @@
                         <label for="exampleInputFile" class="col-sm-2 col-form-label">Ganti Foto</label>
                         <div class="input-group col-sm-10">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" accept="image/*">
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                           </div>
                         </div>
@@ -397,19 +397,19 @@
                   <div class="tab-pane" id="edit_tentangsaya">
                     <form class="form-horizontal">
                       <div class="form-group row">
-                        <label for="inputEducation" class="col-sm-2 col-form-label">Education</label>
+                        <label for="inputEducation" class="col-sm-2 col-form-label">Riwayat Pendidikan</label>
                         <div class="col-sm-10">
                           <textarea class="form-control" id="inputEducation" placeholder="Education"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputLocation" class="col-sm-2 col-form-label">Location</label>
+                        <label for="inputLocation" class="col-sm-2 col-form-label">Lokasi</label>
                         <div class="col-sm-10">
                           <textarea class="form-control" id="inputLocation" placeholder="Location"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                        <label for="inputSkills" class="col-sm-2 col-form-label">Keahlian</label>
                         <div class="col-sm-10">
                           <textarea class="form-control" id="inputSkills" placeholder="Skills"></textarea>
                         </div>

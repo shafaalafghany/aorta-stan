@@ -29,7 +29,6 @@
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/flaticon.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/icomoon.css">
   <link rel="stylesheet" href="<?= base_url('assets/User/'); ?>css/style.css">
-  <link rel="stylesheet" type="text/css" href="<?= base_url('assets/User/'); ?>css/pop-up.css">
 </head>
 
 <body>

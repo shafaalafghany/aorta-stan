@@ -257,10 +257,10 @@
 
 
 
-    <section class="ftco-section testimony-section">
+    <section class="ftco-section testimony-section bg-primary">
     	<div class="container">
     		<div class="row justify-content-center mb-4">
-    			<div class="col-md-7 text-center heading-section ftco-animate">
+    			<div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
     				<span class="subheading">Testimonial</span>
     				<h2 class="mb-4">Testimoni Peserta</h2>
     			</div>
@@ -271,12 +271,12 @@
     					<div class="item">
     						<div class="testimony-wrap py-4">
     							<div class="text">
-    								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     								<div class="d-flex align-items-center">
     									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
     									<div class="pl-3">
     										<p class="name">Alfa Beta</p>
-    										<span class="position">Peserta TO AKBAR 1</span>
+    										<span class="number">Peserta TO AKBAR 1</span>
     									</div>
     								</div>
     							</div>
@@ -285,12 +285,12 @@
     					<div class="item">
     						<div class="testimony-wrap py-4">
     							<div class="text">
-    								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     								<div class="d-flex align-items-center">
     									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
     									<div class="pl-3">
     										<p class="name">Beta Gamma</p>
-    										<span class="position">Peserta TO AKBAR 1</span>
+    										<span class="number">Peserta TO AKBAR 1</span>
     									</div>
     								</div>
     							</div>
@@ -299,12 +299,12 @@
     					<div class="item">
     						<div class="testimony-wrap py-4">
     							<div class="text">
-    								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     								<div class="d-flex align-items-center">
     									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
     									<div class="pl-3">
     										<p class="name">Andi Skuat</p>
-    										<span class="position">Peserta TO AKBAR 2</span>
+    										<span class="number">Peserta TO AKBAR 2</span>
     									</div>
     								</div>
     							</div>
@@ -313,12 +313,12 @@
     					<div class="item">
     						<div class="testimony-wrap py-4">
     							<div class="text">
-    								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     								<div class="d-flex align-items-center">
     									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
     									<div class="pl-3">
     										<p class="name">Budi Harianto</p>
-    										<span class="position">Peserta TO AKBAR 2</span>
+    										<span class="number">Peserta TO AKBAR 2</span>
     									</div>
     								</div>
     							</div>
@@ -327,12 +327,12 @@
     					<div class="item">
     						<div class="testimony-wrap py-4">
     							<div class="text">
-    								<p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     								<div class="d-flex align-items-center">
     									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
     									<div class="pl-3">
     										<p class="name">Joko Bambang</p>
-    										<span class="position">Peserta TO AKBAR 3</span>
+    										<span class="number">Peserta TO AKBAR 3</span>
     									</div>
     								</div>
     							</div>
