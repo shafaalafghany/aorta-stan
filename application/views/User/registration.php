@@ -20,17 +20,17 @@
 				<h2>REGISTRASI</h2>
 				<?= form_error(
 					'username',
-					'<div class="alert alert-success" role="alert"><strong>',
+					'<div class="alert alert-danger" role="alert"><strong>',
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				); ?>
 				<?= form_error(
 					'email',
-					'<div class="alert alert-success" role="alert"><strong>',
+					'<div class="alert alert-danger" role="alert"><strong>',
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				); ?>
 				<?= form_error(
 					'password1',
-					'<div class="alert alert-success" role="alert"><strong>',
+					'<div class="alert alert-danger" role="alert"><strong>',
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				); ?>
 				<div class="input-div one">
@@ -79,7 +79,7 @@
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary btn-user btn-block">DAFTAR</button>
-				<a href="<?= base_url(); ?>login">Sudah Punya Akun? Klik Disini</a>
+				<a href="<?= base_url(); ?>login" style="margin-bottom: 25px;">Sudah Punya Akun? Klik Disini</a>
 			</form>
 		</div>
 	</div>

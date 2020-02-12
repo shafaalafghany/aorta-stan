@@ -1,3 +1,15 @@
+        <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="<?= base_url(); ?>" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="<?= base_url(); ?>tryout" class="nav-link">Try Out</a></li>
+                    <li class="nav-item active"><a href="<?= base_url(); ?>testimoni" class="nav-link">Testimoni</a></li>
+                    <li class="nav-item"><a href="<?= base_url(); ?>contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item cta mr-md-1"><a href="<?= base_url(); ?>login" class="nav-link" id="nav-login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
     <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg');" data-stellar-background-ratio="0.5">
     	<div class="overlay"></div>
     	<div class="container">
@@ -131,29 +143,6 @@
     						<label for="option-job-type-5"><input type="checkbox" id="option-job-type-5" name="vehicle" value=""> Freelance</label><br>
     						<label for="option-job-type-6"><input type="checkbox" id="option-job-type-6" name="vehicle" value=""> Fixed</label><br>
     					</form>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-
-    <section class="ftco-section-parallax">
-    	<div class="parallax-img d-flex align-items-center">
-    		<div class="container">
-    			<div class="row d-flex justify-content-center">
-    				<div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-    					<h2>Subcribe to our Newsletter</h2>
-    					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
-    					<div class="row d-flex justify-content-center mt-4 mb-4">
-    						<div class="col-md-12">
-    							<form action="#" class="subscribe-form">
-    								<div class="form-group d-flex">
-    									<input type="text" class="form-control" placeholder="Enter email address">
-    									<input type="submit" value="Subscribe" class="submit px-3">
-    								</div>
-    							</form>
-    						</div>
-    					</div>
     				</div>
     			</div>
     		</div>

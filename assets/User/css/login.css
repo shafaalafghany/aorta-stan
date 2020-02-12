@@ -75,16 +75,14 @@ form h4{
 }
 
 .input-div:after, .input-div:before{
-	content: '';
 	position: absolute;
 	bottom: -2px;
 	width: 0;
 	height: 2px;
-	background-color: #3c70d6;
 	transition: .3s;
 }
 
-.input-div:after{
+.input-div:right{
 	right: 50%;
 }
 
