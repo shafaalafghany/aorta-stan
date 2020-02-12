@@ -6,7 +6,6 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
         $this->load->library('form_validation');
     }
 
@@ -63,6 +62,7 @@ class User extends CI_Controller
 
     private function _login()
     {
+        //cek inputan
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
@@ -78,6 +78,7 @@ class User extends CI_Controller
                         'role_id' => $user['role_id'],
                     ];
                     $this->session->set_userdata($data);
+                    //cek role_id
                     if ($user['role_id'] == 1) {
                         redirect('Admin');
                     } else {
@@ -90,7 +91,6 @@ class User extends CI_Controller
                 redirect('User/login');
             }
         } else {
-            // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Congratulation ! your account has been created. Please Login</div>');
             redirect('User/login');
         }
     }
@@ -106,6 +106,7 @@ class User extends CI_Controller
     {
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
             'is_unique' => 'Username has already registered'
+
         ]);
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
@@ -133,7 +134,6 @@ class User extends CI_Controller
             ];
 
             $this->db->insert('user', $datauser);
-            // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation ! your account has been created. Please Login</div>');
             redirect('User/login');
         }
     }
