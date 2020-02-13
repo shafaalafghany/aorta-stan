@@ -54,7 +54,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/tambah_event');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
     public function tambah_soal()
     {
