@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="category-wrap ftco-animate mr-3 image-profile" style="margin-left: 2%;">
                     <div class="text-center">
-                        <img class="image-profile" src="<?= base_url('assets/User/'); ?>images/person_1.jpg" alt="User Image">
+                        <img class="image-profile" src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image">
                     </div>
                 </div>
                 <div class="col-md-7 ftco-animate">
