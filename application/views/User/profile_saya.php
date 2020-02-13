@@ -12,9 +12,9 @@
     <section class="ftco-section ftco-no-pt">
         <div class="container">
             <div class="row">
-                <div class="category-wrap ftco-animate mr-3">
+                <div class="category-wrap ftco-animate mr-3 image-profile" style="margin-left: 2%;">
                     <div class="text-center">
-                        <img src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image" style="width: 230px; height: 230px;">
+                        <img class="image-profile" src="<?= base_url('assets/User/'); ?>images/person_1.jpg" alt="User Image">
                     </div>
                 </div>
                 <div class="col-md-7 ftco-animate">
@@ -42,7 +42,7 @@
         <div class="container">
             <div class="row-card">
               <div class="column-card ftco-animate">
-                <div class="card">
+                <div class="card card-profile">
                   <div class="card-body text-center">
                     <h4 class="card-title">Mendapatkan</h4>
                     <h3 class="card-text">100</h3>
@@ -51,7 +51,7 @@
                 </div>
               </div>
               <div class="column-card ftco-animate">
-                <div class="card">
+                <div class="card card-profile">
                   <div class="card-body text-center">
                     <h4 class="card-title">Mengikuti</h4>
                     <h3 class="card-text">2</h3>
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="column-card ftco-animate">
-                <div class="card">
+                <div class="card card-profile">
                   <div class="card-body text-center">
                     <h4 class="card-title">Mempelajari</h4>
                     <h3 class="card-text">2</h3>

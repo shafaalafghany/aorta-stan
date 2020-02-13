@@ -1,14 +1,3 @@
-        <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="<?= base_url(); ?>" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="<?= base_url(); ?>tryout" class="nav-link">Try Out</a></li>
-                    <li class="nav-item"><a href="<?= base_url(); ?>testimoni" class="nav-link">Testimoni</a></li>
-                    <li class="nav-item"><a href="<?= base_url(); ?>contact" class="nav-link">Contact</a></li>
-                    <li class="nav-item cta mr-md-1"><a href="<?= base_url(); ?>login" class="nav-link" id="nav-login">Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <!-- END nav -->
     <div class="hero-wrap img" style="background-image: url(<?= base_url('assets/User/'); ?>images/bg_1.jpg);">
     	<div class="overlay"></div>
@@ -21,8 +10,8 @@
     					<h1 class="mb-4">Try Out Online Kedinasan STAN</h1>
     					<div class="ftco-counter ftco-no-pt ftco-no-pb">
     						<div class="row">
-    							<div class="col-md-4 justify-content-center counter-wrap ftco-animate">
-    								<div class="block-18">
+    							<div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate">
+    								<div class="block-18 text-center">
     									<div class="text d-flex">
     										<div class="icon mr-2">
     											<span class="flaticon-worldwide"></span>
