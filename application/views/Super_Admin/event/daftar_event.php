@@ -4,7 +4,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview">
-              <a href="<?= base_url() ?>Admin" class="nav-link">
+              <a href="<?= base_url() ?>Super_Admin" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -21,13 +21,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_modul" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Modul</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>tambah_modul" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Modul</p>
                   </a>
@@ -50,27 +50,56 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_event" class="nav-link active">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_event" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_soal" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Soal</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>tambah_event" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>tambah_soal" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Tambah Soal</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user-shield"></i>
+                <p>
+                  Data Admin
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tambah Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Rekap Data Admin</p>
                   </a>
                 </li>
               </ul>
@@ -85,7 +114,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_peserta" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_peserta" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Peserta</p>
                   </a>

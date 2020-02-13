@@ -4,15 +4,15 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview">
-              <a href="<?= base_url() ?>Admin" class="nav-link">
+              <a href="<?= base_url() ?>Super_Admin" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
                 </p>
               </a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+            <li class="nav-item has-treeview menu-open">
+              <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                   Data Modul
@@ -21,13 +21,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_modul" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Modul</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>tambah_modul" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_modul" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Modul</p>
                   </a>
@@ -40,8 +40,8 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link active">
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-calendar-week"></i>
                 <p>
                   Event
@@ -50,27 +50,56 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_event" class="nav-link active">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_soal" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Soal</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>tambah_event" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>tambah_soal" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Tambah Soal</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user-shield"></i>
+                <p>
+                  Data Admin
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url('Super_Admin/') ?>tambah_admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tambah Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Rekap Data Admin</p>
                   </a>
                 </li>
               </ul>
@@ -85,7 +114,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Admin/') ?>daftar_peserta" class="nav-link">
+                  <a href="<?= base_url('Super_Admin/') ?>daftar_peserta" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Peserta</p>
                   </a>
@@ -532,7 +561,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Daftar Event</h1>
+            <h1>Tambah Modul</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -542,59 +571,50 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
-
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">List Semua Event</h3>
+              <h3 class="card-title">Isi formulir dulu yuk!</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
             </div>
-              <!-- /.card-body -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Event</th>
-                    <th>Deskripsi</th>
-                    <th>Tanggal Event</th>
-                    <th>Durasi Event</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Try Out SPMB PKN STAN 2020</td>
-                    <td>Try Out terbaik yang pernah ada</td>
-                    <td>1 Maret 2020</td>
-                    <td>1 Bulan</td>
-                    <td class="project-actions text-center">
-                      <a class="btn btn-primary btn-sm" href="#">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                      </a>
-                      <a class="btn btn-info btn-sm" href="#">
-                          <i class="fas fa-pencil-alt">
-                          </i>
-                          Edit
-                      </a>
-                      <a class="btn btn-danger btn-sm" href="#">
-                          <i class="fas fa-trash">
-                          </i>
-                          Delete
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="form-group">
+                <label for="inputName">Judul Modul</label>
+                <input type="text" id="inputName" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputStatus">Jenis Modul</label>
+                <select class="form-control custom-select">
+                  <option selected disabled>Pilih Salah Satu</option>
+                  <option>TKD</option>
+                  <option>Bhs. Inggris</option>
+                  <option>Matematika</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="inputProjectLeader">Deskripsi</label>
+                <textarea id="inputDescription" class="form-control" rows="4"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">
+              </div>
             </div>
-            <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
@@ -612,24 +632,29 @@
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="../plugins/datatables/jquery.dataTables.js"></script>
-<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<!-- SweetAlert2 -->
+<script src="../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-<!-- page script -->
-<script>
+
+<script type="text/javascript">
   $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3500
+    });
+
+    $('.swalDefaultSuccess').click(function() {
+      Toast.fire({
+        type: 'success',
+        title: 'Satu modul berhasil ditambahkan, bisa dilihat pada daftar modul'
+      })
     });
   });
 </script>

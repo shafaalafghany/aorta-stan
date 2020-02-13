@@ -86,6 +86,6 @@
             <img src="<?= base_url('assets/Admin/') ?>dist/img/LogoAorta.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="<?= base_url() ?>Admin" class="d-block">AORTASTAN - ADMIN</a>
+            <a href="<?= base_url() ?>Super_Admin" class="d-block">AORTASTAN - SPR ADMIN</a>
           </div>
         </div>

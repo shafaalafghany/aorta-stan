@@ -80,6 +80,8 @@ class User extends CI_Controller
                     $this->session->set_userdata($data);
                     //cek role_id
                     if ($user['role_id'] == 1) {
+                        redirect('Super_Admin');
+                    } elseif ($user['role_id'] == 2) {
                         redirect('Admin');
                     } else {
                         redirect('Member');
