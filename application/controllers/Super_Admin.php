@@ -97,7 +97,7 @@ class Super_Admin extends CI_Controller
             $this->load->view('Super_Admin/admin/tambah_admin');
             $this->load->view('Super_Admin/templates/footer_admin');
         } else {
-            $datauser = [
+            $datauser = [  
                 'username' => htmlspecialchars($this->input->post('username', true)),
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
@@ -109,7 +109,7 @@ class Super_Admin extends CI_Controller
             ];
 
             $this->db->insert('user', $datauser);
-            redirect('Super_Admin/tambah_admin');
+            redirect('Super_Admin/daftar_admin');
         }
     }
     public function daftar_peserta()
