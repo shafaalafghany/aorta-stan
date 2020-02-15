@@ -4,7 +4,7 @@
     	<div class="container">
     		<div class="row no-gutters slider-text align-items-end justify-content-start">
     			<div class="col-md-12 ftco-animate text-center mb-5">
-    				<p class="breadcrumbs mb-0"><span class="mr-3"><a href="<?= base_url('assets/User/'); ?>">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Testimoni</span></p>
+    				<p class="breadcrumbs mb-0"><span class="mr-3"> Home <i class="ion-ios-arrow-forward"></i></span> <span>Testimoni</span></p>
     				<h1 class="mb-3 bread">Testimonial</h1>
     			</div>
     		</div>
@@ -93,33 +93,64 @@
     					</div>
     				</div>
     			</div>
-                <div class="col-lg-4 sidebar">
-                  <div class="sidebar-box bg-white p-4 ftco-animate">
-                    <h3 class="heading-sidebar"><strong>Berikan Testimoni Anda</strong></h3>
-                    <form action="#" class="contact-form mb-3">
-                      <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" class="form-control" disabled="disabled">
-                      </div>
-                      <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" disabled="disabled">
-                      </div>
-                      <div class="form-group">
-                        <label>Subject</label>
-                        <input type="text" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <label>Pesan</label>
-                        <textarea name="" id="" cols="30" rows="7" class="form-control"></textarea>
-                      </div>
-                      <div class="form-group" style="text-align: center;">
-                        <input type="submit" value="Submit" class="btn btn-primary py-2 px-4">
-                      </div>
-                    </form>
+                <?php if (!empty($user)) { ?>
+                    <div class="col-lg-4 sidebar">
+                      <div class="sidebar-box bg-white p-4 ftco-animate">
+                        <h3 class="heading-sidebar"><strong>Berikan Testimoni Anda</strong></h3>
+                        <form action="#" class="contact-form mb-3">
+                          <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" disabled="disabled" value="<?= $user['name']; ?>">
+                          </div>
+                          <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" disabled="disabled" value="<?= $user['email']; ?>">
+                          </div>
+                          <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label>Pesan</label>
+                            <textarea name="" id="" cols="30" rows="7" class="form-control"></textarea>
+                          </div>
+                          <div class="form-group" style="text-align: center;">
+                            <input type="submit" value="Submit" class="btn btn-primary py-2 px-4">
+                          </div>
+                        </form>
 
-                  </div>
-                </div>
+                      </div>
+                    </div>
+                <?php } 
+                    else { ?>
+                    <div class="col-lg-4 sidebar">
+                      <div class="sidebar-box bg-white p-4 ftco-animate">
+                        <h3 class="heading-sidebar"><strong>Berikan Testimoni Anda</strong></h3>
+                        <form action="#" class="contact-form mb-3">
+                          <div class="form-group">
+                            <label>Nama</label>
+                            <input type="text" class="form-control" disabled="disabled">
+                          </div>
+                          <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" disabled="disabled">
+                          </div>
+                          <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label>Pesan</label>
+                            <textarea name="" id="" cols="30" rows="7" class="form-control"></textarea>
+                          </div>
+                          <div class="form-group" style="text-align: center;">
+                            <input type="submit" value="Submit" class="btn btn-primary py-2 px-4">
+                          </div>
+                        </form>
+
+                      </div>
+                    </div>
+                <?php } ?>
     			<!-- <div class="col-lg-4 sidebar">
     				<div class="sidebar-box bg-white p-4 ftco-animate">
     					<h3 class="heading-sidebar">Browse Category</h3>

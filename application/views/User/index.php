@@ -65,28 +65,15 @@
     				<h2 class="mb-0">Event Kami</h2>
     			</div>
     		</div>
-    		<div class="row">
-    			<div class="col-md-3 ftco-animate">
-    				<ul class="category text-center">
-    					<li><a href="#">TO Akbar 1 <br><span class="number">01 Maret 2020</span><i class="ion-ios-arrow-forward"></i></a></li>
-    				</ul>
-    			</div>
-    			<div class="col-md-3 ftco-animate">
-    				<ul class="category text-center">
-    					<li><a href="#">TO Akbar 2 <br><span class="number">01 April 2020</span><i class="ion-ios-arrow-forward"></i></a></li>
-    				</ul>
-    			</div>
-    			<div class="col-md-3 ftco-animate">
-    				<ul class="category text-center">
-    					<li><a href="#">TO Akbar 3 <br><span class="number">01 Mei 2020</span><i class="ion-ios-arrow-forward"></i></a></li>
-    				</ul>
-    			</div>
-    			<div class="col-md-3 ftco-animate">
-    				<ul class="category text-center">
-    					<li><a href="#">TO Akbar 4 <br><span class="number">01 Juni 2020</span><i class="ion-ios-arrow-forward"></i></a></li>
-    				</ul>
-    			</div>
-    		</div>
+            <div class="row">
+                <?php foreach ($event as $loadEvent) : ?>
+                    <div class="col-md-3 ftco-animate">
+                        <ul class="category text-center">
+                            <li><a href="<?= base_url('User/'); ?>event/<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']?><br><span class="number"><?= $loadEvent['tgl_mulai']?></span><i class="ion-ios-arrow-forward"></i></a></li>
+                        </ul>
+                    </div>
+                <?php endforeach; ?>
+            </div>
     	</div>
     </section>
 

@@ -25,6 +25,10 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
+<!-- date-range-picker -->
+<script src="<?= base_url('assets/Admin/') ?>plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 

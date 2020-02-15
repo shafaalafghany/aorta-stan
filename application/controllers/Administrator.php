@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Super_Admin extends CI_Controller
+class Administrator extends CI_Controller
 {
     public function index()
     {
@@ -19,7 +19,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/modul/daftar_modul');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
 
     public function tambah_modul()
@@ -28,7 +27,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/modul/tambah_modul');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
 
     public function daftar_event()
@@ -37,7 +35,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/daftar_event');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
 
     public function daftar_soal()
@@ -46,7 +43,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/daftar_soal');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
     public function tambah_event()
     {
@@ -61,7 +57,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/tambah_soal');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
     public function daftar_admin()
     {
@@ -69,7 +64,6 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/admin/daftar_admin');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
     public function tambah_admin()
     {
@@ -94,7 +88,6 @@ class Super_Admin extends CI_Controller
             $data['judul'] = 'AORTASTAN Try Out Online | Tambah Admin';
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/admin/tambah_admin');
-            $this->load->view('Super_Admin/templates/footer_admin');
         } else {
             $datauser = [
                 'username' => htmlspecialchars($this->input->post('username', true)),
@@ -117,6 +110,5 @@ class Super_Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/daftar_peserta');
-        $this->load->view('Super_Admin/templates/footer_admin');
     }
 }

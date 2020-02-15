@@ -24,5 +24,4 @@ $('.logout').on('click', function (e) {
 	    })
 	  }
 	})
-
 });

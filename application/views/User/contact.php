@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
           <div class="col-md-12 ftco-animate text-center mb-5">
-            <p class="breadcrumbs mb-0"><span class="mr-3"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Contact</span></p>
+            <p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span> <span>Contact</span></p>
             <h1 class="mb-3 bread">Hubungi Kami</h1>
           </div>
         </div>

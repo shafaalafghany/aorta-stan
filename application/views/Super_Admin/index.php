@@ -1,10 +1,11 @@
+<?php if (!empty($user)) { ?>
       <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item has-treeview menu-open">
-              <a href="<?= base_url() ?>Super_Admin" class="nav-link active">
+              <a href="<?= base_url() ?>Administrator" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -21,13 +22,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>daftar_modul" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>daftar_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Modul</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>tambah_modul" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>tambah_modul" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Modul</p>
                   </a>
@@ -50,60 +51,62 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>daftar_event" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>daftar_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>daftar_soal" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Soal</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>tambah_event" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>tambah_event" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tambah Event</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>tambah_soal" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Tambah Soal</p>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user-shield"></i>
-                <p>
-                  Data Admin
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>daftar_admin" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Admin</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>tambah_admin" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Tambah Admin</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Rekap Data Admin</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+            <?php if ($user['role_id'] == 1) { ?>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-user-shield"></i>
+                  <p>
+                    Data Admin
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="<?= base_url('Administrator/') ?>daftar_admin" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Daftar Admin</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?= base_url('Administrator/') ?>tambah_admin" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Tambah Admin</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Rekap Data Admin</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <?php } ?>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
@@ -114,7 +117,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="<?= base_url('Super_Admin/') ?>daftar_peserta" class="nav-link">
+                  <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Daftar Peserta</p>
                   </a>
@@ -149,8 +152,8 @@
         </nav>
         <!-- /.sidebar-menu -->
       </div>
-      <!-- /.sidebar -->
-    </aside>
+    <!-- /.sidebar -->
+  </aside>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -180,7 +183,7 @@
               <div class="icon">
                 <i class="fas fa-book-open"></i>
               </div>
-              <a href="<?= base_url('Super_Admin/') ?>daftar_modul" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('Administrator/') ?>daftar_modul" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -195,7 +198,7 @@
               <div class="icon">
                 <i class="far fa-calendar"></i>
               </div>
-              <a href="<?= base_url('Super_Admin/') ?>daftar_event" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('Administrator/') ?>daftar_event" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -210,7 +213,11 @@
               <div class="icon">
                 <i class="fas fa-users-cog"></i>
               </div>
-              <a href="<?= base_url('Super_Admin/') ?>daftar_admin" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <?php if ($user['role_id'] == 1) { ?>
+                <a href="<?= base_url('Administrator/') ?>daftar_admin" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <?php } else { ?>
+                <a href="#" class="small-box-footer">Just Info <i class="fas fa-arrow-circle-right"></i></a>
+              <?php } ?>
             </div>
           </div>
           <!-- ./col -->
@@ -225,7 +232,7 @@
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="<?= base_url('Super_Admin/') ?>daftar_peserta" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -253,7 +260,12 @@
 
                 <h3 class="profile-username text-center"><?= $user['name']; ?></h3>
 
-                <p class="text-muted text-center">Ketua Administrator</p>
+                <?php if ($user['role_id'] == 1) { ?>
+                  <p class="text-muted text-center">Ketua Administrator</p>
+                <?php } else { ?>
+                  <p class="text-muted text-center">Administrator</p>
+                <?php } ?>
+                
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
@@ -329,11 +341,18 @@
                     <div class="post">
                       <h3><strong>Halo <?= $user['name']; ?></strong></h3>
                       <br>
-                      <div class="callout callout-info">
-                        <h5><i class="fas fa-info"></i> Note:</h5>
-                        Anda adalah Super Admin yang memiliki kuasa paling tinggi, anda dapat menambah modul, menambah admin,
-                        menambah event, backup data-data dan backup database.
-                      </div>
+                      <?php if ($user['role_id'] == 1) { ?>
+                        <div class="callout callout-info">
+                          <h5><i class="fas fa-info"></i> Note:</h5>
+                          Anda adalah Super Admin yang memiliki kuasa paling tinggi, anda dapat menambah modul, menambah admin,
+                          menambah event, backup data-data dan backup database.
+                        </div>
+                      <?php } else { ?>
+                        <div class="callout callout-info">
+                          <h5><i class="fas fa-info"></i> Note:</h5>
+                          Anda adalah Admin dalam sistem try out AORTASTAN ini, anda dapat menambah modul, menambah event, backup data-data dan backup database.
+                        </div>
+                      <?php } ?>
                       <br>
                       <h5><i class="far fa-star mr-1"></i>Qoutes Of The Day</h5>
                       <p>
@@ -444,3 +463,6 @@
   </section>
   <!-- /.content -->
   </div>
+<?php } else{ ?>
+  <?php redirect('User/login');
+} ?>

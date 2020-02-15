@@ -45,7 +45,7 @@
                 <div class="card card-profile">
                   <div class="card-body text-center">
                     <h4 class="card-title">Mendapatkan</h4>
-                    <h3 class="card-text">100</h3>
+                    <h3 class="card-text"><?= $user['point'] ?></h3>
                     <h2 class="card-text">Points</h2>
                   </div>
                 </div>

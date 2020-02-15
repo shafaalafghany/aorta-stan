@@ -7,42 +7,71 @@ class User extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('Event_model');
     }
 
 
     public function index()
     {
+        
         $data['judul'] = 'AORTASTAN Try Out Online';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->Event_model->getAllEvent();
 
         $this->load->view('User/templates/header_home', $data);
-        $this->load->view('User/index');
+        $this->load->view('User/index', $data);
         $this->load->view('User/templates/footer');
     }
 
     public function tryout()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Tryout';
+        $data['judul'] = 'AORTASTAN Try Out Online | Tryout';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->Event_model->getAllEvent();
 
         $this->load->view('User/templates/header_tryout', $data);
-        $this->load->view('User/Tryout');
+        $this->load->view('User/tryout', $data);
+        $this->load->view('User/templates/footer');
+    }
+
+    public function event($id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Event Detail';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->Event_model->getEventById($id_event);
+
+        $this->load->view('User/templates/header_tryout', $data);
+        $this->load->view('User/event_detail', $data);
         $this->load->view('User/templates/footer');
     }
 
     public function testimoni()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Testimoni';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->load->view('User/templates/header_testimoni', $data);
-        $this->load->view('User/Testimoni');
+        $this->load->view('User/testimoni');
         $this->load->view('User/templates/footer');
     }
 
     public function contact()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Contact';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->load->view('User/templates/header_contact', $data);
-        $this->load->view('User/Contact');
+        $this->load->view('User/contact');
+        $this->load->view('User/templates/footer');
+    }
+
+    public function profile_saya()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->view('User/templates/header_profile', $data);
+        $this->load->view('User/profile_saya');
         $this->load->view('User/templates/footer');
     }
 
@@ -79,12 +108,10 @@ class User extends CI_Controller
                     ];
                     $this->session->set_userdata($data);
                     //cek role_id
-                    if ($user['role_id'] == 1) {
-                        redirect('Super_Admin');
-                    } elseif ($user['role_id'] == 2) {
-                        redirect('Admin');
+                    if ($user['role_id'] < 3) {
+                        redirect('Administrator');
                     } else {
-                        redirect('Member');
+                        redirect('User');
                     }
                 } else {
                     redirect('User/login');

@@ -43,10 +43,10 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>tryout" class="nav-link">Try Out</a></li>
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>testimoni" class="nav-link">Testimoni</a></li>
-          <li class="nav-item"><a href="<?= base_url('Member/'); ?>contact" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="<?= base_url('User/'); ?>" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="<?= base_url('User/'); ?>tryout" class="nav-link">Try Out</a></li>
+          <li class="nav-item"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
+          <li class="nav-item"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" data-toggle="dropdown">
               <div class="user-panel d-flex">
@@ -71,8 +71,8 @@
                 </p>
               </div>
               <div class="dropdown-divider"></div>
-              <div class="dropdown-item dropdown-footer">
-                <a href="<?= base_url('Member/profile_saya') ?>" class="btn btn-primary">Profile Saya</a>
+              <div class="dropdown-item dropdown-footer" style="text-align: center;">
+                <a href="<?= base_url('User/profile_saya') ?>" class="btn btn-primary">Profile Saya</a>
                 <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
               </div>
             </div>
