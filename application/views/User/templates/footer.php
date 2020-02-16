@@ -26,15 +26,15 @@
             </div>
         </div>
 
-		<div class="row">
-		    <div class="col-md-12 text-center">
+        <div class="row">
+            <div class="col-md-12 text-center">
 
-		        Copyright &copy;<script>
-		            document.write(new Date().getFullYear());
-		        </script> All rights reserved | <a href="https://sobatkode.com" target="_blank">Sobat Kode</a>
-		    </div>
-		</div>
-	</div>
+                Copyright &copy;<script>
+                    document.write(new Date().getFullYear());
+                </script> All rights reserved | <a href="https://sobatkode.com" target="_blank">Sobat Kode</a>
+            </div>
+        </div>
+    </div>
 </footer>
 
 

@@ -1,158 +1,158 @@
 <?php if (!empty($user)) { ?>
-      <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+  <!-- Sidebar Menu -->
+  <nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview menu-open">
-              <a href="<?= base_url() ?>Administrator" class="nav-link active">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                </p>
+      <li class="nav-item has-treeview menu-open">
+        <a href="<?= base_url() ?>Administrator" class="nav-link active">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <p>
+            Dashboard
+          </p>
+        </a>
+      </li>
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-book"></i>
+          <p>
+            Data Modul
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>daftar_modul" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Daftar Modul</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>tambah_modul" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Tambah Modul</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Rekap Data Modul</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-calendar-week"></i>
+          <p>
+            Event
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>daftar_event" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Daftar Event</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Daftar Soal</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>tambah_event" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Tambah Event</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p> Tambah Soal</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <?php if ($user['role_id'] == 1) { ?>
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user-shield"></i>
+            <p>
+              Data Admin
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url('Administrator/') ?>daftar_admin" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Daftar Admin</p>
               </a>
             </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Data Modul
-                  <i class="fas fa-angle-left right"></i>
-                </p>
+            <li class="nav-item">
+              <a href="<?= base_url('Administrator/') ?>tambah_admin" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tambah Admin</p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>daftar_modul" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Modul</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>tambah_modul" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Tambah Modul</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Rekap Data Modul</p>
-                  </a>
-                </li>
-              </ul>
             </li>
-            <li class="nav-item has-treeview">
+            <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-calendar-week"></i>
-                <p>
-                  Event
-                  <i class="fas fa-angle-left right"></i>
-                </p>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Rekap Data Admin</p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>daftar_event" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Event</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Soal</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>tambah_event" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Tambah Event</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Tambah Soal</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <?php if ($user['role_id'] == 1) { ?>
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-user-shield"></i>
-                  <p>
-                    Data Admin
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="<?= base_url('Administrator/') ?>daftar_admin" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Daftar Admin</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="<?= base_url('Administrator/') ?>tambah_admin" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Tambah Admin</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Rekap Data Admin</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            <?php } ?>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Data Peserta
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Peserta</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Rekap Data Peserta</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-header">PENGATURAN</li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-wrench"></i>
-                <p>
-                  Tools
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Back Up Database</p>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-    <!-- /.sidebar -->
+        </li>
+      <?php } ?>
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-users"></i>
+          <p>
+            Data Peserta
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Daftar Peserta</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Rekap Data Peserta</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-header">PENGATURAN</li>
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-wrench"></i>
+          <p>
+            Tools
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Back Up Database</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
   </aside>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -239,7 +239,7 @@
         </div>
         <!-- /.row -->
         <!-- Main row -->
-        
+
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
@@ -253,9 +253,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="<?= base_url('assets/Admin/') ?>dist/img/avatar5.png"
-                       alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/Admin/') ?>dist/img/avatar5.png" alt="User profile picture">
                 </div>
 
                 <h3 class="profile-username text-center"><?= $user['name']; ?></h3>
@@ -265,7 +263,7 @@
                 <?php } else { ?>
                   <p class="text-muted text-center">Administrator</p>
                 <?php } ?>
-                
+
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
@@ -463,6 +461,6 @@
   </section>
   <!-- /.content -->
   </div>
-<?php } else{ ?>
-  <?php redirect('User/login');
+<?php } else { ?>
+<?php redirect('User/login');
 } ?>

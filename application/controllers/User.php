@@ -13,7 +13,7 @@ class User extends CI_Controller
 
     public function index()
     {
-        
+
         $data['judul'] = 'AORTASTAN Try Out Online';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['event'] = $this->Event_model->getAllEvent();
@@ -70,9 +70,26 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $this->load->view('User/templates/header_profile', $data);
-        $this->load->view('User/profile_saya');
-        $this->load->view('User/templates/footer');
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
+            'matches' => 'Password dont match !',
+            'min_length' => 'Password too short'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('User/templates/header_profile', $data);
+            $this->load->view('User/profile_saya', $data);
+            $this->load->view('User/templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $email = $this->input->post('email');
+
+            $this->db->set('name', $name);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+            redirect('User/profile_saya');
+        }
     }
 
     public function login()
