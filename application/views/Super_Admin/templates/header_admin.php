@@ -89,9 +89,9 @@
           </div>
           <div class="info">
             <?php if ($user['role_id'] == 1) { ?>
-              <a href="<?= base_url() ?>Super_Admin" class="d-block">AORTASTAN - SPR ADMIN</a>
+              <a href="<?= base_url() ?>Administrator" class="d-block">AORTASTAN - SPR ADMIN</a>
             <?php } else { ?>
-              <a href="<?= base_url() ?>Admin" class="d-block">AORTASTAN - ADMIN</a>
+              <a href="<?= base_url() ?>Administrator" class="d-block">AORTASTAN - ADMIN</a>
             <?php } ?>
             
           </div>
