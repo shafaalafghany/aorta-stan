@@ -85,23 +85,20 @@
             <div class="tab-content" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <h4 style="margin-bottom: 20px;"><strong>Tentang Saya</strong></h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+                <p><?= $user['tentang']; ?></p>
               </div>
               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <h4 style="margin-bottom: 20px;"><strong>Pengaturan Profile Akun</strong></h4>
-                <?php echo form_open_multipart('User/profile_saya'); ?>
+                <?= form_open_multipart('User/profile_saya'); ?>
+                <!-- <form action=" //base_url('User/profile_saya'); " method="POST" enctype="multipart/form-data"> -->
                 <div class="form-group col-md-12">
                   <label>Foto Diri</label>
                   <br>
                   <div style="display: flex;">
                     <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" style="width: 150px; height: 150px; margin-right: 40px;">
                     <div style="display: all; margin-top: 4%">
-                      <form action="/action_page.php">
-                        <label>Foto Profile sebaiknya memiliki rasio 1:1 dan tidak lebih dari 2MB.</label>
-                        <input type="file" id="image" name="image" accept="image/*">
-                      </form>
+                      <label>Foto Profile sebaiknya memiliki rasio 1:1 dan tidak lebih dari 2MB.</label>
+                      <input type="file" id="image" name="image" accept="image/*">
                     </div>
                   </div>
                 </div>
@@ -111,7 +108,7 @@
                 </div>
                 <div class="form-group">
                   <label>Username*</label>
-                  <input type="text" class="form-control" id="username" name="usernam" value="<?= $user['username']; ?>" readonly>
+                  <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label>Email*</label>
