@@ -85,13 +85,12 @@
             <div class="tab-content" id="v-pills-tabContent">
               <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <h4 style="margin-bottom: 20px;"><strong>Tentang Saya</strong></h4>
-                <p>
-                  <?= $user['tentang']; ?>
-                </p>
+                <p><?= $user['tentang']; ?></p>
               </div>
               <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <h4 style="margin-bottom: 20px;"><strong>Pengaturan Profile Akun</strong></h4>
-                <?php echo form_open_multipart('User/profile_saya'); ?>
+                <?= form_open_multipart('User/profile_saya'); ?>
+                <!-- <form action=" //base_url('User/profile_saya'); " method="POST" enctype="multipart/form-data"> -->
                 <div class="form-group col-md-12">
                   <label>Foto Diri</label>
                   <br>
@@ -109,7 +108,7 @@
                 </div>
                 <div class="form-group">
                   <label>Username*</label>
-                  <input type="text" class="form-control" id="username" name="usernam" value="<?= $user['username']; ?>" readonly>
+                  <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label>Email*</label>

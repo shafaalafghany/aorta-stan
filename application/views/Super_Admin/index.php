@@ -362,23 +362,23 @@
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="edit_profile">
-                    <form class="form-horizontal">
+                    <form action="Administrator/index" method="POST" enctype="multipart/form-data">
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Nama*</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" value="<?= $user['name']; ?>">
+                          <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputUsername" class="col-sm-2 col-form-label">Username*</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputUsername" value="<?= $user['username']; ?>">
+                          <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email*</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" value="<?= $user['email']; ?>">
+                          <input type="email" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -397,8 +397,8 @@
                         <label for="exampleInputFile" class="col-sm-2 col-form-label">Ganti Foto</label>
                         <div class="input-group col-sm-10">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile" accept="image/*">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
+                            <label class="custom-file-label" for="image">Choose file</label>
                           </div>
                         </div>
                       </div>

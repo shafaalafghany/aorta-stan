@@ -71,11 +71,6 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
-            'matches' => 'Password dont match !',
-            'min_length' => 'Password too short'
-        ]);
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('User/templates/header_profile', $data);
@@ -83,12 +78,31 @@ class User extends CI_Controller
             $this->load->view('User/templates/footer');
         } else {
             $name = $this->input->post('name');
-            $email = $this->input->post('email');
+            $username = $this->input->post('username');
+
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['upload_path'] = './assets/img/profile/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 2048;
+                $config['overwrite'] = true;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            } else {
+            }
 
             $this->db->set('name', $name);
-            $this->db->where('email', $email);
+            $this->db->where('username', $username);
             $this->db->update('user');
-            redirect('User/profile_saya');
+            redirect('User');
         }
     }
 
@@ -174,6 +188,7 @@ class User extends CI_Controller
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'image' => 'default.jpg',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'tentang' => 'Aku adalah seorang pejuang !',
                 'role_id' => 3,
                 'is_active' => 1,
                 'date_created' => time()

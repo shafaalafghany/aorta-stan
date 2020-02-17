@@ -51,7 +51,7 @@
           <a href="#" class="nav-link" data-toggle="dropdown">
             <div class="user-panel d-flex">
               <div class="image">
-                <img src="<?= base_url('assets/Admin/') ?>dist/img/avatar5.png" class="img-circle" alt="User Image">
+                <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-circle" alt="User Image">
               </div>
               <div class="info">
                 <span><?= $user['name']; ?></span>
@@ -60,7 +60,7 @@
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <div class="dropdown-item dropdown-header">
-              <img src="<?= base_url('assets/Admin/') ?>dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
+              <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-circle elevation-2" alt="User Image">
               <br>
               <p>
                 <span><?= $user['name']; ?></span>
@@ -93,6 +93,6 @@
             <?php } else { ?>
               <a href="<?= base_url() ?>Administrator" class="d-block">AORTASTAN - ADMIN</a>
             <?php } ?>
-            
+
           </div>
         </div>
