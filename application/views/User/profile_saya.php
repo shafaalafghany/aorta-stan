@@ -14,7 +14,7 @@
         <div class="row">
           <div class="category-wrap ftco-animate mr-3 image-profile" style="margin-left: 2%;">
             <div class="text-center">
-              <img class="image-profile" src="<?= base_url('assets/User/'); ?>images/user2.png" alt="User Image">
+              <img class="image-profile" src="<?= base_url('assets/img/profile/') . $user['image']; ?>" alt="User Image">
             </div>
           </div>
           <div class="col-md-7 ftco-animate">
@@ -96,7 +96,7 @@
                   <label>Foto Diri</label>
                   <br>
                   <div style="display: flex;">
-                    <img src="<?= base_url('assets/User/profile/') . $user['image']; ?>" style="width: 150px; height: 150px; margin-right: 40px;">
+                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" style="width: 150px; height: 150px; margin-right: 40px;">
                     <div style="display: all; margin-top: 4%">
                       <form action="/action_page.php">
                         <label>Foto Profile sebaiknya memiliki rasio 1:1 dan tidak lebih dari 2MB.</label>
