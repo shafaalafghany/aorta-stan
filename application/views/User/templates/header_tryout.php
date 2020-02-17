@@ -50,7 +50,7 @@
               <a href="#" class="nav-link" data-toggle="dropdown">
                 <div class="user-panel d-flex">
                   <div class="image">
-                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-circle" alt="User Image" style="width: 37px; height: 37px; margin-right: 6px;">
+                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle" alt="User Image" style="width: 37px; height: 37px; margin-right: 6px;">
                   </div>
                   <div class="info">
                     <span><?= $user['name']; ?></span>
@@ -60,7 +60,7 @@
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-item dropdown-header">
                   <div class="image" style="text-align: center;">
-                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-circle elevation-2" alt="User Image" style="width: 100px; height: 100px;">
+                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle elevation-2" alt="User Image" style="width: 100px; height: 100px;">
                   </div>
                   <br>
                   <p style="text-align: center;">

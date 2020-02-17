@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Administrator extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->model('Event_model');
+    }
+    
     public function index()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Dashboard';
@@ -44,6 +51,7 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/daftar_soal');
     }
+
     public function tambah_event()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tambah Event';
@@ -51,6 +59,7 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/tambah_event');
     }
+
     public function tambah_soal()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tambah Soal';
@@ -58,6 +67,7 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/tambah_soal');
     }
+
     public function daftar_admin()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Admin';
@@ -65,6 +75,7 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/admin/daftar_admin');
     }
+
     public function tambah_admin()
     {
         $this->load->library('form_validation');
@@ -104,11 +115,54 @@ class Administrator extends CI_Controller
             redirect('Super_Admin/daftar_admin');
         }
     }
+
     public function daftar_peserta()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/daftar_peserta');
+    }
+
+    public function profile_admin()
+    {
+        
+        $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('Super_Admin/templates/header_profile', $data);
+            $this->load->view('Super_Admin/profile_admin');
+            $this->load->view('Super_Admin/templates/footer_admin');
+        } else {
+            $name = $this->input->post('name');
+            $username = $this->input->post('username');
+
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['upload_path'] = './assets/img/profile/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size'] = 2048;
+                $config['overwrite'] = true;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            } else {
+            }
+
+            $this->db->set('name', $name);
+            $this->db->where('username', $username);
+            $this->db->update('user');
+            redirect('Administrator');
+        }
     }
 }

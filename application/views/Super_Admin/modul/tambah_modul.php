@@ -148,6 +148,23 @@
                   </li>
                 </ul>
               </li>
+              <li class="nav-header">AKUN</li>
+              <li class="nav-item has-treeview">
+                <a href="<?= base_url() ?>Administrator/profile_admin" class="nav-link">
+                  <i class="nav-icon far fa-edit"></i>
+                  <p>
+                    Profile Saya
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="<?= base_url() ?>User/logout" class="nav-link logout">
+                  <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p>
+                    Log out
+                  </p>
+                </a>
+              </li>
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

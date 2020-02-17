@@ -46,33 +46,8 @@
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
-        <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link" data-toggle="dropdown">
-            <div class="user-panel d-flex">
-              <div class="image">
-                <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle" alt="User Image" style="width: 37px; height: 37px;">
-              </div>
-              <div class="info">
-                <span><?= $user['name']; ?></span>
-              </div>
-            </div>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <div class="dropdown-item dropdown-header">
-              <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle elevation-2 mb-2" alt="User Image" style="width: 100px; height: 100px;">
-              <p>
-                <span><?= $user['name']; ?></span>
-                <br>
-                <span>Selamat Datang</span>
-              </p>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item dropdown-footer">
-              <a href="<?= base_url('Administrator/profile_admin') ?>" class="btn btn-primary">Profile Saya</a>
-              <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
-            </div>
-          </div>
+        <li class="nav-item">
+          <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
         </li>
       </ul>
     </nav>

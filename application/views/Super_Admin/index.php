@@ -148,6 +148,23 @@
           </li>
         </ul>
       </li>
+      <li class="nav-header">AKUN</li>
+      <li class="nav-item has-treeview">
+        <a href="<?= base_url() ?>Administrator/profile_admin" class="nav-link">
+          <i class="nav-icon far fa-edit"></i>
+          <p>
+            Profile Saya
+          </p>
+        </a>
+      </li>
+      <li class="nav-item has-treeview">
+        <a href="<?= base_url() ?>User/logout" class="nav-link logout">
+          <i class="nav-icon fas fa-sign-out-alt"></i>
+          <p>
+            Log out
+          </p>
+        </a>
+      </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->
@@ -247,214 +264,40 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="<?= base_url('assets/Admin/') ?>dist/img/avatar5.png" alt="User profile picture">
-                </div>
-
-                <h3 class="profile-username text-center"><?= $user['name']; ?></h3>
-
-                <?php if ($user['role_id'] == 1) { ?>
-                  <p class="text-muted text-center">Ketua Administrator</p>
-                <?php } else { ?>
-                  <p class="text-muted text-center">Administrator</p>
-                <?php } ?>
-
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Username</b> <a class="float-right"><?= $user['username']; ?></a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Email</b> <a class="float-right" style="font-size: 13px;"><?= $user['email']; ?></a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Tgl Dibuat</b> <a class="float-right" style="font-size: 13px;">1 Februari 2020</a>
-                  </li>
-                </ul>
+          <div class="col-md-12">
+            <?php if ($user['role_id'] == 1) { ?>
+              <div class="callout callout-info">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                Anda adalah Super Admin yang memiliki kuasa paling tinggi, anda dapat menambah modul, menambah admin,
+                menambah event, backup data-data dan backup database.
               </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Tentang Saya</h3>
+            <?php } else { ?>
+              <div class="callout callout-info">
+                <h5><i class="fas fa-info"></i> Note:</h5>
+                Anda adalah Admin dalam sistem try out AORTASTAN ini, anda dapat menambah modul, menambah event, backup data-data dan backup database.
               </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-user-graduate mr-1"></i> Riwayat Pendidikan</strong>
-
-                <p class="text-muted">
-                  TK Deket Rumah, SDN 1 Maju, SMPN 1 Jaya, SMAN 1 Selalu
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi</strong>
-
-                <p class="text-muted">Jawa Timur, Indonesia</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Keahlian</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">Adobe Illustrator,</span>
-                  <span class="tag tag-success">C++,</span>
-                  <span class="tag tag-info">Javascript,</span>
-                  <span class="tag tag-warning">PHP,</span>
-                  <span class="tag tag-primary">Java</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-star mr-1"></i> Qoutes Of The Day</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+            <?php } ?>
           </div>
-          <!-- /.col -->
-          <div class="col-md-9">
-            <div class="card">
-              <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#deskripsi" data-toggle="tab">Deskripsi</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#edit_profile" data-toggle="tab">Edit Profile</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#edit_tentangsaya" data-toggle="tab">Edit Tentang Saya</a></li>
-                </ul>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="active tab-pane" id="deskripsi">
-                    <!-- Post -->
-                    <div class="post">
-                      <h3><strong>Halo <?= $user['name']; ?></strong></h3>
-                      <br>
-                      <?php if ($user['role_id'] == 1) { ?>
-                        <div class="callout callout-info">
-                          <h5><i class="fas fa-info"></i> Note:</h5>
-                          Anda adalah Super Admin yang memiliki kuasa paling tinggi, anda dapat menambah modul, menambah admin,
-                          menambah event, backup data-data dan backup database.
-                        </div>
-                      <?php } else { ?>
-                        <div class="callout callout-info">
-                          <h5><i class="fas fa-info"></i> Note:</h5>
-                          Anda adalah Admin dalam sistem try out AORTASTAN ini, anda dapat menambah modul, menambah event, backup data-data dan backup database.
-                        </div>
-                      <?php } ?>
-                      <br>
-                      <h5><i class="far fa-star mr-1"></i>Qoutes Of The Day</h5>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
-                      </p>
-                      <hr>
-                    </div>
-                    <!-- /.post -->
-                  </div>
-                  <!-- /.tab-pane -->
-                  <div class="tab-pane" id="edit_profile">
-                    <form action="Administrator/index" method="POST" enctype="multipart/form-data">
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Nama*</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputUsername" class="col-sm-2 col-form-label">Username*</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="username" name="username" value="<?= $user['username']; ?>" readonly>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email*</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="password1" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                          <input type="password" class="form-control" id="password1" placeholder="Password">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="password2" class="col-sm-2 col-form-label">Ulangi Password</label>
-                        <div class="col-sm-10">
-                          <input type="password" class="form-control" id="password2" placeholder="Ulangi Password">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="exampleInputFile" class="col-sm-2 col-form-label">Ganti Foto</label>
-                        <div class="input-group col-sm-10">
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="image" name="image" accept="image/*">
-                            <label class="custom-file-label" for="image">Choose file</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-10">
-                          <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.tab-pane -->
-
-                  <div class="tab-pane" id="edit_tentangsaya">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                        <label for="inputEducation" class="col-sm-2 col-form-label">Riwayat Pendidikan</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputEducation"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputLocation" class="col-sm-2 col-form-label">Lokasi</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputLocation"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Keahlian</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputSkills"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputQoutes" class="col-sm-2 col-form-label">Qoutes Of The Day</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" id="inputQoutes"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-10">
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.tab-pane -->
-                </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.nav-tabs-custom -->
-          </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header p-2 bg-warning">
+                <h5><strong>Petunjuk Penggunaan Fitur Administrator</strong></h5>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Warning card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
   </div><!-- /.container-fluid -->
