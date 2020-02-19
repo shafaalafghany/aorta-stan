@@ -19,6 +19,7 @@
 			<form method="POST" action="<?= base_url('User/login'); ?>">
 				<img class="avatar" src="<?= base_url('assets/User/'); ?>images/user2.png">
 				<h2>LOG IN</h2>
+				<?= $this->session->flashdata('message'); ?>
 				<div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>

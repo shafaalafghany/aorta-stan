@@ -62,8 +62,7 @@ class User extends CI_Controller
             $flashError = array('error' => "Maaf point anda tidak mencukupi");
             $tampungFlashError = $this->session->set_flashdata('flashError', $flashError);
             redirect('User/tryout', $tampungFlashError);
-        }
-        else{
+        } else {
             $bayar = $point - $harga;
 
             $this->db->set('point', $bayar);
@@ -146,7 +145,7 @@ class User extends CI_Controller
 
             $tampung = array(
                 'name' => $name,
-                'tentang' => $tentang 
+                'tentang' => $tentang
             );
             $this->db->where('username', $username);
             $this->db->update('user', $tampung);
@@ -230,10 +229,11 @@ class User extends CI_Controller
             $data['judul'] = 'AORTASTAN Try Out Online | Register';
             $this->load->view('User/registration', $data);
         } else {
+            $email = $this->input->post('email', true);
             $datauser = [
                 'username' => htmlspecialchars($this->input->post('username', true)),
                 'name' => htmlspecialchars($this->input->post('name', true)),
-                'email' => htmlspecialchars($this->input->post('email', true)),
+                'email' => htmlspecialchars($email),
                 'image' => 'default.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'tentang' => 'Aku adalah seorang pejuang !',
@@ -242,26 +242,89 @@ class User extends CI_Controller
                 'date_created' => time()
             ];
 
+            //Menyiapkan token untuk verifikasi
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token,
+                'date_created' => time()
+            ];
+
             $this->db->insert('user', $datauser);
+            $this->db->insert('user_token', $user_token);
 
-            $this->_sendEmail();
+            $this->_sendEmail($token, 'verify');
 
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your account  has been created. Please Activate your account.</div>');
             redirect('User/login');
         }
     }
 
-    private function _sendEmail()
+    private function _sendEmail($token, $type)
     {
-        $config = [
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smpt_user' => 'sobatkode@gmail.com',
-            'smtp_pass' => 'Iws161jy21',
-            'smtp_port' => 465,
-            'mailtype' => 'html',
-            'charset' => 'utf-8',
-            'newline'
-        ];
+        $this->load->library('email');
+
+        $config = array();
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+        $config['smtp_user'] = 'sobatkode@gmail.com';
+        $config['smtp_pass'] = 'Iws161jy21';
+        $config['smtp_port'] = 465;
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'utf-8';
+
+        $this->email->initialize($config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->from('sobatkode@gmail.com', 'Sobatkode.com');
+        $this->email->to($this->input->post('email'));
+
+        if ($type == 'verify') {
+            $this->email->subject('Account Verification');
+            $this->email->message('Click this link to verify  your account : <a href="' . base_url() . 'User/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+        }
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
+    public function verify()
+    {
+        $email = $this->input->get('email');
+        $token =  $this->input->get('token');
+
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+        if ($user) {
+            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+            if ($user_token) {
+                if (time() - $user_token['date_created'] < (60 * 60 * 2)) {
+                    $this->db->set('is_active', 1);
+                    $this->db->set('email', $email);
+                    $this->db->update('user');
+
+                    $this->db->delete('user_token', ['email' => $email]);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated. Please login</div>');
+                    redirect('User/login');
+                } else {
+                    $this->db->delete('user', ['email' => $email]);
+                    $this->db->delete('user_token', ['email' => $email]);
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Token expired.</div>');
+                    redirect('User/login');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong token.</div>');
+                redirect('User/login');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email.</div>');
+            redirect('User/login');
+        }
     }
 
     public function forgot_password()
