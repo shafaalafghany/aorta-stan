@@ -190,13 +190,30 @@ class User extends CI_Controller
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'tentang' => 'Aku adalah seorang pejuang !',
                 'role_id' => 3,
-                'is_active' => 1,
+                'is_active' => 0,
                 'date_created' => time()
             ];
 
             $this->db->insert('user', $datauser);
+
+            $this->_sendEmail();
+
             redirect('User/login');
         }
+    }
+
+    private function _sendEmail()
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smpt_user' => 'sobatkode@gmail.com',
+            'smtp_pass' => 'Iws161jy21',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline'
+        ];
     }
 
     public function forgot_password()
