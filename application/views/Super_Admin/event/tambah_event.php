@@ -197,50 +197,78 @@
                     <i class="fas fa-minus"></i></button>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">Nama Event</label>
-                  <input type="text" id="inputName" class="form-control">
-                </div>
-                <!-- <div class="form-group">
-                  <label for="inputStatus">Jenis Modul</label>
-                  <select class="form-control custom-select">
-                    <option selected disabled>Pilih Salah Satu</option>
-                    <option>TKD</option>
-                    <option>Bhs. Inggris</option>
-                    <option>Matematika</option>
-                  </select>
-                </div> -->
-                <div class="form-group">
-                  <label for="inputProjectLeader">Deskripsi</label>
-                  <textarea id="inputDescription" class="form-control" rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                  <label>Jangka Waktu Event</label>
 
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="far fa-calendar-alt"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control float-right" id="reservation">
+              <?= form_error(
+                'inputNama',
+                '<div class="alert alert-danger" role="alert"><strong>',
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+              ); ?>
+              <?= form_error(
+                'inputDeskripsi',
+                '<div class="alert alert-danger" role="alert"><strong>',
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+              ); ?>
+              <?= form_error(
+                'inputHarga',
+                '<div class="alert alert-danger" role="alert"><strong>',
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+              ); ?>
+              <?= form_error(
+                'reservation',
+                '<div class="alert alert-danger" role="alert"><strong>',
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+              ); ?>
+
+              <form method="POST" action="<?= base_url('Administrator/tambah_event'); ?>">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="inputName">Nama Event</label>
+                    <input type="text" id="inputNama" name="inputNama" class="form-control">
                   </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- <div class="form-group">
-                      <label for="exampleInputFile">File input</label>
-                      <div class="input-group">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="exampleInputFile">
-                          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                        </div>
+                  <!-- <div class="form-group">
+                    <label for="inputStatus">Jenis Modul</label>
+                    <select class="form-control custom-select">
+                      <option selected disabled>Pilih Salah Satu</option>
+                      <option>TKD</option>
+                      <option>Bhs. Inggris</option>
+                      <option>Matematika</option>
+                    </select>
+                  </div> -->
+                  <div class="form-group">
+                    <label for="inputProjectLeader">Deskripsi</label>
+                    <textarea id="inputDeskripsi" class="form-control" name="inputDeskripsi" rows="4"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputName">Harga</label>
+                    <input type="number" id="inputHarga" name="inputHarga" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label>Jangka Waktu Event</label>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
                       </div>
-                    </div> -->
-                <div class="col-12">
-                  <input type="submit" value="next" class="btn btn-primary float-right swalDefaultSuccess">
+                      <input type="text" class="form-control float-right" id="reservation" name="reservation">
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <!-- <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                          </div>
+                        </div>
+                      </div> -->
+                  <div class="col-12">
+                    <input type="submit" value="next" class="btn btn-primary float-right swalDefaultSuccess">
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
             <!-- /.card -->
           </div>
@@ -310,7 +338,7 @@
           icon: 'success',
           title: 'Satu event berhasil ditambahkan'
         }).then((result) => {
-            location.replace("<?= base_url('Super_Admin/'); ?>tambah_soal");
+            location.replace("<?= base_url('Administrator/'); ?>tambah_soal");
             return 0;
         });
       });

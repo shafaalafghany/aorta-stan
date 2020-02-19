@@ -40,12 +40,7 @@
     							</div>
 
     							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                                    <?php if (!empty($user)) { ?>
-                                        <a href="<?= base_url('User/'); ?>tes_tpa/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
-                                    <?php }
-                                    else { ?>
-                                        <a href="<?= base_url(); ?>login" class="btn btn-warning py-2 toLogin text-white">Login Dulu Yaa </a>
-                                    <?php } ?>
+    								<a href="#" class="btn btn-primary py-2">Mulai</a>
     							</div>
     						</div>
     					</div><!-- end -->
@@ -71,14 +66,8 @@
                                     <h4 class="mr-3"><?= $event['harga'] ?> Point</h4></label>
                               </div>
                               <div class="form-group">
-                                <label class="mb-3">Durasi Pengerjaan Soal</label>
-                                <br>
-                                <?php foreach ($topik as $loadtopik) : ?>
-                                    <div style="margin-left: 20px;">
-                                        <label class="mr-3"><?= $loadtopik['nama_topik']; ?>
-                                        <h4 class="mr-3"><?= $loadtopik['durasi_topik'] ?></h4></label>
-                                    </div>
-                                <?php endforeach; ?>
+                                <label class="mb-3">Durasi Pengerjaan Soal
+                                    <h4 class="mr-3"><?= $event['waktu_tryout'] ?></h4></label>
                               </div>
                               <div class="form-group">
                                 <label class="mb-3">Tanggal Dimulai 

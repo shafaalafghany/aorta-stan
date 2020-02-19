@@ -207,7 +207,7 @@
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
               ); ?>
 
-              <form method="POST" action="<?= base_url('Super_Admin/tambah_admin'); ?>">
+              <form method="POST" action="<?= base_url('Administrator/tambah_admin'); ?>">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="inputUsername">Username</label>

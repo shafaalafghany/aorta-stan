@@ -106,7 +106,9 @@
             </li>
           </ul>
         </li>
-      <?php } ?>
+      <?php } elseif ($user['role_id'] == 3) {
+        redirect('User/');
+      } ?>
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-users"></i>
@@ -304,6 +306,7 @@
   </section>
   <!-- /.content -->
   </div>
-<?php } else { ?>
-<?php redirect('User/login');
+<?php } 
+else {
+  redirect('User/login');
 } ?>

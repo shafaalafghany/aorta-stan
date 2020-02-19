@@ -65,7 +65,9 @@
           <div class="info">
             <?php if ($user['role_id'] == 1) { ?>
               <a href="<?= base_url() ?>Administrator" class="d-block">AORTASTAN - SPR ADMIN</a>
-            <?php } else { ?>
+            <?php } elseif ($user['role_id'] == 3) {
+              redirect('User/');
+            } else { ?>
               <a href="<?= base_url() ?>Administrator" class="d-block">AORTASTAN - ADMIN</a>
             <?php } ?>
 

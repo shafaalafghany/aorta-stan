@@ -114,6 +114,10 @@
                   <label>Email*</label>
                   <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
                 </div>
+                <div class="form-group">
+                  <label>Tentang Saya</label>
+                  <textarea cols="5" rows="4" class="form-control" id="tentang" name="tentang"><?= $user['tentang']; ?></textarea>
+                </div>
                 <div class="form-group" style="text-align: right;">
                   <button type="submit" class="btn btn-primary py-2 px-4">Simpan Perubahan</button>
                 </div>

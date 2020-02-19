@@ -42,40 +42,45 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <?php if (!empty($user)) { ?>
-            <li class="nav-item"><a href="<?= base_url('User/'); ?>" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="<?= base_url('User/'); ?>tryout" class="nav-link">Try Out</a></li>
-            <li class="nav-item"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
-            <li class="nav-item active"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
-            <li class="nav-item dropdown">
-              <a href="#" class="nav-link" data-toggle="dropdown">
-                <div class="user-panel d-flex">
-                  <div class="image">
-                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle" alt="User Image" style="width: 37px; height: 37px; margin-right: 6px;">
+            <?php if ($user['role_id'] == 3) { ?>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>tryout" class="nav-link">Try Out</a></li>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
+              <li class="nav-item contact"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link" data-toggle="dropdown">
+                  <div class="user-panel d-flex">
+                    <div class="image">
+                      <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle" alt="User Image" style="width: 37px; height: 37px; margin-right: 6px;">
+                    </div>
+                    <div class="info">
+                      <span><?= $user['name']; ?></span>
+                    </div>
                   </div>
-                  <div class="info">
-                    <span><?= $user['name']; ?></span>
-                  </div>
-                </div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <div class="dropdown-item dropdown-header">
-                  <div class="image" style="text-align: center;">
-                    <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle elevation-2" alt="User Image" style="width: 100px; height: 100px;">
-                  </div>
-                  <br>
-                  <p style="text-align: center;">
-                    <span>Selamat Datang</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                  <div class="dropdown-item dropdown-header">
+                    <div class="image" style="text-align: center;">
+                      <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle elevation-2" alt="User Image" style="width: 100px; height: 100px;">
+                    </div>
                     <br>
-                    <span style="font-size: 20px;"><strong><?= $user['name']; ?></strong></span>
-                  </p>
+                    <p style="text-align: center;">
+                      <span>Selamat Datang</span>
+                      <br>
+                      <span style="font-size: 20px;"><strong><?= $user['name']; ?></strong></span>
+                    </p>
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item dropdown-footer" style="text-align: center;">
+                    <a href="<?= base_url('User/profile_saya') ?>" class="btn btn-primary">Profile Saya</a>
+                    <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
+                  </div>
                 </div>
-                <div class="dropdown-divider"></div>
-                <div class="dropdown-item dropdown-footer" style="text-align: center;">
-                  <a href="<?= base_url('User/profile_saya') ?>" class="btn btn-primary">Profile Saya</a>
-                  <a href="<?= base_url('User/logout') ?>" class="btn btn-danger right logout">Log out</a>
-                </div>
-              </div>
-            </li>
+              </li>
+            <?php }
+            else {
+              redirect('Administrator');
+            } ?>
           <?php } else { ?>
             <li class="nav-item"><a href="<?= base_url(); ?>" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="<?= base_url(); ?>tryout" class="nav-link">Try Out</a></li>

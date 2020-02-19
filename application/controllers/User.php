@@ -39,9 +39,53 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Event Detail';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->db->get('topik')->result_array();
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/event_detail', $data);
+        $this->load->view('User/templates/footer');
+    }
+
+    public function tes_tpa($id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->db->get_where('topik', ['id_topik' => 1])->row_array();
+        $data['topik_rule'] = $this->db->query("SELECT * from topik_rule tr left join topik t on tr.id_topik = t.id_topik")->row_array();
+
+        $harga = $this->db->select('harga')->get_where('event', ['id_event' => $id_event])->row()->harga;
+        $point = $this->db->select('point')->get_where('user', ['username' => $this->session->userdata('username')])->row()->point;
+        $username = $this->session->userdata('username');
+
+        if ($point < $harga) {
+            $flashError = array('error' => "Maaf point anda tidak mencukupi");
+            $tampungFlashError = $this->session->set_flashdata('flashError', $flashError);
+            redirect('User/tryout', $tampungFlashError);
+        }
+        else{
+            $bayar = $point - $harga;
+
+            $this->db->set('point', $bayar);
+            $this->db->where('username', $username);
+            $this->db->update('user');
+
+            $this->load->view('User/templates/header_tryout', $data);
+            $this->load->view('User/tes_tpa', $data);
+            $this->load->view('User/templates/footer');
+        }
+    }
+
+    public function kerjakan_tpa($id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->db->get_where('topik', ['id_topik' => 1])->row_array();
+        $data['topik_rule'] = $this->db->query("SELECT * from topik_rule tr left join topik t on tr.id_topik = t.id_topik")->row_array();
+
+        $this->load->view('User/templates/header_tryout', $data);
+        $this->load->view('User/tes/kerjakan_tpa', $data);
         $this->load->view('User/templates/footer');
     }
 
@@ -78,6 +122,7 @@ class User extends CI_Controller
             $this->load->view('User/templates/footer');
         } else {
             $name = $this->input->post('name');
+            $tentang = $this->input->post('tentang');
             $username = $this->input->post('username');
 
             $upload_image = $_FILES['image']['name'];
@@ -99,10 +144,13 @@ class User extends CI_Controller
             } else {
             }
 
-            $this->db->set('name', $name);
+            $tampung = array(
+                'name' => $name,
+                'tentang' => $tentang 
+            );
             $this->db->where('username', $username);
-            $this->db->update('user');
-            redirect('User');
+            $this->db->update('user', $tampung);
+            redirect($this->uri->uri_string());
         }
     }
 
@@ -186,7 +234,7 @@ class User extends CI_Controller
                 'username' => htmlspecialchars($this->input->post('username', true)),
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
-                'image' => 'default.jpg',
+                'image' => 'default.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'tentang' => 'Aku adalah seorang pejuang !',
                 'role_id' => 3,
