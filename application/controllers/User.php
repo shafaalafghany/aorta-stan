@@ -304,7 +304,7 @@ class User extends CI_Controller
             if ($user_token) {
                 if (time() - $user_token['date_created'] < (60 * 60 * 2)) {
                     $this->db->set('is_active', 1);
-                    $this->db->set('email', $email);
+                    $this->db->where('email', $email);
                     $this->db->update('user');
 
                     $this->db->delete('user_token', ['email' => $email]);
