@@ -59,8 +59,9 @@ class User extends CI_Controller
         $username = $this->session->userdata('username');
 
         if ($point < $harga) {
-            log_message('error', 'Point anda tidak cukup.');
-            redirect('User/tryout');
+            $flashError = array('error' => "Maaf point anda tidak mencukupi");
+            $tampungFlashError = $this->session->set_flashdata('flashError', $flashError);
+            redirect('User/tryout', $tampungFlashError);
         }
         else{
             $bayar = $point - $harga;
@@ -121,6 +122,7 @@ class User extends CI_Controller
             $this->load->view('User/templates/footer');
         } else {
             $name = $this->input->post('name');
+            $tentang = $this->input->post('tentang');
             $username = $this->input->post('username');
 
             $upload_image = $_FILES['image']['name'];
@@ -142,10 +144,13 @@ class User extends CI_Controller
             } else {
             }
 
-            $this->db->set('name', $name);
+            $tampung = array(
+                'name' => $name,
+                'tentang' => $tentang 
+            );
             $this->db->where('username', $username);
-            $this->db->update('user');
-            redirect('User');
+            $this->db->update('user', $tampung);
+            redirect($this->uri->uri_string());
         }
     }
 
@@ -229,7 +234,7 @@ class User extends CI_Controller
                 'username' => htmlspecialchars($this->input->post('username', true)),
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
-                'image' => 'default.jpg',
+                'image' => 'default.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'tentang' => 'Aku adalah seorang pejuang !',
                 'role_id' => 3,

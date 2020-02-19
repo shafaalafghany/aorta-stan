@@ -40,7 +40,12 @@
     							</div>
 
     							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-    								<a href="<?= base_url('User/'); ?>tes_tpa/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
+                                    <?php if (!empty($user)) { ?>
+                                        <a href="<?= base_url('User/'); ?>tes_tpa/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
+                                    <?php }
+                                    else { ?>
+                                        <a href="<?= base_url(); ?>login" class="btn btn-warning py-2 toLogin text-white">Login Dulu Yaa </a>
+                                    <?php } ?>
     							</div>
     						</div>
     					</div><!-- end -->

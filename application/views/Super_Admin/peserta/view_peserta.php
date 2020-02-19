@@ -178,7 +178,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Daftar Peserta</h1>
+              <h1>Detail Peserta</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -188,66 +188,62 @@
       <section class="content">
         <div class="row">
           <div class="col-12">
-
-            <div class="card">
+            <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Daftar Peserta</h3>
+                <h3 class="card-title">Detail Peserta</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                </div>
               </div>
 
-                <!-- /.card-body -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama Admin</th>
-                      <th>Email</th>
-                      <th>Point</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                     $i=1; 
-                     foreach ($member as $loadMember) { ?>
-                        <tr>
-                          <td><?= $i; ?></td>
-                          <td><?= $loadMember['name']; ?></td>
-                          <td><?= $loadMember['email']; ?></td>
-                          <td><?= $loadMember['point']; ?></td>
-                          <td><?php if ($loadMember['is_active'] = 1) {
-                            echo "Aktif";
-                          } else { echo "Tidak Aktif"; }?></td>
-                          <td class="project-actions text-center">
-                            <a class="btn btn-warning btn-sm" href="<?= base_url('Administrator/'); ?>tambah_point/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-star">
-                              </i>
-                              Tambah Point
-                            </a>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>view_peserta/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                            </a>
-                            <a class="btn btn-danger btn-sm delete_peserta" href="<?= base_url('Administrator/'); ?>delete_member/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                            </a>
-                          </td>
-                        </tr>
-                    <?php $i++; } ?>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
+              <form>
+                <div class="card-body">
+                  <table id="example1" class="table table-striped">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="subadge">Nama</span>
+                          <h4 class="mr-3 text-black">Tes <?= $member['name'] ?></h4>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="subadge">Username</span>
+                          <h4 class="mr-3 text-black"><?= $member['username'] ?></h4>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="subadge">Email</span>
+                          <h4 class="mr-3 text-black"><?= $member['email'] ?></h4>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="subadge">Point</span>
+                          <h4 class="mr-3 text-black"><?= $member['point'] ?></h4>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="subadge">Tentang Member</span>
+                          <h4 class="mr-3 text-black"><?= $member['tentang'] ?></h4>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <div class="col-12">
+                    <a class="btn btn-secondary float-right" href="<?= base_url('Administrator/'); ?>daftar_peserta">Kembali</a>
+                  </div>
+                </div>
+              </form>
             </div>
             <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </section>
       <!-- /.content -->
     </div>
@@ -287,32 +283,6 @@
         "ordering": true,
         "info": true,
         "autoWidth": false,
-      });
-
-      $('.delete_peserta').on('click', function(e){
-        e.preventDefault();
-        const href = $(this).attr('href');
-
-        Swal.fire({
-          title: 'Anda Yakin',
-          text: "Ingin menghapus member ini?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yakin',
-          cancelButtonText: 'Batal'
-        }).then((result) => {
-          if (result.value) {
-            Swal.fire(
-              'Berhasil',
-              'Akun telah dihapus',
-              'success'
-            ).then((result) => {
-              document.location.href = href;
-            })
-          }
-        })
       });
     });
   </script>

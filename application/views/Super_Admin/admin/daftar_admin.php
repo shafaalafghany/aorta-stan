@@ -206,63 +206,30 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Joko
-                      </td>
-                      <td>joko@sobatkode.ac.id</td>
-                      <td>aktif</td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-primary btn-sm" href="#">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                          <i class="fas fa-trash">
-                          </i>
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Susilo
-                      </td>
-                      <td>susilo@sobatkode.com</td>
-                      <td>aktif</td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-primary btn-sm" href="#">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                          <i class="fas fa-trash">
-                          </i>
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Batman
-                      </td>
-                      <td>batman@sobatkode.com</td>
-                      <td>aktif</td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-primary btn-sm" href="#">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                          <i class="fas fa-trash">
-                          </i>
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
+                    <?php 
+                      $i = 1;
+                      foreach ($admin as $loadAdmin) { ?>
+                        <tr>
+                          <td><?= $i; ?></td>
+                          <td><?= $loadAdmin['name']; ?></td>
+                          <td><?= $loadAdmin['email']; ?></td>
+                          <td><?php if ($loadAdmin['is_active'] == 1) {
+                            echo "Aktif";
+                          } else { echo "Tidak Aktif"; }?></td>
+                          <td class="project-actions text-center">
+                            <a class="btn btn-primary btn-sm" href="#">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                            </a>
+                            <a class="btn btn-danger btn-sm" href="#">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                            </a>
+                          </td>
+                        </tr>
+                    <?php $i++; } ?>
                   </tbody>
                 </table>
               </div>

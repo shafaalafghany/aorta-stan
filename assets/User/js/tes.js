@@ -1,4 +1,4 @@
-$('.mulai-event').on('click', function (e) {
+/*$('.mulai-event').on('click', function (e) {
 	
 	e.preventDefault();
 
@@ -24,4 +24,4 @@ $('.mulai-event').on('click', function (e) {
 	    })
 	  }
 	})
-});
+});*/

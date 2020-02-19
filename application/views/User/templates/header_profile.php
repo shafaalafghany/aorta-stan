@@ -43,11 +43,21 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="<?= base_url('User/'); ?>" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="<?= base_url('User/'); ?>tryout" class="nav-link">Try Out</a></li>
-          <li class="nav-item"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
-          <li class="nav-item"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
-          <li class="nav-item" style="align-self: center;"><a href="<?= base_url('User/logout'); ?>" class="btn btn-danger logout">Log out</a></li>
+          <?php if (!empty($user)) { ?>
+            <?php if ($user['role_id'] == 3) { ?>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>" class="nav-link">Home</a></li>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>tryout" class="nav-link">Try Out</a></li>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
+              <li class="nav-item" style="align-self: center;"><a href="<?= base_url('User/logout'); ?>" class="btn btn-danger logout">Log out</a></li>
+            <?php }
+            else {
+              redirect('Administrator');
+            } ?>
+          <?php } else {
+            redirect('User');
+          } ?>
+          
         </ul>
       </div>
     </div>

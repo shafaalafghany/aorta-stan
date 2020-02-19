@@ -61,7 +61,6 @@
 <script src="<?= base_url('assets/User/'); ?>js/google-map.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/main.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/logout.js"></script>
-<script src="<?= base_url('assets/User/'); ?>js/tes.js"></script>
 </body>
 
 </html>

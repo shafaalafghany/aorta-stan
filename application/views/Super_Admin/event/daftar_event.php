@@ -201,36 +201,41 @@
                       <th>No</th>
                       <th>Nama Event</th>
                       <th>Deskripsi</th>
-                      <th>Tanggal Event</th>
-                      <th>Durasi Event</th>
+                      <th>Harga (point)</th>
+                      <th>Tanggal Mulai</th>
+                      <th>Tanggal Berakhir</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Try Out SPMB PKN STAN 2020</td>
-                      <td>Try Out terbaik yang pernah ada</td>
-                      <td>1 Maret 2020</td>
-                      <td>1 Bulan</td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-primary btn-sm" href="#">
-                            <i class="fas fa-folder">
-                            </i>
-                            View
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Edit
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                            Delete
-                        </a>
-                      </td>
-                    </tr>
+                    <?php
+                      foreach ($event as $loadEvent) { ?>
+                        <tr>
+                          <td><?= $loadEvent['id_event']; ?></td>
+                          <td><?= $loadEvent['nama_event']; ?></td>
+                          <td><?= $loadEvent['deskripsi']; ?></td>
+                          <td><?= $loadEvent['harga']; ?></td>
+                          <td><?= $loadEvent['tgl_mulai']; ?></td>
+                          <td><?= $loadEvent['tgl_akhir']; ?></td>
+                          <td class="project-actions">
+                            <a class="badge badge-pill badge-primary col-sm-5" href="#">
+                                <i class="fas fa-folder">
+                                </i>
+                                View
+                            </a>
+                            <a class="badge badge-pill badge-info col-sm-5" href="#">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            <a class="badge badge-pill badge-danger col-sm-5" href="#">
+                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                          </td>
+                        </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
               </div>
