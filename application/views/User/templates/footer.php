@@ -45,6 +45,7 @@
         <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
 <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/jquery.min.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/jquery-migrate-3.0.1.min.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/popper.min.js"></script>
