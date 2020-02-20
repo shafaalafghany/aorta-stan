@@ -20,6 +20,8 @@
 				<img class="avatar" src="<?= base_url('assets/User/'); ?>images/user2.png">
 				<h2>LOG IN</h2>
 				<?= $this->session->flashdata('message'); ?>
+				<?= form_error('username', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+				<?= form_error('password', '<div class="alert alert-danger" role="alert">', '</div>') ?>
 				<div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>

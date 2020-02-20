@@ -16,16 +16,17 @@
 			<img src="<?= base_url('assets/User/'); ?>images/ganti_password.svg">
 		</div>
 		<div class="login-container">
-			<form>
-				<h1>Ganti Password</h1>
-				<h4>aortastan@sobatkode.com ?</h4>
+			<form method="post" action="<?= base_url('User/changePassword'); ?>">
+				<h3>Ganti Password Untuk</h3>
+				<h4><?= $this->session->userdata('reset_email'); ?></h4>
+				<?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>') ?>
 				<div class="input-div one">
 					<div class="i">
-						<i class="fas fa-at"></i>
+						<i class="fas fa-lock"></i>
 					</div>
 					<div>
 						<h5>Masukkan Password Baru</h5>
-						<input type="text" class="input">
+						<input type="password" class="input" id="password1" name="password1">
 					</div>
 				</div>
 				<div class="input-div two">
@@ -34,7 +35,7 @@
 					</div>
 					<div>
 						<h5>Ulangi Password</h5>
-						<input type="password" class="input">
+						<input type="password" class="input" id="password2" name="password2">						
 					</div>
 				</div>
 				<input type="submit" class="btn" value="Ganti Password">

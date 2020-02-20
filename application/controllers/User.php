@@ -156,8 +156,12 @@ class User extends CI_Controller
 
     public function login()
     {
-        $this->form_validation->set_rules('username', 'Username', 'required|trim');
-        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim', [
+            'required' => 'Username tidak boleh kosong!'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required|trim', [
+            'required' => 'Password tidak boleh kosong!'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $data['judul'] = 'AORTASTAN Try Out Online | Login';
@@ -193,12 +197,15 @@ class User extends CI_Controller
                         redirect('User');
                     }
                 } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf password yang dimasukkan salah!</div>');
                     redirect('User/login');
                 }
             } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf email belum terverifikasi! Silahkan cek email anda untuk verifikasi.</div>');
                 redirect('User/login');
             }
         } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf email tidak terdaftar!</div>');
             redirect('User/login');
         }
     }
@@ -221,8 +228,8 @@ class User extends CI_Controller
             'is_unique' => 'This email has already registered'
         ]);
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
-            'matches' => 'Password dont match !',
-            'min_length' => 'Password too short'
+            'matches' => 'Password tidak sama !',
+            'min_length' => 'Password terlalu pendek!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
@@ -256,7 +263,7 @@ class User extends CI_Controller
 
             $this->_sendEmail($token, 'verify');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your account  has been created. Please Activate your account.</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun.</div>');
             redirect('User/login');
         }
     }
@@ -264,6 +271,9 @@ class User extends CI_Controller
     private function _sendEmail($token, $type)
     {
         $this->load->library('email');
+
+        $emailLupa = $this->input->post('email');
+        $namaUserLupa = $this->db->select('name')->get_where('user', ['email' => $emailLupa])->row()->name;
 
         $config = array();
         $config['protocol'] = 'smtp';
@@ -282,10 +292,10 @@ class User extends CI_Controller
 
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
-            $this->email->message('Click this link to verify  your account : <a href="' . base_url() . 'User/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+            $this->email->message('<h3>Halo ' . $namaUserLupa . '</h3> <br> Silahkan klik link dibawah ini untuk verifikasi akun anda: <br><a href="' . base_url() . 'User/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
         } else if ($type == 'forgot') {
             $this->email->subject('Reset Password');
-            $this->email->message('Click this link to reset  your password : <a href="' . base_url() . 'User/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
+            $this->email->message('<h3>Halo ' . $namaUserLupa . '</h3> <br> Silahkan klik link dibawah ini untuk merubah password akun anda: <br><a href="' . base_url() . 'User/forgotPassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
         }
 
         if ($this->email->send()) {
@@ -312,28 +322,28 @@ class User extends CI_Controller
                     $this->db->update('user');
 
                     $this->db->delete('user_token', ['email' => $email]);
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated. Please login</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Email ' . $email . ' telah aktif! Silahkan login</div>');
                     redirect('User/login');
                 } else {
                     $this->db->delete('user', ['email' => $email]);
                     $this->db->delete('user_token', ['email' => $email]);
 
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Token expired.</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf aktifasi akun gagal! Token user kadaluarsa.</div>');
                     redirect('User/login');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong token.</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf aktifasi akun gagal! Token user salah.</div>');
                 redirect('User/login');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email.</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf aktifasi akun gagal! Email salah.</div>');
             redirect('User/login');
         }
     }
 
     public function forgot_password()
     {
-        $this->form_validation->set_rules('email', 'Email', 'required | trim | valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 
         if ($this->form_validation->run() == false) {
             $data['judul'] = 'AORTASTAN Try Out Online | Forgot Password';
@@ -353,19 +363,68 @@ class User extends CI_Controller
                 $this->db->insert('user_token', $user_token);
                 $this->_sendEmail($token, 'forgot');
 
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Please check your email to reset your password !</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil! Silahkan cek email anda untuk ganti password</div>');
                 redirect('User/forgot_password');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not active or registered !</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email belum verifikasi atau tidak terdaftar</div>');
                 redirect('User/forgot_password');
             }
         }
     }
 
-    public function change()
+    public function forgotPassword()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Change Password';
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
 
-        $this->load->view('User/change_password', $data);
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+
+        if ($user) {
+            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+
+            if ($user_token) {
+                $this->session->set_userdata('reset_email', $email);
+                $this->changePassword();
+            } else{
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf ganti password gagal! Token user salah.</div>');
+                redirect('User/login');
+            }
+        }
+        else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf ganti password gagal! Email salah.</div>');
+            redirect('User/login');
+        }
+    }
+
+    public function changePassword()
+    {
+        if (!$this->session->userdata('reset_email')) {
+            redirect('User/login');
+        }
+
+        $this->form_validation->set_rules('password1', 'Password', 'trim|required|min_length[8]|matches[password2]', [
+            'required' => 'Password tidak boleh kosong',
+            'min_length' => 'Minimal password terdiri dari 8 karakter',
+            'matches' => 'Password tidak sama'
+        ]);
+        $this->form_validation->set_rules('password2', 'Ulangi Password', 'trim|required|min_length[8]|matches[password1]');  
+              
+        if ($this->form_validation->run() == false) {
+            $data['judul'] = 'AORTASTAN Try Out Online | Change Password';
+
+            $this->load->view('User/change_password', $data);
+        } else{
+            $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+            $email = $this->session->userdata('reset_email');
+
+            $this->db->set('password', $password);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+
+            $this->session->unset_userdata('reset_email');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password berhasil dirubah! Silahkan login.</div>');
+            redirect('User/login');
+        }
     }
 }
