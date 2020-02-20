@@ -81,7 +81,8 @@ class User extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['event'] = $this->Event_model->getEventById($id_event);
         $data['topik'] = $this->db->get_where('topik', ['id_topik' => 1])->row_array();
-        $data['topik_rule'] = $this->db->query("SELECT * from topik_rule tr left join topik t on tr.id_topik = t.id_topik")->row_array();
+        $data['topik_rule'] = $this->db->query("SELECT * from topik_rule tr left join topik t on tr.id_topik = t.id_topik where tr.id_topik = 1")->row_array();
+        $data['soal'] = $this->db->query("SELECT * from soal_topik st where st.id_topik = 1 and st.id_event = $id_event")->result_array();
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/tes/kerjakan_tpa', $data);

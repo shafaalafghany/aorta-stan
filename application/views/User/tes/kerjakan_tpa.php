@@ -22,14 +22,16 @@
                     <div class="row ftco-animate">
                         <div class="col-md-12">
 
-                          <?php for ($i=1; $i<=5; $i++) { ?>
+                          <?php 
+                            $i = 1;
+                            foreach ($soal as $loadSoal) { ?>
                             <div class="card mySlides">
                               <div class="card-header">
                                 <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 40px; height: 40px;"><?= $i ?></button></h5>
                               </div>
                               <div class="card-body">
                                 <form class="questionForm" id="q1" data-question="1">
-                                    <h4>Kepanjangan dari SMK adalah...</h4>
+                                    <h4><?= $loadSoal['soal'] ?></h4>
                                     <br>
                                     <label class="btn btn-default">
                                         <input type="radio" name="q1" value="a"> Sekolah Maju Kawan
@@ -54,11 +56,11 @@
                               </div>
                               <div class="card-footer text-muted">
                                 <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" onclick="plusDivs(-1)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input type="checkbox" class="ragu"> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input type="checkbox" id="btn-ragu" name="btn-ragu"> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" onclick="plusDivs(1)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
-                          <?php } ?>
+                          <?php $i++; } ?>
 
                         </div>
                     </div>
@@ -79,6 +81,8 @@
         </div>
     </section>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
     <script>
       var slideIndex = 1;
       showDivs(slideIndex);
@@ -92,21 +96,14 @@
         var x = document.getElementsByClassName("mySlides");
         var next = document.getElementsByClassName("next");
         var prev = document.getElementsByClassName("prev");
-        var submit = document.getElementsByClassName("submit");
+        var ragu = document.getElementsByClassName("ragu");
+        var nomor = document.getElementsByClassName("nomor");
+
         if (n == x.length) {next[slideIndex - 1].style.display = "none";}
         if (n == 1) {prev[slideIndex - 1].style.display = "none";}
         for (i = 0; i < x.length; i++) {
           x[i].style.display = "none";
         }
         x[slideIndex-1].style.display = "block";
-      }
-
-      const index = 1;
-      const btnRagu = $('.ragu');
-      const current = $('.btn-outline-primary');
-      for (var i = 1; i <= btnRagu.length; i++) {
-        btnRagu[i].on('click', function () {
-          current[0].className = current[0].className.replace(' btn-outline-primary', 'btn-warning');
-        })
       }
     </script>
