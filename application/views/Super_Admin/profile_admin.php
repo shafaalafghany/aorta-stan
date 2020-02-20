@@ -214,7 +214,7 @@
                     <b>Email</b> <a class="float-right" style="font-size: 13px;"><?= $user['email']; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Tgl Dibuat</b> <a class="float-right" style="font-size: 13px;">1 Februari 2020</a>
+                    <b>Tgl Dibuat</b> <a class="float-right" style="font-size: 13px;"><?= date('d/m/Y', $user['date_created']); ?></a>
                   </li>
                 </ul>
               </div>

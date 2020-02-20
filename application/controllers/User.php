@@ -283,6 +283,9 @@ class User extends CI_Controller
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
             $this->email->message('Click this link to verify  your account : <a href="' . base_url() . 'User/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+        } else if ($type == 'forgot') {
+            $this->email->subject('Reset Password');
+            $this->email->message('Click this link to reset  your password : <a href="' . base_url() . 'User/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>');
         }
 
         if ($this->email->send()) {
@@ -330,9 +333,33 @@ class User extends CI_Controller
 
     public function forgot_password()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Forgot Password';
+        $this->form_validation->set_rules('email', 'Email', 'required | trim | valid_email');
 
-        $this->load->view('User/forgot_password', $data);
+        if ($this->form_validation->run() == false) {
+            $data['judul'] = 'AORTASTAN Try Out Online | Forgot Password';
+            $this->load->view('User/forgot_password', $data);
+        } else {
+            $email = $this->input->post('email', true);
+            $user = $this->db->get_where('user', ['email' => $email, 'is_active' => 1])->row_array();
+
+            if ($user) {
+                $token = base64_encode(random_bytes(32));
+                $user_token = [
+                    'email' => $email,
+                    'token' => $token,
+                    'date_created' => time()
+                ];
+
+                $this->db->insert('user_token', $user_token);
+                $this->_sendEmail($token, 'forgot');
+
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Please check your email to reset your password !</div>');
+                redirect('User/forgot_password');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not active or registered !</div>');
+                redirect('User/forgot_password');
+            }
+        }
     }
 
     public function change()

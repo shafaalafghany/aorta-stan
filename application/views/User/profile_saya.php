@@ -23,7 +23,7 @@
             </div>
             <div>
               <p style="color: black;">
-                <span>Terdaftar sejak 20 Januari 2020</span>
+                <span><?= date('d/m/Y', $user['date_created']); ?></span>
               </p>
             </div>
             <div>

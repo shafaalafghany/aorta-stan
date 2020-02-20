@@ -16,18 +16,19 @@
 			<img src="<?= base_url('assets/User/'); ?>images/forgot_password.svg">
 		</div>
 		<div class="login-container">
-			<form>
+			<form action="<?= base_url('User/forgot_password'); ?>" method="POST">
 				<h3>Anda Lupa Password?</h3>
+				<?= $this->session->flashdata('message'); ?>
 				<div class="input-div one">
 					<div class="i">
 						<i class="fas fa-at"></i>
 					</div>
 					<div>
 						<h5>Masukkan Email Dulu</h5>
-						<input type="text" class="input">
+						<input type="text" class="input" id="email" name="email">
 					</div>
 				</div>
-				<input type="submit" class="btn" value="Cek Email">
+				<button type="submit" class="btn btn-primary btn-user btn-block">CEK EMAIL</button>
 				<a href="<?= base_url(); ?>login">Sudah Ingat Password? Kembali ke login</a>
 			</form>
 		</div>
