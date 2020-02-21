@@ -15,7 +15,11 @@ class Event_model extends CI_model
 	{
 		return $this->db->get_where('event', ['id_event' => $id_event])->row_array();
 	}
+
+	public function deleteEvent($id)
+	{
+		$this->db->where('id_event', $id);
+		$this->db->delete('event');
+		//return $this->db->get_where('mahasiswa', ['id' => $id]);
+	}
 }
-
-
-?>

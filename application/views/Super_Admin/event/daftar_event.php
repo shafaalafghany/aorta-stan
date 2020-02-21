@@ -228,7 +228,7 @@
                           </i>
                           Edit
                         </a>
-                        <a class="badge badge-pill badge-danger col-sm-5" href="#">
+                        <a class="badge badge-pill badge-danger col-sm-5" href="<?= base_url(); ?>Administrator/hapus_event/<?= $loadEvent['id_event']; ?>">
                           <i class="fas fa-trash">
                           </i>
                           Delete

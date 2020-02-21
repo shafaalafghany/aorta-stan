@@ -55,22 +55,24 @@ class Administrator extends CI_Controller
 
     public function tambah_event()
     {
-        $this->load->library('form_validation');
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['event'] = $this->db->get('event')->result_array();
 
-        $this->form_validation->set_rules('inputNama', 'InputNama', 'required|trim|is_unique[event.nama_event]', [
+        $this->form_validation->set_rules('event', 'Event', 'required|trim|is_unique[event.nama_event]', [
             'is_unique' => 'Nama sudah digunakan',
             'required' => 'Nama event tidak boleh kosong'
 
         ]);
-        $this->form_validation->set_rules('inpuDeskripsi', 'InputDeskripsi', 'required|trim', [
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim', [
             'required' => 'Deskripsi tidak boleh kosong'
         ]);
-        $this->form_validation->set_rules('inputHarga', 'InputHarga', 'required|trim', [
+        $this->form_validation->set_rules('harga', 'Harga', 'required|trim', [
             'required' => 'Harga tidak boleh kosong'
         ]);
-        $this->form_validation->set_rules('reservation', 'Reservation', 'required|trim', [
+        $this->form_validation->set_rules('mulai', 'Mulai', 'required|trim', [
+            'required' => 'Waktu tidak boleh kosong'
+        ]);
+        $this->form_validation->set_rules('akhir', 'Akhir', 'required|trim', [
             'required' => 'Waktu tidak boleh kosong'
         ]);
 
@@ -80,15 +82,27 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/event/tambah_event');
         } else {
             $dataevent = [
-                'nama_event' => $this->input->post('inputName'),
-                'deskripsi' => $this->input->post('inpuDeskripsi'),
-                'harga' => $this->input->post('inputHarga'),
-                'tgl_mulai' => $this->input->post('reservation')
+                'nama_event' => $this->input->post('event'),
+                'deskripsi' => $this->input->post('deskripsi'),
+                'tingkat' => 'Se-Indonesia',
+                'harga' => $this->input->post('harga'),
+                'tgl_mulai' => $this->input->post('mulai'),
+                'tgl_akhir' => $this->input->post('akhir')
             ];
 
             $this->db->insert('event', $dataevent);
             redirect('Administrator/tambah_soal');
         }
+    }
+
+    public function hapus_event($id)
+    {
+        $this->load->model('Event_model');
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->db->get('event')->result_array();
+
+        $this->Event_model->deleteEvent($id);
+        redirect('Administrator/daftar_event');
     }
 
     public function tambah_soal()
@@ -112,8 +126,7 @@ class Administrator extends CI_Controller
         if ($optionEvent) {
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/buat_soal', $data);
-        }
-        else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Silahkan pilih event dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/tambah_soal');
         }
