@@ -209,9 +209,10 @@
                 </thead>
                 <tbody>
                   <?php
+                  $i = 1;
                   foreach ($event as $loadEvent) { ?>
                     <tr>
-                      <td><?= $loadEvent['id_event']; ?></td>
+                      <td><?= $i; ?></td>
                       <td><?= $loadEvent['nama_event']; ?></td>
                       <td><?= $loadEvent['deskripsi']; ?></td>
                       <td><?= $loadEvent['harga']; ?></td>
@@ -235,7 +236,8 @@
                         </a>
                       </td>
                     </tr>
-                  <?php } ?>
+                  <?php $i++;
+                  } ?>
                 </tbody>
               </table>
             </div>

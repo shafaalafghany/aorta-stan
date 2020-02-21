@@ -9,6 +9,7 @@ class Administrator extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('Event_model');
         $this->load->model('Admin_model');
+        $this->load->model('Modul_model');
     }
 
     public function index()
@@ -23,18 +24,70 @@ class Administrator extends CI_Controller
 
     public function daftar_modul()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Modul';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['modul'] = $this->db->get('modul')->result_array();
+
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Modul';
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/modul/daftar_modul');
     }
 
     public function tambah_modul()
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Tambah Modul';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/modul/tambah_modul');
+        $data['modul'] = $this->db->get('modul')->result_array();
+
+        $this->form_validation->set_rules('judul', 'Judul', 'required');
+        $this->form_validation->set_rules('jenisModul', 'jenisModul', 'required');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi');
+        $this->form_validation->set_rules('file', 'File', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $data['judul'] = 'AORTASTAN Try Out Online | Tambah Modul';
+            $this->load->view('Super_Admin/templates/header_admin', $data);
+            $this->load->view('Super_Admin/modul/tambah_modul');
+        } else {
+            $datamodul = [
+                'judul_modul' => $this->input->post('judul'),
+                'jenis' => $this->input->post('jenisModul'),
+                'deskripsi' => $this->input->post('deskripsi')
+            ];
+
+            $this->db->insert('modul', $datamodul);
+
+            $upload_file = $_FILES['file']['name'];
+
+            if ($upload_file) {
+                $config['upload_path'] = './assets/file/pdf/';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = 51200;
+                $config['overwrite'] = true;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('file')) {
+                    $new_file = $this->upload->data('file_name');
+                    $this->db->set('file', $new_file);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            }
+
+            $judul = $this->input->post('judul');
+
+            $this->db->where('judul_modul', $judul);
+            $this->db->update('modul', $judul);
+            redirect('Administrator/daftar_modul');
+        }
+    }
+
+    public function hapus_modul($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->db->get('modul')->result_array();
+
+        $this->Event_model->deleteModul($id);
+        redirect('Administrator/daftar_modul');
     }
 
     public function daftar_event()
