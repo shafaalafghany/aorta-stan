@@ -1,8 +1,5 @@
 <?php
 
-/**
- * 
- */
 class Event_model extends CI_model
 {
 	public function getAllEvent()

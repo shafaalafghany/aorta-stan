@@ -8,6 +8,7 @@ class Administrator extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('Event_model');
+        $this->load->model('Admin_model');
     }
 
     public function index()
@@ -97,7 +98,6 @@ class Administrator extends CI_Controller
 
     public function hapus_event($id)
     {
-        $this->load->model('Event_model');
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['event'] = $this->db->get('event')->result_array();
 
@@ -179,6 +179,15 @@ class Administrator extends CI_Controller
             $this->db->insert('user', $datauser);
             redirect('Administrator/daftar_admin');
         }
+    }
+
+    public function hapus_admin($id)
+    {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->db->get('event')->result_array();
+
+        $this->Admin_model->deleteAdmin($id);
+        redirect('Administrator/daftar_admin');
     }
 
     public function daftar_peserta()
