@@ -216,17 +216,12 @@
                   <textarea id="inputDescription" class="form-control" rows="4" disabled="disabled"><?= $event['deskripsi'] ?></textarea>
                 </div>
                 <div class="form-group">
-                  <label>Jangka Waktu Event</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="far fa-calendar-alt"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control float-right" id="reservation" disabled="disabled">
-                  </div>
-                  <!-- /.input group -->
+                  <label for="inputMulai">Waktu Mulai Event</label>
+                  <input type="date" id="inputMulai" name="inputMulai" disabled="disabled" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="inputBerakhir">Waktu Berakhir Event</label>
+                  <input type="date" id="inputBerakhir" name="inputBerakhir" disabled="disabled" class="form-control">
                 </div>
                 <!-- <div class="col-12">
                   <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">
