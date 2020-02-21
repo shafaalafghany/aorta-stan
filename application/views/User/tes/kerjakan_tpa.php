@@ -33,7 +33,7 @@
                                 <form class="questionForm" id="q1" data-question="1">
                                     <h4><?= $loadSoal['soal'] ?></h4>
                                     <br>
-                                    <div class="custom-control custom-radio">
+                                    <!-- <div class="custom-control custom-radio">
                                       <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
                                       <label class="custom-control-label" for="customRadio1">Sekolah Maju Kedepan</label>
                                     </div>
@@ -52,7 +52,26 @@
                                     <div class="custom-control custom-radio">
                                       <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
                                       <label class="custom-control-label" for="customRadio5">Sapi Makan Kuda</label>
-                                    </div>
+                                    </div> -->
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="q1" value="a"> Sekolah Maju Kawan
+                                    </label>
+                                    <br>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="q1" value="b"> Sekolah Mundur Kawan
+                                    </label>
+                                    <br>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="q1" value="c"> Sekolah Menengah Kejuruan
+                                    </label>
+                                    <br>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="q1" value="d"> Sayang Mereka Kawan
+                                    </label>
+                                    <br>
+                                    <label class="btn btn-default">
+                                        <input type="radio" name="q1" value="e"> Semua Makan Kawan
+                                    </label>
                                 </form>
                               </div>
                               <div class="card-footer text-muted">

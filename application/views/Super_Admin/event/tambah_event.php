@@ -243,17 +243,12 @@
                     <input type="number" id="inputHarga" name="inputHarga" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label>Jangka Waktu Event</label>
-
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="far fa-calendar-alt"></i>
-                        </span>
-                      </div>
-                      <input type="text" class="form-control float-right" id="reservation" name="reservation">
-                    </div>
-                    <!-- /.input group -->
+                    <label for="inputMulai">Waktu Mulai Event</label>
+                    <input type="date" id="inputMulai" name="inputMulai" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputBerakhir">Waktu Berakhir Event</label>
+                    <input type="date" id="inputBerakhir" name="inputBerakhir" class="form-control">
                   </div>
                   <!-- <div class="form-group">
                         <label for="exampleInputFile">File input</label>
