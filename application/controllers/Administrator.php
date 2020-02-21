@@ -95,8 +95,28 @@ class Administrator extends CI_Controller
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tambah Soal';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->db->get('event')->result_array();
         $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/event/tambah_soal');
+        $this->load->view('Super_Admin/event/tambah_soal', $data);
+    }
+
+    public function buat_soal()
+    {
+        $optionEvent = $this->input->post('optionEvent');
+
+        $data['judul'] = 'AORTASTAN Try Out Online | Tambah Soal';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['event'] = $this->db->get_where('event', ['id_event' => $optionEvent])->row_array();
+        $data['topik'] = $this->db->get('topik')->result_array();
+
+        if ($optionEvent) {
+            $this->load->view('Super_Admin/templates/header_admin', $data);
+            $this->load->view('Super_Admin/event/buat_soal', $data);
+        }
+        else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Silahkan pilih event dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/tambah_soal');
+        }
     }
 
     public function daftar_admin()

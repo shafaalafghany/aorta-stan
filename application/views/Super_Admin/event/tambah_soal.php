@@ -184,140 +184,28 @@
         </div><!-- /.container-fluid -->
       </section>
 
-      <!-- Main content -->
       <section class="content">
         <div class="row">
           <div class="col-12">
             <div class="card card-default">
               <div class="card-header">
-                <h3 class="card-title">Tambah Soal Untuk Event</h3>
-
+                <h3 class="card-title">Mau nambah untuk event apa?</h3>
+                <?= $this->session->flashdata('message'); ?>
                 <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fas fa-minus"></i></button>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"></button>
                 </div>
               </div>
               <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">Nama Event</label>
-                  <input type="text" id="inputName" class="form-control" disabled="disabled">
-                </div>
-                <!-- <div class="form-group">
-                  <label for="inputStatus">Jenis Modul</label>
-                  <select class="form-control custom-select">
-                    <option selected disabled>Pilih Salah Satu</option>
-                    <option>TKD</option>
-                    <option>Bhs. Inggris</option>
-                    <option>Matematika</option>
-                  </select>
-                </div> -->
-                <div class="form-group">
-                  <label for="inputProjectLeader">Deskripsi</label>
-                  <textarea id="inputDescription" class="form-control" rows="4" disabled="disabled"></textarea>
-                </div>
-                <div class="form-group">
-                  <label>Jangka Waktu Event</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="far fa-calendar-alt"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control float-right" id="reservation" disabled="disabled">
+                <form method="POST" action="<?= base_url('Administrator/'); ?>buat_soal">
+                  <div class="form-group">
+                    <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                      <?php foreach ($event as $loadEvent) { ?>
+                        <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event'] ?></option>
+                      <?php } ?>
+                    </select>
+                    <button class="btn btn-primary float-right" type="submit">Pilih Event</button>
                   </div>
-                  <!-- /.input group -->
-                </div>
-                <!-- <div class="col-12">
-                  <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">
-                </div> -->
-              </div>
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
-      </section>
-      <!-- /.content -->
-      <section class="content">
-        <div class="row">
-          <div class="col-12">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Soalnya Apa?</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fas fa-minus"></i></button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">Soal</label>
-                  <div class="card-body pad">
-                    <div class="mb-3">
-                      <textarea class="textarea" placeholder="Place some text here"
-                                style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                    </div>
-                    <p class="text-sm mb-0">
-                      Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                    </p>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <input type="submit" value="Tambah" class="btn btn-primary float-right swalDefaultSuccess">
-                </div> 
-              </div>
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
-      </section>
-
-      <section class="content">
-        <div class="row">
-          <div class="col-12">
-            <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">List Soal Yang Dibuat</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fas fa-minus"></i></button>
-                </div>
-              </div>
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Soal</th>
-                      <th>Jawaban</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Lawan kata dari kemarin adalah?</td>
-                      <td>1</td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-info btn-sm" href="#">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="card-footer">
-                <div class="col-12">
-                  <input type="submit" value="Submit Soal" class="btn btn-primary float-right swalDefaultSuccess">
-                </div>
+                </form>
               </div>
             </div>
             <!-- /.card -->
