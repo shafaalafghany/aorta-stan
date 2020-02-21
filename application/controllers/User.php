@@ -59,8 +59,7 @@ class User extends CI_Controller
         $username = $this->session->userdata('username');
 
         if ($point < $harga) {
-            $flashError = array('error' => "Maaf point anda tidak mencukupi");
-            $tampungFlashError = $this->session->set_flashdata('flashError', $flashError);
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf point anda tidak mencukupi untuk ikut dalam event! Silahkan top up point di menu profile saya.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/tryout', $tampungFlashError);
         } else {
             $bayar = $point - $harga;

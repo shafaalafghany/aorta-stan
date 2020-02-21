@@ -56,7 +56,7 @@
                               </div>
                               <div class="card-footer text-muted">
                                 <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" onclick="plusDivs(-1)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input type="checkbox" id="btn-ragu" name="btn-ragu"> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu"> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" onclick="plusDivs(1)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
@@ -69,9 +69,10 @@
                   <div class="sidebar-box bg-white p-4 ftco-animate">
                     <h4 class="heading-sidebar mb-4">Daftar Soal</h4>
                     <form>
-                      <?php for ($i=1; $i <=5; $i++) { ?>
-                        <button type="button" class="btn btn-outline-primary mr-4 mb-3 nomor" style="width: 40px; height: 40px;"><?= $i; ?></button>
-                      <?php } ?>
+                      <?php $i = 1;
+                        foreach ($soal as $loadSoal) { ?>
+                            <button type="button" class="btn btn-outline-primary mr-4 mb-3 daftar-soal" id="nomor-<?= $i; ?>" style="width: 40px; height: 40px;"><?= $i; ?></button>
+                      <?php $i++; } ?>
                     </form>
                     <hr>
                     <a href="#" class="btn btn-success col-md-12">Submit Jawaban</a>
@@ -82,6 +83,12 @@
     </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="<?= base_url('assets/User/'); ?>js/jquery.min.js"></script>
+    <script src="<?= base_url('assets/User/'); ?>js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="<?= base_url('assets/User/'); ?>js/jquery.easing.1.3.js"></script>
+    <script src="<?= base_url('assets/User/'); ?>js/jquery.waypoints.min.js"></script>
+    <script src="<?= base_url('assets/User/'); ?>js/jquery.stellar.min.js"></script>
+    <script src="<?= base_url('assets/User/'); ?>js/jquery.magnific-popup.min.js"></script>
 
     <script>
       var slideIndex = 1;
@@ -105,5 +112,21 @@
           x[i].style.display = "none";
         }
         x[slideIndex-1].style.display = "block";
+      }
+
+      var j;
+      var slide = $('.mySlides');
+      var daftarSoal = $('.daftar-soal');
+      var nomor = $('#nomor');
+
+      for (var i = daftarSoal.length; i >= 1; i--) {
+        $('#btn-ragu-'+i+"").on('click', function() {
+            j = i+1;
+            if ($(this).prop("checked") == true) {
+              $('#nomor-'+j+"").removeClass('btn-outline-primary').addClass('btn-warning');
+            } else if ($(this).prop("checked") == false) {
+              $('#nomor-'+j+"").removeClass('btn-warning').addClass('btn-outline-primary');
+            }
+        });
       }
     </script>

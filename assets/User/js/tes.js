@@ -1,4 +1,4 @@
-/*$('.mulai-event').on('click', function (e) {
+$('.mulai-event').on('click', function (e) {
 	
 	e.preventDefault();
 
@@ -6,7 +6,7 @@
 
 	Swal.fire({
 	  title: 'Yakin Mengikuti Event Ini?',
-	  text: "Dengan klik tombol Yakin, maka anda akan mengikuti event dan point anda akan berkurang.",
+	  text: "Dengan menekan tombol Yakin, maka point anda akan berkurang sesuai harga event.",
 	  icon: 'warning',
 	  showCancelButton: true,
 	  confirmButtonColor: '#3085d6',
@@ -15,13 +15,7 @@
 	  cancelButtonText: 'Batal'
 	}).then((result) => {
 	  if (result.value) {
-	    Swal.fire(
-	      'Selamat!!',
-	      'Sekarang anda mengikuti event ini',
-	      'success'
-	    ).then((result) => {
-	    	document.location.href = href;
-	    })
+	    document.location.href = href;
 	  }
 	})
-});*/
+});
