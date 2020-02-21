@@ -9,7 +9,7 @@ class Administrator extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('Event_model');
     }
-    
+
     public function index()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Dashboard';
@@ -79,7 +79,7 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/tambah_event');
         } else {
-            $dataevent = [  
+            $dataevent = [
                 'nama_event' => $this->input->post('inputName'),
                 'deskripsi' => $this->input->post('inpuDeskripsi'),
                 'harga' => $this->input->post('inputHarga'),
@@ -89,7 +89,6 @@ class Administrator extends CI_Controller
             $this->db->insert('event', $dataevent);
             redirect('Administrator/tambah_soal');
         }
-        
     }
 
     public function tambah_soal()
@@ -133,7 +132,7 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/admin/tambah_admin');
         } else {
-            $datauser = [  
+            $datauser = [
                 'username' => htmlspecialchars($this->input->post('username', true)),
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
@@ -160,7 +159,7 @@ class Administrator extends CI_Controller
 
     public function profile_admin()
     {
-        
+
         $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -228,11 +227,11 @@ class Administrator extends CI_Controller
 
             $tambahPoint = $pointUser + $inputPoint;
 
-            $datapoint = [  
+            $datapoint = [
                 'point' => $tambahPoint
             ];
 
-            $this->db->where('id',$id);
+            $this->db->where('id', $id);
             $this->db->update('user', $datapoint);
             redirect('Administrator/daftar_peserta');
         }
