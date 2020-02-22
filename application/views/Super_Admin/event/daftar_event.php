@@ -229,7 +229,7 @@
                           </i>
                           Edit
                         </a>
-                        <a class="badge badge-pill badge-danger col-sm-5" href="<?= base_url(); ?>Administrator/hapus_event/<?= $loadEvent['id_event']; ?>">
+                        <a class="badge badge-pill badge-danger col-sm-5 delete-event" href="<?= base_url(); ?>Administrator/hapus_event/<?= $loadEvent['id_event']; ?>">
                           <i class="fas fa-trash">
                           </i>
                           Delete
@@ -296,6 +296,32 @@
         "autoWidth": false,
       });
     });
+
+    $('.delete-event').on('click', function(e){
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+          title: 'Anda Yakin',
+          text: "Ingin menghapus event ini?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yakin',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Berhasil',
+              'Akun telah dihapus',
+              'success'
+            ).then((result) => {
+              document.location.href = href;
+            })
+          }
+        })
+      });
   </script>
   </body>
 

@@ -18,9 +18,13 @@ class Administrator extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Dashboard';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['modul'] = $this->Modul_model->getAllModul();
+        $data['event'] = $this->Event_model->getAllEvent();
+        $data['allUser'] = $this->User_model->getAllUser();
+        $data['admin'] = $this->User_model->getAllAdmin();
 
         $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/index');
+        $this->load->view('Super_Admin/index', $data);
         $this->load->view('Super_Admin/templates/footer_admin');
     }
 
@@ -40,16 +44,15 @@ class Administrator extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tambah Modul';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['topik'] = $this->Topik_model->getAllTopik();
 
         $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
         $this->form_validation->set_rules('jenisModul', 'JenisModul', 'required|trim');
         $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim');
-        $this->form_validation->set_rules('file', 'File', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Silahkan pilih event dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             $this->load->view('Super_Admin/templates/header_admin', $data);
-            $this->load->view('Super_Admin/modul/tambah_modul');
+            $this->load->view('Super_Admin/modul/tambah_modul', $data);
         } else {
             $judul = $this->input->post('judul');
             $jenisModul = $this->input->post('jenisModul');
@@ -90,7 +93,7 @@ class Administrator extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Modul_model->getAllModul();
 
-        $this->Event_model->deleteModul($id);
+        $this->Modul_model->deleteModul($id);
         redirect('Administrator/daftar_modul');
     }
 
@@ -153,6 +156,7 @@ class Administrator extends CI_Controller
             ];
 
             $this->Event_model->insertEvent($dataevent);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil ditambahkan! Silahkan buat soalnya</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/tambah_soal');
         }
     }

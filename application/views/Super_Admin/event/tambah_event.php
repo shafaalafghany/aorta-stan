@@ -260,7 +260,7 @@
                         </div>
                       </div> -->
                 <div class="col-12">
-                  <input type="submit" value="Buat Event" class="btn btn-primary float-right swalDefaultSuccess">
+                  <input type="submit" value="Buat Event" class="btn btn-primary float-right">
                 </div>
               </div>
             </form>

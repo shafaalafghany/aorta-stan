@@ -195,7 +195,14 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>5</h3>
+                <h3>
+                  <?php 
+                    $i = 0;
+                    foreach ($modul as $loadModul) {
+                      $i++;
+                    }
+                    echo $i; ?>
+                </h3>
 
                 <p>Modul Terpublikasi</p>
               </div>
@@ -210,7 +217,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>3</h3>
+                <h3>
+                  <?php 
+                    $i = 0;
+                    foreach ($event as $loadEvent) {
+                      $i++;
+                    }
+                    echo $i; ?>
+                </h3>
 
                 <p>Event Dibuat</p>
               </div>
@@ -225,7 +239,14 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>5</h3>
+                <h3>
+                  <?php 
+                    $i = 0;
+                    foreach ($admin as $loadAdmin) {
+                      $i++;
+                    }
+                    echo $i; ?>
+                </h3>
 
                 <p>Administrator</p>
               </div>
@@ -244,7 +265,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>40</h3>
+                <h3>
+                  <?php 
+                    $i = 0;
+                    foreach ($allUser as $loadAllUser) {
+                      $i++;
+                    }
+                    echo $i; ?>
+                </h3>
 
                 <p>Peserta Aktif</p>
               </div>
