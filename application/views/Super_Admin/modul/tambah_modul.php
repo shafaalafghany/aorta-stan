@@ -197,39 +197,39 @@
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
-            <div class="card-body">
-              <div class="form-group">
-                <?= form_open_multipart('Administrator/tambah_modul'); ?>
-                <label for="judul">Judul Modul</label>
-                <input type="text" id="judul" name="judul" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="jenisModul">Jenis Modul</label>
-                <select class="form-control" id="jenisModul" name="jenisModul">
-                  <option selected disabled>Pilih Salah Satu</option>
-                  <option value="SKD">SKD</option>
-                  <option value="Bhs. Inggris">Bhs. Inggris</option>
-                  <option value="Matematika">Matematika</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-                <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <div class="input-group">
-                  <label>File berekstensi .pdf dan tidak lebih dari 50MB.</label>
-                  <div class="custom-file">
-                    <input type="file" id="image" name="image" accept="application/pdf">
+            <?= form_open_multipart('Administrator/tambah_modul'); ?>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="judul">Judul Modul</label>
+                  <input type="text" id="judul" name="judul" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="jenisModul">Jenis Modul</label>
+                  <select class="form-control" id="jenisModul" name="jenisModul">
+                    <option selected disabled>Pilih Salah Satu</option>
+                    <option value="SKD">SKD</option>
+                    <option value="Bhs. Inggris">Bhs. Inggris</option>
+                    <option value="Matematika">Matematika</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="deskripsi">Deskripsi</label>
+                  <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <div class="input-group" style="margin-left: 20px;">
+                    <div class="custom-file">
+                      <input type="file" id="image" name="image" accept="application/pdf">
+                    </div>
                   </div>
+                  <span style="font-size: 14px; margin-left: 20px;">File berekstensi .pdf dan tidak lebih dari 50MB.</span>
+                </div>
+                <div class="col-12">
+                  <input type="submit" value="Submit" class="btn btn-primary float-right">
                 </div>
               </div>
-              <div class="col-12">
-                <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">
-                </form>
-              </div>
-            </div>
+            </form>
           </div>
           <!-- /.card -->
         </div>

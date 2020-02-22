@@ -217,11 +217,11 @@
                 </div>
                 <div class="form-group">
                   <label for="inputMulai">Waktu Mulai Event</label>
-                  <input type="date" id="inputMulai" name="inputMulai" disabled="disabled" class="form-control">
+                  <input type="date" id="inputMulai" name="inputMulai" disabled="disabled" class="form-control" value="<?= $event['tgl_mulai'] ?>">
                 </div>
                 <div class="form-group">
                   <label for="inputBerakhir">Waktu Berakhir Event</label>
-                  <input type="date" id="inputBerakhir" name="inputBerakhir" disabled="disabled" class="form-control">
+                  <input type="date" id="inputBerakhir" name="inputBerakhir" disabled="disabled" class="form-control" value="<?= $event['tgl_akhir'] ?>">
                 </div>
                 <!-- <div class="col-12">
                   <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">

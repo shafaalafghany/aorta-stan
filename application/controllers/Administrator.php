@@ -8,14 +8,16 @@ class Administrator extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('Event_model');
-        $this->load->model('Admin_model');
+        $this->load->model('User_model');
         $this->load->model('Modul_model');
+        $this->load->model('Topik_model');
     }
 
     public function index()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Dashboard';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/index');
@@ -24,8 +26,9 @@ class Administrator extends CI_Controller
 
     public function daftar_modul()
     {
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['modul'] = $this->db->get('modul')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['modul'] = $this->Modul_model->getAllModul();
 
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Modul';
         $this->load->view('Super_Admin/templates/header_admin', $data);
@@ -34,31 +37,28 @@ class Administrator extends CI_Controller
 
     public function tambah_modul()
     {
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['modul'] = $this->db->get('modul')->result_array();
+        $data['judul'] = 'AORTASTAN Try Out Online | Tambah Modul';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $this->form_validation->set_rules('judul', 'Judul', 'required');
-        $this->form_validation->set_rules('jenisModul', 'jenisModul', 'required');
-        $this->form_validation->set_rules('deskripsi', 'Deskripsi');
+        $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
+        $this->form_validation->set_rules('jenisModul', 'JenisModul', 'required|trim');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim');
         $this->form_validation->set_rules('file', 'File', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $data['judul'] = 'AORTASTAN Try Out Online | Tambah Modul';
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Silahkan pilih event dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/modul/tambah_modul');
         } else {
-            $datamodul = [
-                'judul_modul' => $this->input->post('judul'),
-                'jenis' => $this->input->post('jenisModul'),
-                'deskripsi' => $this->input->post('deskripsi')
-            ];
-
-            $this->db->insert('modul', $datamodul);
+            $judul = $this->input->post('judul');
+            $jenisModul = $this->input->post('jenisModul');
+            $deskripsi = $this->input->post('deskripsi');
 
             $upload_file = $_FILES['file']['name'];
 
             if ($upload_file) {
-                $config['upload_path'] = './assets/file/pdf/';
+                $config['upload_path'] = './assets/file/';
                 $config['allowed_types'] = 'pdf';
                 $config['max_size'] = 51200;
                 $config['overwrite'] = true;
@@ -67,24 +67,28 @@ class Administrator extends CI_Controller
 
                 if ($this->upload->do_upload('file')) {
                     $new_file = $this->upload->data('file_name');
-                    $this->db->set('file', $new_file);
                 } else {
                     echo $this->upload->display_errors();
                 }
             }
 
-            $judul = $this->input->post('judul');
+            $tampungData = array(
+                'judul_modul' => $judul, 
+                'deskripsi' => $deskripsi,
+                'jenis' => $jenisModul,
+                'file' => $new_file
+            );
 
-            $this->db->where('judul_modul', $judul);
-            $this->db->update('modul', $judul);
+            $this->db->insert('modul', $tampungData);
             redirect('Administrator/daftar_modul');
         }
     }
 
     public function hapus_modul($id)
     {
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get('modul')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Modul_model->getAllModul();
 
         $this->Event_model->deleteModul($id);
         redirect('Administrator/daftar_modul');
@@ -93,8 +97,9 @@ class Administrator extends CI_Controller
     public function daftar_event()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Event';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get('event')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getAllEvent();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/daftar_event', $data);
     }
@@ -102,15 +107,18 @@ class Administrator extends CI_Controller
     public function daftar_soal()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Soal';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['topik'] = $this->Topik_model->getAllTopik();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/daftar_soal');
     }
 
     public function tambah_event()
     {
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get('event')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getAllEvent();
 
         $this->form_validation->set_rules('event', 'Event', 'required|trim|is_unique[event.nama_event]', [
             'is_unique' => 'Nama sudah digunakan',
@@ -144,15 +152,16 @@ class Administrator extends CI_Controller
                 'tgl_akhir' => $this->input->post('akhir')
             ];
 
-            $this->db->insert('event', $dataevent);
+            $this->Event_model->insertEvent($dataevent);
             redirect('Administrator/tambah_soal');
         }
     }
 
     public function hapus_event($id)
     {
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get('event')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getAllEvent();
 
         $this->Event_model->deleteEvent($id);
         redirect('Administrator/daftar_event');
@@ -161,20 +170,24 @@ class Administrator extends CI_Controller
     public function tambah_soal()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tambah Soal';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get('event')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getAllEvent();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/tambah_soal', $data);
     }
 
     public function buat_soal()
     {
-        $optionEvent = $this->input->post('optionEvent');
-
         $data['judul'] = 'AORTASTAN Try Out Online | Tambah Soal';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get_where('event', ['id_event' => $optionEvent])->row_array();
-        $data['topik'] = $this->db->get('topik')->result_array();
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $optionEvent = $this->input->post('optionEvent');
+        $data['event'] = $this->Event_model->getEventById($optionEvent);
+
+        $data['topik'] = $this->Topik_model->getAllTopik();
 
         if ($optionEvent) {
             $this->load->view('Super_Admin/templates/header_admin', $data);
@@ -188,8 +201,9 @@ class Administrator extends CI_Controller
     public function daftar_admin()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Admin';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['admin'] = $this->db->get_where('user', ['role_id' => 2])->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['admin'] = $this->User_model->getAllAdmin();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/admin/daftar_admin', $data);
     }
@@ -197,7 +211,8 @@ class Administrator extends CI_Controller
     public function tambah_admin()
     {
         $this->load->library('form_validation');
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
             'is_unique' => 'Username has already registered'
@@ -229,25 +244,27 @@ class Administrator extends CI_Controller
                 'date_created' => time()
             ];
 
-            $this->db->insert('user', $datauser);
+            $this->User_model->insertAdmin($datauser);
             redirect('Administrator/daftar_admin');
         }
     }
 
     public function hapus_admin($id)
     {
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->db->get('event')->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getAllEvent();
 
-        $this->Admin_model->deleteAdmin($id);
+        $this->User_model->deleteAdminById($id);
         redirect('Administrator/daftar_admin');
     }
 
     public function daftar_peserta()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['member'] = $this->db->get_where('user', ['role_id' => 3])->result_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['member'] = $this->User_model->getAllUser();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/daftar_peserta', $data);
     }
@@ -256,7 +273,8 @@ class Administrator extends CI_Controller
     {
 
         $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
 
@@ -297,8 +315,9 @@ class Administrator extends CI_Controller
     public function tambah_point($id)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['member'] = $this->db->get_where('user', ['id' => $id])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['member'] = $this->User_model->getUserById($id);
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/tambah_point', $data);
     }
@@ -306,8 +325,9 @@ class Administrator extends CI_Controller
     public function point($id)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['member'] = $this->db->get_where('user', ['id' => $id])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['member'] = $this->User_model->getUserById($id);
 
         $this->form_validation->set_rules('inputPoint', 'InputPoint', 'required|trim', [
             'required' => 'Mohon masukkan point untuk tambah point!'
@@ -317,7 +337,7 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/peserta/tambah_point');
         } else {
-            $pointUser = $this->db->select('point')->get_where('user', ['id' => $id])->row()->point;
+            $pointUser = $this->User_model->getPointUserById($id);
             $inputPoint = $this->input->post('inputPoint');
 
             $tambahPoint = $pointUser + $inputPoint;
@@ -326,8 +346,7 @@ class Administrator extends CI_Controller
                 'point' => $tambahPoint
             ];
 
-            $this->db->where('id', $id);
-            $this->db->update('user', $datapoint);
+            $this->User_model->updatePointUserById($id, $datapoint);
             redirect('Administrator/daftar_peserta');
         }
     }
@@ -335,16 +354,16 @@ class Administrator extends CI_Controller
     public function view_peserta($id)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['member'] = $this->db->get_where('user', ['id' => $id])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['member'] = $this->User_model->getUserById($id);
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/view_peserta', $data);
     }
 
     public function delete_member($id)
     {
-        $this->db->where('id', $id);
-        $this->db->delete('user');
+        $this->User_model->deleteUserById($id);
         redirect('Administrator/daftar_peserta');
     }
 }

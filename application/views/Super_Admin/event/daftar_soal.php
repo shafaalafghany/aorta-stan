@@ -195,6 +195,14 @@
               </div>
                 <!-- /.card-body -->
               <div class="card-body">
+                <div class="form-group">
+                  <label for="optionEvent">Kategori</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                    <?php foreach ($topik as $loadTopik) { ?>
+                      <option value="<?= $loadTopik['id_topik']; ?>"><?= $loadTopik['nama_topik']; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>

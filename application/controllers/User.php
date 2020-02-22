@@ -8,6 +8,11 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('Event_model');
+        $this->load->model('Modul_model');
+        $this->load->model('Topik_model');
+        $this->load->model('User_model');
+        $this->load->model('Rule_topik_model');
+        $this->load->model('Soal_model');
     }
 
 
@@ -15,7 +20,10 @@ class User extends CI_Controller
     {
 
         $data['judul'] = 'AORTASTAN Try Out Online';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
         $data['event'] = $this->Event_model->getAllEvent();
 
         $this->load->view('User/templates/header_home', $data);
@@ -26,7 +34,10 @@ class User extends CI_Controller
     public function tryout()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tryout';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
         $data['event'] = $this->Event_model->getAllEvent();
 
         $this->load->view('User/templates/header_tryout', $data);
@@ -37,9 +48,12 @@ class User extends CI_Controller
     public function event($id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Event Detail';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->db->get('topik')->result_array();
+        $data['topik'] = $this->Topik_model->getAllTopik();
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/event_detail', $data);
@@ -49,39 +63,55 @@ class User extends CI_Controller
     public function tes_tpa($id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->db->get_where('topik', ['id_topik' => 1])->row_array();
-        $data['topik_rule'] = $this->db->query("SELECT * from topik_rule tr left join topik t on tr.id_topik = t.id_topik")->row_array();
 
-        $harga = $this->db->select('harga')->get_where('event', ['id_event' => $id_event])->row()->harga;
-        $point = $this->db->select('point')->get_where('user', ['username' => $this->session->userdata('username')])->row()->point;
-        $username = $this->session->userdata('username');
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule'] = $this->Rule_topik_model->getTopikRuleTPA();
+
+        $harga = $this->Event_model->getHargaEvent($id_event);
+        $point = $this->db->select('point')->get_where('user', ['role_id' => 3, 'username' => $sessionUser])->row()->point;
 
         if ($point < $harga) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf point anda tidak mencukupi untuk ikut dalam event! Silahkan top up point di menu profile saya.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('User/tryout', $tampungFlashError);
+            redirect('User/tryout');
         } else {
             $bayar = $point - $harga;
 
-            $this->db->set('point', $bayar);
-            $this->db->where('username', $username);
-            $this->db->update('user');
-
-            $this->load->view('User/templates/header_tryout', $data);
-            $this->load->view('User/tes_tpa', $data);
-            $this->load->view('User/templates/footer');
+            $tampungBayar = array('point' => $bayar);
+            $this->User_model->updatePointUserByUsername($sessionUser, $tampungBayar);
         }
+        redirect('User/tes_tpa_detail/' . $id_event);
+    }
+
+    public function tes_tpa_detail($id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule'] = $this->Rule_topik_model->getTopikRuleTPA();
+
+        $this->load->view('User/templates/header_tryout', $data);
+        $this->load->view('User/tes_tpa', $data);
+        $this->load->view('User/templates/footer');
     }
 
     public function kerjakan_tpa($id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->db->get_where('topik', ['id_topik' => 1])->row_array();
-        $data['topik_rule'] = $this->db->query("SELECT * from topik_rule tr left join topik t on tr.id_topik = t.id_topik where tr.id_topik = 1")->row_array();
-        $data['soal'] = $this->db->query("SELECT * from soal_topik st where st.id_topik = 1 and st.id_event = $id_event")->result_array();
+        $data['topik'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule'] = $this->Rule_topik_model->getTopikRuleTPA();
+        $data['soal'] = $this->Soal_model->getSoalTPAByIdEvent($id_event);
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/tes/kerjakan_tpa', $data);
@@ -91,7 +121,8 @@ class User extends CI_Controller
     public function testimoni()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Testimoni';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $this->load->view('User/templates/header_testimoni', $data);
         $this->load->view('User/testimoni');
@@ -101,7 +132,8 @@ class User extends CI_Controller
     public function contact()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Contact';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $this->load->view('User/templates/header_contact', $data);
         $this->load->view('User/contact');
@@ -111,7 +143,8 @@ class User extends CI_Controller
     public function profile_saya()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
 
