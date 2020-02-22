@@ -25,7 +25,7 @@
                           <?php 
                             $i = 1;
                             foreach ($soal as $loadSoal) { ?>
-                            <div class="card mySlides">
+                            <div class="card mySlides" id="slide<?= $i; ?>" name="slide<?= $i; ?>">
                               <div class="card-header">
                                 <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 40px; height: 40px;"><?= $i ?></button></h5>
                               </div>
@@ -33,51 +33,21 @@
                                 <form class="questionForm" id="q1" data-question="1">
                                     <h4><?= $loadSoal['soal'] ?></h4>
                                     <br>
-                                    <!-- <div class="custom-control custom-radio">
-                                      <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                      <label class="custom-control-label" for="customRadio1">Sekolah Maju Kedepan</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                      <label class="custom-control-label" for="customRadio2">Sekolah Mundur Kebelakang</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                                      <label class="custom-control-label" for="customRadio3">Sekolah Menengah Kejuruan</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
-                                      <label class="custom-control-label" for="customRadio4">Sapi Makan Kerbau</label>
-                                    </div>
-                                    <div class="custom-control custom-radio">
-                                      <input type="radio" id="customRadio5" name="customRadio" class="custom-control-input">
-                                      <label class="custom-control-label" for="customRadio5">Sapi Makan Kuda</label>
-                                    </div> -->
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="q1" value="a"> Sekolah Maju Kawan
-                                    </label>
-                                    <br>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="q1" value="b"> Sekolah Mundur Kawan
-                                    </label>
-                                    <br>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="q1" value="c"> Sekolah Menengah Kejuruan
-                                    </label>
-                                    <br>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="q1" value="d"> Sayang Mereka Kawan
-                                    </label>
-                                    <br>
-                                    <label class="btn btn-default">
-                                        <input type="radio" name="q1" value="e"> Semua Makan Kawan
-                                    </label>
+                                    <?php $jawaban = $this->db->get_where('jawaban_topik', ['id_soal_topik' => $loadSoal['id_soal_topik']])->result_array(); ?>
+                                    <?php 
+                                      $j = 1;
+                                      foreach ($jawaban as $jwb) { ?>
+                                      <label class="btn btn-default">
+                                        <input onclick="klikJwbn(<?= $i; ?>)" name="<?= $loadSoal['id_soal_topik']; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal_topik']; ?>" data-idp="<?= $user['id']; ?>" data-jwb="<?= $jwb['id_jawaban']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>"> <?= $jwb['jawaban']; ?>
+                                      </label>
+                                      <br>
+                                    <?php $j++; } ?>
                                 </form>
                               </div>
                               <div class="card-footer text-muted">
-                                <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" onclick="plusDivs(-1)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu"> Ragu-Ragu</label>
-                                <button class="btn btn-primary col-md-3 ml-5 next float-right" onclick="plusDivs(1)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
+                                <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" id="prev<?= $i; ?>" name="prev<?= $i; ?>" onclick="prevSoal(<?= $i; ?>)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input onclick="ragu(<?= $i; ?>);" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>"> Ragu-Ragu</label>
+                                <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
                           <?php $i++; } ?>
@@ -91,7 +61,7 @@
                     <form>
                       <?php $i = 1;
                         foreach ($soal as $loadSoal) { ?>
-                            <button type="button" class="btn btn-outline-primary mr-4 mb-3 daftar-soal" id="nomor-<?= $i; ?>" style="width: 40px; height: 40px;"><?= $i; ?></button>
+                            <button type="button" class="btn btn-outline-primary mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
                       <?php $i++; } ?>
                     </form>
                     <hr>
@@ -111,22 +81,36 @@
     <script src="<?= base_url('assets/User/'); ?>js/jquery.magnific-popup.min.js"></script>
 
     <script>
+      var x = $('.mySlides');
+      var maxIndex = x.length;
       var slideIndex = 1;
+      showMaxDivs(maxIndex);
       showDivs(slideIndex);
 
-      function plusDivs(n) {
-        showDivs(slideIndex += n);
+      function showMaxDivs(n) {
+        var i;
+        var x = $('.mySlides');
+        var next = $('.next');
+        var prev = $('.prev');
+        var ragu = $('.ragu');
+        var nomor = $('.nomor');
+
+        if (n == x.length) {next[maxIndex - 1].style.display = "none";}
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        x[maxIndex-1].style.display = "block";
       }
 
       function showDivs(n) {
         var i;
-        var x = document.getElementsByClassName("mySlides");
-        var next = document.getElementsByClassName("next");
-        var prev = document.getElementsByClassName("prev");
-        var ragu = document.getElementsByClassName("ragu");
-        var nomor = document.getElementsByClassName("nomor");
+        var x = $('.mySlides');
+        var next = $('.next');
+        var prev = $('.prev');
+        var ragu = $('.ragu');
+        var nomor = $('.nomor');
 
-        if (n == x.length) {next[slideIndex - 1].style.display = "none";}
+        if (n == x.length) {next[maxIndex - 1].style.display = "none";}
         if (n == 1) {prev[slideIndex - 1].style.display = "none";}
         for (i = 0; i < x.length; i++) {
           x[i].style.display = "none";
@@ -134,7 +118,42 @@
         x[slideIndex-1].style.display = "block";
       }
 
-      var j;
+      function prevSoal(n) {
+        var i;
+        var x = $('.mySlides');
+
+        for (var i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        $('#slide'+(n-1)).show();
+      }
+
+      function nextSoal(n) {
+        var i;
+        var x = $('.mySlides');
+        var prev = $('.prev');
+        var next = $('.next');
+
+        if (n == x.length) {
+          next.style.display = "none";
+        }
+        for (var i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        $('#slide'+(n+1)).show();
+      }
+
+      function ragu(e) {
+        e.addAttr('checked="checked"');
+        var checked = e.addAttr('checked="checked"');
+        if (checked == true) {
+          $('#nomor'+e).addClass('btn-warning');
+        } else{
+          $('#nomor'+e).removeClass('btn-warning');
+        }
+      }
+
+      /*var j;
       var slide = $('.mySlides');
       var daftarSoal = $('.daftar-soal');
       var nomor = $('#nomor');
@@ -148,5 +167,20 @@
               $('#nomor-'+j+"").removeClass('btn-warning').addClass('btn-outline-primary');
             }
         });
+      }*/
+
+      function klikJwbn(e) {
+        $('#nomor'+e).addClass('btn-primary');
+      }
+
+      function klikNomor(e) {
+        var i;
+        var x = $(".mySlides");
+        for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none";
+        }
+        $('#slide'+e).show();
       }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
