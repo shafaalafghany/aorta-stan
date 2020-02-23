@@ -284,7 +284,13 @@
                     </div>
                     <div class="form-group">
                       <label for="inputJawabanBenar">Jawaban Benar</label>
-                      <textarea type="text" id="inputJawabanBenar" class="form-control"></textarea>
+                      <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                        <option value="jawaban1">Jawaban 1</option>
+                        <option value="jawaban2">Jawaban 2</option>
+                        <option value="jawaban3">Jawaban 3</option>
+                        <option value="jawaban4">Jawaban 4</option>
+                        <option value="jawaban5">Jawaban 5</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -349,7 +355,13 @@
                     </div>
                     <div class="form-group">
                       <label for="inputJawabanBenar">Jawaban Benar</label>
-                      <textarea type="text" id="inputJawabanBenar" class="form-control"></textarea>
+                      <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                        <option value="jawaban1">Jawaban 1</option>
+                        <option value="jawaban2">Jawaban 2</option>
+                        <option value="jawaban3">Jawaban 3</option>
+                        <option value="jawaban4">Jawaban 4</option>
+                        <option value="jawaban5">Jawaban 5</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -416,7 +428,13 @@
                     </div>
                     <div class="form-group">
                       <label for="inputJawabanBenar">Jawaban Benar</label>
-                      <textarea type="text" id="inputJawabanBenar" class="form-control"></textarea>
+                      <select class="custom-select col-md-12 mb-3" id="optionJawaban" name="optionJawaban">
+                        <option value="jawaban1">Jawaban 1</option>
+                        <option value="jawaban2">Jawaban 2</option>
+                        <option value="jawaban3">Jawaban 3</option>
+                        <option value="jawaban4">Jawaban 4</option>
+                        <option value="jawaban5">Jawaban 5</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -483,7 +501,13 @@
                     </div>
                     <div class="form-group">
                       <label for="inputJawabanBenar">Jawaban Benar</label>
-                      <textarea type="text" id="inputJawabanBenar" class="form-control"></textarea>
+                      <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                        <option value="jawaban1">Jawaban 1</option>
+                        <option value="jawaban2">Jawaban 2</option>
+                        <option value="jawaban3">Jawaban 3</option>
+                        <option value="jawaban4">Jawaban 4</option>
+                        <option value="jawaban5">Jawaban 5</option>
+                      </select>
                     </div>
                   </div>
                 </div>
