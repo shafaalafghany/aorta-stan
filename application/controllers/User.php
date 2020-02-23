@@ -53,7 +53,9 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getAllTopik();
+        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
+        $data['topik_tbi'] = $this->Topik_model->getTopikTBI();
+        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/event_detail', $data);
@@ -68,8 +70,8 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikTPA();
-        $data['topik_rule'] = $this->Rule_topik_model->getTopikRuleTPA();
+        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
 
         $harga = $this->Event_model->getHargaEvent($id_event);
         $point = $this->db->select('point')->get_where('user', ['role_id' => 3, 'username' => $sessionUser])->row()->point;
@@ -94,8 +96,8 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikTPA();
-        $data['topik_rule'] = $this->Rule_topik_model->getTopikRuleTPA();
+        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/tes_tpa', $data);
@@ -109,8 +111,8 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikTPA();
-        $data['topik_rule'] = $this->Rule_topik_model->getTopikRuleTPA();
+        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
         $data['soal'] = $this->Soal_model->getSoalTPAByIdEvent($id_event);
 
         $this->load->view('User/templates/header_tryout', $data);

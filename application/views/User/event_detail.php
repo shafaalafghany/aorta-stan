@@ -73,12 +73,18 @@
                               <div class="form-group">
                                 <label class="mb-3">Durasi Pengerjaan Soal</label>
                                 <br>
-                                <?php foreach ($topik as $loadtopik) : ?>
-                                    <div style="margin-left: 20px;">
-                                        <label class="mr-3"><?= $loadtopik['nama_topik']; ?>
-                                        <h4 class="mr-3"><?= $loadtopik['durasi_topik'] ?></h4></label>
-                                    </div>
-                                <?php endforeach; ?>
+                                <div style="margin-left: 20px;">
+                                    <label class="mr-3"><?= $topik_tpa['nama_topik_tes']; ?>
+                                    <h4 class="mr-3"><?= $topik_tpa['waktu'] ?> menit</h4></label>
+                                </div>
+                                <div style="margin-left: 20px;">
+                                    <label class="mr-3"><?= $topik_tbi['nama_topik_tes']; ?>
+                                    <h4 class="mr-3"><?= $topik_tbi['waktu'] ?> menit</h4></label>
+                                </div>
+                                <div style="margin-left: 20px;">
+                                    <label class="mr-3"><?= $topik_skd['nama_skd']; ?>
+                                    <h4 class="mr-3"><?= $topik_skd['waktu'] ?> menit</h4></label>
+                                </div>
                               </div>
                               <div class="form-group">
                                 <label class="mb-3">Tanggal Dimulai 

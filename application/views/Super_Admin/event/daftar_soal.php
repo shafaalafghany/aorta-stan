@@ -199,7 +199,7 @@
                   <label for="optionEvent">Kategori</label>
                   <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
                     <?php foreach ($topik as $loadTopik) { ?>
-                      <option value="<?= $loadTopik['id_topik']; ?>"><?= $loadTopik['nama_topik']; ?></option>
+                      <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
                     <?php } ?>
                   </select>
                 </div>

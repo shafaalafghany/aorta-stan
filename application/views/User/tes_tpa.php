@@ -22,25 +22,31 @@
                                 <tr>
                                   <td>
                                     <span class="subadge">Tes 1</span>
-                                    <h4 class="mr-3 text-black">Tes <?= $topik['nama_topik'] ?></h4>
+                                    <h4 class="mr-3 text-black"><?= $topik_tpa['nama_topik_tes'] ?></h4>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
                                     <span class="subadge">Durasi</span>
-                                    <h4 class="mr-3 text-black"><?= $topik['durasi_topik'] ?></h4>
+                                    <h4 class="mr-3 text-black"><?= $topik_tpa['waktu'] ?> menit</h4>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
-                                    <span class="subadge">Point Benar</span>
-                                    <h4 class="mr-3 text-black"><?= $topik_rule['jwbn_benar'] ?></h4>
+                                    <span class="subadge">Jawaban Benar</span>
+                                    <h4 class="mr-3 text-black"><?= $topik_rule_tpa['score_benar'] ?></h4>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
-                                    <span class="subadge">Point Salah</span>
-                                    <h4 class="mr-3 text-black"><?= $topik_rule['jwbn_salah'] ?></h4>
+                                    <span class="subadge">Jawaban Salah</span>
+                                    <h4 class="mr-3 text-black"><?= $topik_rule_tpa['score_salah'] ?></h4>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <span class="subadge">Jawaban Kosong</span>
+                                    <h4 class="mr-3 text-black"><?= $topik_rule_tpa['score_kosong'] ?></h4>
                                   </td>
                                 </tr>
                               </tbody>

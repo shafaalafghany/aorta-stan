@@ -33,12 +33,12 @@
                                 <form class="questionForm" id="q1" data-question="1">
                                     <h4><?= $loadSoal['soal'] ?></h4>
                                     <br>
-                                    <?php $jawaban = $this->db->get_where('jawaban_topik', ['id_soal_topik' => $loadSoal['id_soal_topik']])->result_array(); ?>
+                                    <?php $jawaban = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal']])->result_array(); ?>
                                     <?php 
                                       $j = 1;
                                       foreach ($jawaban as $jwb) { ?>
                                       <label class="btn btn-default">
-                                        <input onclick="klikJwbn(<?= $i; ?>)" name="<?= $loadSoal['id_soal_topik']; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal_topik']; ?>" data-idp="<?= $user['id']; ?>" data-jwb="<?= $jwb['id_jawaban']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>"> <?= $jwb['jawaban']; ?>
+                                        <input onclick="klikJwbn(<?= $i; ?>)" name="<?= $loadSoal['id_soal']; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jwb="<?= $jwb['id_jawaban']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>"> <?= $jwb['jawaban']; ?>
                                       </label>
                                       <br>
                                     <?php $j++; } ?>
