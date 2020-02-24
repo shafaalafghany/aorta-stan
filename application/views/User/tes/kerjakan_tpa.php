@@ -1,3 +1,23 @@
+<?php
+$telah_berlalu = time();
+
+$temp_waktu = ($topik_tpa['waktu'] * 60); //dijadikan detik dan dikurangi waktu yang berlalu
+$temp_menit = (int)($temp_waktu / 60);                //dijadikan menit lagi
+$temp_detik = $temp_waktu % 60;                       //sisa bagi untuk detik
+
+if ($temp_menit < 60) {
+    /* Apabila $temp_menit yang kurang dari 60 meni */
+    $jam    = 0;
+    $menit  = $temp_menit;
+    $detik  = $temp_detik;
+} else {
+    /* Apabila $temp_menit lebih dari 60 menit */
+    $jam    = (int)($temp_menit / 60);    //$temp_menit dijadikan jam dengan dibagi 60 dan dibulatkan menjadi integer 
+    $menit  = $temp_menit % 60;           //$temp_menit diambil sisa bagi ($temp_menit%60) untuk menjadi menit
+    $detik  = $temp_detik;
+}
+?>
+
     <style>
       .mySlides {display:none;}
     </style>
@@ -15,7 +35,7 @@
     	</div>
     </div>
 
-    <section class="ftco-section bg-light" id="soal1">
+    <section class="ftco-section bg-light" id="tes">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 pr-lg-4">
@@ -46,7 +66,7 @@
                               </div>
                               <div class="card-footer text-muted">
                                 <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" id="prev<?= $i; ?>" name="prev<?= $i; ?>" onclick="prevSoal(<?= $i; ?>)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input onclick="ragu(<?= $i; ?>);" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>"> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input onchange="ragu(<?= $i; ?>);" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>"> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
@@ -57,7 +77,7 @@
                 </div>
                 <div class="col-lg-4 sidebar">
                   <div class="sidebar-box bg-white p-4 ftco-animate">
-                    <h4 class="heading-sidebar mb-4">Daftar Soal</h4>
+                    <h4 class="heading-sidebar mb-4">Daftar Soal<div class="float-right" id="timer"></div></h4>
                     <form>
                       <?php $i = 1;
                         foreach ($soal as $loadSoal) { ?>
@@ -72,7 +92,9 @@
         </div>
     </section>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
     <script src="<?= base_url('assets/User/'); ?>js/jquery.min.js"></script>
     <script src="<?= base_url('assets/User/'); ?>js/jquery-migrate-3.0.1.min.js"></script>
     <script src="<?= base_url('assets/User/'); ?>js/jquery.easing.1.3.js"></script>
@@ -81,6 +103,73 @@
     <script src="<?= base_url('assets/User/'); ?>js/jquery.magnific-popup.min.js"></script>
 
     <script>
+
+    $(document).ready(function() {
+          /** Membuat Waktu Mulai Hitung Mundur Dengan 
+           * var detik;
+           * var menit;
+           * var jam;
+           */
+          var detik = <?= $detik; ?>;
+          var menit = <?= $menit; ?>;
+          var jam = <?= $jam; ?>;
+
+          /**
+           * Membuat function hitung() sebagai Penghitungan Waktu
+           */
+          function hitung() {
+              /** setTimout(hitung, 1000) digunakan untuk 
+               * mengulang atau merefresh halaman selama 1000 (1 detik) 
+               */
+              setTimeout(hitung, 1000);
+
+              /** Jika waktu kurang dari 10 menit maka Timer akan berubah menjadi warna merah */
+              if (menit < 10 && jam == 0) {
+                  var peringatan = 'style="color:red"';
+              };
+
+              /** Menampilkan Waktu Timer pada Tag #Timer di HTML yang tersedia */
+              $('#timer').html(
+                  '<span' + peringatan + '><i class="fas fa-timer border-primary" data-bs-hover-animate="swing"></i>' + jam + ' : ' + menit + ' : ' + detik + '<span>'
+              );
+
+              /** Melakukan Hitung Mundur dengan Mengurangi variabel detik - 1 */
+              detik--;
+
+              /** Jika var detik < 0
+               * var detik akan dikembalikan ke 59
+               * Menit akan Berkurang 1
+               */
+              if (detik < 0) {
+                  detik = 59;
+                  menit--;
+
+                  /** Jika menit < 0
+                   * Maka menit akan dikembali ke 59
+                   * Jam akan Berkurang 1
+                   */
+                  if (menit < 0) {
+                      menit = 59;
+                      jam--;
+
+                      /** Jika var jam < 0
+                       * clearInterval() Memberhentikan Interval dan submit secara otomatis
+                       */
+
+                      if (jam < 0) {
+                          clearInterval(hitung);
+                          /** Variable yang digunakan untuk submit secara otomatis di Form */
+                          var frmSelesai = document.getElementById("form_selesai");
+                          alert('Waktu Kamu udah habis, Semangaaat!');
+                          frmSelesai.submit();
+                      }
+                  }
+              }
+          }
+          /** Menjalankan Function Hitung Waktu Mundur */
+          hitung();
+      });
+
       var x = $('.mySlides');
       var maxIndex = x.length;
       var slideIndex = 1;
@@ -95,7 +184,10 @@
         var ragu = $('.ragu');
         var nomor = $('.nomor');
 
-        if (n == x.length) {next[maxIndex - 1].style.display = "none";}
+        if (n == x.length) {
+          next[maxIndex - 1].style.display = "none";
+          $('#nomor'+n).removeClass('active');
+        }
         for (i = 0; i < x.length; i++) {
           x[i].style.display = "none";
         }
@@ -109,9 +201,13 @@
         var prev = $('.prev');
         var ragu = $('.ragu');
         var nomor = $('.nomor');
+        var daftarSoal = $('.daftar-soal');
 
         if (n == x.length) {next[maxIndex - 1].style.display = "none";}
-        if (n == 1) {prev[slideIndex - 1].style.display = "none";}
+        if (n == 1) {
+          prev[slideIndex - 1].style.display = "none";
+          $('#nomor'+n).addClass('active');
+        }
         for (i = 0; i < x.length; i++) {
           x[i].style.display = "none";
         }
@@ -126,6 +222,8 @@
           x[i].style.display = "none";
         }
         $('#slide'+(n-1)).show();
+        $('#nomor'+(n)).removeClass('active');
+        $('#nomor'+(n-1)).addClass('active');
       }
 
       function nextSoal(n) {
@@ -139,18 +237,30 @@
         }
         for (var i = 0; i < x.length; i++) {
           x[i].style.display = "none";
+          $('#nomor'+i).removeClass('active');
         }
         $('#slide'+(n+1)).show();
+        $('#nomor'+(n+1)).addClass('active');
       }
 
       function ragu(e) {
-        e.addAttr('checked="checked"');
-        var checked = e.addAttr('checked="checked"');
-        if (checked == true) {
+        $('#nomor'+e).removeClass('active');
+        $('#nomor'+e).removeClass('btn-outline-primary');
+        $('#nomor'+e).addClass('btn-warning');
+      }
+
+      function showRagu(n) {
+        if (n == true) {
+          $('#nomor'+e).removeClass('active');
+          $('#nomor'+e).removeClass('btn-outline-primary');
           $('#nomor'+e).addClass('btn-warning');
-        } else{
+        } else if (n == false) {
           $('#nomor'+e).removeClass('btn-warning');
         }
+      }
+
+      function raguCancel(e) {
+        
       }
 
       /*var j;
@@ -170,7 +280,9 @@
       }*/
 
       function klikJwbn(e) {
-        $('#nomor'+e).addClass('btn-primary');
+        $('#nomor'+e).removeClass('active');
+        $('#nomor'+e).removeClass('btn-outline-primary');
+        $('#nomor'+e).addClass('btn-success');
       }
 
       function klikNomor(e) {
@@ -178,9 +290,10 @@
         var x = $(".mySlides");
         for (i = 0; i < x.length; i++) {
           x[i].style.display = "none";
+          $('#nomor'+maxIndex).removeClass('active');
+          $('#nomor'+i).removeClass('active');
         }
         $('#slide'+e).show();
+        $('#nomor'+e).addClass('active');
       }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>

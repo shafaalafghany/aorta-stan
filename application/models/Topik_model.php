@@ -8,6 +8,12 @@ class Topik_model extends CI_model
 		return $query->result_array();
 	}
 
+	public function getFourTopik()
+	{
+		$query = $this->db->query("SELECT * from topik_tes limit 0, 4");
+		return $query->result_array();
+	}
+
 	//TPA
 	public function getTopikTPA()
 	{

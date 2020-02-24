@@ -254,8 +254,8 @@
                   <br>
                   <label for="optionEvent">Pilih Topik Soal</label>
                   <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
-                    <?php foreach ($topik as $loadTopik) { ?>
-                      <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
+                    <?php foreach ($fourTopik as $loadFourTopik) { ?>
+                      <option value="<?= $loadFourTopik['id_topik_tes']; ?>"><?= $loadFourTopik['nama_topik_tes']; ?></option>
                     <?php } ?>
                   </select>
                 </div>

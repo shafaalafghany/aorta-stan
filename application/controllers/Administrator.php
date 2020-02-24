@@ -192,6 +192,7 @@ class Administrator extends CI_Controller
         $data['event'] = $this->Event_model->getEventById($optionEvent);
 
         $data['topik'] = $this->Topik_model->getAllTopik();
+        $data['fourTopik'] = $this->Topik_model->getFourTopik();
 
         if ($optionEvent) {
             if ($this->form_validation->run() == false) {
