@@ -194,6 +194,48 @@ class Administrator extends CI_Controller
         $data['topik'] = $this->Topik_model->getAllTopik();
         $data['fourTopik'] = $this->Topik_model->getFourTopik();
 
+        $optionTopik = $this->input->post('pilihTopik');
+
+        $this->form_validation->set_rules('inputSoal', 'soal', 'required|trim');
+        $this->form_validation->set_rules('jawaban1', 'jawaban1', 'required|trim');
+        $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
+        $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
+        $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
+        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'required|trim');
+
+        if ($optionEvent) {
+            if ($this->form_validation->run() == false) {
+                $this->load->view('Super_Admin/templates/header_admin', $data);
+                $this->load->view('Super_Admin/event/buat_soal', $data);
+            } else {
+                $this->Soal_model->tambahSoal($optionTopik, $optionEvent);
+                redirect('Administrator/buat_soal');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Silahkan pilih event dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/tambah_soal');
+        }
+    }
+
+    public function buat_soal_tkp()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tambah Soal';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $optionEvent = $this->input->post('optionEvent');
+        $data['event'] = $this->Event_model->getEventById($optionEvent);
+
+        $data['topik'] = $this->Topik_model->getAllTopik();
+
+        $this->form_validation->set_rules('inputSoal', 'soal', 'required|trim');
+        $this->form_validation->set_rules('jawaban1', 'jawaban1', 'required|trim');
+        $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
+        $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
+        $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
+        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'required|trim');
+
         if ($optionEvent) {
             if ($this->form_validation->run() == false) {
                 $this->load->view('Super_Admin/templates/header_admin', $data);
