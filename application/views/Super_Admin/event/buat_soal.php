@@ -246,15 +246,16 @@
               </div>
             </div>
             <div class="card-body">
+              <?= $this->session->flashdata('message'); ?>
+              <form action="<?= base_url('Administrator/') ?>insert_soal/<?= $event['id_event'] ?>" method="POST">
               <div class="form-group">
                 <div class="callout callout-info">
-                  <form action="<?= base_url('Administrator/buat_soal/') ?>" method="POST">
                   <h5><i class="fas fa-info"></i> Note:</h5>
                   Untuk pembuatan soal TKP silahkan isi form dibawah form ini!
                 </div>
                 <br>
                 <label for="optionEvent">Pilih Topik Soal</label>
-                <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
                   <?php foreach ($fourTopik as $loadFourTopik) { ?>
                     <option value="<?= $loadFourTopik['id_topik_tes']; ?>"><?= $loadFourTopik['nama_topik_tes']; ?></option>
                   <?php } ?>
@@ -265,7 +266,7 @@
                 <label>Soal</label>
                 <div class="card-body pad">
                   <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                   </div>
                   <p class="text-sm mb-0">
                     Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
@@ -336,7 +337,7 @@
                 <div class="card-body pad">
                   <label>Soal</label>
                   <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTkp" name="inputSoalTkp" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTkp" name="inputSoalTkp" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                   </div>
                   <p class="text-sm mb-0">
                     Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
@@ -408,65 +409,6 @@
       </div>
     </section>
 
-    <section class="content" id="listSoal">
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-info">
-            <div class="card-header">
-              <h3 class="card-title">List Soal Yang Dibuat</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="optionEvent">Kategori</label>
-                <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
-                  <?php foreach ($topik as $loadTopik) { ?>
-                    <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Soal</th>
-                    <th>Jawaban</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Lawan kata dari kemarin adalah?</td>
-                    <td>1</td>
-                    <td class="project-actions text-center">
-                      <a class="btn btn-info btn-sm" href="#">
-                        <i class="fas fa-pencil-alt">
-                        </i>
-                      </a>
-                      <a class="btn btn-danger btn-sm" href="#">
-                        <i class="fas fa-trash">
-                        </i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer">
-              <div class="col-12">
-                <input type="submit" value="Submit Soal" class="btn btn-primary float-right swalDefaultSuccess">
-              </div>
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-    </section>
   </div>
   <!-- /.content-wrapper -->
 
@@ -559,7 +501,51 @@
       //Date range picker
       $('#reservation').daterangepicker()
       //Date range picker with time picker
-      $('.textarea').summernote()
+
+      $('#inputSoal').summernote({
+        height: "250px",
+        callback:{
+          onImageUpload: function(image) {
+            uploadImage(image[0]);
+          },
+
+          onMediaDelete: function(target) {
+            deleteImage(target[0].src);
+          }
+        }
+      });
+
+      function uploadImage(image) {
+        var data = new FormData();
+        data.append("image", image);
+        $.ajax({
+          url: "<?= site_url('User/upload_image')?>",
+          cache: false,
+          contentType: false,
+          processData: false,
+          data: data,
+          type: "POST",
+          success: function(url) {
+            $('.textarea').summernote("insertImage", url);
+          },
+          error: function(data) {
+            console.log(data);
+          }
+        });
+      };
+
+      function deleteImage(src) {
+        $.ajax({
+          data: {src : src},
+          type: "POST",
+          url: "<?= site_url('User/delete_image') ?>",
+          cache: false,
+          success: function(response) {
+            console.log(response);
+          }
+        });
+      };
+
       $('#reservationtime').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
