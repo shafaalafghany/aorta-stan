@@ -195,50 +195,25 @@
               </div>
                 <!-- /.card-body -->
               <div class="card-body">
+                <form method="post" action="<?= base_url('Administrator/'); ?>soal_detail">
                 <div class="form-group">
-                  <label for="optionEvent">Kategori</label>
+                  <label for="optionEvent">Pilih Event</label>
                   <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                    <?php foreach ($event as $loadEvent) { ?>
+                      <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']; ?></option>
+                    <?php } ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="optionEvent">Pilih Topik</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
                     <?php foreach ($topik as $loadTopik) { ?>
                       <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
                     <?php } ?>
                   </select>
                 </div>
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Soal</th>
-                      <th>Jenis Soal</th>
-                      <th>Jawaban</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Dimana Piala Dunia 2022 diselenggarakan?</td>
-                      <td>Pilihan Ganda</td>
-                      <td>Qatar</td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-primary btn-sm" href="#">
-                            <i class="fas fa-folder">
-                            </i>
-                            View
-                        </a>
-                        <a class="btn btn-info btn-sm" href="#">
-                            <i class="fas fa-pencil-alt">
-                            </i>
-                            Edit
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                            Delete
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <button class="btn btn-primary float-right" type="submit">Submit</button>
+                </form>
               </div>
               <!-- /.card-body -->
             </div>

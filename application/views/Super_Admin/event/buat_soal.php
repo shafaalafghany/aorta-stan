@@ -333,11 +333,12 @@
               </div>
             </div>
             <div class="card-body">
+              <form action="<?= base_url('Administrator/') ?>buat_soal_tkp/<?= $event['id_event'] ?>" method="POST">
               <div class="form-group">
                 <div class="card-body pad">
                   <label>Soal</label>
                   <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTkp" name="inputSoalTkp" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTKP" name="inputSoalTKP" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                   </div>
                   <p class="text-sm mb-0">
                     Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
@@ -402,6 +403,7 @@
               <div class="col-12">
                 <input type="submit" value="Tambah" class="btn btn-primary float-right">
               </div>
+              </form>
             </div>
           </div>
           <!-- /.card -->
@@ -502,7 +504,7 @@
       $('#reservation').daterangepicker()
       //Date range picker with time picker
 
-      $('#inputSoal').summernote({
+      $('.textarea').summernote({
         height: "250px",
         callback:{
           onImageUpload: function(image) {

@@ -283,6 +283,24 @@ if ($temp_menit < 60) {
         $('#nomor'+e).removeClass('active');
         $('#nomor'+e).removeClass('btn-outline-primary');
         $('#nomor'+e).addClass('btn-success');
+
+        const soal = $(this).data('soal');
+        const jwb = $(this).data('jwb');
+        const idp = $(this).data('idp');
+        const eve = $(this).data('eve');
+
+        $.ajax({
+            url: "<?= base_url(); ?>event/jawab",
+            data: {
+                eve: eve,
+                idp: idp,
+                soal: soal,
+                jwb: jwb
+            },
+            method: 'POST',
+            dataType: 'json',
+            success: function() {}
+        });
       }
 
       function klikNomor(e) {

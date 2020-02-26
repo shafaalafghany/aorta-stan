@@ -14,6 +14,11 @@ class Topik_model extends CI_model
 		return $query->result_array();
 	}
 
+	public function getTopikById($id_topik)
+	{
+		return $this->db->get_where('topik_tes', ['id_topik_tes' => $id_topik])->row_array();
+	}
+
 	//TPA
 	public function getTopikTPA()
 	{

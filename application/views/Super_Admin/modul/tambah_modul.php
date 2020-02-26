@@ -207,7 +207,7 @@
                 <label for="jenisModul">Jenis Modul</label>
                 <select class="form-control" id="jenisModul" name="jenisModul">
                   <?php foreach ($topik as $loadTopik) { ?>
-                    <option value="<?= $loadTopik['nama_topik']; ?>"><?= $loadTopik['nama_topik']; ?></option>
+                    <option value="<?= $loadTopik['nama_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
                   <?php } ?>
                 </select>
               </div>
