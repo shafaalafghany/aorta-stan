@@ -751,7 +751,7 @@ class Administrator extends CI_Controller
             
 
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('Administrator/buat_soal');
+            redirect('Administrator/tambah_soal');
         }
     }
 
@@ -851,7 +851,8 @@ class Administrator extends CI_Controller
             ];
             $this->db->insert('jawaban', $dataJawaban5);
 
-            redirect('Administrator/buat_soal');
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/tambah_soal');
         }
     }
 
