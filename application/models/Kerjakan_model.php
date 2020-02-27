@@ -5,21 +5,21 @@ class Kerjakan_model extends CI_Model
 {
 
     /* PENGERJAAN SOAL */
-    public function jawabsoal($data)
+    public function jawabsoal($dataJawaban)
     {
         $this->db->select('*'); //skip ini jika mau select spesifik
         $this->db->from('event_jawaban');
-        $this->db->where('id_soal', $data['id_soal']);
-        $this->db->where('id_event', $data['id_event']);
-        $this->db->where('id_user', $data['id_user']);
-        $this->db->where('id_topik', $data['id_topik']);
+        $this->db->where('id_soal', $dataJawaban['id_soal']);
+        $this->db->where('id_event', $dataJawaban['id_event']);
+        $this->db->where('id_user', $dataJawaban['id_user']);
+        $this->db->where('id_topik', $dataJawaban['id_topik']);
         $query = $this->db->get();
         $cekjawab = $query->row_array();
         if ($cekjawab > 0) {
-            $this->db->where('soal_id', $data['soal_id']);
-            $this->db->update('event_jawaban', ['jawaban_id' => $data['jawaban_id']]);
+            $this->db->where('id_soal', $dataJawaban['id_soal']);
+            $this->db->update('event_jawaban', ['id_jawaban' => $dataJawaban['id_jawaban']]);
         } else {
-            $this->db->insert('event_jawaban', $data);
+            $this->db->insert('event_jawaban', $dataJawaban);
         }
     }
 
@@ -58,7 +58,15 @@ class Kerjakan_model extends CI_Model
 
     public function getSessionKerjakan($data)
     {
-        $this->db->get_where('transaksi_event', $data);
-        return $this->db->affected_rows();
+        return $this->db->get_where('transaksi_event', $data)->row_array();
+    }
+
+    public function getKerjakan($id_event, $id_topik, $id)
+    {
+        return $this->db->get_where('transaksi_event', [
+            'id_event' => $id_event,
+            'id_topik' => $id_topik,
+            'id_user' => $id
+        ])->row_array();
     }
 }

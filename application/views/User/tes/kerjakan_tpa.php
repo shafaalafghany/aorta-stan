@@ -1,7 +1,7 @@
 <?php
 $telah_berlalu = time() - $transaksi['waktu_daftar'];
 
-$temp_waktu = ($topik_tpa['waktu'] * 60); //dijadikan detik dan dikurangi waktu yang berlalu
+$temp_waktu = ($topik_tpa['waktu'] * 60) - $telah_berlalu; //dijadikan detik dan dikurangi waktu yang berlalu
 $temp_menit = (int)($temp_waktu / 60);                //dijadikan menit lagi
 $temp_detik = $temp_waktu % 60;                       //sisa bagi untuk detik
 
@@ -54,16 +54,15 @@ if ($temp_menit < 60) {
                                     <h4><?= $loadSoal['soal'] ?></h4>
                                     <br>
                                     <?php $jawaban = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal']])->result_array(); ?>
-                                    <?php 
-                                      $j = 1;
-                                      foreach ($jawaban as $jwb) { ?>
+                                    <?php
+                                      foreach ($jawaban as $jwb) : ?>
                                         <?php
                                           $query = $this->db->get_where('event_jawaban', [
                                             'id_user' => $user['id'],
                                             'id_topik' => $topik_tpa['id_topik_tes'],
                                             'id_event' => $event['id_event'],
                                             'id_soal' => $loadSoal['id_soal'],
-                                            'id_jawaban', $jwb['id_jawaban']
+                                            'id_jawaban' => $jwb['id_jawaban']
                                           ]);
                                           $checked = $query->row_array();
 
@@ -73,11 +72,11 @@ if ($temp_menit < 60) {
                                               $checked = '';
                                           }
                                         ?>
-                                      <label class="btn btn-default">
-                                        <input onclick="klikjawab(<?= $i; ?>)" name="<?= $loadSoal['id_soal']; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jwb="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik_tpa['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
-                                      </label>
-                                      <br>
-                                    <?php $j++; } ?>
+                                        <label class="btn btn-default">
+                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik_tpa['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
+                                        </label>
+                                        <br>
+                                    <?php endforeach; ?>
                                 </form>
                               </div>
                               <div class="card-footer text-muted">
@@ -97,7 +96,22 @@ if ($temp_menit < 60) {
                     <form>
                       <?php $i = 1;
                         foreach ($soal as $loadSoal) { ?>
-                            <button type="button" class="btn btn-outline-primary mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
+                          <?php
+                              $query = $this->db->get_where('event_jawaban', [
+                                'id_user' => $user['id'],
+                                'id_topik' => $topik_tpa['id_topik_tes'],
+                                'id_event' => $event['id_event'],
+                                'id_soal' => $loadSoal['id_soal']
+                              ]);
+                              $cek = $query->row_array();
+
+                              if ($cek > 0) {
+                                  $cek = 'btn-success';
+                              } else {
+                                  $cek = 'btn-outline-primary';
+                              }
+                            ?>
+                          <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
                       <?php $i++; } ?>
                     </form>
                     <hr>
@@ -295,13 +309,18 @@ if ($temp_menit < 60) {
         });
       }*/
 
-      function klikjawab(e) {
-        $('#nomor'+e).removeClass('active');
+      function klikJwbn(e) {
         $('#nomor'+e).removeClass('btn-outline-primary');
         $('#nomor'+e).addClass('btn-success');
+      }
+
+      $('.jawab').on('click', function() {
+        /*$('#nomor'+e).removeClass('active');
+        $('#nomor'+e).removeClass('btn-outline-primary');
+        $('#nomor'+e).addClass('btn-success');*/
 
         var soal = $(this).data('soal');
-        var jwb = $(this).data('jwb');
+        var jwb = $(this).data('jawaban');
         var idp = $(this).data('idp');
         var eve = $(this).data('eve');
         var topik = $(this).data('topik');
@@ -319,7 +338,7 @@ if ($temp_menit < 60) {
             dataType: 'json',
             success: function() {}
         });
-      }
+      });
 
       function klikNomor(e) {
         var i;
