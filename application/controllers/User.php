@@ -13,6 +13,7 @@ class User extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Rule_topik_model');
         $this->load->model('Soal_model');
+        $this->load->model('Kerjakan_model');
     }
 
 
@@ -104,7 +105,7 @@ class User extends CI_Controller
         $this->load->view('User/templates/footer');
     }
 
-    public function kerjakan_tpa($id_event)
+    public function kerjakan_tpa($id, $id_event, $id_topik)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
@@ -115,9 +116,53 @@ class User extends CI_Controller
         $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
         $data['soal'] = $this->Soal_model->getSoalTPAByIdEvent($id_event);
 
-        $this->load->view('User/templates/header_tryout', $data);
-        $this->load->view('User/tes/kerjakan_tpa', $data);
-        $this->load->view('User/templates/footer');
+        $transaksi_event = [
+            'id_topik' => $id_topik,
+            'id_event' => $id_event,
+            'id_user' => $id
+        ];
+
+        $transaksi = $this->Kerjakan_model->getSessionKerjakan($transaksi_event);
+
+        if (!$transaksi) {
+            $waktudaftar = time();
+
+            $dataTransaksi = [
+                'id_topik' => $id_topik,
+                'id_event' => $id_event,
+                'id_user' => $id,
+                'waktu_daftar' => $waktudaftar
+            ];
+            $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+
+            $this->session->unset_userdata('id_event');
+            $this->session->unset_userdata('id_topik');
+            $this->session->unset_userdata('id_user');
+            $this->session->unset_userdata('waktu_daftar');
+
+            $data['transaksi'] = $this->Kerjakan_model->getSessionKerjakan($transaksi_event);
+
+            $this->load->view('User/templates/header_tryout', $data);
+            $this->load->view('User/tes/kerjakan_tpa', $data);
+            $this->load->view('User/templates/footer');
+        } else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah pernah mengikuti tryout ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
+    }
+
+    public function jawab()
+    {
+        $this->load->model('Kerjakan_model', 'kerjakan');
+        $jawaban = $_POST;
+        $data = [
+            'id_user' => $jawaban['idp'],
+            'id_topik' => $jawaban['topik'],
+            'id_event' => $jawaban['eve'],
+            'id_soal' => $jawaban['soal'],
+            'id_jawaban' => $jawaban['jwb']
+        ];
+        $this->kerjakan->jawabsoal($data);
     }
 
     public function testimoni()

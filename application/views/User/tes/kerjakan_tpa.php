@@ -1,5 +1,5 @@
 <?php
-$telah_berlalu = time();
+$telah_berlalu = time() - $transaksi['waktu_daftar'];
 
 $temp_waktu = ($topik_tpa['waktu'] * 60); //dijadikan detik dan dikurangi waktu yang berlalu
 $temp_menit = (int)($temp_waktu / 60);                //dijadikan menit lagi
@@ -47,7 +47,7 @@ if ($temp_menit < 60) {
                             foreach ($soal as $loadSoal) { ?>
                             <div class="card mySlides" id="slide<?= $i; ?>" name="slide<?= $i; ?>">
                               <div class="card-header">
-                                <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 40px; height: 40px;"><?= $i ?></button></h5>
+                                <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 45px; height: 45px;"><?= $i ?></button></h5>
                               </div>
                               <div class="card-body">
                                 <form class="questionForm" id="q1" data-question="1">
@@ -57,8 +57,24 @@ if ($temp_menit < 60) {
                                     <?php 
                                       $j = 1;
                                       foreach ($jawaban as $jwb) { ?>
+                                        <?php
+                                          $query = $this->db->get_where('event_jawaban', [
+                                            'id_user' => $user['id'],
+                                            'id_topik' => $topik_tpa['id_topik_tes'],
+                                            'id_event' => $event['id_event'],
+                                            'id_soal' => $loadSoal['id_soal'],
+                                            'id_jawaban', $jwb['id_jawaban']
+                                          ]);
+                                          $checked = $query->row_array();
+
+                                          if ($checked > 0) {
+                                              $checked = 'checked="checked"';
+                                          } else {
+                                              $checked = '';
+                                          }
+                                        ?>
                                       <label class="btn btn-default">
-                                        <input onclick="klikJwbn(<?= $i; ?>)" name="<?= $loadSoal['id_soal']; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jwb="<?= $jwb['id_jawaban']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>"> <?= $jwb['jawaban']; ?>
+                                        <input onclick="klikjawab(<?= $i; ?>)" name="<?= $loadSoal['id_soal']; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jwb="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik_tpa['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
                                       </label>
                                       <br>
                                     <?php $j++; } ?>
@@ -279,23 +295,25 @@ if ($temp_menit < 60) {
         });
       }*/
 
-      function klikJwbn(e) {
+      function klikjawab(e) {
         $('#nomor'+e).removeClass('active');
         $('#nomor'+e).removeClass('btn-outline-primary');
         $('#nomor'+e).addClass('btn-success');
 
-        const soal = $(this).data('soal');
-        const jwb = $(this).data('jwb');
-        const idp = $(this).data('idp');
-        const eve = $(this).data('eve');
+        var soal = $(this).data('soal');
+        var jwb = $(this).data('jwb');
+        var idp = $(this).data('idp');
+        var eve = $(this).data('eve');
+        var topik = $(this).data('topik');
 
         $.ajax({
-            url: "<?= base_url(); ?>event/jawab",
+            url: "<?= base_url('User/'); ?>jawab",
             data: {
                 eve: eve,
                 idp: idp,
                 soal: soal,
-                jwb: jwb
+                jwb: jwb,
+                topik: topik
             },
             method: 'POST',
             dataType: 'json',
@@ -315,3 +333,5 @@ if ($temp_menit < 60) {
         $('#nomor'+e).addClass('active');
       }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>

@@ -52,7 +52,7 @@
                               </tbody>
                             </table>
                             <div class="col-md-12 text-center">
-                                <a href="<?= base_url('User/'); ?>kerjakan_tpa/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
+                                <a href="<?= base_url('User/'); ?>kerjakan_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik_tpa['id_topik_tes']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
                             </div>
 						</div>
 					</div><!-- end -->
