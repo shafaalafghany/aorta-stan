@@ -81,7 +81,39 @@ if ($temp_menit < 60) {
                               </div>
                               <div class="card-footer text-muted">
                                 <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" id="prev<?= $i; ?>" name="prev<?= $i; ?>" onclick="prevSoal(<?= $i; ?>)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" onchange="ragu(<?= $i; ?>);" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>"> Ragu-Ragu</label>
+                                <?php $jawaban = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal']])->result_array(); ?>
+                                    <?php
+                                      foreach ($jawaban as $jwb) : ?>
+                                        <?php
+                                          $query = $this->db->get_where('event_jawaban', [
+                                            'id_user' => $user['id'],
+                                            'id_topik' => $loadSoal['id_topik_tes'],
+                                            'id_event' => $event['id_event'],
+                                            'id_soal' => $loadSoal['id_soal']
+                                          ]);
+                                          $checked = $query->row_array();
+
+                                          if ($checked > 0) {
+                                            $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
+                                              'id_user' => $user['id'],
+                                              'id_topik' => $loadSoal['id_topik_tes'],
+                                              'id_event' => $event['id_event'],
+                                              'id_soal' => $loadSoal['id_soal']
+                                            ]);
+                                            $check = $query->row()->btn_ragu;
+                                            if ($check == 1) {
+                                              $cek = 'checked="checked"';
+                                              $ragu = 0;
+                                            } elseif ($check == 0) {
+                                              $cek = '';
+                                              $ragu = 1;
+                                            }
+                                          } else{
+                                            $ragu = 1;
+                                            $cek = '';
+                                          }
+                                       endforeach; ?>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
@@ -106,9 +138,31 @@ if ($temp_menit < 60) {
                               $cek = $query->row_array();
 
                               if ($cek > 0) {
-                                  $cek = 'btn-success';
+                                $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
+                                  'id_user' => $user['id'],
+                                  'id_topik' => $loadSoal['id_topik_tes'],
+                                  'id_event' => $event['id_event'],
+                                  'id_soal' => $loadSoal['id_soal']
+                                ]);
+                                $check = $query->row()->btn_ragu;
+                                if ($check == 1) {
+                                  $cek = 'btn-warning';
+                                } elseif ($check == 0) {
+                                  $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
+                                    'id_user' => $user['id'],
+                                    'id_topik' => $loadSoal['id_topik_tes'],
+                                    'id_event' => $event['id_event'],
+                                    'id_soal' => $loadSoal['id_soal']
+                                  ]);
+                                  $cekJwbn = $query->row()->id_jawaban;
+                                  if ($cekJwbn > 0) {
+                                    $cek = 'btn-success';
+                                  } else{
+                                    $cek = 'btn-outline-primary';
+                                  }
+                                }
                               } else {
-                                  $cek = 'btn-outline-primary';
+                                $cek = 'btn-outline-primary';
                               }
                             ?>
                           <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
@@ -273,31 +327,29 @@ if ($temp_menit < 60) {
         $('#nomor'+(n+1)).addClass('active');
       }
 
-      function ragu(e) {
-        $('#nomor'+e).removeClass('active');
-        $('#nomor'+e).removeClass('btn-outline-primary');
-        $('#nomor'+e).addClass('btn-warning');
-      }
+      $('.btnRagu').on('click', function() {
+        var soal = $(this).data('soal');
+        var idp = $(this).data('idp');
+        var eve = $(this).data('eve');
+        var topik = $(this).data('topik');
+        var ragu = $(this).data('ragu');
 
-      function raguCancel(e) {
-        
-      }
-
-      /*var j;
-      var slide = $('.mySlides');
-      var daftarSoal = $('.daftar-soal');
-      var nomor = $('#nomor');
-
-      for (var i = daftarSoal.length; i >= 1; i--) {
-        $('#btn-ragu-'+i+"").on('click', function() {
-            j = i+1;
-            if ($(this).prop("checked") == true) {
-              $('#nomor-'+j+"").removeClass('btn-outline-primary').addClass('btn-warning');
-            } else if ($(this).prop("checked") == false) {
-              $('#nomor-'+j+"").removeClass('btn-warning').addClass('btn-outline-primary');
-            }
+        $.ajax({
+            url: "<?= base_url('User/'); ?>ragu",
+            data: {
+                eve: eve,
+                idp: idp,
+                soal: soal,
+                ragu: ragu,
+                topik: topik
+            },
+            method: 'POST',
+            dataType: 'json',
+            success: function() {}
         });
-      }*/
+
+        location.reload();
+      });
 
       function klikJwbn(e) {
         $('#nomor'+e).removeClass('btn-outline-primary');
@@ -305,9 +357,6 @@ if ($temp_menit < 60) {
       }
 
       $('.jawab').on('click', function() {
-        /*$('#nomor'+e).removeClass('active');
-        $('#nomor'+e).removeClass('btn-outline-primary');
-        $('#nomor'+e).addClass('btn-success');*/
 
         var soal = $(this).data('soal');
         var jwb = $(this).data('jawaban');

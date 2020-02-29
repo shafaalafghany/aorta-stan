@@ -27,6 +27,7 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getAllEvent();
+        $data['modul'] = $this->Modul_model->getAllModul();
 
         $this->load->view('User/templates/header_home', $data);
         $this->load->view('User/index', $data);
@@ -90,6 +91,16 @@ class User extends CI_Controller
             $tampungBayar = array('point' => $bayar);
             $this->User_model->updatePointUserByUsername($sessionUser, $tampungBayar);
         }
+
+        $tgl_transaksi = date_create('now')->format('Y-m-d H:i:s');
+
+        $dataTransaksiUser = [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'tgl_transaksi' => $tgl_transaksi
+        ];
+        $this->db->insert('transaksi_user', $dataTransaksiUser);
+
         redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
@@ -241,15 +252,52 @@ class User extends CI_Controller
         $this->kerjakan->jawabsoal($dataJawaban);
     }
 
+    public function ragu()
+    {
+        $this->load->model('Kerjakan_model', 'kerjakan');
+        $klikRagu = $_POST;
+        $dataRagu = [
+            'id_user' => $klikRagu['idp'],
+            'id_topik' => $klikRagu['topik'],
+            'id_event' => $klikRagu['eve'],
+            'id_soal' => $klikRagu['soal'],
+            'btn_ragu' => $klikRagu['ragu']
+        ];
+        $this->kerjakan->klikragu($dataRagu);
+    }
+
     public function testimoni()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Testimoni';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['testimoni'] = $this->Modul_model->getTestimoni();
 
-        $this->load->view('User/templates/header_testimoni', $data);
-        $this->load->view('User/testimoni');
-        $this->load->view('User/templates/footer');
+        $this->form_validation->set_rules('inputSubjek', 'InputSubjek', 'required|trim');
+        $this->form_validation->set_rules('inputPesan', 'InputPesan', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('User/templates/header_testimoni', $data);
+            $this->load->view('User/testimoni');
+            $this->load->view('User/templates/footer');
+        } else{
+            $nama = $this->input->post('name');
+            $email = $this->input->post('inputEmail');
+            $subjek = $this->input->post('inputSubjek');
+            $pesan = $this->input->post('inputPesan');
+            $tgl = time();
+
+            $dataTestimoni = [
+                'nama_user' => $nama,
+                'email_user' => $email,
+                'subjek' => $subjek,
+                'pesan' => $pesan,
+                'date_create' => $tgl
+            ];
+
+            $this->db->insert('testimoni', $dataTestimoni);
+            redirect('User/testimoni');
+        }
     }
 
     public function koreksi($id, $id_event, $id_topik)

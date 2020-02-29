@@ -45,14 +45,33 @@
                                             'id_event' => $event['id_event'],
                                             'id_user' => $user['id']
                                         ])->result_array();
-                                        if (count($hasil) == 1) { ?>
-                                            <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjut Tes TBI</a>
-                                        <?php } elseif (count($hasil) == 2) { ?>
-                                            <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes SKD</a>
-                                        <?php } elseif (count($hasil) >=3 && count($hasil) <=5) { ?>
-                                            <a href="#" class="btn btn-primary py-2">Lihat Leaderboard</a>
-                                        <?php } else { ?>
-                                            <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
+
+                                        $cekTglMulai = $this->db->select('tgl_mulai')->get_where('event', ['id_event' => $event['id_event']])->row()->tgl_mulai;
+                                        $cekTglAkhir = $this->db->select('tgl_akhir')->get_where('event', ['id_event' => $event['id_event']])->row()->tgl_akhir;
+                                        $waktu = date("Y-m-d");
+
+                                        if ($waktu >= $cekTglMulai && $waktu <= $cekTglAkhir) {
+                                            if (count($hasil) == 1) { ?>
+                                                <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjut Tes TBI</a>
+                                            <?php } elseif (count($hasil) == 2) { ?>
+                                                <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes SKD</a>
+                                            <?php } elseif (count($hasil) >=3 && count($hasil) <=5) { ?>
+                                                <a href="#" class="btn btn-primary py-2">Lihat Leaderboard</a>
+                                            <?php } else { ?>
+                                                <?php $transaksi = $this->db->get_where('transaksi_user', [
+                                                    'id_event' => $event['id_event'],
+                                                    'id_user' => $user['id']
+                                                ])->row_array();
+                                                if ($transaksi) { ?>
+                                                    <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjutkan Tes</a>
+                                                <?php } else{ ?>
+                                                    <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        <?php } elseif ($waktu < $cekTglMulai) { ?>
+                                            <a href="#" class="btn btn-info py-2">Event Belum Dimulai</a>
+                                        <?php } elseif ($waktu > $cekTglAkhir){ ?>
+                                            <a href="#" class="btn btn-danger py-2">Event Sudah Kadaluarsa</a>
                                         <?php } ?>
                                     <?php }
                                     else { ?>
@@ -100,11 +119,11 @@
                               </div>
                               <div class="form-group">
                                 <label class="mb-3">Tanggal Dimulai 
-                                    <h4 class="mr-3"><?= $event['tgl_mulai'] ?></h4></label>
+                                    <h4 class="mr-3"><?= date("j M Y", strtotime($event['tgl_mulai'])); ?></h4></label>
                               </div>
                               <div class="form-group">
                                 <label class="mb-3">Tanggal Berakhir 
-                                    <h4 class="mr-3"><?= $event['tgl_akhir'] ?></h4></label>
+                                    <h4 class="mr-3"><?= date("j M Y", strtotime($event['tgl_akhir'])); ?></h4></label>
                               </div>
                             </form>
 
