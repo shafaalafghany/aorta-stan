@@ -150,9 +150,7 @@ class User extends CI_Controller
         $data['event'] = $this->Event_model->getEventById($id_event);
         $data['topik'] = $this->Topik_model->getTopikSKD();
         $data['topik_rule'] = $this->Topik_model->getRuleTopikSKD();
-        $data['soal_twk'] = $this->Soal_model->getSoalTWKbyIdEvent($id_event);
-        $data['soal_tiu'] = $this->Soal_model->getSoalTIUbyIdEvent($id_event);
-        $data['soal_tkp'] = $this->Soal_model->getSoalTKPbyIdEvent($id_event);
+        $data['soal'] = $this->Soal_model->getSoalSKDbyId($id_event, $id_topik);
         
         $waktudaftar = time();
 
@@ -172,7 +170,7 @@ class User extends CI_Controller
         $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
 
         $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/tes/kerjakan_tes', $data);
+        $this->load->view('User/tes/kerjakan_skd', $data);
         $this->load->view('User/templates/footer_tes');
     }
 
@@ -277,6 +275,61 @@ class User extends CI_Controller
         redirect('User/hasil_tes/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
+    public function koreksi_skd($id, $id_event, $id_topik)
+    {
+        $jawabanTwk = $this->Kerjakan_model->koreksiTwk($id, $id_event);
+        $jawabanTiu = $this->Kerjakan_model->koreksiTiu($id, $id_event);
+        $jawabanTkp = $this->Kerjakan_model->koreksiTkp($id, $id_event);
+
+
+
+        $total_benar_twk = 0;
+        foreach ($jawabanTwk as $jawabTwk) {
+            $total_benar_twk = $total_benar_twk + $jawabTwk['score'];
+        }
+        $dataHasilTwk = [
+            'id_topik' => 3,
+            'id_event' => $id_event,
+            'id_user' => $id,
+            'hasil' => $total_benar_twk
+        ];
+        $this->Hasil_tes_model->insertHasil($dataHasilTwk);
+        $this->Kerjakan_model->hapuscachetwk($id, $id_event);
+
+
+
+        $total_benar_tiu = 0;
+        foreach ($jawabanTiu as $jawabTiu) {
+            $total_benar_tiu = $total_benar_tiu + $jawabTiu['score'];
+        }
+        $dataHasilTiu = [
+            'id_topik' => 4,
+            'id_event' => $id_event,
+            'id_user' => $id,
+            'hasil' => $total_benar_tiu
+        ];
+
+        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->Kerjakan_model->hapuscachetiu($id, $id_event);
+
+
+
+        $total_benar_tkp = 0;
+        foreach ($jawabanTkp as $jawabTkp) {
+            $total_benar_tkp = $total_benar_tkp + $jawabTkp['score'];
+        }
+        $dataHasilTiu = [
+            'id_topik' => 5,
+            'id_event' => $id_event,
+            'id_user' => $id,
+            'hasil' => $total_benar_tkp
+        ];
+        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->Kerjakan_model->hapuscachetkp($id, $id_event);
+
+        redirect('User/hasil_skd/' . $id . '/' . $id_event . '/' . $id_topik);
+    }
+
     public function hasil_tes($id, $id_event, $id_topik)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
@@ -290,6 +343,30 @@ class User extends CI_Controller
 
         $this->load->view('User/templates/header_tes', $data);
         $this->load->view('User/hasil_tes', $data);
+        $this->load->view('User/templates/footer_tes');
+    }
+
+    public function hasil_skd($id, $id_event, $id_topik)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik_twk'] = $this->Topik_model->getTwk();
+        $data['topik_rule_twk'] = $this->Topik_model->getRuleTwk();
+        $data['topik_tiu'] = $this->Topik_model->getTiu();
+        $data['topik_rule_tiu'] = $this->Topik_model->getRuleTiu();
+        $data['topik_tkp'] = $this->Topik_model->getTkp();
+        $data['topik_rule_tkp'] = $this->Topik_model->getRuleTkp();
+        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+        $data['topik_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
+        $data['hasil_twk'] = $this->Hasil_tes_model->getHasil($id, $id_event, 3);
+        $data['hasil_tiu'] = $this->Hasil_tes_model->getHasil($id, $id_event, 4);
+        $data['hasil_tkp'] = $this->Hasil_tes_model->getHasil($id, $id_event, 5);
+
+        $this->load->view('User/templates/header_tes', $data);
+        $this->load->view('User/hasil_tes_skd', $data);
         $this->load->view('User/templates/footer_tes');
     }
 

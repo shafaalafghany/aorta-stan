@@ -49,7 +49,7 @@
                                             <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjut Tes TBI</a>
                                         <?php } elseif (count($hasil) == 2) { ?>
                                             <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes SKD</a>
-                                        <?php } elseif (count($hasil) == 3) { ?>
+                                        <?php } elseif (count($hasil) >=3 && count($hasil) <=5) { ?>
                                             <a href="#" class="btn btn-primary py-2">Lihat Leaderboard</a>
                                         <?php } else { ?>
                                             <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
