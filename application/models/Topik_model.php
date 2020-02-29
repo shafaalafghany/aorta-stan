@@ -14,15 +14,30 @@ class Topik_model extends CI_model
 		return $query->result_array();
 	}
 
+	public function getNamaTopikById($id_topik)
+	{
+		return $this->db->select('nama_topik_tes')->get_where('topik_tes', ['id_topik_tes' => $id_topik])->row()->nama_topik_tes;
+	}
+
 	public function getTopikById($id_topik)
 	{
 		return $this->db->get_where('topik_tes', ['id_topik_tes' => $id_topik])->row_array();
+	}
+
+	public function getRuleTopikById($id_topik)
+	{
+		return $this->db->query("SELECT * from rule_tes rt join topik_tes t on rt.id_rule_tes = t.id_rule where t.id_topik_tes = $id_topik")->row_array();
 	}
 
 	//TPA
 	public function getTopikTPA()
 	{
 		return $this->db->get_where('topik_tes', ['id_topik_tes' => 1])->row_array();
+	}
+
+	public function getIdTopikTPA()
+	{
+		return $this->db->select('id_topik_tes')->get_where('topik_tes', ['id_topik_tes' => 1])->row()->id_topik_tes;
 	}
 
 	public function getRuleTopikTPA()
@@ -34,6 +49,11 @@ class Topik_model extends CI_model
 	public function getTopikTBI()
 	{
 		return $this->db->get_where('topik_tes', ['id_topik_tes' => 2])->row_array();
+	}
+
+	public function getIdTopikTBI()
+	{
+		return $this->db->select('id_topik_tes')->get_where('topik_tes', ['id_topik_tes' => 2])->row()->id_topik_tes;
 	}
 
 	public function getRuleTopikTBI()
