@@ -14,6 +14,7 @@ class User extends CI_Controller
         $this->load->model('Rule_topik_model');
         $this->load->model('Soal_model');
         $this->load->model('Kerjakan_model');
+        $this->load->model('Hasil_tes_model');
     }
 
 
@@ -63,7 +64,7 @@ class User extends CI_Controller
         $this->load->view('User/templates/footer');
     }
 
-    public function tes_tpa($id_event)
+    public function tes_tpa($id, $id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
 
@@ -73,6 +74,9 @@ class User extends CI_Controller
         $data['event'] = $this->Event_model->getEventById($id_event);
         $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
         $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
+
+        $id_topik = $this->Topik_model->getIdTopikTPA();
+        $topik_rule = $this->Topik_model->getRuleTopikTPA();
 
         $harga = $this->Event_model->getHargaEvent($id_event);
         $point = $this->db->select('point')->get_where('user', ['role_id' => 3, 'username' => $sessionUser])->row()->point;
@@ -86,10 +90,10 @@ class User extends CI_Controller
             $tampungBayar = array('point' => $bayar);
             $this->User_model->updatePointUserByUsername($sessionUser, $tampungBayar);
         }
-        redirect('User/tes_tpa_detail/' . $id_event);
+        redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
-    public function tes_tpa_detail($id_event)
+    public function tes_tbi($id, $id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
 
@@ -97,24 +101,40 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
-        $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
+        $id_topik = $this->Topik_model->getIdTopikTBI();
+        $topik_rule = $this->Topik_model->getRuleTopikTBI();
 
-        $this->load->view('User/templates/header_tryout', $data);
-        $this->load->view('User/tes_tpa', $data);
-        $this->load->view('User/templates/footer');
+        redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
-    public function kerjakan_tpa($id, $id_event, $id_topik)
+    public function tes_detail($id, $id_event, $id_topik)
+    {
+        $nama = $this->Topik_model->getNamaTopikById($id_topik);
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+        $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+
+        $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
+
+        $this->load->view('User/templates/header_tes', $data);
+        $this->load->view('User/tes_detail', $data);
+        $this->load->view('User/templates/footer_tes');
+    }
+
+    public function kerjakan_tes($id, $id_event, $id_topik)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
-        $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
-        $data['soal'] = $this->Soal_model->getSoalTPAByIdEvent($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+        $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+        $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
         
         $waktudaftar = time();
 
@@ -133,9 +153,9 @@ class User extends CI_Controller
 
         $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
 
-        $this->load->view('User/templates/header_tryout', $data);
-        $this->load->view('User/tes/kerjakan_tpa', $data);
-        $this->load->view('User/templates/footer');
+        $this->load->view('User/templates/header_tes', $data);
+        $this->load->view('User/tes/kerjakan_tes', $data);
+        $this->load->view('User/templates/footer_tes');
     }
 
     public function jawab()
@@ -162,6 +182,46 @@ class User extends CI_Controller
         $this->load->view('User/testimoni');
         $this->load->view('User/templates/footer');
     }
+
+    public function koreksi($id, $id_event, $id_topik)
+    {
+        $dataJawaban = $this->Kerjakan_model->koreksi($id, $id_event, $id_topik);
+
+        $total_benar = 0;
+        foreach ($dataJawaban as $jawab) {
+            $total_benar = $total_benar + $jawab['score'];
+        }
+
+        $dataHasil = [
+            'id_topik' => $id_topik,
+            'id_event' => $id_event,
+            'id_user' => $id,
+            'hasil' => $total_benar
+        ];
+
+        $this->Hasil_tes_model->insertHasil($dataHasil);
+
+        $this->Kerjakan_model->hapuscache($id, $id_topik, $id_event);
+
+        redirect('User/hasil_tes/' . $id . '/' . $id_event . '/' . $id_topik);
+    }
+
+    public function hasil_tes($id, $id_event, $id_topik)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+        $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+        $data['hasil'] = $this->Hasil_tes_model->getHasil($id, $id_event, $id_topik);
+
+        $this->load->view('User/templates/header_tes', $data);
+        $this->load->view('User/hasil_tes', $data);
+        $this->load->view('User/templates/footer_tes');
+    }
+
 
     public function contact()
     {

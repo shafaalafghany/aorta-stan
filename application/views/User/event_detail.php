@@ -41,7 +41,19 @@
 
     							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
                                     <?php if (!empty($user)) { ?>
-                                        <a href="<?= base_url('User/'); ?>tes_tpa/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
+                                        <?php $hasil = $this->db->get_where('hasil_tes', [
+                                            'id_event' => $event['id_event'],
+                                            'id_user' => $user['id']
+                                        ])->result_array();
+                                        if (count($hasil) == 1) { ?>
+                                            <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjut Tes TBI</a>
+                                        <?php } elseif (count($hasil) == 2) { ?>
+                                            <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes SKD</a>
+                                        <?php } elseif (count($hasil) == 3) { ?>
+                                            <a href="#" class="btn btn-primary py-2">Lihat Leaderboard</a>
+                                        <?php } else { ?>
+                                            <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
+                                        <?php } ?>
                                     <?php }
                                     else { ?>
                                         <a href="<?= base_url(); ?>login" class="btn btn-warning py-2 toLogin text-white">Login Dulu Yaa </a>

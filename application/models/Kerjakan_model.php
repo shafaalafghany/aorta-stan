@@ -31,23 +31,17 @@ class Kerjakan_model extends CI_Model
         $this->db->delete('event_jawaban');
     }
 
-    public function koreksi($token)
+    public function koreksi($id, $id_event, $id_topik)
     {
-        $this->db->select(['peserta.event_id', 'peserta.id', 'soal_jawaban.poin', 'soal_jawaban.status']); //skip ini jika mau select spesifik
-        $this->db->from('peserta');
-        $this->db->join('event_jawaban', 'event_jawaban.peserta_id=peserta.id', 'left');
-        $this->db->join('soal_jawaban', 'soal_jawaban.id=event_jawaban.jawaban_id', 'left');
-        $this->db->where('peserta.token', $token);
-        $this->db->where('soal_jawaban.poin !=', NULL);
-        $this->db->where('soal_jawaban.status !=', NULL);
-        $query = $this->db->get();
+        $query = $this->db->query("SELECT j.score, ej.id_soal, ej.id_jawaban from event_jawaban ej left join jawaban j on ej.id_jawaban = j.id_jawaban where ej.id_user = $id and ej.id_event = $id_event and ej.id_topik = $id_topik");
         return $query->result_array();
     }
 
-    public function hapuscache($event_id, $peserta_id)
+    public function hapuscache($id, $id_topik, $id_event)
     {
-        $this->db->where('event_id', $event_id);
-        $this->db->where('peserta_id', $peserta_id);
+        $this->db->where('id_event', $id_event);
+        $this->db->where('id_user', $id);
+        $this->db->where('id_topik', $id_topik);
         $this->db->delete('event_jawaban');
     }
 

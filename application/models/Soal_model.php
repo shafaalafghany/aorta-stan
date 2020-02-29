@@ -8,6 +8,11 @@ class Soal_model extends CI_model
 		return $this->db->query("SELECT * from soal s where s.id_topik_tes = 1 and s.id_event = $id_event")->result_array();
 	}
 
+	public function getSoalById($id_event, $id_topik)
+	 {
+	 	return $this->db->query("SELECT * from soal s where s.id_topik_tes = $id_topik and s.id_event = $id_event")->result_array();
+	 }
+
 	public function tambahSoal($topik, $event, $soal, $jawaban1, $jawaban2, $jawaban3, $jawaban4, $jawaban5, $jawabanBenar)
 	{
 		$dataSoal = [

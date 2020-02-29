@@ -1,8 +1,8 @@
 <?php
 $telah_berlalu = time() - $transaksi['waktu_daftar'];
 
-$temp_waktu = ($topik_tpa['waktu'] * 60) - $telah_berlalu; //dijadikan detik dan dikurangi waktu yang berlalu
-$temp_menit = (int)($temp_waktu / 60);                //dijadikan menit lagi
+$temp_waktu = ($topik['waktu'] * 60) - $telah_berlalu; //dijadikan detik dan dikurangi waktu yang berlalu
+$temp_menit = (int)($temp_waktu / 60);               //dijadikan menit lagi
 $temp_detik = $temp_waktu % 60;                       //sisa bagi untuk detik
 
 if ($temp_menit < 60) {
@@ -23,13 +23,13 @@ if ($temp_menit < 60) {
     </style>
 
     <!-- END nav -->
-    <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg'); height: 300px;" data-stellar-background-ratio="0.5">
     	<div class="overlay"></div>
     	<div class="container">
     		<div class="row no-gutters slider-text align-items-end justify-content-start">
     			<div class="col-md-12 ftco-animate text-center mb-5">
     				<p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
-    				<h1 class="mb-3 bread">Tes TPA</h1>
+    				<h1 class="mb-3 bread"><?= $topik['nama_topik_tes']; ?></h1>
     			</div>
     		</div>
     	</div>
@@ -59,7 +59,7 @@ if ($temp_menit < 60) {
                                         <?php
                                           $query = $this->db->get_where('event_jawaban', [
                                             'id_user' => $user['id'],
-                                            'id_topik' => $topik_tpa['id_topik_tes'],
+                                            'id_topik' => $topik['id_topik_tes'],
                                             'id_event' => $event['id_event'],
                                             'id_soal' => $loadSoal['id_soal'],
                                             'id_jawaban' => $jwb['id_jawaban']
@@ -73,7 +73,7 @@ if ($temp_menit < 60) {
                                           }
                                         ?>
                                         <label class="btn btn-default">
-                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik_tpa['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
+                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
                                         </label>
                                         <br>
                                     <?php endforeach; ?>
@@ -81,7 +81,7 @@ if ($temp_menit < 60) {
                               </div>
                               <div class="card-footer text-muted">
                                 <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" id="prev<?= $i; ?>" name="prev<?= $i; ?>" onclick="prevSoal(<?= $i; ?>)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input onchange="ragu(<?= $i; ?>);" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>"> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" onchange="ragu(<?= $i; ?>);" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>"> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
@@ -99,7 +99,7 @@ if ($temp_menit < 60) {
                           <?php
                               $query = $this->db->get_where('event_jawaban', [
                                 'id_user' => $user['id'],
-                                'id_topik' => $topik_tpa['id_topik_tes'],
+                                'id_topik' => $topik['id_topik_tes'],
                                 'id_event' => $event['id_event'],
                                 'id_soal' => $loadSoal['id_soal']
                               ]);
@@ -115,7 +115,7 @@ if ($temp_menit < 60) {
                       <?php $i++; } ?>
                     </form>
                     <hr>
-                    <a href="#" class="btn btn-success col-md-12">Submit Jawaban</a>
+                    <a href="<?= base_url('User/'); ?>koreksi/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes'] ?>" class="btn btn-success col-md-12 selesai">Submit Jawaban</a>
                   </div>
                 </div>
             </div>
@@ -189,9 +189,9 @@ if ($temp_menit < 60) {
                       if (jam < 0) {
                           clearInterval(hitung);
                           /** Variable yang digunakan untuk submit secara otomatis di Form */
-                          var frmSelesai = document.getElementById("form_selesai");
+                          var frmSelesai = $(".selesai").attr('href');
                           alert('Waktu Kamu udah habis, Semangaaat!');
-                          frmSelesai.submit();
+                          document.location.href = frmSelesai;
                       }
                   }
               }
@@ -277,16 +277,6 @@ if ($temp_menit < 60) {
         $('#nomor'+e).removeClass('active');
         $('#nomor'+e).removeClass('btn-outline-primary');
         $('#nomor'+e).addClass('btn-warning');
-      }
-
-      function showRagu(n) {
-        if (n == true) {
-          $('#nomor'+e).removeClass('active');
-          $('#nomor'+e).removeClass('btn-outline-primary');
-          $('#nomor'+e).addClass('btn-warning');
-        } else if (n == false) {
-          $('#nomor'+e).removeClass('btn-warning');
-        }
       }
 
       function raguCancel(e) {
