@@ -24,15 +24,15 @@ if ($temp_menit < 60) {
 
     <!-- END nav -->
     <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg'); height: 300px;" data-stellar-background-ratio="0.5">
-    	<div class="overlay"></div>
-    	<div class="container">
-    		<div class="row no-gutters slider-text align-items-end justify-content-start">
-    			<div class="col-md-12 ftco-animate text-center mb-5">
-    				<p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
-    				<h1 class="mb-3 bread"><?= $topik['nama_skd']; ?></h1>
-    			</div>
-    		</div>
-    	</div>
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+          <div class="col-md-12 ftco-animate text-center mb-5">
+            <p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
+            <h1 class="mb-3 bread"><?= $topik['nama_skd']; ?></h1>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="ftco-section bg-light" id="tes">
@@ -59,7 +59,7 @@ if ($temp_menit < 60) {
                                         <?php
                                           $query = $this->db->get_where('event_jawaban', [
                                             'id_user' => $user['id'],
-                                            'id_topik' => $topik['id_topik_tes'],
+                                            'id_topik' => $loadSoal['id_topik_tes'],
                                             'id_event' => $event['id_event'],
                                             'id_soal' => $loadSoal['id_soal'],
                                             'id_jawaban' => $jwb['id_jawaban']
@@ -73,7 +73,7 @@ if ($temp_menit < 60) {
                                           }
                                         ?>
                                         <label class="btn btn-default">
-                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
+                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
                                         </label>
                                         <br>
                                     <?php endforeach; ?>
@@ -99,7 +99,7 @@ if ($temp_menit < 60) {
                           <?php
                               $query = $this->db->get_where('event_jawaban', [
                                 'id_user' => $user['id'],
-                                'id_topik' => $topik['id_topik_tes'],
+                                'id_topik' => $loadSoal['id_topik_tes'],
                                 'id_event' => $event['id_event'],
                                 'id_soal' => $loadSoal['id_soal']
                               ]);
@@ -115,7 +115,7 @@ if ($temp_menit < 60) {
                       <?php $i++; } ?>
                     </form>
                     <hr>
-                    <a href="<?= base_url('User/'); ?>koreksi/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes'] ?>" class="btn btn-success col-md-12 selesai">Submit Jawaban</a>
+                    <a href="<?= base_url('User/'); ?>koreksi_skd/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_skd'] ?>" class="btn btn-success col-md-12 selesai">Submit Jawaban</a>
                   </div>
                 </div>
             </div>

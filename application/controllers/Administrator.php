@@ -251,11 +251,21 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/buat_soal', $data);
         } else {
-            $dataSoal = [
-                'id_topik_tes' => $optionTopik,
-                'id_event' => $id_event,
-                'soal' => $soal
-            ];
+            if ($optionTopik >= 3) {
+                $dataSoal = [
+                    'id_topik_tes' => $optionTopik,
+                    'id_event' => $id_event,
+                    'id_skd' => 3,
+                    'soal' => $soal
+                ];
+            } else{
+                $dataSoal = [
+                    'id_topik_tes' => $optionTopik,
+                    'id_event' => $id_event,
+                    'id_skd' => 0,
+                    'soal' => $soal
+                ];
+            }
 
             $this->db->insert('soal', $dataSoal);
 
@@ -795,6 +805,7 @@ class Administrator extends CI_Controller
             $dataSoal = [
                 'id_topik_tes' => 5,
                 'id_event' => $id_event,
+                'id_skd' => 3,
                 'soal' => $soal
             ];
 
@@ -803,6 +814,7 @@ class Administrator extends CI_Controller
             $getIdSoal = $this->db->select('id_soal')->get_where('soal', [
                 'id_topik_tes' => 5,
                 'id_event' => $id_event,
+                'id_skd' => 3,
                 'soal' => $soal
             ])->row()->id_soal;
 

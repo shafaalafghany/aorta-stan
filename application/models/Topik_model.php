@@ -82,6 +82,36 @@ class Topik_model extends CI_model
 		return $this->db->query("SELECT * from rule_tes rt left join topik_tes t on rt.id_rule_tes = t.id_rule where t.id_skd = 3")->result_array();
 	}
 
+	public function getTwk()
+	{
+		return $this->db->get_where('topik_tes', ['id_topik_tes' => 3])->row_array();
+	}
+
+	public function getRuleTwk()
+	{
+		return $this->db->query("SELECT * from rule_tes rt left join topik_tes t on rt.id_rule_tes = t.id_rule where t.id_topik_tes = 3")->row_array();
+	}
+
+	public function getTiu()
+	{
+		return $this->db->get_where('topik_tes', ['id_topik_tes' => 4])->row_array();
+	}
+
+	public function getRuleTiu()
+	{
+		return $this->db->query("SELECT * from rule_tes rt left join topik_tes t on rt.id_rule_tes = t.id_rule where t.id_topik_tes = 4")->row_array();
+	}
+
+	public function getTkp()
+	{
+		return $this->db->get_where('topik_tes', ['id_topik_tes' => 5])->row_array();
+	}
+
+	public function getRuleTkp()
+	{
+		return $this->db->query("SELECT * from rule_tes rt left join topik_tes t on rt.id_rule_tes = t.id_rule where t.id_topik_tes = 5")->row_array();
+	}
+
 	/*public function deleteModul($id)
 	{
 		$this->db->where('id_modul', $id);
