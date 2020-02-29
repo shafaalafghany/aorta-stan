@@ -61,7 +61,7 @@
                               <?php if ($topik['id_topik_tes'] == 1) { ?>
                                 <a href="<?= base_url('User/'); ?>tes_tbi/<?= $user['id'] ?>/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lanjutkan Ke Tes TBI</a>
                               <?php } elseif ($topik['id_topik_tes'] == 2){ ?>
-                                <a href="#" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lanjutkan Ke Tes SKD</a>
+                                <a href="<?= base_url('User/'); ?>tes_skd/<?= $user['id'] ?>/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lanjutkan Ke Tes SKD</a>
                               <?php } else{ ?>
                                 <a href="#" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lihat Leaderboard</a>
                               <?php }?>

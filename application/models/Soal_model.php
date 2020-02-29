@@ -45,4 +45,19 @@ class Soal_model extends CI_model
 	{
 		return $this->db->query("SELECT * from soal where id_event = $id_event and id_topik_tes = $id_topik")->result_array();
 	}
+
+	public function getSoalTWKbyIdEvent($id_event)
+	{
+		return $this->db->query("SELECT * from soal where id_event = $id_event and id_topik_tes = 3")->result_array();
+	}
+
+	public function getSoalTIUbyIdEvent($id_event)
+	{
+		return $this->db->query("SELECT * from soal where id_event = $id_event and id_topik_tes = 4")->result_array();
+	}
+
+	public function getSoalTKPbyIdEvent($id_event)
+	{
+		return $this->db->query("SELECT * from soal where id_event = $id_event and id_topik_tes = 5")->result_array();
+	}
 }

@@ -17,49 +17,49 @@
     			<div class="col-lg">
 					<div class="col-md-12 ftco-animate">
 						<div class="job-post-item p-4" style="text-align: center;">
-                            <table id="example1" class="table table-striped">
-                              <tbody>
-                                <tr>
-                                  <td>
-                                    <span class="subadge">
-                                      <?php if ($topik['id_topik_tes'] == 1) {
-                                        echo "Tes 1";
-                                      } elseif ($topik['id_topik_tes'] == 2) {
-                                        echo "Tes 2";
-                                      } ?>
-                                    </span>
-                                    <h4 class="mr-3 text-black"><?= $topik['nama_topik_tes'] ?></h4>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <span class="subadge">Durasi</span>
-                                    <h4 class="mr-3 text-black"><?= $topik['waktu'] ?> menit</h4>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <span class="subadge">Jawaban Benar</span>
-                                    <h4 class="mr-3 text-black"><?= $topik_rule['score_benar'] ?></h4>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <span class="subadge">Jawaban Salah</span>
-                                    <h4 class="mr-3 text-black"><?= $topik_rule['score_salah'] ?></h4>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <span class="subadge">Jawaban Kosong</span>
-                                    <h4 class="mr-3 text-black"><?= $topik_rule['score_kosong'] ?></h4>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div class="col-md-12 text-center">
-                                <a href="<?= base_url('User/'); ?>kerjakan_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
-                            </div>
+              <table id="example1" class="table table-striped">
+                <tbody>
+                  <tr>
+                    <td>
+                      <span class="subadge">
+                        <?php if ($topik['id_topik_tes'] == 1) {
+                          echo "Tes 1";
+                        } elseif ($topik['id_topik_tes'] == 2) {
+                          echo "Tes 2";
+                        } ?>
+                      </span>
+                      <h4 class="mr-3 text-black"><?= $topik['nama_topik_tes'] ?></h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="subadge">Durasi</span>
+                      <h4 class="mr-3 text-black"><?= $topik['waktu'] ?> menit</h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="subadge">Jawaban Benar</span>
+                      <h4 class="mr-3 text-black"><?= $topik_rule['score_benar'] ?></h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="subadge">Jawaban Salah</span>
+                      <h4 class="mr-3 text-black"><?= $topik_rule['score_salah'] ?></h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="subadge">Jawaban Kosong</span>
+                      <h4 class="mr-3 text-black"><?= $topik_rule['score_kosong'] ?></h4>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="col-md-12 text-center">
+                  <a href="<?= base_url('User/'); ?>kerjakan_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
+              </div>
 						</div>
 					</div><!-- end -->
     			</div>

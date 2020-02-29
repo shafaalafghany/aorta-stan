@@ -107,6 +107,75 @@ class User extends CI_Controller
         redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
+    public function tes_skd($id, $id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $id_topik = $this->Topik_model->getIdTopikTBI();
+        $topik_rule = $this->Topik_model->getRuleTopikTBI();
+
+        redirect('User/tes_skd_detail/' . $id . '/' . $id_event);
+    }
+
+    public function tes_skd_detail($id, $id_event)
+    {
+        $nama = $this->Topik_model->getNamaTopikSKD();
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['klmpk_skd'] = $this->Topik_model->getKlmpkSKD();
+        $data['klmpk_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
+        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+
+        $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
+
+        $this->load->view('User/templates/header_tes', $data);
+        $this->load->view('User/tes_skd', $data);
+        $this->load->view('User/templates/footer_tes');
+    }
+
+    public function kerjakan_skd($id, $id_event, $id_topik)
+    {
+        $nama = $this->Topik_model->getNamaTopikById($id_topik);
+        $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikSKD();
+        $data['topik_rule'] = $this->Topik_model->getRuleTopikSKD();
+        $data['soal_twk'] = $this->Soal_model->getSoalTWKbyIdEvent($id_event);
+        $data['soal_tiu'] = $this->Soal_model->getSoalTIUbyIdEvent($id_event);
+        $data['soal_tkp'] = $this->Soal_model->getSoalTKPbyIdEvent($id_event);
+        
+        $waktudaftar = time();
+
+        $dataTransaksi = [
+            'id_topik' => $id_topik,
+            'id_event' => $id_event,
+            'id_user' => $id,
+            'waktu_daftar' => $waktudaftar
+        ];
+        $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+
+        $this->session->unset_userdata('id_event');
+        $this->session->unset_userdata('id_topik');
+        $this->session->unset_userdata('id_user');
+        $this->session->unset_userdata('waktu_daftar');
+
+        $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+
+        $this->load->view('User/templates/header_tes', $data);
+        $this->load->view('User/tes/kerjakan_tes', $data);
+        $this->load->view('User/templates/footer_tes');
+    }
+
     public function tes_detail($id, $id_event, $id_topik)
     {
         $nama = $this->Topik_model->getNamaTopikById($id_topik);
@@ -117,6 +186,7 @@ class User extends CI_Controller
         $data['event'] = $this->Event_model->getEventById($id_event);
         $data['topik'] = $this->Topik_model->getTopikById($id_topik);
         $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
 
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
 
@@ -127,7 +197,8 @@ class User extends CI_Controller
 
     public function kerjakan_tes($id, $id_event, $id_topik)
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+        $nama = $this->Topik_model->getNamaTopikById($id_topik);
+        $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
