@@ -69,7 +69,7 @@
                 <?php foreach ($event as $loadEvent) : ?>
                     <div class="col-md-3 ftco-animate">
                         <ul class="category text-center">
-                            <li><a href="<?= base_url('User/'); ?>event/<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']?><br><span class="number"><?= $loadEvent['tgl_mulai']?></span><i class="ion-ios-arrow-forward"></i></a></li>
+                            <li><a href="<?= base_url('User/'); ?>event/<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']?><br><span class="number"><?= date("j M Y", strtotime($loadEvent['tgl_mulai'])); ?></span><i class="ion-ios-arrow-forward"></i></a></li>
                         </ul>
                     </div>
                 <?php endforeach; ?>
@@ -131,75 +131,29 @@
     					</div>
     				</div>
     				<div class="row">
-    					<div class="col-md-12 ftco-animate">
-    						<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-    							<div class="one-third mb-4 mb-md-0">
-    								<div class="job-post-item-header align-items-center">
-    									<span class="subadge">Modul 1</span>
-    									<h2 class="mr-3 text-black"><a href="#">Matematika</a></h2>
-    								</div>
-    								<div class="job-post-item-body d-block d-md-flex">
-    									<div class="mr-3"><span class="icon-layers"></span>Berisi Trik Jitu Matematika</div>
-    								</div>
-    							</div>
 
-    							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-    								<div>
-    									<a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-    										<span class="icon-heart"></span>
-    									</a>
-    								</div>
-    								<a href="#" class="btn btn-primary py-2">Lihat</a>
-    							</div>
-    						</div>
-    					</div><!-- end -->
+                        <?php 
+                        $i = 1;
+                        foreach ($modul as $loadModul) { ?>
+                            <div class="col-md-12 ftco-animate">
+                                <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                    <div class="one-third mb-4 mb-md-0">
+                                        <div class="job-post-item-header align-items-center">
+                                            <span class="subadge">Modul <?= $i; ?></span>
+                                            <h2 class="mr-3 text-black"><a href="#"><?= $loadModul['judul_modul']; ?></a></h2>
+                                        </div>
+                                        <div class="job-post-item-body d-block d-md-flex">
+                                            <div class="mr-3"><span class="icon-layers mr-1"></span><?= $loadModul['deskripsi']; ?></div>
+                                        </div>
+                                    </div>
 
-    					<div class="col-md-12 ftco-animate">
-    						<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-    							<div class="one-third mb-4 mb-md-0">
-    								<div class="job-post-item-header align-items-center">
-    									<span class="subadge">Modul 2</span>
-    									<h2 class="mr-3 text-black"><a href="#">Bahasa Inggris</a></h2>
-    								</div>
-    								<div class="job-post-item-body d-block d-md-flex">
-    									<div class="mr-3"><span class="icon-layers"></span>Berisi Tenses Lengkap</div>
-    								</div>
-    							</div>
-
-    							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-    								<div>
-    									<a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-    										<span class="icon-heart"></span>
-    									</a>
-    								</div>
-    								<a href="#" class="btn btn-primary py-2">Lihat</a>
-    							</div>
-    						</div>
-    					</div><!-- end -->
-
-    					<div class="col-md-12 ftco-animate">
-    						<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-    							<div class="one-third mb-4 mb-md-0">
-    								<div class="job-post-item-header align-items-center">
-    									<span class="subadge">Modul 3</span>
-    									<h2 class="mr-3 text-black"><a href="#">SKD</a></h2>
-    								</div>
-    								<div class="job-post-item-body d-block d-md-flex">
-    									<div class="mr-3"><span class="icon-layers"></span>Berisi Materi Tes ASN</div>
-    								</div>
-    							</div>
-
-    							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-    								<div>
-    									<a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-    										<span class="icon-heart"></span>
-    									</a>
-    								</div>
-    								<a href="#" class="btn btn-primary py-2">Lihat</a>
-    							</div>
-    						</div>
-    					</div><!-- end -->
-
+                                    <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                        <a href="#" class="btn btn-primary py-2">Lihat</a>
+                                    </div>
+                                </div>
+                            </div><!-- end -->
+                        <?php $i++; } ?>
+    					
     				</div>
     			</div>
     			<!-- <div class="col-lg-3 sidebar">

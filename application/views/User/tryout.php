@@ -28,7 +28,7 @@
     									<div class="job-post-item-body d-block d-md-flex">
     										<div class="mr-3" toggle="Waktu Pelaksanaan">
     											<span><i class="far fa-clock mr-1"></i></span>
-    											<span><?= $loadEvent['tgl_mulai'] ?></span>
+    											<span><?= date("j M Y", strtotime($loadEvent['tgl_mulai'])); ?></span>
     										</div>
     										<div class="mr-3">
     											<span><i class="fas fa-money-bill-wave mr-1"></i></span>

@@ -18,4 +18,9 @@ class Modul_model extends CI_model
 		$this->db->delete('modul');
 		//return $this->db->get_where('mahasiswa', ['id' => $id]);
 	}
+
+	public function getTestimoni()
+	{
+		return $this->db->get('testimoni')->result_array();
+	}
 }

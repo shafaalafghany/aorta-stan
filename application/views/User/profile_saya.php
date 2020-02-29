@@ -23,7 +23,7 @@
             </div>
             <div>
               <p style="color: black;">
-                <span><?= date('d/m/Y', $user['date_created']); ?></span>
+                <span>Terdaftar sejak <?= date("j M Y", strtotime($user['date_created'])); ?></span>
               </p>
             </div>
             <div>

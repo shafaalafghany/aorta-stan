@@ -16,66 +16,57 @@
     		<div class="row">
     			<div class="col-lg-8 pr-lg-4">
     				<div class="row ftco-animate">
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Jawa Timur, Indonesia</span>
-    								<h2>Alfa Beta</h2>
-    								<span class="position">Peserta TO AKBAR 1</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">1 minggu yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Jawa Tengah, Indonesia</span>
-    								<h2>Beta Gamma</h2>
-    								<span class="position">Peserta TO AKBAR 1</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">1 minggu yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">Jawa Barat, Indonesia</span>
-    								<h2>Andi Skuat</h2>
-    								<span class="position">Peserta TO AKBAR 2</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">3 hari yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="col-md-12">
-    						<div class="team d-md-flex p-4 bg-white">
-    							<div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-    							<div class="text pl-md-4">
-    								<span class="location mb-0">DKI Jakarta, Indonesia</span>
-    								<h2>Budi Harianto</h2>
-    								<span class="position">Peserta TO AKBAR 2</span>
-    								<p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<span class="seen">3 hari yang lalu</span>
-    							</div>
-    						</div>
-    					</div>
-                        <div class="col-md-12">
-                            <div class="team d-md-flex p-4 bg-white">
-                                <div class="img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png);"></div>
-                                <div class="text pl-md-4">
-                                    <span class="location mb-0">Kalimantan Barat, Indonesia</span>
-                                    <h2>Joko Bambang</h2>
-                                    <span class="position">Peserta TO AKBAR 3</span>
-                                    <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <span class="seen">1 hari yang lalu</span>
+
+                        <?php foreach ($testimoni as $loadTestimoni) { ?>
+                            <div class="col-md-12">
+                                <div class="team d-md-flex p-4 bg-white">
+                                    <div class="img">
+                                        <img class="image-profile" src="<?= base_url('assets/img/profile/') . $user['image']; ?>" alt="User Image">
+                                    </div>
+                                    <div class="text pl-md-4" style="margin-top: 5%;">
+                                        <h2><?= $loadTestimoni['nama_user']; ?></h2>
+                                        <span class="position"><?= $loadTestimoni['subjek']; ?></span>
+                                        <p class="mb-2"><?= $loadTestimoni['pesan']; ?></p>
+                                        <span class="seen"><?php 
+                                        $date = time() - $loadTestimoni['date_create'];
+                                        if ($date >= 0 && $date < 60) {
+                                            echo "Baru saja";
+                                        } elseif ($date >= 60 && $date < 120) {
+                                            echo "1 Menit yang lalu";
+                                        } elseif ($date >= 120 && $date < 180) {
+                                            echo "2 Menit yang lalu";
+                                        } elseif ($date >= 180 && $date < 240) {
+                                            echo "3 Menit yang lalu";
+                                        } elseif ($date >= 240 && $date < 3600){
+                                            echo "Beberapa menit yang lalu";
+                                        } elseif ($date >= 3600 && $date < 7200) {
+                                            echo "1 Jam yang lalu";
+                                        } elseif ($date >= 7200 && $date < 10800) {
+                                            echo "2 Jam yang lalu";
+                                        } elseif ($date >= 10800 && $date < 86400) {
+                                            echo "Beberapa Jam yang lalu";
+                                        } elseif ($date >= 86400 && $date < 172800) {
+                                            echo "Hari ini";
+                                        } elseif ($date >= 172800 && $date < 259200) {
+                                            echo "Kemarin";
+                                        } elseif ($date >= 259200 && $date < 345600) {
+                                            echo "2 Hari yang lalu";
+                                        } elseif ($date >= 345600 && $date < 604800) {
+                                            echo "Beberapa hari yang lalu";
+                                        } elseif ($date >= 604800 && $date < 1209600) {
+                                            echo "1 Minggu yang lalu";
+                                        } elseif ($date >= 1209600 && $date < 2592000) {
+                                            echo "Beberapa minggu yang lalu";
+                                        } elseif ($date >= 2592000 && $date < 5184000) {
+                                            echo "1 Bulan yang lalu";
+                                        } elseif ($date >= 5184000) {
+                                            echo "Berbulan-bulan yang lalu";
+                                        } ?></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
+
     				</div>
     				<div class="row mt-5">
     					<div class="col text-center">
@@ -97,22 +88,22 @@
                     <div class="col-lg-4 sidebar">
                       <div class="sidebar-box bg-white p-4 ftco-animate">
                         <h3 class="heading-sidebar"><strong>Berikan Testimoni Anda</strong></h3>
-                        <form action="#" class="contact-form mb-3">
+                        <form action="<?= base_url('User/'); ?>testimoni" method="post" class="contact-form mb-3">
                           <div class="form-group">
                             <label>Nama</label>
-                            <input type="text" class="form-control" disabled="disabled" value="<?= $user['name']; ?>">
+                            <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>" readonly>
                           </div>
                           <div class="form-group">
                             <label>Email</label>
-                            <input type="text" class="form-control" disabled="disabled" value="<?= $user['email']; ?>">
+                            <input type="text" class="form-control" id="inputEmail" name="inputEmail" value="<?= $user['email']; ?>" readonly>
                           </div>
                           <div class="form-group">
                             <label>Subject</label>
-                            <input type="text" class="form-control">
+                            <input type="text" id="inputSubjek" name="inputSubjek" class="form-control">
                           </div>
                           <div class="form-group">
                             <label>Pesan</label>
-                            <textarea name="" id="" cols="30" rows="7" class="form-control"></textarea>
+                            <textarea id="inputPesan" name="inputPesan" cols="30" rows="7" class="form-control"></textarea>
                           </div>
                           <div class="form-group" style="text-align: center;">
                             <input type="submit" value="Submit" class="btn btn-primary py-2 px-4">
@@ -144,7 +135,7 @@
                             <textarea name="" id="" cols="30" rows="7" class="form-control"></textarea>
                           </div>
                           <div class="form-group" style="text-align: center;">
-                            <input type="submit" value="Submit" class="btn btn-primary py-2 px-4">
+                            <input type="submit" value="Login Dulu" class="btn btn-warning py-2 px-4">
                           </div>
                         </form>
 

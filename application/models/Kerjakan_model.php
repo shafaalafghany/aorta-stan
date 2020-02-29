@@ -23,12 +23,22 @@ class Kerjakan_model extends CI_Model
         }
     }
 
-    public function hapusjawabsoal($data)
+    public function klikragu($dataRagu)
     {
-        $this->db->where('soal_id', $data['soal_id']);
-        $this->db->where('event_id', $data['event_id']);
-        $this->db->where('peserta_id', $data['peserta_id']);
-        $this->db->delete('event_jawaban');
+        $this->db->select('btn_ragu'); //skip ini jika mau select spesifik
+        $this->db->from('event_jawaban');
+        $this->db->where('id_soal', $dataRagu['id_soal']);
+        $this->db->where('id_event', $dataRagu['id_event']);
+        $this->db->where('id_user', $dataRagu['id_user']);
+        $this->db->where('id_topik', $dataRagu['id_topik']);
+        $query = $this->db->get();
+        $cekjawab = $query->row()->btn_ragu;
+        if (is_null($cekjawab)) {
+            $this->db->insert('event_jawaban', $dataRagu);
+        } else {
+            $this->db->where('id_soal', $dataRagu['id_soal']);
+            $this->db->update('event_jawaban', ['btn_ragu' => $dataRagu['btn_ragu']]);
+        }
     }
 
     public function koreksi($id, $id_event, $id_topik)
