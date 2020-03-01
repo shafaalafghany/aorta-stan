@@ -1,4 +1,5 @@
-<?php
+<?php if ($user) { ?>
+  <?php
 $telah_berlalu = time() - $transaksi['waktu_daftar'];
 
 $temp_waktu = ($topik['waktu'] * 60) - $telah_berlalu; //dijadikan detik dan dikurangi waktu yang berlalu
@@ -400,3 +401,7 @@ if ($temp_menit < 60) {
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+<?php } else{
+  $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+  redirect('User/login');
+} ?>

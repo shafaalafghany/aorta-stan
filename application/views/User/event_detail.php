@@ -56,7 +56,7 @@
                                             <?php } elseif (count($hasil) == 2) { ?>
                                                 <a href="<?= base_url('User/'); ?>tes_skd/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lanjut Tes SKD</a>
                                             <?php } elseif (count($hasil) >=3 && count($hasil) <=5) { ?>
-                                                <a href="#" class="btn btn-primary py-2">Lihat Leaderboard</a>
+                                                <a href="<?= base_url('User/'); ?>proses_leader/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lihat Leaderboard</a>
                                             <?php } else { ?>
                                                 <?php $transaksi = $this->db->get_where('transaksi_user', [
                                                     'id_event' => $event['id_event'],
