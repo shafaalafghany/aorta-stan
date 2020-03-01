@@ -28,6 +28,7 @@ class User extends CI_Controller
 
         $data['event'] = $this->Event_model->getAllEvent();
         $data['modul'] = $this->Modul_model->getAllModul();
+        $data['testimoni'] = $this->Modul_model->getTestimoni();
 
         $this->load->view('User/templates/header_home', $data);
         $this->load->view('User/index', $data);
@@ -134,21 +135,39 @@ class User extends CI_Controller
 
     public function tes_skd_detail($id, $id_event)
     {
-        $nama = $this->Topik_model->getNamaTopikSKD();
+        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row_array();
+        if ($transaksi) {
+            if (count($hasil_tes) == 2) {
+                $nama = $this->Topik_model->getNamaTopikSKD();
 
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+                $sessionUser = $this->session->userdata('username');
+                $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['klmpk_skd'] = $this->Topik_model->getKlmpkSKD();
-        $data['klmpk_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
-        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+                $data['event'] = $this->Event_model->getEventById($id_event);
+                $data['klmpk_skd'] = $this->Topik_model->getKlmpkSKD();
+                $data['klmpk_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
+                $data['topik_skd'] = $this->Topik_model->getTopikSKD();
 
-        $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
+                $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
 
-        $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/tes_skd', $data);
-        $this->load->view('User/templates/footer_tes');
+                $this->load->view('User/templates/header_tes', $data);
+                $this->load->view('User/tes_skd', $data);
+                $this->load->view('User/templates/footer_tes');
+            } elseif (count($hasil_tes) < 2) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA dan TBI</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes ini</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
     }
 
     public function kerjakan_skd($id, $id_event, $id_topik)
@@ -157,51 +176,109 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikSKD();
-        $data['topik_rule'] = $this->Topik_model->getRuleTopikSKD();
-        $data['soal'] = $this->Soal_model->getSoalSKDbyId($id_event, $id_topik);
-
-        $waktudaftar = time();
-
-        $dataTransaksi = [
-            'id_topik' => $id_topik,
-            'id_event' => $id_event,
+        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
-            'waktu_daftar' => $waktudaftar
-        ];
-        $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+            'id_event' => $id_event
+        ])->row_array();
+        if ($transaksi) {
+            if (count($hasil_tes) == 2) {
+                $data['event'] = $this->Event_model->getEventById($id_event);
+                $data['topik'] = $this->Topik_model->getTopikSKD();
+                $data['topik_rule'] = $this->Topik_model->getRuleTopikSKD();
+                $data['soal'] = $this->Soal_model->getSoalSKDbyId($id_event, $id_topik);
 
-        $this->session->unset_userdata('id_event');
-        $this->session->unset_userdata('id_topik');
-        $this->session->unset_userdata('id_user');
-        $this->session->unset_userdata('waktu_daftar');
+                $waktudaftar = time();
 
-        $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+                $dataTransaksi = [
+                    'id_topik' => $id_topik,
+                    'id_event' => $id_event,
+                    'id_user' => $id,
+                    'waktu_daftar' => $waktudaftar
+                ];
+                $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
 
-        $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/tes/kerjakan_skd', $data);
-        $this->load->view('User/templates/footer_tes');
+                $this->session->unset_userdata('id_event');
+                $this->session->unset_userdata('id_topik');
+                $this->session->unset_userdata('id_user');
+                $this->session->unset_userdata('waktu_daftar');
+
+                $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+
+                $this->load->view('User/templates/header_tes', $data);
+                $this->load->view('User/tes/kerjakan_skd', $data);
+                $this->load->view('User/templates/footer_tes');
+            } elseif (count($hasil_tes) < 2) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA dan TBI</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes ini</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
     }
 
     public function tes_detail($id, $id_event, $id_topik)
     {
-        $nama = $this->Topik_model->getNamaTopikById($id_topik);
+        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row_array();
+        if ($transaksi) {
+            if ($hasil_tes == null) {
+                if ($id_topik == 1) {
+                    $nama = $this->Topik_model->getNamaTopikById($id_topik);
 
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+                    $sessionUser = $this->session->userdata('username');
+                    $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-        $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+                    $data['event'] = $this->Event_model->getEventById($id_event);
+                    $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                    $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                    $data['topik_skd'] = $this->Topik_model->getTopikSKD();
 
-        $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
+                    $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
 
-        $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/tes_detail', $data);
-        $this->load->view('User/templates/footer_tes');
+                    $this->load->view('User/templates/header_tes', $data);
+                    $this->load->view('User/tes_detail', $data);
+                    $this->load->view('User/templates/footer_tes');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('User/tryout');
+                };
+            } elseif (count($hasil_tes) == 1) {
+                if ($id_topik == 2) {
+                    $nama = $this->Topik_model->getNamaTopikById($id_topik);
+
+                    $sessionUser = $this->session->userdata('username');
+                    $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+                    $data['event'] = $this->Event_model->getEventById($id_event);
+                    $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                    $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                    $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+
+                    $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
+
+                    $this->load->view('User/templates/header_tes', $data);
+                    $this->load->view('User/tes_detail', $data);
+                    $this->load->view('User/templates/footer_tes');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TBI!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('User/tryout');
+                };
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
     }
 
     public function kerjakan_tes($id, $id_event, $id_topik)
@@ -210,32 +287,82 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-        $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-        $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
-
-        $waktudaftar = time();
-
-        $dataTransaksi = [
-            'id_topik' => $id_topik,
-            'id_event' => $id_event,
+        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
-            'waktu_daftar' => $waktudaftar
-        ];
-        $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+            'id_event' => $id_event
+        ])->row_array();
+        if ($transaksi) {
+            if ($hasil_tes == null) {
+                if ($id_topik == 1) {
+                    $data['event'] = $this->Event_model->getEventById($id_event);
+                    $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                    $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                    $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
 
-        $this->session->unset_userdata('id_event');
-        $this->session->unset_userdata('id_topik');
-        $this->session->unset_userdata('id_user');
-        $this->session->unset_userdata('waktu_daftar');
+                    $waktudaftar = time();
 
-        $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+                    $dataTransaksi = [
+                        'id_topik' => $id_topik,
+                        'id_event' => $id_event,
+                        'id_user' => $id,
+                        'waktu_daftar' => $waktudaftar
+                    ];
+                    $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
 
-        $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/tes/kerjakan_tes', $data);
-        $this->load->view('User/templates/footer_tes');
+                    $this->session->unset_userdata('id_event');
+                    $this->session->unset_userdata('id_topik');
+                    $this->session->unset_userdata('id_user');
+                    $this->session->unset_userdata('waktu_daftar');
+
+                    $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+
+                    $this->load->view('User/templates/header_tes', $data);
+                    $this->load->view('User/tes/kerjakan_tes', $data);
+                    $this->load->view('User/templates/footer_tes');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('User/tryout');
+                };
+            } elseif (count($hasil_tes) == 1) {
+                if ($id_topik == 2) {
+                    $data['event'] = $this->Event_model->getEventById($id_event);
+                    $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                    $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                    $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
+
+                    $waktudaftar = time();
+
+                    $dataTransaksi = [
+                        'id_topik' => $id_topik,
+                        'id_event' => $id_event,
+                        'id_user' => $id,
+                        'waktu_daftar' => $waktudaftar
+                    ];
+                    $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+
+                    $this->session->unset_userdata('id_event');
+                    $this->session->unset_userdata('id_topik');
+                    $this->session->unset_userdata('id_user');
+                    $this->session->unset_userdata('waktu_daftar');
+
+                    $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+
+                    $this->load->view('User/templates/header_tes', $data);
+                    $this->load->view('User/tes/kerjakan_tes', $data);
+                    $this->load->view('User/templates/footer_tes');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TBI!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('User/tryout');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
     }
 
     public function jawab()
@@ -280,19 +407,21 @@ class User extends CI_Controller
             $this->load->view('User/templates/header_testimoni', $data);
             $this->load->view('User/testimoni');
             $this->load->view('User/templates/footer');
-        } else{
+        } else {
             $nama = $this->input->post('name');
             $email = $this->input->post('inputEmail');
             $subjek = $this->input->post('inputSubjek');
             $pesan = $this->input->post('inputPesan');
             $tgl = time();
+            $image = $this->User_model->getImageUserByEmail($email);
 
             $dataTestimoni = [
                 'nama_user' => $nama,
                 'email_user' => $email,
                 'subjek' => $subjek,
                 'pesan' => $pesan,
-                'date_create' => $tgl
+                'date_create' => $tgl,
+                'image' => $image
             ];
 
             $this->db->insert('testimoni', $dataTestimoni);
@@ -383,15 +512,35 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row_array();
+        if ($transaksi) {
+            if ($hasil_tes > 0) {
+                if ($id_topik > 0 && $id_topik <= 2) {
+                    $data['event'] = $this->Event_model->getEventById($id_event);
+                    $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                    $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                    $data['hasil'] = $this->Hasil_tes_model->getHasil($id, $id_event, $id_topik);
+                    $data['hasilSemuaTes'] = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
 
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-        $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-        $data['hasil'] = $this->Hasil_tes_model->getHasil($id, $id_event, $id_topik);
-
-        $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/hasil_tes', $data);
-        $this->load->view('User/templates/footer_tes');
+                    $this->load->view('User/templates/header_tes', $data);
+                    $this->load->view('User/hasil_tes', $data);
+                    $this->load->view('User/templates/footer_tes');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Halaman tidak ditemukan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('User/tryout');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum memiliki hasil pada tes tersebut</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
     }
 
     public function hasil_skd($id, $id_event, $id_topik)
@@ -399,23 +548,42 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row_array();
+        if ($transaksi) {
+            if ($hasil_tes >= 3) {
+                if ($id_topik == 3) {
+                    $data['event'] = $this->Event_model->getEventById($id_event);
+                    $data['topik_twk'] = $this->Topik_model->getTwk();
+                    $data['topik_rule_twk'] = $this->Topik_model->getRuleTwk();
+                    $data['topik_tiu'] = $this->Topik_model->getTiu();
+                    $data['topik_rule_tiu'] = $this->Topik_model->getRuleTiu();
+                    $data['topik_tkp'] = $this->Topik_model->getTkp();
+                    $data['topik_rule_tkp'] = $this->Topik_model->getRuleTkp();
+                    $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+                    $data['topik_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
+                    $data['hasil_twk'] = $this->Hasil_tes_model->getHasil($id, $id_event, 3);
+                    $data['hasil_tiu'] = $this->Hasil_tes_model->getHasil($id, $id_event, 4);
+                    $data['hasil_tkp'] = $this->Hasil_tes_model->getHasil($id, $id_event, 5);
 
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik_twk'] = $this->Topik_model->getTwk();
-        $data['topik_rule_twk'] = $this->Topik_model->getRuleTwk();
-        $data['topik_tiu'] = $this->Topik_model->getTiu();
-        $data['topik_rule_tiu'] = $this->Topik_model->getRuleTiu();
-        $data['topik_tkp'] = $this->Topik_model->getTkp();
-        $data['topik_rule_tkp'] = $this->Topik_model->getRuleTkp();
-        $data['topik_skd'] = $this->Topik_model->getTopikSKD();
-        $data['topik_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
-        $data['hasil_twk'] = $this->Hasil_tes_model->getHasil($id, $id_event, 3);
-        $data['hasil_tiu'] = $this->Hasil_tes_model->getHasil($id, $id_event, 4);
-        $data['hasil_tkp'] = $this->Hasil_tes_model->getHasil($id, $id_event, 5);
-
-        $this->load->view('User/templates/header_tes', $data);
-        $this->load->view('User/hasil_tes_skd', $data);
-        $this->load->view('User/templates/footer_tes');
+                    $this->load->view('User/templates/header_tes', $data);
+                    $this->load->view('User/hasil_tes_skd', $data);
+                    $this->load->view('User/templates/footer_tes');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Halaman tidak ditemukan!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('User/tryout');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum mengikuti tes SKD</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('User/tryout');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        }
     }
 
     public function contact()
@@ -434,6 +602,8 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $id_user = $this->User_model->getIdUserByUsername($sessionUser);
+        $data['transaksi'] = $this->db->get_where('transaksi_user', ['id_user' => $id_user])->result_array();
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
 

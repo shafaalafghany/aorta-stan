@@ -52,9 +52,9 @@
 
                                         if ($waktu >= $cekTglMulai && $waktu <= $cekTglAkhir) {
                                             if (count($hasil) == 1) { ?>
-                                                <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjut Tes TBI</a>
+                                                <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes TBI</a>
                                             <?php } elseif (count($hasil) == 2) { ?>
-                                                <a href="<?= base_url('User/'); ?>hasil_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes SKD</a>
+                                                <a href="<?= base_url('User/'); ?>tes_skd/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lanjut Tes SKD</a>
                                             <?php } elseif (count($hasil) >=3 && count($hasil) <=5) { ?>
                                                 <a href="#" class="btn btn-primary py-2">Lihat Leaderboard</a>
                                             <?php } else { ?>
