@@ -74,5 +74,15 @@ class User_model extends CI_model
 		$this->db->where('id', $id);
 		$this->db->delete('user');
 	}
+
+	public function getImageUserByEmail($email)
+	{
+		return $this->db->select('image')->get_where('user', ['email' => $email])->row()->image;
+	}
+
+	public function getIdUserByUsername($sessionUser)
+	{
+		return $this->db->select('id')->get_where('user', ['username' => $sessionUser])->row()->id;
+	}
 	// End User
 }

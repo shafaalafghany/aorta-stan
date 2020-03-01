@@ -244,8 +244,15 @@ if ($temp_menit < 60) {
                           clearInterval(hitung);
                           /** Variable yang digunakan untuk submit secara otomatis di Form */
                           var frmSelesai = $(".selesai").attr('href');
-                          alert('Waktu Kamu udah habis, Semangaaat!');
-                          document.location.href = frmSelesai;
+                          Swal.fire({
+                            title: 'Waktu Habis!',
+                            text: "Waktu pengerjaan soal sudah habis, silahkan tekan OK.",
+                            icon: 'error'
+                          }).then((result) => {
+                            if (result.value) {
+                              document.location.href = frmSelesai;
+                            }
+                          })
                       }
                   }
               }

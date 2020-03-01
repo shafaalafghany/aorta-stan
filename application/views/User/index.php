@@ -198,76 +198,23 @@
     		<div class="row ftco-animate">
     			<div class="col-md-12">
     				<div class="carousel-testimony owl-carousel ftco-owl">
-    					<div class="item">
-    						<div class="testimony-wrap py-4">
-    							<div class="text">
-    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<div class="d-flex align-items-center">
-    									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
-    									<div class="pl-3">
-    										<p class="name">Alfa Beta</p>
-    										<span class="number">Peserta TO AKBAR 1</span>
-    									</div>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="item">
-    						<div class="testimony-wrap py-4">
-    							<div class="text">
-    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<div class="d-flex align-items-center">
-    									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
-    									<div class="pl-3">
-    										<p class="name">Beta Gamma</p>
-    										<span class="number">Peserta TO AKBAR 1</span>
-    									</div>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="item">
-    						<div class="testimony-wrap py-4">
-    							<div class="text">
-    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<div class="d-flex align-items-center">
-    									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
-    									<div class="pl-3">
-    										<p class="name">Andi Skuat</p>
-    										<span class="number">Peserta TO AKBAR 2</span>
-    									</div>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="item">
-    						<div class="testimony-wrap py-4">
-    							<div class="text">
-    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<div class="d-flex align-items-center">
-    									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
-    									<div class="pl-3">
-    										<p class="name">Budi Harianto</p>
-    										<span class="number">Peserta TO AKBAR 2</span>
-    									</div>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="item">
-    						<div class="testimony-wrap py-4">
-    							<div class="text">
-    								<p class="mb-4" style="color: #5b5353;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    								<div class="d-flex align-items-center">
-    									<div class="user-img" style="background-image: url(<?= base_url('assets/User/'); ?>images/user2.png)"></div>
-    									<div class="pl-3">
-    										<p class="name">Joko Bambang</p>
-    										<span class="number">Peserta TO AKBAR 3</span>
-    									</div>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
+
+                        <?php foreach ($testimoni as $loadTestimoni) { ?>
+                            <div class="item" style="height: 200px;">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="mb-4" style="color: #5b5353;"><?= $loadTestimoni['pesan'] ?></p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img" style="background-image: url(<?= base_url('assets/img/profile/') . $loadTestimoni['image']; ?>)"></div>
+                                        <div class="pl-3">
+                                            <p class="name"><?= $loadTestimoni['nama_user']; ?></p>
+                                            <span class="number"><?= $loadTestimoni['subjek'] ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
     				</div>
     			</div>
     		</div>

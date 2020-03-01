@@ -54,7 +54,7 @@
             <div class="card card-profile">
               <div class="card-body text-center">
                 <h4 class="card-title">Mengikuti</h4>
-                <h3 class="card-text">2</h3>
+                <h3 class="card-text"><?= count($transaksi); ?></h3>
                 <h2 class="card-text">Event</h2>
               </div>
             </div>
