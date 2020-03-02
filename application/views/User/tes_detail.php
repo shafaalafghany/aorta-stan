@@ -1,22 +1,23 @@
-    <!-- END nav -->
+<?php if ($user) { ?>
+   <!-- END nav -->
     <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg');" data-stellar-background-ratio="0.5">
-    	<div class="overlay"></div>
-    	<div class="container">
-    		<div class="row no-gutters slider-text align-items-end justify-content-start">
-    			<div class="col-md-12 ftco-animate text-center mb-5">
-    				<p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
-    				<h1 class="mb-3 bread"><?= $topik['nama_topik_tes']; ?></h1>
-    			</div>
-    		</div>
-    	</div>
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+          <div class="col-md-12 ftco-animate text-center mb-5">
+            <p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
+            <h1 class="mb-3 bread"><?= $topik['nama_topik_tes']; ?></h1>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="ftco-section bg-light" id="deskripsiTPA">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-lg">
-					<div class="col-md-12 ftco-animate">
-						<div class="job-post-item p-4" style="text-align: center;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg">
+          <div class="col-md-12 ftco-animate">
+            <div class="job-post-item p-4" style="text-align: center;">
               <table id="example1" class="table table-striped">
                 <tbody>
                   <tr>
@@ -60,9 +61,13 @@
               <div class="col-md-12 text-center">
                   <a href="<?= base_url('User/'); ?>kerjakan_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
               </div>
-						</div>
-					</div><!-- end -->
-    			</div>
-    		</div>
-    	</div>
+            </div>
+          </div><!-- end -->
+          </div>
+        </div>
+      </div>
     </section>
+<?php } else{
+  $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+  redirect('User/login');
+} ?>

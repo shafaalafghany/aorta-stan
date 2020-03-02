@@ -1,4 +1,5 @@
-    <!-- END nav -->
+<?php if ($user) { ?>
+  <!-- END nav -->
     <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
@@ -74,3 +75,7 @@
             </div>
         </div>
     </section>
+<?php } else{
+  $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+  redirect('User/login');
+} ?>

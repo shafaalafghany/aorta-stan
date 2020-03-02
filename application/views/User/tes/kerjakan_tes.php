@@ -1,4 +1,5 @@
-<?php
+<?php if ($user) { ?>
+  <?php
 $telah_berlalu = time() - $transaksi['waktu_daftar'];
 
 $temp_waktu = ($topik['waktu'] * 60) - $telah_berlalu; //dijadikan detik dan dikurangi waktu yang berlalu
@@ -24,15 +25,15 @@ if ($temp_menit < 60) {
 
     <!-- END nav -->
     <div class="hero-wrap hero-wrap-2" style="background-image: url('<?= base_url('assets/User/'); ?>images/bg_1.jpg'); height: 300px;" data-stellar-background-ratio="0.5">
-    	<div class="overlay"></div>
-    	<div class="container">
-    		<div class="row no-gutters slider-text align-items-end justify-content-start">
-    			<div class="col-md-12 ftco-animate text-center mb-5">
-    				<p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
-    				<h1 class="mb-3 bread"><?= $topik['nama_topik_tes']; ?></h1>
-    			</div>
-    		</div>
-    	</div>
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+          <div class="col-md-12 ftco-animate text-center mb-5">
+            <p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
+            <h1 class="mb-3 bread"><?= $topik['nama_topik_tes']; ?></h1>
+          </div>
+        </div>
+      </div>
     </div>
 
     <section class="ftco-section bg-light" id="tes">
@@ -400,3 +401,7 @@ if ($temp_menit < 60) {
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+<?php } else{
+  $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+  redirect('User/login');
+} ?>
