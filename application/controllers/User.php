@@ -135,7 +135,7 @@ class User extends CI_Controller
 
     public function tes_skd_detail($id, $id_event)
     {
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -176,7 +176,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -223,7 +223,7 @@ class User extends CI_Controller
 
     public function tes_detail($id, $id_event, $id_topik)
     {
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -287,7 +287,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -445,7 +445,7 @@ class User extends CI_Controller
             'hasil' => $total_benar
         ];
 
-        $this->Hasil_tes_model->insertHasil($dataHasil);
+        $this->hasil->insertHasil($dataHasil);
 
         $this->Kerjakan_model->hapuscache($id, $id_topik, $id_event);
 
@@ -470,7 +470,7 @@ class User extends CI_Controller
             'id_user' => $id,
             'hasil' => $total_benar_twk
         ];
-        $this->Hasil_tes_model->insertHasil($dataHasilTwk);
+        $this->hasil->insertHasil($dataHasilTwk);
         $this->Kerjakan_model->hapuscachetwk($id, $id_event);
 
 
@@ -486,7 +486,7 @@ class User extends CI_Controller
             'hasil' => $total_benar_tiu
         ];
 
-        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->hasil->insertHasil($dataHasilTiu);
         $this->Kerjakan_model->hapuscachetiu($id, $id_event);
 
 
@@ -501,7 +501,7 @@ class User extends CI_Controller
             'id_user' => $id,
             'hasil' => $total_benar_tkp
         ];
-        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->hasil->insertHasil($dataHasilTiu);
         $this->Kerjakan_model->hapuscachetkp($id, $id_event);
 
         redirect('User/hasil_skd/' . $id . '/' . $id_event . '/' . $id_topik);
@@ -512,7 +512,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -523,8 +523,8 @@ class User extends CI_Controller
                     $data['event'] = $this->Event_model->getEventById($id_event);
                     $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                     $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-                    $data['hasil'] = $this->Hasil_tes_model->getHasil($id, $id_event, $id_topik);
-                    $data['hasilSemuaTes'] = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+                    $data['hasil'] = $this->hasil->getHasil($id, $id_event, $id_topik);
+                    $data['hasilSemuaTes'] = $this->hasil->getHasilByIdAndEvent($id, $id_event);
 
                     $this->load->view('User/templates/header_tes', $data);
                     $this->load->view('User/hasil_tes', $data);
@@ -548,7 +548,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -565,9 +565,9 @@ class User extends CI_Controller
                     $data['topik_rule_tkp'] = $this->Topik_model->getRuleTkp();
                     $data['topik_skd'] = $this->Topik_model->getTopikSKD();
                     $data['topik_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
-                    $data['hasil_twk'] = $this->Hasil_tes_model->getHasil($id, $id_event, 3);
-                    $data['hasil_tiu'] = $this->Hasil_tes_model->getHasil($id, $id_event, 4);
-                    $data['hasil_tkp'] = $this->Hasil_tes_model->getHasil($id, $id_event, 5);
+                    $data['hasil_twk'] = $this->hasil->getHasil($id, $id_event, 3);
+                    $data['hasil_tiu'] = $this->hasil->getHasil($id, $id_event, 4);
+                    $data['hasil_tkp'] = $this->hasil->getHasil($id, $id_event, 5);
 
                     $this->load->view('User/templates/header_tes', $data);
                     $this->load->view('User/hasil_tes_skd', $data);
