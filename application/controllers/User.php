@@ -14,7 +14,7 @@ class User extends CI_Controller
         $this->load->model('Rule_topik_model');
         $this->load->model('Soal_model');
         $this->load->model('Kerjakan_model');
-        $this->load->model('Hasil_tes_model');
+        $this->load->model('Hasil_tes_model', 'hasil');
     }
 
 
@@ -167,15 +167,15 @@ class User extends CI_Controller
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes ini</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
@@ -187,7 +187,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -201,7 +201,7 @@ class User extends CI_Controller
                         $data['topik'] = $this->Topik_model->getTopikSKD();
                         $data['topik_rule'] = $this->Topik_model->getRuleTopikSKD();
                         $data['soal'] = $this->Soal_model->getSoalSKDbyId($id_event, $id_topik);
-                        
+
                         $waktudaftar = time();
 
                         $dataTransaksi = [
@@ -222,26 +222,25 @@ class User extends CI_Controller
                         $this->load->view('User/templates/header_tes', $data);
                         $this->load->view('User/tes/kerjakan_skd', $data);
                         $this->load->view('User/templates/footer_tes');
-                    } elseif(count($hasil_tes) < 2){
+                    } elseif (count($hasil_tes) < 2) {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA dan TBI</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes ini</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
-        
     }
 
     public function tes_detail($id, $id_event, $id_topik)
@@ -251,7 +250,7 @@ class User extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -272,7 +271,7 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/tes_detail', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         };
@@ -293,27 +292,26 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/tes_detail', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TBI!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         };
-                    } else{
+                    } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
-        
     }
 
     public function kerjakan_tes($id, $id_event, $id_topik)
@@ -338,7 +336,7 @@ class User extends CI_Controller
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
                             $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
-                            
+
                             $waktudaftar = time();
 
                             $dataTransaksi = [
@@ -359,18 +357,17 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/tes/kerjakan_tes', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         };
-                    }
-                    elseif (count($hasil_tes) == 1) {
+                    } elseif (count($hasil_tes) == 1) {
                         if ($id_topik == 2) {
                             $data['event'] = $this->Event_model->getEventById($id_event);
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
                             $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
-                            
+
                             $waktudaftar = time();
 
                             $dataTransaksi = [
@@ -391,23 +388,23 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/tes/kerjakan_tes', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TBI!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         }
-                    } else{
+                    } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
@@ -456,7 +453,7 @@ class User extends CI_Controller
             $this->load->view('User/templates/header_testimoni', $data);
             $this->load->view('User/testimoni');
             $this->load->view('User/templates/footer');
-        } else{
+        } else {
             $nama = $this->input->post('name');
             $email = $this->input->post('inputEmail');
             $subjek = $this->input->post('inputSubjek');
@@ -494,7 +491,7 @@ class User extends CI_Controller
             'hasil' => $total_benar
         ];
 
-        $this->Hasil_tes_model->insertHasil($dataHasil);
+        $this->hasil->insertHasil($dataHasil);
 
         $this->Kerjakan_model->hapuscache($id, $id_topik, $id_event);
 
@@ -519,7 +516,7 @@ class User extends CI_Controller
             'id_user' => $id,
             'hasil' => $total_benar_twk
         ];
-        $this->Hasil_tes_model->insertHasil($dataHasilTwk);
+        $this->hasil->insertHasil($dataHasilTwk);
         $this->Kerjakan_model->hapuscachetwk($id, $id_event);
 
 
@@ -535,7 +532,7 @@ class User extends CI_Controller
             'hasil' => $total_benar_tiu
         ];
 
-        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->hasil->insertHasil($dataHasilTiu);
         $this->Kerjakan_model->hapuscachetiu($id, $id_event);
 
 
@@ -550,7 +547,7 @@ class User extends CI_Controller
             'id_user' => $id,
             'hasil' => $total_benar_tkp
         ];
-        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->hasil->insertHasil($dataHasilTiu);
         $this->Kerjakan_model->hapuscachetkp($id, $id_event);
 
         redirect('User/hasil_skd/' . $id . '/' . $id_event . '/' . $id_topik);
@@ -561,7 +558,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -581,27 +578,26 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/hasil_tes', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Halaman tidak ditemukan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         }
-                    } else{
+                    } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum memiliki hasil pada tes tersebut</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
-        
     }
 
     public function hasil_skd($id, $id_event, $id_topik)
@@ -609,7 +605,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -636,28 +632,27 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/hasil_tes_skd', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Halaman tidak ditemukan!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         }
-                    } else{
+                    } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum mengikuti tes SKD</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
     }
-
 
     public function contact()
     {
@@ -949,12 +944,11 @@ class User extends CI_Controller
             if ($user_token) {
                 $this->session->set_userdata('reset_email', $email);
                 $this->changePassword();
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf ganti password gagal! Token user salah.</div>');
                 redirect('User/login');
             }
-        }
-        else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf ganti password gagal! Email salah.</div>');
             redirect('User/login');
         }
@@ -971,13 +965,13 @@ class User extends CI_Controller
             'min_length' => 'Minimal password terdiri dari 8 karakter',
             'matches' => 'Password tidak sama'
         ]);
-        $this->form_validation->set_rules('password2', 'Ulangi Password', 'trim|required|min_length[8]|matches[password1]');  
-              
+        $this->form_validation->set_rules('password2', 'Ulangi Password', 'trim|required|min_length[8]|matches[password1]');
+
         if ($this->form_validation->run() == false) {
             $data['judul'] = 'AORTASTAN Try Out Online | Change Password';
 
             $this->load->view('User/change_password', $data);
-        } else{
+        } else {
             $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
             $email = $this->session->userdata('reset_email');
 
@@ -1005,7 +999,7 @@ class User extends CI_Controller
         $status = "";
         if ($tpa >= 67 && $tbi >= 30 && $twk >= 65 && $tiu >= 80 && $tkp >= 126 && $skd >= 271) {
             $status = "LULUS";
-        } else{
+        } else {
             $status = "TIDAK LULUS";
         }
 
@@ -1047,23 +1041,23 @@ class User extends CI_Controller
                             $this->load->view('User/templates/header_tryout', $data);
                             $this->load->view('User/leaderboard');
                             $this->load->view('User/templates/footer');
-                        } else{
+                        } else {
                             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf data anda tidak ada! Silahkan klik Lihat Leaderboard pada halaman Event Detail.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         }
-                    } else{
+                    } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan tes TPA, TBI, dan SKD terlebih dahulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
-                } else{
+                } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar dalam event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     redirect('User/tryout');
                 }
-            } else{
+            } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 redirect('User/tryout');
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Silahkan login dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/login');
         }
