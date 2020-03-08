@@ -439,6 +439,7 @@ class User extends CI_Controller
             'btn_ragu' => $klikRagu['ragu']
         ];
         $this->kerjakan->klikragu($dataRagu);
+        return true;
     }
 
     public function testimoni()
@@ -810,7 +811,7 @@ class User extends CI_Controller
                 'tentang' => 'Aku adalah seorang pejuang !',
                 'role_id' => 3,
                 'is_active' => 0,
-                'date_created' => time()
+                'date_created' => date_create('now')->format('Y-m-d')
             ];
 
             //Menyiapkan token untuk verifikasi

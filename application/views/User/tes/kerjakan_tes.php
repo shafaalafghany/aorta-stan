@@ -355,8 +355,6 @@ if ($temp_menit < 60) {
             dataType: 'json',
             success: function() {}
         });
-
-        location.reload();
       });
 
       function klikJwbn(e) {
@@ -385,6 +383,7 @@ if ($temp_menit < 60) {
             dataType: 'json',
             success: function() {}
         });
+        //tes
       });
 
       function klikNomor(e) {

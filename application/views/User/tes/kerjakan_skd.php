@@ -114,7 +114,7 @@ if ($temp_menit < 60) {
                                             $cek = '';
                                           }
                                        endforeach; ?>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-nomor="<?= $i; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
@@ -340,7 +340,21 @@ if ($temp_menit < 60) {
         var idp = $(this).data('idp');
         var eve = $(this).data('eve');
         var topik = $(this).data('topik');
-        var ragu = $(this).data('ragu');
+        var nomor = $(this).data('nomor');
+        
+        if ($(this).is(':checked')) {
+          var ragu = 1;
+          $('#nomor'+nomor).addClass('btn-warning');
+          $('#nomor'+nomor).removeClass('btn-outline-primary');
+        } else{
+          var ragu = 0;
+          $('#nomor'+nomor).removeClass('btn-warning');
+          if ($('#nomor'+nomor).hasClass('btn-success')) {
+            $('#nomor'+nomor).addClass('btn-success');
+          } else{
+            $('#nomor'+nomor).addClass('btn-outline-primary');
+          }
+        }
 
         $.ajax({
             url: "<?= base_url('User/'); ?>ragu",
@@ -353,10 +367,10 @@ if ($temp_menit < 60) {
             },
             method: 'POST',
             dataType: 'json',
-            success: function() {}
+            success: function() {
+              
+            }
         });
-
-        location.reload();
       });
 
       function klikJwbn(e) {
