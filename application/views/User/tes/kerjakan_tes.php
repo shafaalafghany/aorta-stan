@@ -60,7 +60,7 @@ if ($temp_menit < 60) {
                                         <?php
                                           $query = $this->db->get_where('event_jawaban', [
                                             'id_user' => $user['id'],
-                                            'id_topik' => $topik['id_topik_tes'],
+                                            'id_topik' => $loadSoal['id_topik_tes'],
                                             'id_event' => $event['id_event'],
                                             'id_soal' => $loadSoal['id_soal'],
                                             'id_jawaban' => $jwb['id_jawaban']
@@ -74,7 +74,7 @@ if ($temp_menit < 60) {
                                           }
                                         ?>
                                         <label class="btn btn-default">
-                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $topik['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
+                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
                                         </label>
                                         <br>
                                     <?php endforeach; ?>
@@ -88,7 +88,7 @@ if ($temp_menit < 60) {
                                         <?php
                                           $query = $this->db->get_where('event_jawaban', [
                                             'id_user' => $user['id'],
-                                            'id_topik' => $topik['id_topik_tes'],
+                                            'id_topik' => $loadSoal['id_topik_tes'],
                                             'id_event' => $event['id_event'],
                                             'id_soal' => $loadSoal['id_soal']
                                           ]);
@@ -97,7 +97,7 @@ if ($temp_menit < 60) {
                                           if ($checked > 0) {
                                             $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
                                               'id_user' => $user['id'],
-                                              'id_topik' => $topik['id_topik_tes'],
+                                              'id_topik' => $loadSoal['id_topik_tes'],
                                               'id_event' => $event['id_event'],
                                               'id_soal' => $loadSoal['id_soal']
                                             ]);
@@ -114,7 +114,7 @@ if ($temp_menit < 60) {
                                             $cek = '';
                                           }
                                        endforeach; ?>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $topik['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-nomor="<?= $i; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
@@ -132,7 +132,7 @@ if ($temp_menit < 60) {
                           <?php
                               $query = $this->db->get_where('event_jawaban', [
                                 'id_user' => $user['id'],
-                                'id_topik' => $topik['id_topik_tes'],
+                                'id_topik' => $loadSoal['id_topik_tes'],
                                 'id_event' => $event['id_event'],
                                 'id_soal' => $loadSoal['id_soal']
                               ]);
@@ -141,7 +141,7 @@ if ($temp_menit < 60) {
                               if ($cek > 0) {
                                 $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
                                   'id_user' => $user['id'],
-                                  'id_topik' => $topik['id_topik_tes'],
+                                  'id_topik' => $loadSoal['id_topik_tes'],
                                   'id_event' => $event['id_event'],
                                   'id_soal' => $loadSoal['id_soal']
                                 ]);
@@ -151,7 +151,7 @@ if ($temp_menit < 60) {
                                 } elseif ($check == 0) {
                                   $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
                                     'id_user' => $user['id'],
-                                    'id_topik' => $topik['id_topik_tes'],
+                                    'id_topik' => $loadSoal['id_topik_tes'],
                                     'id_event' => $event['id_event'],
                                     'id_soal' => $loadSoal['id_soal']
                                   ]);
@@ -340,7 +340,21 @@ if ($temp_menit < 60) {
         var idp = $(this).data('idp');
         var eve = $(this).data('eve');
         var topik = $(this).data('topik');
-        var ragu = $(this).data('ragu');
+        var nomor = $(this).data('nomor');
+        
+        if ($(this).is(':checked')) {
+          var ragu = 1;
+          $('#nomor'+nomor).addClass('btn-warning');
+          $('#nomor'+nomor).removeClass('btn-outline-primary');
+        } else{
+          var ragu = 0;
+          $('#nomor'+nomor).removeClass('btn-warning');
+          if ($('#nomor'+nomor).hasClass('btn-success')) {
+            $('#nomor'+nomor).addClass('btn-success');
+          } else{
+            $('#nomor'+nomor).addClass('btn-outline-primary');
+          }
+        }
 
         $.ajax({
             url: "<?= base_url('User/'); ?>ragu",
@@ -353,7 +367,9 @@ if ($temp_menit < 60) {
             },
             method: 'POST',
             dataType: 'json',
-            success: function() {}
+            success: function() {
+              
+            }
         });
       });
 
@@ -383,7 +399,6 @@ if ($temp_menit < 60) {
             dataType: 'json',
             success: function() {}
         });
-        //tes
       });
 
       function klikNomor(e) {
