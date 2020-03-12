@@ -140,7 +140,7 @@ class User extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -321,7 +321,7 @@ class User extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -571,8 +571,8 @@ class User extends CI_Controller
                             $data['event'] = $this->Event_model->getEventById($id_event);
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-                            $data['hasil'] = $this->Hasil_tes_model->getHasil($id, $id_event, $id_topik);
-                            $data['hasilSemuaTes'] = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+                            $data['hasil'] = $this->hasil->getHasil($id, $id_event, $id_topik);
+                            $data['hasilSemuaTes'] = $this->hasil->getHasilByIdAndEvent($id, $id_event);
 
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/hasil_tes', $data);
@@ -624,9 +624,9 @@ class User extends CI_Controller
                             $data['topik_rule_tkp'] = $this->Topik_model->getRuleTkp();
                             $data['topik_skd'] = $this->Topik_model->getTopikSKD();
                             $data['topik_rule_skd'] = $this->Topik_model->getRuleTopikSKD();
-                            $data['hasil_twk'] = $this->Hasil_tes_model->getHasil($id, $id_event, 3);
-                            $data['hasil_tiu'] = $this->Hasil_tes_model->getHasil($id, $id_event, 4);
-                            $data['hasil_tkp'] = $this->Hasil_tes_model->getHasil($id, $id_event, 5);
+                            $data['hasil_twk'] = $this->hasil->getHasil($id, $id_event, 3);
+                            $data['hasil_tiu'] = $this->hasil->getHasil($id, $id_event, 4);
+                            $data['hasil_tkp'] = $this->hasil->getHasil($id, $id_event, 5);
 
                             $this->load->view('User/templates/header_tes', $data);
                             $this->load->view('User/hasil_tes_skd', $data);
@@ -987,11 +987,11 @@ class User extends CI_Controller
 
     public function proses_leader($id, $id_event)
     {
-        $tpa = $this->Hasil_tes_model->getHasilTpaByIdAndEvent($id, $id_event);
-        $tbi = $this->Hasil_tes_model->getHasilTbiByIdAndEvent($id, $id_event);
-        $twk = $this->Hasil_tes_model->getHasilTwkByIdAndEvent($id, $id_event);
-        $tiu = $this->Hasil_tes_model->getHasilTiuByIdAndEvent($id, $id_event);
-        $tkp = $this->Hasil_tes_model->getHasilTkpByIdAndEvent($id, $id_event);
+        $tpa = $this->hasil->getHasilTpaByIdAndEvent($id, $id_event);
+        $tbi = $this->hasil->getHasilTbiByIdAndEvent($id, $id_event);
+        $twk = $this->hasil->getHasilTwkByIdAndEvent($id, $id_event);
+        $tiu = $this->hasil->getHasilTiuByIdAndEvent($id, $id_event);
+        $tkp = $this->hasil->getHasilTkpByIdAndEvent($id, $id_event);
         $skd = $twk + $tiu + $tkp;
         $total = $tpa + $tbi + $skd;
 
@@ -1014,7 +1014,7 @@ class User extends CI_Controller
             'nilai_total' => $total,
             'status' => $status
         ];
-        $this->Hasil_tes_model->insertLeader($dataLeader);
+        $this->hasil->insertLeader($dataLeader);
 
         redirect('User/leaderboard/' . $id . '/' . $id_event);
     }
@@ -1024,9 +1024,9 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $data['leader'] = $this->Hasil_tes_model->getLeaderboardByEvent($id_event);
-        $data['hasilUser'] = $this->Hasil_tes_model->getLeaderboardByIdAndEvent($id, $id_event);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $data['leader'] = $this->hasil->getLeaderboardByEvent($id_event);
+        $data['hasilUser'] = $this->hasil->getLeaderboardByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
