@@ -148,7 +148,7 @@
                                     </div>
 
                                     <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                                        <a href="#" class="btn btn-primary py-2">Lihat</a>
+                                        <a href="<?= base_url('User/'); ?>openModul/<?= $loadModul['id_modul']; ?>" class="btn btn-primary py-2" target="_blank">Lihat</a>
                                     </div>
                                 </div>
                             </div><!-- end -->

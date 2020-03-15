@@ -60,6 +60,15 @@
 						<input type="text" class="input" id="email" name="email" value="<?= set_value('email'); ?>">
 					</div>
 				</div>
+				<div class="input-div three">
+					<div class="i">
+						<i class="fas fa-phone-alt"></i>
+					</div>
+					<div>
+						<h5>No. HP</h5>
+						<input type="number" class="input" id="telepon" name="telepon" value="<?= set_value('telepon'); ?>">
+					</div>
+				</div>
 				<div class="input-div four">
 					<div class="i">
 						<i class="fas fa-lock"></i>

@@ -12,6 +12,7 @@ class Administrator extends CI_Controller
         $this->load->model('Modul_model');
         $this->load->model('Topik_model');
         $this->load->model('Soal_model');
+        $this->load->model('Hasil_tes_model');
     }
 
     public function index()
@@ -38,6 +39,17 @@ class Administrator extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Modul';
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/modul/daftar_modul');
+    }
+
+    public function leaderboard()
+    {
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getAllEvent();
+
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Modul';
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/tools/leaderboard');
     }
 
     public function tambah_modul()

@@ -143,6 +143,14 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
+              <p>Leaderboard</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
               <p>Back Up Database</p>
             </a>
           </li>
@@ -214,7 +222,7 @@
                     <b>Email</b> <a class="float-right" style="font-size: 13px;"><?= $user['email']; ?></a>
                   </li>
                   <li class="list-group-item">
-                    <b>Tgl Dibuat</b> <a class="float-right" style="font-size: 13px;"><?= date('d/m/Y', $user['date_created']); ?></a>
+                    <b>Tgl Dibuat</b> <a class="float-right" style="font-size: 13px;"><?= date("j M Y", strtotime($user['date_created'])); ?></a>
                   </li>
                 </ul>
               </div>

@@ -23,4 +23,9 @@ class Modul_model extends CI_model
 	{
 		return $this->db->get('testimoni')->result_array();
 	}
+
+	public function getModulById($id_modul)
+	{
+		return $this->db->select('file')->get_where('modul', ['id_modul' => $id_modul])->row()->file;
+	}
 }
