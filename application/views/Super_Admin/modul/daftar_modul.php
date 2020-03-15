@@ -141,7 +141,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Leaderboard</p>
             </a>
