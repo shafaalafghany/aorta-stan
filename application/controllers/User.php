@@ -49,6 +49,20 @@ class User extends CI_Controller
         $this->load->view('User/templates/footer');
     }
 
+    public function topup()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Top Up Point';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getAllEvent();
+
+        $this->load->view('User/templates/header_topup', $data);
+        $this->load->view('User/topup', $data);
+        $this->load->view('User/templates/footer');
+    }
+
     public function event($id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Event Detail';
@@ -713,6 +727,18 @@ class User extends CI_Controller
         }
     }
 
+    public function openModul($id_modul)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Modul';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $modul = $this->Modul_model->getModulById($id_modul);
+
+        $tofile= realpath("assets/file/" . $modul);
+        header('Content-Type: application/pdf');
+        @readfile($tofile);
+    }
+
     public function login()
     {
         $this->form_validation->set_rules('username', 'Username', 'required|trim', [
@@ -1022,7 +1048,7 @@ class User extends CI_Controller
 
     public function leaderboard($id, $id_event)
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
+        $data['judul'] = 'AORTASTAN Try Out Online | Leaderboard';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['leader'] = $this->hasil->getLeaderboardByEvent($id_event);

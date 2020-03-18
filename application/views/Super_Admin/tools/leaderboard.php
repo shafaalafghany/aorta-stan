@@ -41,8 +41,8 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-item has-treeview menu-open">
-                  <a href="#" class="nav-link active">
+                <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-calendar-week"></i>
                     <p>
                       Event
@@ -69,7 +69,7 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link active">
+                      <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p> Tambah Soal</p>
                       </a>
@@ -131,8 +131,8 @@
                   </ul>
                 </li>
                 <li class="nav-header">PENGATURAN</li>
-                <li class="nav-item has-treeview">
-                  <a href="#" class="nav-link">
+                <li class="nav-item has-treeview menu-open">
+                  <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-wrench"></i>
                     <p>
                       Tools
@@ -141,7 +141,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Leaderboard</p>
                       </a>
@@ -179,182 +179,126 @@
           </div>
         <!-- /.sidebar -->
       </aside>
-    <!-- Content Wrapper. Contains page content -->
+   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Tambah Soal</h1>
+              <h1>Daftar Peserta</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
       </section>
 
+      <!-- Main content -->
       <section class="content">
         <div class="row">
           <div class="col-12">
-            <div class="card card-default">
+
+            <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Mau nambah untuk event apa?</h3>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"></button>
-                </div>
+                <h3 class="card-title">Daftar Peserta</h3>
               </div>
+
+                <!-- /.card-body -->
               <div class="card-body">
-                <?= $this->session->flashdata('message'); ?>
-                <form method="POST" action="<?= base_url('Administrator/'); ?>buat_soal">
+                <form method="post" action="">
                   <div class="form-group">
+                    <label for="optionEvent">Pilih Event</label>
                     <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
                       <?php foreach ($event as $loadEvent) { ?>
-                        <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event'] ?></option>
+                        <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']; ?></option>
                       <?php } ?>
                     </select>
-                    <button class="btn btn-primary float-right" type="submit">Pilih Event</button>
                   </div>
+                  <button class="btn btn-primary float-right" type="submit">Submit</button>
                 </form>
+
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Admin</th>
+                      <th>Email</th>
+                      <th>Point</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                     $i=1; 
+                     foreach ($member as $loadMember) { ?>
+                        <tr>
+                          <td><?= $i; ?></td>
+                          <td><?= $loadMember['name']; ?></td>
+                          <td><?= $loadMember['email']; ?></td>
+                          <td><?= $loadMember['point']; ?></td>
+                          <td><?php if ($loadMember['is_active'] = 1) {
+                            echo "Aktif";
+                          } else { echo "Tidak Aktif"; }?></td>
+                          <td class="project-actions text-center">
+                            <a class="btn btn-warning btn-sm" href="<?= base_url('Administrator/'); ?>tambah_point/<?= $loadMember['id']; ?>">
+                              <i class="fas fa-star">
+                              </i>
+                              Tambah Point
+                            </a>
+                            <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>view_peserta/<?= $loadMember['id']; ?>">
+                              <i class="fas fa-folder">
+                              </i>
+                              View
+                            </a>
+                            <a class="btn btn-danger btn-sm delete_peserta" href="<?= base_url('Administrator/'); ?>delete_member/<?= $loadMember['id']; ?>">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                            </a>
+                          </td>
+                        </tr>
+                    <?php $i++; } ?>
+                  </tbody>
+                </table>
               </div>
+              <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
+          <!-- /.col -->
         </div>
+        <!-- /.row -->
       </section>
+      <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-    <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="http://sobatkode.com">Sobatkode</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
-    </div>
-  </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
 
   <!-- jQuery -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
+
   <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
-
-  <script src="<?= base_url('assets/Admin/') ?>plugins/summernote/summernote-bs4.min.js"></script>
-
-  <script src="<?= base_url('assets/Admin/') ?>plugins/select2/js/select2.full.min.js"></script>
-  <!-- Bootstrap4 Duallistbox -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-  <!-- InputMask -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/moment/moment.min.js"></script>
-  <script src="<?= base_url('assets/Admin/') ?>plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
-  <!-- date-range-picker -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/daterangepicker/daterangepicker.js"></script>
-  <!-- bootstrap color picker -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-  <!-- Tempusdominus Bootstrap 4 -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-  <!-- Bootstrap Switch -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <!-- DataTables -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/datatables/jquery.dataTables.js"></script>
   <script src="<?= base_url('assets/Admin/') ?>plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-  <!-- Toastr -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/toastr/toastr.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/Admin/') ?>dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?= base_url('assets/Admin/') ?>dist/js/demo.js"></script>
 
   <script src="<?= base_url('assets/User/'); ?>js/logout.js"></script>
-
-  <script type="text/javascript">
+  <!-- page script -->
+  <script>
     $(function () {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 1500
-      });
-
-      $('.swalDefaultSuccess').click(function() {
-        Toast.fire({
-          icon: 'success',
-          title: 'Soal berhasil ditambahkan'
-        });
-      });
-
-      $('.select2').select2()
-
-      //Initialize Select2 Elements
-      $('.select2bs4').select2({
-        theme: 'bootstrap4'
-      })
-
-      //Datemask dd/mm/yyyy
-      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-      //Datemask2 mm/dd/yyyy
-      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-      //Money Euro
-      $('[data-mask]').inputmask()
-
-      //Date range picker
-      $('#reservation').daterangepicker()
-      //Date range picker with time picker
-      $('.textarea').summernote()
-      $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-          format: 'MM/DD/YYYY hh:mm A'
-        }
-      })
-      //Date range as a button
-      $('#daterange-btn').daterangepicker(
-        {
-          ranges   : {
-            'Today'       : [moment(), moment()],
-            'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-            'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate  : moment()
-        },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-        }
-      )
-
-      //Timepicker
-      $('#timepicker').datetimepicker({
-        format: 'LT'
-      })
-      
-      //Bootstrap Duallistbox
-      $('.duallistbox').bootstrapDualListbox()
-
-      //Colorpicker
-      $('.my-colorpicker1').colorpicker()
-      //color picker with addon
-      $('.my-colorpicker2').colorpicker()
-
-      $('.my-colorpicker2').on('colorpickerChange', function(event) {
-        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-      });
-
-      $("input[data-bootstrap-switch]").each(function(){
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
-      });
 
       $("#example1").DataTable();
       $('#example2').DataTable({
@@ -364,6 +308,32 @@
         "ordering": true,
         "info": true,
         "autoWidth": false,
+      });
+
+      $('.delete_peserta').on('click', function(e){
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+          title: 'Anda Yakin',
+          text: "Ingin menghapus member ini?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yakin',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Berhasil',
+              'Akun telah dihapus',
+              'success'
+            ).then((result) => {
+              document.location.href = href;
+            })
+          }
+        })
       });
     });
   </script>

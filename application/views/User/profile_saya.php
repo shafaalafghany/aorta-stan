@@ -31,7 +31,7 @@
               <span><?= $user['email'] ?></span>
               <br>
               <span class="mr-2"><i class="fas fa-phone"></i></span>
-              <span>+62 81234567890</span>
+              <span><?= $user['telepon'] ?></span>
             </div>
           </div>
         </div>
@@ -113,6 +113,10 @@
                 <div class="form-group">
                   <label>Email*</label>
                   <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
+                </div>
+                <div class="form-group">
+                  <label>No.HP*</label>
+                  <input type="number" class="form-control" id="telepon" name="telepon" value="<?= $user['telepon']; ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label>Tentang Saya</label>

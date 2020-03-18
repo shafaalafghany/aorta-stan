@@ -45,6 +45,7 @@
             <?php if ($user['role_id'] == 3) { ?>
               <li class="nav-item"><a href="<?= base_url('User/'); ?>" class="nav-link">Home</a></li>
               <li class="nav-item"><a href="<?= base_url('User/'); ?>tryout" class="nav-link">Try Out</a></li>
+              <li class="nav-item"><a href="<?= base_url('User/'); ?>topup" class="nav-link">Top Up</a></li>
               <li class="nav-item active"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
               <li class="nav-item"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
               <li class="nav-item dropdown">
