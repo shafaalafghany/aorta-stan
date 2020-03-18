@@ -14,7 +14,7 @@ class User extends CI_Controller
         $this->load->model('Rule_topik_model');
         $this->load->model('Soal_model');
         $this->load->model('Kerjakan_model');
-        $this->load->model('Hasil_tes_model');
+        $this->load->model('Hasil_tes_model', 'hasil');
     }
 
 
