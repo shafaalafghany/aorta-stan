@@ -29,4 +29,9 @@ class Event_model extends CI_model
 		$this->db->delete('event');
 		//return $this->db->get_where('mahasiswa', ['id' => $id]);
 	}
+
+	public function updateEvent($tampung)
+	{
+		return $this->db->update('event', $tampung);
+	}
 }

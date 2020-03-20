@@ -78,7 +78,6 @@
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
               <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Tentang Saya</a>
               <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ubah Profile</a>
-              <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-topup" role="tab" aria-controls="v-pills-messages" aria-selected="false">Top Up Point</a>
             </div>
           </div>
           <div class="col-9">
@@ -126,43 +125,6 @@
                   <button type="submit" class="btn btn-primary py-2 px-4">Simpan Perubahan</button>
                 </div>
                 </form>
-              </div>
-              <div class="tab-pane fade" id="v-pills-topup" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                <h4 style="margin-bottom: 20px;"><strong>Top Up dulu yuk!!</strong></h4>
-                <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-                  <div class="one-third mb-4 mb-md-0">
-                    <div class="job-post-item-header align-items-center">
-                      <h2 class="mr-3 text-black"><i class="fas fa-star mr-3"></i>TOP UP 50 POINT</h2>
-                    </div>
-                    <div class="job-post-item-body d-block d-md-flex">
-                      <div class="mr-3" toggle="Waktu Pelaksanaan">
-                        <span><i class="fas fa-money-bill-wave mr-1"></i></span>
-                        <span>Rp 50.000</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                    <a href="#" class="btn btn-primary py-2">Top Up</a>
-                  </div>
-                </div>
-                <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-                  <div class="one-third mb-4 mb-md-0">
-                    <div class="job-post-item-header align-items-center">
-                      <h2 class="mr-3 text-black"><i class="fas fa-star mr-3"></i>TOP UP 100 POINT</h2>
-                    </div>
-                    <div class="job-post-item-body d-block d-md-flex">
-                      <div class="mr-3" toggle="Waktu Pelaksanaan">
-                        <span><i class="fas fa-money-bill-wave mr-1"></i></span>
-                        <span>Rp 100.000</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                    <a href="#" class="btn btn-primary py-2">Top Up</a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

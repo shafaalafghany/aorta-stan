@@ -41,8 +41,8 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                  <a href="#" class="nav-link">
+                <li class="nav-item has-treeview menu-open">
+                  <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-calendar-week"></i>
                     <p>
                       Event
@@ -72,6 +72,14 @@
                       <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p> Tambah Soal</p>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Leaderboard</p>
                       </a>
                     </li>
                   </ul>
@@ -131,22 +139,14 @@
                   </ul>
                 </li>
                 <li class="nav-header">PENGATURAN</li>
-                <li class="nav-item has-treeview menu-open">
-                  <a href="#" class="nav-link active">
+                <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-wrench"></i>
                     <p>
                       Tools
                       <i class="fas fa-angle-left right"></i>
                     </p>
                   </a>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link active">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Leaderboard</p>
-                      </a>
-                    </li>
-                  </ul>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="#" class="nav-link">

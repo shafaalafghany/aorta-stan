@@ -120,6 +120,49 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/event/daftar_event', $data);
     }
 
+    public function edit_event($id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Event';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getEventById($id_event);
+
+        $this->form_validation->set_rules('event', 'Event', 'required|trim|is_unique[event.nama_event]', [
+            'is_unique' => 'Nama sudah digunakan',
+            'required' => 'Nama event tidak boleh kosong'
+
+        ]);
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required|trim', [
+            'required' => 'Deskripsi tidak boleh kosong'
+        ]);
+        $this->form_validation->set_rules('harga', 'Harga', 'required|trim', [
+            'required' => 'Harga tidak boleh kosong'
+        ]);
+        $this->form_validation->set_rules('mulai', 'Mulai', 'required|trim', [
+            'required' => 'Waktu tidak boleh kosong'
+        ]);
+        $this->form_validation->set_rules('akhir', 'Akhir', 'required|trim', [
+            'required' => 'Waktu tidak boleh kosong'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('Super_Admin/templates/header_admin', $data);
+            $this->load->view('Super_Admin/event/edit_event');
+        } else {
+            $dataevent = [
+                'nama_event' => $this->input->post('event'),
+                'deskripsi' => $this->input->post('deskripsi'),
+                'harga' => $this->input->post('harga'),
+                'tgl_mulai' => $this->input->post('mulai'),
+                'tgl_akhir' => $this->input->post('akhir')
+            ];
+
+            $this->Event_model->updateEvent($dataevent);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/daftar_event');
+        }
+    }
+
     public function daftar_soal()
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Soal';
@@ -180,7 +223,6 @@ class Administrator extends CI_Controller
             $dataevent = [
                 'nama_event' => $this->input->post('event'),
                 'deskripsi' => $this->input->post('deskripsi'),
-                'tingkat' => 'Se-Indonesia',
                 'harga' => $this->input->post('harga'),
                 'tgl_mulai' => $this->input->post('mulai'),
                 'tgl_akhir' => $this->input->post('akhir')
@@ -890,6 +932,16 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/admin/daftar_admin', $data);
     }
 
+    public function view_admin($id)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Admin';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['member'] = $this->User_model->getAdminById($id);
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/admin/view_admin', $data);
+    }
+
     public function tambah_admin()
     {
         $this->load->library('form_validation');
@@ -919,11 +971,12 @@ class Administrator extends CI_Controller
                 'username' => htmlspecialchars($this->input->post('username', true)),
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($this->input->post('email', true)),
+                'telepon' => htmlspecialchars($this->input->post('telepon', true)),
                 'image' => 'default.png',
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
                 'is_active' => 1,
-                'date_created' => time()
+                'date_created' => date_create('now')->format('Y-m-d')
             ];
 
             $this->User_model->insertAdmin($datauser);

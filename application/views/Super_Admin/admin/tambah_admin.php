@@ -76,6 +76,14 @@
                 </a>
               </li>
             </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Leaderboard</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
@@ -138,14 +146,6 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Leaderboard</p>
-                </a>
-              </li>
-            </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -228,6 +228,10 @@
                   <div class="form-group">
                     <label for="inputEmail">Email</label>
                     <input type="email" id="email" class="form-control" name="email" value="<?= set_value('email'); ?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail">No.Telepon</label>
+                    <input type="number" id="telepon" class="form-control" name="telepon" value="<?= set_value('telepon'); ?>">
                   </div>
                   <!-- <div class="form-group">
             <label for="inputStatus">Status</label>

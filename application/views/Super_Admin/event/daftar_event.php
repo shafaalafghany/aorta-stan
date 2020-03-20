@@ -75,6 +75,14 @@
             </a>
           </li>
         </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Leaderboard</p>
+            </a>
+          </li>
+        </ul>
       </li>
       <?php if ($user['role_id'] == 1) { ?>
         <li class="nav-item has-treeview">
@@ -139,14 +147,6 @@
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Leaderboard</p>
-            </a>
-          </li>
-        </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -227,12 +227,7 @@
                       <td><?= $loadEvent['tgl_mulai']; ?></td>
                       <td><?= $loadEvent['tgl_akhir']; ?></td>
                       <td class="project-actions">
-                        <a class="badge badge-pill badge-primary col-sm-5" href="#">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                        </a>
-                        <a class="badge badge-pill badge-info col-sm-5" href="#">
+                        <a class="badge badge-pill badge-info col-sm-5" href="<?= base_url(); ?>Administrator/edit_event/<?= $loadEvent['id_event']; ?>">
                           <i class="fas fa-pencil-alt">
                           </i>
                           Edit

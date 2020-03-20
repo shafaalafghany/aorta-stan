@@ -75,6 +75,14 @@
                       </a>
                     </li>
                   </ul>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Leaderboard</p>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
                 <?php if ($user['role_id'] == 1) { ?>
                   <li class="nav-item has-treeview">
@@ -139,14 +147,6 @@
                       <i class="fas fa-angle-left right"></i>
                     </p>
                   </a>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Leaderboard</p>
-                      </a>
-                    </li>
-                  </ul>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
                       <a href="#" class="nav-link">
@@ -252,11 +252,6 @@
 
                         
                         <td class="project-actions">
-                          <a class="btn btn-primary btn-sm" href="#">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </a>
                           <a class="btn btn-info btn-sm" href="#">
                               <i class="fas fa-pencil-alt">
                               </i>
