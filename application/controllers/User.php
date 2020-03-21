@@ -201,7 +201,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -264,7 +264,7 @@ class User extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -505,7 +505,7 @@ class User extends CI_Controller
             'hasil' => $total_benar
         ];
 
-        $this->Hasil_tes_model->insertHasil($dataHasil);
+        $this->hasil->insertHasil($dataHasil);
 
         $this->Kerjakan_model->hapuscache($id, $id_topik, $id_event);
 
@@ -530,7 +530,7 @@ class User extends CI_Controller
             'id_user' => $id,
             'hasil' => $total_benar_twk
         ];
-        $this->Hasil_tes_model->insertHasil($dataHasilTwk);
+        $this->hasil->insertHasil($dataHasilTwk);
         $this->Kerjakan_model->hapuscachetwk($id, $id_event);
 
 
@@ -546,7 +546,7 @@ class User extends CI_Controller
             'hasil' => $total_benar_tiu
         ];
 
-        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->hasil->insertHasil($dataHasilTiu);
         $this->Kerjakan_model->hapuscachetiu($id, $id_event);
 
 
@@ -561,7 +561,7 @@ class User extends CI_Controller
             'id_user' => $id,
             'hasil' => $total_benar_tkp
         ];
-        $this->Hasil_tes_model->insertHasil($dataHasilTiu);
+        $this->hasil->insertHasil($dataHasilTiu);
         $this->Kerjakan_model->hapuscachetkp($id, $id_event);
 
         redirect('User/hasil_skd/' . $id . '/' . $id_event . '/' . $id_topik);
@@ -572,7 +572,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -619,7 +619,7 @@ class User extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->Hasil_tes_model->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -734,7 +734,7 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $modul = $this->Modul_model->getModulById($id_modul);
 
-        $tofile= realpath("assets/file/" . $modul);
+        $tofile = realpath("assets/file/" . $modul);
         header('Content-Type: application/pdf');
         @readfile($tofile);
     }
@@ -812,6 +812,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already registered'
         ]);
+        $this->form_validation->set_rules('telepon', 'Telepon', 'required|trim|numeric');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
             'matches' => 'Password tidak sama !',
             'min_length' => 'Password terlalu pendek!'

@@ -12,7 +12,7 @@ class Administrator extends CI_Controller
         $this->load->model('Modul_model');
         $this->load->model('Topik_model');
         $this->load->model('Soal_model');
-        $this->load->model('Hasil_tes_model');
+        $this->load->model('Hasil_tes_model', 'hasil');
     }
 
     public function index()
@@ -41,15 +41,22 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/modul/daftar_modul');
     }
 
-    public function leaderboard()
+    public function leaderboard($id, $id_event)
     {
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Event_model->getAllEvent();
+        $data['leader'] = $this->hasil->getLeaderboardByEvent($id_event);
+        $data['hasilUser'] = $this->hasil->getLeaderboardByIdAndEvent($id, $id_event);
+        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
+        $transaksi = $this->db->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row_array();
 
-        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Modul';
+        $data['judul'] = 'AORTASTAN Try Out Online | Leaderboard';
         $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/tools/leaderboard');
+        $this->load->view('Super_Admin/event/leaderboard');
     }
 
     public function tambah_modul()
@@ -312,7 +319,7 @@ class Administrator extends CI_Controller
                     'id_skd' => 3,
                     'soal' => $soal
                 ];
-            } else{
+            } else {
                 $dataSoal = [
                     'id_topik_tes' => $optionTopik,
                     'id_event' => $id_event,
@@ -377,7 +384,6 @@ class Administrator extends CI_Controller
                         'score' => -1
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } elseif ($jawabanBenar == "jawaban2") {
                     $jawabanBenar = $jawaban2;
 
@@ -425,7 +431,6 @@ class Administrator extends CI_Controller
                         'score' => -1
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } elseif ($jawabanBenar == "jawaban3") {
                     $jawabanBenar = $jawaban3;
 
@@ -437,7 +442,7 @@ class Administrator extends CI_Controller
                         'score' => -1
                     ];
                     $this->db->insert('jawaban', $dataJawaban1);
-                    
+
                     $dataJawaban2 = [
                         'id_soal' => $getIdSoal,
                         'id_topik_tes' => $optionTopik,
@@ -473,7 +478,6 @@ class Administrator extends CI_Controller
                         'score' => -1
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } elseif ($jawabanBenar == "jawaban4") {
                     $jawabanBenar = $jawaban4;
 
@@ -521,7 +525,6 @@ class Administrator extends CI_Controller
                         'score' => -1
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } else {
                     $jawabanBenar = $jawaban5;
 
@@ -570,7 +573,7 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawabanBenar);
                 }
-            } else{
+            } else {
                 if ($jawabanBenar == "jawaban1") {
                     $jawabanBenar = $jawaban1;
 
@@ -618,7 +621,6 @@ class Administrator extends CI_Controller
                         'score' => 0
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } elseif ($jawabanBenar == "jawaban2") {
                     $jawabanBenar = $jawaban2;
 
@@ -666,7 +668,6 @@ class Administrator extends CI_Controller
                         'score' => 0
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } elseif ($jawabanBenar == "jawaban3") {
                     $jawabanBenar = $jawaban3;
 
@@ -678,7 +679,7 @@ class Administrator extends CI_Controller
                         'score' => 0
                     ];
                     $this->db->insert('jawaban', $dataJawaban1);
-                    
+
                     $dataJawaban2 = [
                         'id_soal' => $getIdSoal,
                         'id_topik_tes' => $optionTopik,
@@ -714,7 +715,6 @@ class Administrator extends CI_Controller
                         'score' => 0
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } elseif ($jawabanBenar == "jawaban4") {
                     $jawabanBenar = $jawaban4;
 
@@ -762,7 +762,6 @@ class Administrator extends CI_Controller
                         'score' => 0
                     ];
                     $this->db->insert('jawaban', $dataJawaban5);
-
                 } else {
                     $jawabanBenar = $jawaban5;
 
@@ -812,7 +811,7 @@ class Administrator extends CI_Controller
                     $this->db->insert('jawaban', $dataJawabanBenar);
                 }
             }
-            
+
 
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/tambah_soal');
@@ -855,7 +854,7 @@ class Administrator extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/buat_soal', $data);
-        } else{
+        } else {
             $dataSoal = [
                 'id_topik_tes' => 5,
                 'id_event' => $id_event,
@@ -1111,20 +1110,20 @@ class Administrator extends CI_Controller
             if (!$this->upload->do_upload('image')) {
                 $this->upload->display_errors();
                 return false;
-            } else{
+            } else {
                 $data = $this->upload->data();
 
                 $config['image_library'] = 'gd2';
-                $config['source_image'] = './assets/soalImages'.$data['file_name'];
+                $config['source_image'] = './assets/soalImages' . $data['file_name'];
                 $config['create_thumb'] = FALSE;
                 $config['maintain_ratio'] = TRUE;
                 $config['quality'] = '60%';
                 $config['width'] = 800;
                 $config['height'] = 800;
-                $config['new_image'] = './assets/soalImages'.$data['file_name'];
+                $config['new_image'] = './assets/soalImages' . $data['file_name'];
                 $this->load->library('image_lib', $config);
                 $this->image_lib->resize();
-                echo base_url().'asserts/soalImages/'.$data['file_name'];
+                echo base_url() . 'asserts/soalImages/' . $data['file_name'];
             }
         }
     }
