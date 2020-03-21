@@ -22,6 +22,11 @@ class User_model extends CI_model
 		return $this->db->get_where('user', ['role_id' => 2])->result_array();
 	}
 
+	public function getAdminById($id)
+	{
+		return $this->db->get_where('user', ['role_id' => 2, 'id' => $id])->row_array();
+	}
+
 	public function deleteAdminById($id)
 	{
 		$this->db->where('role_id', 2);

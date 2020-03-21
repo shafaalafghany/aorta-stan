@@ -98,7 +98,7 @@ class User extends CI_Controller
         $point = $this->db->select('point')->get_where('user', ['role_id' => 3, 'username' => $sessionUser])->row()->point;
 
         if ($point < $harga) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf point anda tidak mencukupi untuk ikut dalam event! Silahkan top up point di menu profile saya.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf point anda tidak mencukupi untuk ikut dalam event! Silahkan top up point dulu.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/tryout');
         } else {
             $bayar = $point - $harga;
@@ -828,6 +828,7 @@ class User extends CI_Controller
                 'name' => htmlspecialchars($this->input->post('name', true)),
                 'email' => htmlspecialchars($email),
                 'image' => 'default.png',
+                'telepon' => htmlspecialchars($this->input->post('telepon', true)),
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'tentang' => 'Aku adalah seorang pejuang !',
                 'role_id' => 3,

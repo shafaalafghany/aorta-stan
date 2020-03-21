@@ -75,6 +75,14 @@
                       </a>
                     </li>
                   </ul>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Leaderboard</p>
+                      </a>
+                    </li>
+                  </ul>
                 </li>
                 <?php if ($user['role_id'] == 1) { ?>
                   <li class="nav-item has-treeview">
@@ -141,14 +149,6 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Leaderboard</p>
-                      </a>
-                    </li>
-                  </ul>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item">
                       <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Back Up Database</p>
@@ -213,7 +213,7 @@
                       <tr>
                         <td>
                           <span class="subadge">Nama</span>
-                          <h4 class="mr-3 text-black">Tes <?= $member['name'] ?></h4>
+                          <h4 class="mr-3 text-black"><?= $member['name'] ?></h4>
                         </td>
                       </tr>
                       <tr>
@@ -226,6 +226,12 @@
                         <td>
                           <span class="subadge">Email</span>
                           <h4 class="mr-3 text-black"><?= $member['email'] ?></h4>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="subadge">No. Telepon</span>
+                          <h4 class="mr-3 text-black"><?= $member['telepon'] ?></h4>
                         </td>
                       </tr>
                       <tr>
