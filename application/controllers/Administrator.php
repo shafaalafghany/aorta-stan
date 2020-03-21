@@ -41,18 +41,18 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/modul/daftar_modul');
     }
 
-    public function leaderboard($id, $id_event)
+    public function leaderboard()
     {
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Event_model->getAllEvent();
-        $data['leader'] = $this->hasil->getLeaderboardByEvent($id_event);
-        $data['hasilUser'] = $this->hasil->getLeaderboardByIdAndEvent($id, $id_event);
-        $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
-        $transaksi = $this->db->get_where('transaksi_user', [
-            'id_user' => $id,
-            'id_event' => $id_event
-        ])->row_array();
+        // $data['leader'] = $this->hasil->getLeaderboardByEvent($id_event);
+        // $data['hasilUser'] = $this->hasil->getLeaderboardByIdAndEvent($id, $id_event);
+        // $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
+        // $transaksi = $this->db->get_where('transaksi_user', [
+        //     'id_user' => $id,
+        //     'id_event' => $id_event
+        // ])->row_array();
 
         $data['judul'] = 'AORTASTAN Try Out Online | Leaderboard';
         $this->load->view('Super_Admin/templates/header_admin', $data);
@@ -1135,5 +1135,22 @@ class Administrator extends CI_Controller
         if (unlink($file_name)) {
             echo 'File berhasil dihapus';
         }
+    }
+
+    public function backup()
+    {
+        ini_set("memory_limit", "-1");
+        ini_set('max_execution_time', 200);
+
+        // Load the DB utility class
+        $this->load->dbutil();
+
+        // Backup your entire database and assign it to a variable
+        $backup = $this->dbutil->backup();
+
+        // Load the download helper and send the file to your desktop
+        $this->load->helper('download');
+
+        force_download('backup_database_aortastan.gz', $backup);
     }
 }
