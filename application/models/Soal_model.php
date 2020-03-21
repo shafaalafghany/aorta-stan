@@ -69,7 +69,7 @@ class Soal_model extends CI_model
 
 	public function deleteSoal($id)
 	{
-		$this->db->get_where('id_soal', $id);
+		$this->db->where('id_soal', $id);
 		$this->db->delete('soal');
 	}
 }

@@ -267,8 +267,8 @@ class Administrator extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['soal'] = $this->Soal_model->getAllSoal();
 
-        $this->soal_model->deleteSoal($id);
-        redirect('Super_Admin/event/soal_detail');
+        $this->Soal_model->deleteSoal($id);
+        redirect('Administrator/daftar_soal');
     }
 
     public function buat_soal()
