@@ -164,7 +164,7 @@ class Administrator extends CI_Controller
                 'tgl_akhir' => $this->input->post('akhir')
             ];
 
-            $this->Event_model->updateEvent($dataevent);
+            $this->Event_model->updateEvent($id_event, $dataevent);
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_event');
         }

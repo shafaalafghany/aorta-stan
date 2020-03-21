@@ -30,8 +30,9 @@ class Event_model extends CI_model
 		//return $this->db->get_where('mahasiswa', ['id' => $id]);
 	}
 
-	public function updateEvent($tampung)
+	public function updateEvent($id, $tampung)
 	{
-		return $this->db->update('event', $tampung);
+		$this->db->where('id_event', $id);
+		$this->db->update('event', $tampung);
 	}
 }
