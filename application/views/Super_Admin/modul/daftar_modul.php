@@ -33,12 +33,6 @@
               <p>Tambah Modul</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Rekap Data Modul</p>
-            </a>
-          </li>
         </ul>
       </li>
       <li class="nav-item has-treeview">
@@ -106,37 +100,16 @@
                 <p>Tambah Admin</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Rekap Data Admin</p>
-              </a>
-            </li>
           </ul>
         </li>
       <?php } ?>
       <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
+        <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
           <i class="nav-icon fas fa-users"></i>
           <p>
             Data Peserta
-            <i class="fas fa-angle-left right"></i>
           </p>
         </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Daftar Peserta</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Rekap Data Peserta</p>
-            </a>
-          </li>
-        </ul>
       </li>
       <li class="nav-header">PENGATURAN</li>
       <li class="nav-item has-treeview">
@@ -149,7 +122,7 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>backup" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Back Up Database</p>
             </a>
@@ -229,12 +202,7 @@
                           </i>
                           View
                         </a>
-                        <a class="btn btn-info btn-sm" href="#">
-                          <i class="fas fa-pencil-alt">
-                          </i>
-                          Edit
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="<?= base_url(); ?>Administrator/hapus_modul/<?= $loadModul['id_modul']; ?>">
+                        <a class="btn btn-danger btn-sm delete_modul" href="<?= base_url(); ?>Administrator/hapus_modul/<?= $loadModul['id_modul']; ?>">
                           <i class="fas fa-trash">
                           </i>
                           Delete
@@ -292,6 +260,32 @@
         "ordering": true,
         "info": true,
         "autoWidth": false,
+      });
+
+      $('.delete_modul').on('click', function(e){
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+          title: 'Anda Yakin',
+          text: "Ingin menghapus member ini?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yakin',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Berhasil',
+              'Akun telah dihapus',
+              'success'
+            ).then((result) => {
+              document.location.href = href;
+            })
+          }
+        })
       });
     });
   </script>

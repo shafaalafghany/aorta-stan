@@ -34,10 +34,6 @@
     											<span><i class="fas fa-money-bill-wave mr-1"></i></span>
     											<span><?= $loadEvent['harga'] ?> Point</span>
     										</div>
-    										<div>
-    											<span><i class="fas fa-layer-group mr-1"></i></span>
-    											<span><?= $loadEvent['tingkat'] ?></span>
-    										</div>
     									</div>
     								</div>
 

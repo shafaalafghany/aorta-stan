@@ -29,12 +29,8 @@
                                             <span><?= $event['tgl_mulai'] ?></span>
                                         </div>
                                         <div class="mr-3">
-                                                <span><i class="fas fa-money-bill-wave mr-1"></i></span>
-                                                <span><?= $event['harga'] ?> Point</span>
-                                            </div>
-    									<div>
-                                            <span><i class="fas fa-layer-group mr-1"></i></span>
-                                            <span><?= $event['tingkat'] ?></span>
+                                            <span><i class="fas fa-money-bill-wave mr-1"></i></span>
+                                            <span><?= $event['harga'] ?> Point</span>
                                         </div>
     								</div>
     							</div>
@@ -92,10 +88,6 @@
                               <div class="form-group">
                                 <label class="mb-3">Deskripsi 
                                     <h4 class="mr-3"><?= $event['deskripsi'] ?></h4></label>
-                              </div>
-                              <div class="form-group">
-                                <label class="mb-3">Tingkat Try Out 
-                                    <h4 class="mr-3"><?= $event['tingkat'] ?></h4></label>
                               </div>
                               <div class="form-group">
                                 <label class="mb-3">Harga 
