@@ -11,7 +11,7 @@ class Administrator extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Modul_model');
         $this->load->model('Topik_model');
-        $this->load->model('Soal_model');
+        $this->load->model('Soal_model', 'soal');
         $this->load->model('Hasil_tes_model', 'hasil');
     }
 
@@ -259,6 +259,16 @@ class Administrator extends CI_Controller
         $data['event'] = $this->Event_model->getAllEvent();
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/tambah_soal', $data);
+    }
+
+    public function hapus_soal($id)
+    {
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['soal'] = $this->soal_model->getSoalById();
+
+        $this->soal_model->deleteSoal($id);
+        redirect('Super_Admin/event/soal_detail');
     }
 
     public function buat_soal()
