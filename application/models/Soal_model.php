@@ -2,6 +2,12 @@
 
 class Soal_model extends CI_model
 {
+	public function getAllSoal()
+	{
+		$query = $this->db->get('soal');
+		return $query->result_array();
+	}
+
 	// Select topik rule yang id
 	public function getSoalTPAByIdEvent($id_event)
 	{

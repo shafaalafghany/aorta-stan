@@ -11,8 +11,8 @@ class Administrator extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Modul_model');
         $this->load->model('Topik_model');
-        $this->load->model('Soal_model', 'soal');
-        $this->load->model('Hasil_tes_model', 'hasil');
+        $this->load->model('Soal_model');
+        $this->load->model('Hasil_tes_model');
     }
 
     public function index()
@@ -265,7 +265,7 @@ class Administrator extends CI_Controller
     {
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $data['soal'] = $this->soal_model->getSoalById();
+        $data['soal'] = $this->Soal_model->getAllSoal();
 
         $this->soal_model->deleteSoal($id);
         redirect('Super_Admin/event/soal_detail');
