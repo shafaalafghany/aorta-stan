@@ -197,7 +197,7 @@
                       <td><?= $loadModul['deskripsi']; ?></td>
                       <td><?= $loadModul['jenis']; ?></td>
                       <td class="project-actions text-center">
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm" href="<?= base_url(); ?>User/openModul/<?= $loadModul['id_modul']; ?>">
                           <i class="fas fa-folder">
                           </i>
                           View

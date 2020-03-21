@@ -227,12 +227,12 @@
 
 
                       <td class="project-actions">
-                        <a class="btn btn-info btn-sm" href="#">
+                        <a class="badge badge-pill badge-info btn-sm" href="#">
                           <i class="fas fa-pencil-alt">
                           </i>
                           Edit
                         </a>
-                        <a class="btn btn-danger btn-sm" href="<?= base_url(); ?>Administrator/hapus_soal/<?= $loadSoal['id_soal']; ?>">
+                        <a class="badge badge-pill badge-danger btn-sm" href="<?= base_url(); ?>Administrator/hapus_soal/<?= $loadSoal['id_soal']; ?>">
                           <i class="fas fa-trash">
                           </i>
                           Delete
