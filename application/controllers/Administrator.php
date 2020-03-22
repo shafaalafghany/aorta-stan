@@ -267,6 +267,7 @@ class Administrator extends CI_Controller
         $data['soal'] = $this->Soal_model->getAllSoal();
 
         $this->Soal_model->deleteSoal($id);
+        $this->Soal_model->deleteJawaban($id);
         redirect('Administrator/daftar_soal');
     }
 

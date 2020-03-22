@@ -67,9 +67,15 @@ class Soal_model extends CI_model
 		return $this->db->query("SELECT * from soal where id_event = $id_event and id_topik_tes = 5")->result_array();
 	}
 
-	public function deleteSoal($id)
+	public function deleteSoal($id_soal)
+	{
+		$this->db->where('id_soal', $id_soal);
+		$this->db->delete('soal');
+	}
+
+	public function deleteJawaban($id)
 	{
 		$this->db->where('id_soal', $id);
-		$this->db->delete('soal');
+		$this->db->delete('jawaban');
 	}
 }
