@@ -178,6 +178,32 @@
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
+            <?= form_error(
+              'event',
+              '<div class="alert alert-danger" role="alert"><strong>',
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            ); ?>
+            <?= form_error(
+              'deskripsi',
+              '<div class="alert alert-danger" role="alert"><strong>',
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            ); ?>
+            <?= form_error(
+              'harga',
+              '<div class="alert alert-danger" role="alert"><strong>',
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            ); ?>
+            <?= form_error(
+              'mulai',
+              '<div class="alert alert-danger" role="alert"><strong>',
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            ); ?>
+            <?= form_error(
+              'akhir',
+              '<div class="alert alert-danger" role="alert"><strong>',
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+            ); ?>
+
             <form method="POST" action="<?= base_url('Administrator/edit_event/'); ?><?= $event['id_event'] ?>">
               <div class="card-body">
                 <div class="form-group">
