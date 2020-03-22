@@ -64,13 +64,13 @@ class User_model extends CI_model
 	public function updatePointUserById($id, $dataPoint)
 	{
 		$this->db->where('id', $id);
-        $this->db->update('user', $dataPoint);
+		$this->db->update('user', $dataPoint);
 	}
 
 	public function updatePointUserByUsername($username, $dataPoint)
 	{
-        $this->db->where('username', $username);
-        $this->db->update('user', $dataPoint);
+		$this->db->where('username', $username);
+		$this->db->update('user', $dataPoint);
 	}
 
 	public function deleteUserById($id)
@@ -78,6 +78,10 @@ class User_model extends CI_model
 		$this->db->where('role_id', 3);
 		$this->db->where('id', $id);
 		$this->db->delete('user');
+		$this->db->delete('hasil_tes');
+		$this->db->delete('leaderboard');
+		$this->db->delete('transaksi_user');
+		$this->db->delete('transaksi_event');
 	}
 
 	public function getImageUserByEmail($email)

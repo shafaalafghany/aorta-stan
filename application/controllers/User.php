@@ -864,7 +864,8 @@ class User extends CI_Controller
 
         $config = array();
         $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'ssl://mail.aortastan.com';
+        $config['smtp_crypto'] = 'ssl';
+        $config['smtp_host'] = 'sylveon.rapidplex.com';
         $config['smtp_user'] = 'admin@aortastan.com';
         $config['smtp_pass'] = 'AortaStan123';
         $config['smtp_port'] = 465;
