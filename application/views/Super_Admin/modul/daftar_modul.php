@@ -268,7 +268,7 @@
 
         Swal.fire({
           title: 'Anda Yakin',
-          text: "Ingin menghapus member ini?",
+          text: "Ingin menghapus modul ini?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',

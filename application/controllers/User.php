@@ -805,12 +805,12 @@ class User extends CI_Controller
     public function registration()
     {
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
-            'is_unique' => 'Username has already registered'
+            'is_unique' => 'Username sudah terdaftar'
 
         ]);
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-            'is_unique' => 'This email has already registered'
+            'is_unique' => 'Email sudah terdaftar'
         ]);
         $this->form_validation->set_rules('telepon', 'Telepon', 'required|trim|numeric');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
