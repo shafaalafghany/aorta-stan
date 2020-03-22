@@ -134,8 +134,7 @@ class Administrator extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Event_model->getEventById($id_event);
 
-        $this->form_validation->set_rules('event', 'Event', 'required|trim|is_unique[event.nama_event]', [
-            'is_unique' => 'Nama sudah digunakan',
+        $this->form_validation->set_rules('event', 'Event', 'required|trim', [
             'required' => 'Nama event tidak boleh kosong'
 
         ]);
