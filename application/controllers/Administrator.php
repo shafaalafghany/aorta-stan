@@ -197,6 +197,16 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/event/daftar_soal_detail', $data);
     }
 
+    public function edit_soal($id_event, $id_topik, $id_soal)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Contact';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/event/edit_soal', $data);
+    }
+
     public function tambah_event()
     {
         $sessionUser = $this->session->userdata('username');

@@ -227,7 +227,7 @@
 
 
                       <td class="project-actions">
-                        <a class="badge badge-pill badge-info btn-sm" href="#">
+                        <a class="badge badge-pill badge-info btn-sm" href="<?= base_url(); ?>Administrator/edit_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
                           <i class="fas fa-pencil-alt">
                           </i>
                           Edit
