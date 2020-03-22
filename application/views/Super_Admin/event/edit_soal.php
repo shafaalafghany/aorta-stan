@@ -188,7 +188,7 @@
                 </div>
                 <div class="form-group">
                   <label for="inputName">Topik Tes</label>
-                  <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
+                  <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $topik['nama_topik_tes'] ?>">
                 </div>
               </div>
 
@@ -196,7 +196,7 @@
                 <label>Soal</label>
                 <div class="card-body pad">
                   <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $soal['soal'] ?></textarea>
                   </div>
                   <p class="text-sm mb-0">
                     Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
@@ -207,40 +207,28 @@
               <div class="form-group">
                 <label>Jawaban</label>
                 <div class="card-body pad">
-                  <div class="form-group">
-                    <label for="inputJawaban1">Jawaban 1</label>
-                    <textarea type="text" id="jawaban1" name="jawaban1" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban2">Jawaban 2</label>
-                    <textarea type="text" id="jawaban2" name="jawaban2" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban3">Jawaban 3</label>
-                    <textarea type="text" id="jawaban3" name="jawaban3" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban4">Jawaban 4</label>
-                    <textarea type="text" id="jawaban4" name="jawaban4" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban5">Jawaban 5</label>
-                    <textarea type="text" id="jawaban5" name="jawaban5" class="form-control"></textarea>
-                  </div>
+                  <?php 
+                  $i = 1;
+                  foreach ($jawaban as $loadJawab) { ?>
+                    <div class="form-group">
+                      <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
+                      <textarea type="text" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" class="form-control" data-score="<?= $loadJawab['score'] ?>"><?= $loadJawab['jawaban'] ?></textarea>
+                    </div>
+                  <?php $i++; } ?>
                   <div class="form-group">
                     <label for="inputJawabanBenar">Jawaban Benar</label>
-                    <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
-                      <option value="jawaban1">Jawaban 1</option>
-                      <option value="jawaban2">Jawaban 2</option>
-                      <option value="jawaban3">Jawaban 3</option>
-                      <option value="jawaban4">Jawaban 4</option>
-                      <option value="jawaban5">Jawaban 5</option>
+                      <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
+                      <?php $i = 1;
+                      foreach ($jawaban as $loadJawab) { ?>
+                        <option value="jawaban<?= $i ?>">Jawaban <?= $i ?></option>
+                      <?php $i++; } ?>
                     </select>
                   </div>
                 </div>
               </div>
               <div class="col-12">
-                <input type="submit" value="Tambah" class="btn btn-primary float-right">
+                <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
+                <input type="submit" value="Simpan" class="btn btn-primary float-right">
               </div>
               </form>
             </div>

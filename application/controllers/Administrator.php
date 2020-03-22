@@ -202,6 +202,11 @@ class Administrator extends CI_Controller
         $data['judul'] = 'AORTASTAN Try Out Online | Contact';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+
+        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
+        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoal($id_soal);
 
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/edit_soal', $data);

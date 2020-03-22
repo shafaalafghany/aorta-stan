@@ -3,13 +3,13 @@
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Sobat Kode</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+                    <h2 class="ftco-heading-2">Aortastan</h2>
+                    <p>Aortastan adalah perusahaan penyedia Try Out berbasis web untuk persiapan bagi siswa yang akan mengikuti SPMB PKN STAN.</p>
+                    <!-- <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
             <div class="col-md">
@@ -17,9 +17,9 @@
                     <h2 class="ftco-heading-2">Ada Pertanyaan?</h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">Jawa Timur, Indonesia</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+62 81234567890</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@sobatkode.com</span></a></li>
+                            <li><span class="icon icon-map-marker"></span><span class="text">Jl. Basuki Rahmat, Balong Bendo, Klitik, Kec. Wonoasri, Kab. Madiun</span></li>
+                            <li><span class="icon icon-phone"></span><span class="text">085706472493</span></li>
+                            <li><span class="icon icon-envelope"></span><span class="text">aortastan@gmail.com</span></li>
                         </ul>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
 
                 Copyright &copy;<script>
                     document.write(new Date().getFullYear());
-                </script> All rights reserved | <a href="https://sobatkode.com" target="_blank">Sobat Kode</a>
+                </script> All rights reserved | <a href="https://aortastan.com" target="_blank">Aortastan</a>
             </div>
         </div>
     </div>

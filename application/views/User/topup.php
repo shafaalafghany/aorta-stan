@@ -17,26 +17,46 @@
     			<div class="col-lg">
     				<div class="row">
 						<div class="col-md-12 ftco-animate">
-							<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-								<div class="one-third mb-4 mb-md-0">
-									<div class="job-post-item-header align-items-center">
-										<span class="subadge">Top Up 50</span>
-										<h2 class="mr-3 text-black">Top up point kamu 50</h2>
-									</div>
-									<div class="job-post-item-body d-block d-md-flex">
-										<div class="mr-3">
-											<span><i class="fas fa-money-bill-wave mr-1"></i></span>
-											<span>Point</span>
-										</div>
-										<div>
-											<span><i class="fas fa-layer-group mr-1"></i></span>
-											<span><?= $loadEvent['tingkat'] ?></span>
-										</div>
-									</div>
-								</div>
-
-								<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-									<a href="<?= base_url('User/'); ?>topup/<?= $loadEvent['id_event']; ?>" class="btn btn-primary py-2">Top Up</a>
+							<div class="job-post-item p-4">
+								<div class="one-third">
+									<div class="job-post-item-header">
+										<h2 class="text-black" style="margin-left: 45%;">Cara Top Up Point</h2>
+									</div><br>
+									<div class="job-post-item-body">
+										<h4 class="text-black mr-5">1. Transfer melalui Bank BRI</h4>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Silahkan transfer ke no.rekening 6445-01-009870-53-5 (a/n Dicky Eka Putra)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Untuk jumlah nominalnya sebagai berikut:</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 10.000 = 10 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 30.000 = 30 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 50.000 = 50 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 100.000 = 100 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : 085706472493 (Dicky Eka Putra)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah itu tunggu sampai pihak kami untuk mengkonfirmasi transaksi point anda</h6>
+										<hr>
+										<br>
+										<h4 class="text-black mr-5">2. Transfer melalui Gopay</h4>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Silahkan transfer ke nomor 085706472493 (Dicky Eka Putra) melalui aplikasi gopay</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Untuk jumlah nominalnya sebagai berikut:</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 10.000 = 10 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 30.000 = 30 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 50.000 = 50 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 100.000 = 100 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : 085706472493 (Dicky Eka Putra)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah itu tunggu sampai pihak kami untuk mengkonfirmasi transaksi point anda</h6>
+										<hr>
+										<br>
+										<h4 class="text-black mr-5">3. Transfer melalui Link Aja</h4>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Silahkan transfer ke nomor 085706472493 (Dicky Eka Putra) melalui Link Aja</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Untuk jumlah nominalnya sebagai berikut:</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 10.000 = 10 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 30.000 = 30 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 50.000 = 50 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 100.000 = 100 Point</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : 085706472493 (Dicky Eka Putra)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah itu tunggu sampai pihak kami untuk mengkonfirmasi transaksi point anda</h6>
+										<hr>
+										<br>
+									</div>									
 								</div>
 							</div>
 						</div><!-- end -->
