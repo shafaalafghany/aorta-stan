@@ -30,7 +30,7 @@
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 30.000 = 30 Point</h6>
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 50.000 = 50 Point</h6>
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 100.000 = 100 Point</h6>
-										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : 085706472493 (Whatsapp)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : <a href="https://api.whatsapp.com/send?phone=+6285706472493" target="_blank">085706472493 (Whatsapp)</a></h6>
 										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah itu tunggu sampai pihak kami untuk mengkonfirmasi transaksi point anda</h6>
 										<hr>
 										<br>
@@ -41,7 +41,7 @@
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 30.000 = 30 Point</h6>
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 50.000 = 50 Point</h6>
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 100.000 = 100 Point</h6>
-										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : 085706472493 (Whatsapp)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : <a href="https://api.whatsapp.com/send?phone=+6285706472493" target="_blank">085706472493 (Whatsapp)</a></h6>
 										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah itu tunggu sampai pihak kami untuk mengkonfirmasi transaksi point anda</h6>
 										<hr>
 										<br>
@@ -52,7 +52,7 @@
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 30.000 = 30 Point</h6>
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 50.000 = 50 Point</h6>
 										<h6 class="text-black mb-1" style="margin-left: 5%;">- Rp 100.000 = 100 Point</h6>
-										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : 085706472493 (Whatsapp)</h6>
+										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah melakukan transfer, kirim bukti transfer tersebut ke No.Hp : <a href="https://api.whatsapp.com/send?phone=+6285706472493" target="_blank">085706472493 (Whatsapp)</a></h6>
 										<h6 class="text-black mb-1" style="margin-left: 3%;">- Setelah itu tunggu sampai pihak kami untuk mengkonfirmasi transaksi point anda</h6>
 										<hr>
 										<br>
