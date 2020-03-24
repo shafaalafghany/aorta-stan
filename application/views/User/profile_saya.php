@@ -62,8 +62,8 @@
           <div class="column-card ftco-animate">
             <div class="card card-profile">
               <div class="card-body text-center">
-                <h4 class="card-title">Mempelajari</h4>
-                <h3 class="card-text">2</h3>
+                <h4 class="card-title">Modul yang dapat diakses</h4>
+                <h3 class="card-text"><?= count($modul); ?></h3>
                 <h2 class="card-text">Modul</h2>
               </div>
             </div>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="form-group">
                   <label>No.HP*</label>
-                  <input type="number" class="form-control" id="telepon" name="telepon" value="<?= $user['telepon']; ?>" readonly>
+                  <input type="number" class="form-control" id="telepon" name="telepon" value="<?= $user['telepon']; ?>">
                 </div>
                 <div class="form-group">
                   <label>Tentang Saya</label>

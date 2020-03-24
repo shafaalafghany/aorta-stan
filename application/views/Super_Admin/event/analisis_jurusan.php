@@ -3,7 +3,7 @@
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
-                   with font-awesome or any other icon font library -->
+                 with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview">
         <a href="<?= base_url() ?>Administrator" class="nav-link">
           <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link active">
+            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Daftar Soal</p>
             </a>
@@ -71,7 +71,7 @@
         </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Leaderboard</p>
             </a>
@@ -159,7 +159,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Daftar Soal</h1>
+            <h1>Tambah Analisis Jurusan</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -169,99 +169,40 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
-
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">List Soal</h3>
+              <h3 class="card-title">Formulir Analisis Jurusan</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
             </div>
-            <!-- /.card-body -->
             <div class="card-body">
+              <?= form_open_multipart('Administrator/upload_jurusan/' . $leader['id_leaderboard']); ?>
               <div class="form-group">
-                <label for="inputName">Event</label>
-                <input type="text" id="inputEvent" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
+                <label for="exampleInputFile">File input</label>
+                <div class="input-group" style="margin-left: 20px;">
+                  <div class="custom-file">
+                    <input type="file" id="file" name="file" accept="application/pdf">
+                  </div>
+                </div>
+                <span style="font-size: 14px; margin-left: 20px;">File berekstensi .pdf dan tidak lebih dari 50MB.</span>
               </div>
-              <div class="form-group">
-                <label for="inputName">Topik Tes</label>
-                <input type="text" id="inputTopik" class="form-control" disabled="disabled" value="<?= $topik['nama_topik_tes'] ?>">
+              <div class="col-12">
+                <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/leaderboard'); ?>">Kembali</a>
+                <input type="submit" class="btn btn-primary float-right">
               </div>
-              <br>
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Soal</th>
-                    <th>Jumlah Jawaban</th>
-                    <?php if ($topik['id_topik_tes'] == 5) { ?>
-                      <th>Jawaban Berpoint 5</th>
-                    <?php } else { ?>
-                      <th>Jawaban Benar</th>
-                    <?php } ?>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $i = 1;
-                  foreach ($soal as $loadSoal) { ?>
-                    <tr>
-                      <td><?= $i; ?></td>
-                      <td><?= $loadSoal['soal']; ?></td>
-
-                      <?php $jawaban = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal']])->result_array();
-                      $j = 0;
-                      foreach ($jawaban as $jwb) {
-                        $j++;
-                      } ?>
-                      <td><?= $j; ?></td>
-
-                      <?php if ($topik['id_topik_tes'] == 1) {
-                        $jawabanBenar = $this->db->get_where('jawaban', [
-                          'id_soal' => $loadSoal['id_soal'],
-                          'score' => 4
-                        ])->row_array(); ?>
-                        <td><?= $jawabanBenar['jawaban']; ?></td>
-                      <?php } else {
-                        $jawabanBenar = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal'], 'score' => 5])->row_array(); ?>
-                        <td><?= $jawabanBenar['jawaban']; ?></td>
-                      <?php } ?>
-
-
-                      <td class="project-actions">
-                        <a class="badge badge-pill badge-primary btn-sm" href="<?= base_url(); ?>Administrator/view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                        </a>
-                        <a class="badge badge-pill badge-danger btn-sm delete-soal" href="<?= base_url(); ?>Administrator/hapus_soal/<?= $loadSoal['id_soal']; ?>">
-                          <i class="fas fa-trash">
-                          </i>
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                  <?php $i++;
-                  } ?>
-                </tbody>
-              </table>
+              </form>
             </div>
-            <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="http://sobatkode.com">Sobatkode</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
-    </div>
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -273,58 +214,37 @@
 
   <!-- jQuery -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
+
   <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- DataTables -->
-  <script src="<?= base_url('assets/Admin/') ?>plugins/datatables/jquery.dataTables.js"></script>
-  <script src="<?= base_url('assets/Admin/') ?>plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+  <!-- SweetAlert2 -->
+  <script src="<?= base_url('assets/Admin/') ?>plugins/sweetalert2/sweetalert2.min.js"></script>
+  <!-- Toastr -->
+  <script src="<?= base_url('assets/Admin/') ?>plugins/toastr/toastr.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?= base_url('assets/Admin/') ?>dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?= base_url('assets/Admin/') ?>dist/js/demo.js"></script>
 
   <script src="<?= base_url('assets/User/'); ?>js/logout.js"></script>
-  <!-- page script -->
-  <script>
+
+  <script type="text/javascript">
     $(function() {
-      $("#example1").DataTable();
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3500
       });
-    });
 
-    $('.delete-soal').on('click', function(e){
-        e.preventDefault();
-        const href = $(this).attr('href');
-
-        Swal.fire({
-          title: 'Anda Yakin',
-          text: "Ingin menghapus soal ini?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yakin',
-          cancelButtonText: 'Batal'
-        }).then((result) => {
-          if (result.value) {
-            Swal.fire(
-              'Berhasil',
-              'Akun telah dihapus',
-              'success'
-            ).then((result) => {
-              document.location.href = href;
-            })
-          }
+      $('.swalDefaultSuccess').click(function() {
+        Toast.fire({
+          type: 'success',
+          title: 'Satu modul berhasil ditambahkan, bisa dilihat pada daftar modul'
         })
       });
+    });
   </script>
   </body>
 

@@ -96,4 +96,16 @@ class Hasil_tes_model extends CI_Model
             'id_user' => $id
         ])->row_array();
     }
+
+    public function getLeaderboardByIdLeader($id_leader)
+    {
+        return $this->db->get_where('leaderboard', [
+            'id_leaderboard' => $id_leader
+        ])->row_array();
+    }
+
+    public function getFileJurusanByIdLeader($id_leaderboard)
+    {
+        return $this->db->select('analisis_jurusan')->get_where('leaderboard', ['id_leaderboard' => $id_leaderboard])->row()->analisis_jurusan;
+    }
 }

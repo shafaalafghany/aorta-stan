@@ -686,6 +686,7 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $id_user = $this->User_model->getIdUserByUsername($sessionUser);
         $data['transaksi'] = $this->db->get_where('transaksi_user', ['id_user' => $id_user])->result_array();
+        $data['modul'] = $this->Modul_model->getAllModul();
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
 
@@ -727,6 +728,19 @@ class User extends CI_Controller
         }
     }
 
+    public function open_jurusan($id_leaderboard)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Analisis Jurusan';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $jurusan = $this->hasil->getFileJurusanByIdLeader($id_leaderboard);
+
+        $tofile = realpath("assets/fileJurusan/" . $jurusan);
+        header('Content-Type: application/pdf');
+        header("Content-disposition: attachment; filename=$jurusan"); 
+        @readfile($tofile);
+    }
+
     public function openModul($id_modul)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Modul';
@@ -736,6 +750,7 @@ class User extends CI_Controller
 
         $tofile = realpath("assets/file/" . $modul);
         header('Content-Type: application/pdf');
+        header("Content-disposition: attachment; filename=$modul"); 
         @readfile($tofile);
     }
 

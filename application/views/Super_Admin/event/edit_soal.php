@@ -51,13 +51,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Daftar Soal</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>tambah_event" class="nav-link active">
+            <a href="<?= base_url('Administrator/') ?>tambah_event" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Tambah Event</p>
             </a>
@@ -196,7 +196,7 @@
                 <label>Soal</label>
                 <div class="card-body pad">
                   <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $soal['soal'] ?></textarea>
+                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" disabled="disabled"><?= $soal['soal'] ?></textarea>
                   </div>
                   <p class="text-sm mb-0">
                     Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
@@ -204,122 +204,59 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <label>Jawaban</label>
-                <div class="card-body pad">
-                  <?php 
-                  $i = 1;
-                  foreach ($jawaban as $loadJawab) { ?>
-                    <div class="form-group">
-                      <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
-                      <textarea type="text" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" class="form-control" data-score="<?= $loadJawab['score'] ?>"><?= $loadJawab['jawaban'] ?></textarea>
-                    </div>
-                  <?php $i++; } ?>
-                  <div class="form-group">
-                    <label for="inputJawabanBenar">Jawaban Benar</label>
-                      <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
-                      <?php $i = 1;
-                      foreach ($jawaban as $loadJawab) { ?>
-                        <option value="jawaban<?= $i ?>">Jawaban <?= $i ?></option>
-                      <?php $i++; } ?>
-                    </select>
+              <?php if ($topik['id_topik_tes']==5) { ?>
+                <div class="form-group">
+                  <div class="card-body pad">
+                    <?php 
+                    $i=1;
+                    foreach ($jawaban as $loadJawab) { ?>
+                        <div class="form-group" style="display: flex;">
+                          <div class="col-md-9">
+                            <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i; ?></label>
+                            <textarea type="text" id="jawabanTkp<?= $i; ?>" name="jawabanTkp<?= $i; ?>" class="form-control" disabled="disabled"><?= $loadJawab['jawaban'] ?></textarea>
+                          </div>
+                          <div class="col-md-2">
+                            <label for="inputPoint<?= $i; ?>">Point Jawaban <?= $i; ?></label>
+                            <input type="number" id="pointJawabanTkp<?= $i; ?>" name="pointJawabanTkp<?= $i; ?>" class="form-control" value="<?= $loadJawab['score'] ?>">
+                          </div>
+                        </div>
+                    <?php $i++; } ?>
                   </div>
                 </div>
-              </div>
+              <?php } else{ ?>
+                <div class="form-group">
+                  <label>Jawaban</label>
+                  <div class="card-body pad">
+                    <?php 
+                    $i = 1;
+                    foreach ($jawaban as $loadJawab) { ?>
+                      <div class="form-group">
+                        <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
+                        <textarea type="text" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" class="form-control" disabled="disabled"><?= $loadJawab['jawaban'] ?></textarea>
+                      </div>
+                    <?php $i++; } ?>
+                    <?php 
+                    if ($topik['id_topik_tes']) {
+                      $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
+                        'id_soal' => $soal['id_soal'],
+                        'score' => 4
+                      ])->row()->jawaban;
+                    } else{
+                      $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
+                        'id_soal' => $soal['id_soal'],
+                        'score' => 5
+                      ])->row()->jawaban;
+                    }?>
+                    <div class="form-group">
+                      <label for="inputJwbBenar">Jawaban Benar</label>
+                      <textarea type="text" id="jwbBenar" disabled="disabled" name="jwbBenar" class="form-control"><?= $jwbnBenar; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
+              
               <div class="col-12">
                 <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
-                <input type="submit" value="Simpan" class="btn btn-primary float-right">
-              </div>
-              </form>
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-    </section>
-
-    <section class="content" id="tambahSoalSKD3">
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Soal Kelompok TKP</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <form action="<?= base_url('Administrator/') ?>buat_soal_tkp/<?= $event['id_event'] ?>" method="POST">
-              <div class="form-group">
-                <div class="card-body pad">
-                  <label>Soal</label>
-                  <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTKP" name="inputSoalTKP" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  </div>
-                  <p class="text-sm mb-0">
-                    Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                  </p>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="card-body pad">
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban1">Jawaban 1</label>
-                      <textarea type="text" id="jawabanTkp1" name="jawabanTkp1" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint1">Point Jawaban 1</label>
-                      <input type="number" id="pointJawabanTkp1" name="pointJawabanTkp1" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban2">Jawaban 2</label>
-                      <textarea type="text" id="jawabanTkp2" name="jawabanTkp2" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint2">Point Jawaban 2</label>
-                      <input type="number" id="pointJawabanTkp2" name="pointJawabanTkp2" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban3">Jawaban 3</label>
-                      <textarea type="text" id="jawabanTkp3" name="jawabanTkp3" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint3">Point Jawaban 3</label>
-                      <input type="number" id="pointJawabanTkp3" name="pointJawabanTkp3" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban4">Jawaban 4</label>
-                      <textarea type="text" id="jawabanTkp4" name="jawabanTkp4" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint4">Point Jawaban 4</label>
-                      <input type="number" id="pointJawabanTkp4" name="pointJawabanTkp4" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban5">Jawaban 5</label>
-                      <textarea type="text" id="jawabanTkp5" name="jawabanTkp5" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint5">Point Jawaban 5</label>
-                      <input type="number" id="pointJawabanTkp5" name="pointJawabanTkp5" class="form-control">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <input type="submit" value="Tambah" class="btn btn-primary float-right">
               </div>
               </form>
             </div>

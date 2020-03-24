@@ -177,7 +177,7 @@
 
             <!-- /.card-body -->
             <div class="card-body">
-              <form method="post" action="">
+              <form method="post" action="<?= base_url('Administrator/') ?>leaderboard_list">
                 <div class="form-group">
                   <label for="optionEvent">Pilih Event</label>
                   <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
@@ -188,54 +188,6 @@
                 </div>
                 <button class="btn btn-primary float-right" type="submit">Submit</button>
               </form>
-
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Admin</th>
-                    <th>Email</th>
-                    <th>Point</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $i = 1;
-                  foreach ($member as $loadMember) { ?>
-                    <tr>
-                      <td><?= $i; ?></td>
-                      <td><?= $loadMember['name']; ?></td>
-                      <td><?= $loadMember['email']; ?></td>
-                      <td><?= $loadMember['point']; ?></td>
-                      <td><?php if ($loadMember['is_active'] = 1) {
-                            echo "Aktif";
-                          } else {
-                            echo "Tidak Aktif";
-                          } ?></td>
-                      <td class="project-actions text-center">
-                        <a class="btn btn-warning btn-sm" href="<?= base_url('Administrator/'); ?>tambah_point/<?= $loadMember['id']; ?>">
-                          <i class="fas fa-star">
-                          </i>
-                          Tambah Point
-                        </a>
-                        <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>view_peserta/<?= $loadMember['id']; ?>">
-                          <i class="fas fa-folder">
-                          </i>
-                          View
-                        </a>
-                        <a class="btn btn-danger btn-sm delete_peserta" href="<?= base_url('Administrator/'); ?>delete_member/<?= $loadMember['id']; ?>">
-                          <i class="fas fa-trash">
-                          </i>
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                  <?php $i++;
-                  } ?>
-                </tbody>
-              </table>
             </div>
             <!-- /.card-body -->
           </div>

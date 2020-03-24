@@ -19,82 +19,93 @@
     					<div class="col-md-12 ftco-animate">
     						<div class="job-post-item p-4 align-items-center">
     							<div class=" mb-4 mb-md-0">
-                                    <div class="job-post-item-header text-center">
-                                        <h2 class="mr-3 text-black">Hasil Tes Anda</h2>
-                                        <br>
-                                    </div>
-                                    <div class="job-post-item-body d-block d-md-flex align-items-center">
-                                        <table class="table table-borderless align-items-center text-center">
-                                          <thead>
-                                            <tr>
-                                              <th scope="col">Topik</th>
-                                              <th scope="col">Nilai</th>
-                                              <th scope="col">Status</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <td scope="row">TPA</td>
-                                              <td><?= $hasilUser['nilai_tpa']; ?></td>
-                                              <td><?php if ($hasilUser['nilai_tpa'] >= 67) {
-                                                echo "LULUS";
-                                              } else{
-                                                echo "TIDAK LULUS";
-                                              } ?></td>
-                                            </tr>
-                                            <tr>
-                                              <td scope="row">TBI</td>
-                                              <td><?= $hasilUser['nilai_tbi']; ?></td>
-                                              <td><?php if ($hasilUser['nilai_tbi'] >= 30) {
-                                                echo "LULUS";
-                                              } else{
-                                                echo "TIDAK LULUS";
-                                              } ?></td>
-                                            </tr>
-                                            <tr>
-                                              <td scope="row">SKD</td>
-                                              <td><?= $hasilUser['nilai_skd']; ?></td>
-                                              <td><?php if ($hasilUser['nilai_skd'] >= 271) {
-                                                echo "LULUS";
-                                              } else{
-                                                echo "TIDAK LULUS";
-                                              } ?></td>
-                                            </tr>
-                                            <!-- <tr>
-                                              <td scope="row">TWK</td>
-                                              <td><?= $hasilUser['nilai_twk']; ?></td>
-                                              <td><?php if ($hasilUser['nilai_twk'] >= 65) {
-                                                echo "LULUS";
-                                              } else{
-                                                echo "TIDAK LULUS";
-                                              } ?></td>
-                                            </tr>
-                                            <tr>
-                                              <td scope="row">TIU</td>
-                                              <td><?= $hasilUser['nilai_tiu']; ?></td>
-                                              <td><?php if ($hasilUser['nilai_tiu'] >= 80) {
-                                                echo "LULUS";
-                                              } else{
-                                                echo "TIDAK LULUS";
-                                              } ?></td>
-                                            </tr>
-                                            <tr>
-                                              <td scope="row">TKP</td>
-                                              <td><?= $hasilUser['nilai_tkp']; ?></td>
-                                              <td><?php if ($hasilUser['nilai_tkp'] >= 126) {
-                                                echo "LULUS";
-                                              } else{
-                                                echo "TIDAK LULUS";
-                                              } ?></td>
-                                            </tr> -->
-                                          </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="text-center">
-                                        <h4 class="alert alert-info">Nilai Total: <?= $hasilUser['nilai_total']; ?></h4>
-                                        <br>
-                                    </div>
-                                </div>
+                    <div class="job-post-item-header text-center">
+                        <h2 class="mr-3 text-black">Hasil Tes Anda</h2>
+                        <br>
+                    </div>
+                    <div class="job-post-item-body d-block d-md-flex align-items-center">
+                        <table class="table table-borderless align-items-center text-center">
+                          <thead>
+                            <tr>
+                              <th scope="col">Topik</th>
+                              <th scope="col">Nilai</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td scope="row">TPA</td>
+                              <td><?= $hasilUser['nilai_tpa']; ?></td>
+                              <td><?php if ($hasilUser['nilai_tpa'] >= 67) {
+                                echo "LULUS";
+                              } else{
+                                echo "TIDAK LULUS";
+                              } ?></td>
+                            </tr>
+                            <tr>
+                              <td scope="row">TBI</td>
+                              <td><?= $hasilUser['nilai_tbi']; ?></td>
+                              <td><?php if ($hasilUser['nilai_tbi'] >= 30) {
+                                echo "LULUS";
+                              } else{
+                                echo "TIDAK LULUS";
+                              } ?></td>
+                            </tr>
+                            <tr>
+                              <td scope="row">SKD</td>
+                              <td><?= $hasilUser['nilai_skd']; ?></td>
+                              <td><?php if ($hasilUser['nilai_skd'] >= 271) {
+                                echo "LULUS";
+                              } else{
+                                echo "TIDAK LULUS";
+                              } ?></td>
+                            </tr>
+                            <!-- <tr>
+                              <td scope="row">TWK</td>
+                              <td><?= $hasilUser['nilai_twk']; ?></td>
+                              <td><?php if ($hasilUser['nilai_twk'] >= 65) {
+                                echo "LULUS";
+                              } else{
+                                echo "TIDAK LULUS";
+                              } ?></td>
+                            </tr>
+                            <tr>
+                              <td scope="row">TIU</td>
+                              <td><?= $hasilUser['nilai_tiu']; ?></td>
+                              <td><?php if ($hasilUser['nilai_tiu'] >= 80) {
+                                echo "LULUS";
+                              } else{
+                                echo "TIDAK LULUS";
+                              } ?></td>
+                            </tr>
+                            <tr>
+                              <td scope="row">TKP</td>
+                              <td><?= $hasilUser['nilai_tkp']; ?></td>
+                              <td><?php if ($hasilUser['nilai_tkp'] >= 126) {
+                                echo "LULUS";
+                              } else{
+                                echo "TIDAK LULUS";
+                              } ?></td>
+                            </tr> -->
+                          </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="alert alert-info">Nilai Total: <?= $hasilUser['nilai_total']; ?></h4>
+                        <br>
+                    </div>
+                    <?php if (!empty($hasilUser['analisis_jurusan'])) { ?>
+                      <div class="text-center">
+                        <h6>Kamu Masuk Jurusan Mana?</h6>
+                        <a class="btn btn-primary float-center col-lg" target="_blank" href="<?= base_url('User/open_jurusan/' . $hasilUser['id_leaderboard']); ?>">Lihat Jurusan </a>
+                        <br>
+                      </div>
+                    <?php } else{ ?>
+                      <div class="text-center">
+                        <h6>Silahkan tunggu hasil analisis jurusan kami</h6>
+                      </div>
+                    <?php } ?>
+                </div>
     						</div>
     					</div><!-- end -->
 

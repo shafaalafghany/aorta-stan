@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link active">
+            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Daftar Soal</p>
             </a>
@@ -71,7 +71,7 @@
         </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Leaderboard</p>
             </a>
@@ -159,7 +159,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Daftar Soal</h1>
+            <h1>Daftar Peserta</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -172,71 +172,55 @@
 
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">List Soal</h3>
+              <h3 class="card-title">Daftar Peserta</h3>
             </div>
+
             <!-- /.card-body -->
             <div class="card-body">
               <div class="form-group">
-                <label for="inputName">Event</label>
-                <input type="text" id="inputEvent" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
+                <label for="inputName">Nama Event</label>
+                <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
               </div>
-              <div class="form-group">
-                <label for="inputName">Topik Tes</label>
-                <input type="text" id="inputTopik" class="form-control" disabled="disabled" value="<?= $topik['nama_topik_tes'] ?>">
-              </div>
-              <br>
+
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Soal</th>
-                    <th>Jumlah Jawaban</th>
-                    <?php if ($topik['id_topik_tes'] == 5) { ?>
-                      <th>Jawaban Berpoint 5</th>
-                    <?php } else { ?>
-                      <th>Jawaban Benar</th>
-                    <?php } ?>
+                    <th>Nama</th>
+                    <th>Nilai TPA</th>
+                    <th>Nilai TBI</th>
+                    <th>Nilai SKD</th>
+                    <th>Nilai Total</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
                   $i = 1;
-                  foreach ($soal as $loadSoal) { ?>
+                  foreach ($leader as $loadLeader) { ?>
                     <tr>
                       <td><?= $i; ?></td>
-                      <td><?= $loadSoal['soal']; ?></td>
-
-                      <?php $jawaban = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal']])->result_array();
-                      $j = 0;
-                      foreach ($jawaban as $jwb) {
-                        $j++;
-                      } ?>
-                      <td><?= $j; ?></td>
-
-                      <?php if ($topik['id_topik_tes'] == 1) {
-                        $jawabanBenar = $this->db->get_where('jawaban', [
-                          'id_soal' => $loadSoal['id_soal'],
-                          'score' => 4
-                        ])->row_array(); ?>
-                        <td><?= $jawabanBenar['jawaban']; ?></td>
-                      <?php } else {
-                        $jawabanBenar = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal'], 'score' => 5])->row_array(); ?>
-                        <td><?= $jawabanBenar['jawaban']; ?></td>
-                      <?php } ?>
-
-
-                      <td class="project-actions">
-                        <a class="badge badge-pill badge-primary btn-sm" href="<?= base_url(); ?>Administrator/view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
+                      <?php 
+                        $id_leader = $loadLeader['id_leaderboard'];
+                        $nama = $this->db->query("SELECT u.name from user u join leaderboard l on u.id = l.id_user where l.id_leaderboard = $id_leader")->row()->name; ?>
+                      <td><?= $nama; ?></td>
+                      <td><?= $loadLeader['nilai_tpa']; ?></td>
+                      <td><?= $loadLeader['nilai_tbi']; ?></td>
+                      <td><?= $loadLeader['nilai_skd']; ?></td>
+                      <td><?= $loadLeader['nilai_total']; ?></td>
+                      <td><?= $loadLeader['status']; ?></td>
+                      <td class="project-actions text-center">
+                        <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>leader_detail/<?= $event['id_event']; ?>/<?= $loadLeader['id_leaderboard']; ?>">
                           <i class="fas fa-folder">
                           </i>
                           View
                         </a>
-                        <a class="badge badge-pill badge-danger btn-sm delete-soal" href="<?= base_url(); ?>Administrator/hapus_soal/<?= $loadSoal['id_soal']; ?>">
+                        <!-- <a class="btn btn-danger btn-sm delete_peserta" href="#">
                           <i class="fas fa-trash">
                           </i>
                           Delete
-                        </a>
+                        </a> -->
                       </td>
                     </tr>
                   <?php $i++;
@@ -255,13 +239,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="http://sobatkode.com">Sobatkode</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
-    </div>
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -273,7 +250,7 @@
 
   <!-- jQuery -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
+
   <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -289,6 +266,7 @@
   <!-- page script -->
   <script>
     $(function() {
+
       $("#example1").DataTable();
       $('#example2').DataTable({
         "paging": true,
@@ -298,15 +276,14 @@
         "info": true,
         "autoWidth": false,
       });
-    });
 
-    $('.delete-soal').on('click', function(e){
+      $('.delete_peserta').on('click', function(e) {
         e.preventDefault();
         const href = $(this).attr('href');
 
         Swal.fire({
           title: 'Anda Yakin',
-          text: "Ingin menghapus soal ini?",
+          text: "Ingin menghapus member ini?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -325,6 +302,7 @@
           }
         })
       });
+    });
   </script>
   </body>
 

@@ -147,9 +147,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                                        <a href="<?= base_url('User/'); ?>openModul/<?= $loadModul['id_modul']; ?>" class="btn btn-primary py-2" target="_blank">Lihat</a>
-                                    </div>
+                                    <?php if ($user) { ?>
+                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                            <a href="<?= base_url('User/'); ?>openModul/<?= $loadModul['id_modul']; ?>" class="btn btn-primary py-2" target="_blank">Unduh Modul</a>
+                                        </div>
+                                    <?php } else{ ?>
+                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                            <a href="<?= base_url('User/'); ?>login" class="btn btn-warning py-2">Login Dulu</a>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div><!-- end -->
                         <?php $i++; } ?>
