@@ -738,7 +738,7 @@ class User extends CI_Controller
         $tofile = realpath("assets/fileJurusan/" . $jurusan);
         header('Content-Type: application/pdf');
         header("Content-disposition: attachment; filename=$jurusan"); 
-        @readfile($tofile);
+        readfile($tofile);
     }
 
     public function openModul($id_modul)
@@ -750,8 +750,7 @@ class User extends CI_Controller
 
         $tofile = realpath("assets/file/" . $modul);
         header('Content-Type: application/pdf');
-        header("Content-disposition: attachment; filename=$modul"); 
-        @readfile($tofile);
+        readfile($tofile);
     }
 
     public function login()

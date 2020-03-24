@@ -19,16 +19,16 @@
           </div>
           <div class="w-100"></div>
           <div class="col-md-3">
-            <p><span>Alamat: </span>Jl. Raya Bahagia, Jawa timur, Indonesia</p>
+            <p><span>Alamat: </span><a>Jl. Basuki Rahmat, Balong Bendo, Klitik, Kec. Wonoasri, Kab. Madiun</a></p>
           </div>
           <div class="col-md-3">
-            <p><span>Telepon: </span> <a href="tel://081234567890">+62 81234567890</a></p>
+            <p><span>Telepon: </span> <a href="https://api.whatsapp.com/send?phone=+6285706472493" target="_blank">085706472493</a></p>
           </div>
           <div class="col-md-3">
-            <p><span>Email: </span> <a href="mailto:info@sobatkode.com">info@sobatkode.com</a></p>
+            <p><span>Email: </span> <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=aortastan@gmail.com" target="_blank">aortastan@gmail.com</a></p>
           </div>
           <div class="col-md-3">
-            <p><span>Website: </span> <a href="https://sobatkode.com">sobatkode.com</a></p>
+            <p><span>Website: </span> <a href="https://aortastan.com">aortastan.com</a></p>
           </div>
         </div>
       </div>
