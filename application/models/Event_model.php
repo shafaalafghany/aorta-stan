@@ -25,6 +25,16 @@ class Event_model extends CI_model
 
 	public function deleteEvent($id)
 	{
+		$soal = $this->db->get_where('soal', ['id_event' => $id])->result_array();
+		if ($soal) {
+			$this->db->where('id_event', $id)->delete('soal');
+		}
+
+		$jawaban = $this->db->get_where('jawaban', ['id_event' => $id])->result_array();
+		if ($jawaban) {
+			$this->db->where('id_event', $id)->delete('jawaban');
+		}
+		
 		$this->db->where('id_event', $id);
 		$this->db->delete('event');
 		//return $this->db->get_where('mahasiswa', ['id' => $id]);

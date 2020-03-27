@@ -103,12 +103,29 @@
           </ul>
         </li>
         <li class="nav-item has-treeview">
-          <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>
               Data Peserta
+              <i class="fas fa-angle-left right"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Daftar Peserta</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url('Administrator/') ?>testimoni" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Testimoni</p>
+              </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-header">PENGATURAN</li>
         <li class="nav-item has-treeview">
@@ -291,7 +308,7 @@
           if (result.value) {
             Swal.fire(
               'Berhasil',
-              'Akun telah dihapus',
+              'Satu akun admin telah dihapus',
               'success'
             ).then((result) => {
               document.location.href = href;

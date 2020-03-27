@@ -348,7 +348,6 @@ class Administrator extends CI_Controller
         $data['soal'] = $this->Soal_model->getAllSoal();
 
         $this->Soal_model->deleteSoal($id);
-        $this->Soal_model->deleteJawaban($id);
         redirect('Administrator/daftar_soal');
     }
 
@@ -371,532 +370,6 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/event/buat_soal', $data);
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Silahkan pilih event dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('Administrator/tambah_soal');
-        }
-    }
-
-    public function updateSoal($id_event, $id_topik, $id_soal)
-    {
-        $data['judul'] = 'AORTASTAN Try Out Online | Edit Soal';
-
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-
-        $this->form_validation->set_rules('inputSoal', 'soal', 'required|trim');
-        $this->form_validation->set_rules('jawaban1', 'jawaban1', 'required|trim');
-        $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
-        $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
-        $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
-        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'required|trim');
-
-        $jawabanBenar = $this->input->post('jawabanBenar');
-        $jawaban1 = $this->input->post('jawaban1');
-        $jawaban2 = $this->input->post('jawaban2');
-        $jawaban3 = $this->input->post('jawaban3');
-        $jawaban4 = $this->input->post('jawaban4');
-        $jawaban5 = $this->input->post('jawaban5');
-        $soal = $this->input->post('inputSoal');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('Super_Admin/templates/header_admin', $data);
-            $this->load->view('Super_Admin/event/edit_soal', $data);
-        } else{
-            if ($id_topik >= 3) {
-                $dataSoal = [
-                    'id_topik_tes' => $id_topik,
-                    'id_event' => $id_event,
-                    'id_skd' => 3,
-                    'soal' => $soal
-                ];
-            } else {
-                $dataSoal = [
-                    'id_topik_tes' => $id_topik,
-                    'id_event' => $id_event,
-                    'id_skd' => 0,
-                    'soal' => $soal
-                ];
-            }
-
-            $this->db->set($dataSoal)->where('id_soal', $id_soal)->update('soal');
-
-            if ($id_topik == 1) {
-                if ($jawabanBenar == "jawaban1") {
-                    $jawabanBenar = $jawaban1;
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $id_soal,
-                        'id_topik_tes' => $id_topik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 4
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } elseif ($jawabanBenar == "jawaban2") {
-                    $jawabanBenar = $jawaban2;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 4
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } elseif ($jawabanBenar == "jawaban3") {
-                    $jawabanBenar = $jawaban3;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 4
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } elseif ($jawabanBenar == "jawaban4") {
-                    $jawabanBenar = $jawaban4;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 4
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } else {
-                    $jawabanBenar = $jawaban5;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 4
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-                }
-            } else {
-                if ($jawabanBenar == "jawaban1") {
-                    $jawabanBenar = $jawaban1;
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 5
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } elseif ($jawabanBenar == "jawaban2") {
-                    $jawabanBenar = $jawaban2;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 5
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } elseif ($jawabanBenar == "jawaban3") {
-                    $jawabanBenar = $jawaban3;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 5
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } elseif ($jawabanBenar == "jawaban4") {
-                    $jawabanBenar = $jawaban4;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 5
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
-                } else {
-                    $jawabanBenar = $jawaban5;
-
-                    $dataJawaban1 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban1,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban1);
-
-                    $dataJawaban2 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban2,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban2);
-
-                    $dataJawaban3 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban3,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban3);
-
-                    $dataJawaban4 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban4,
-                        'score' => 0
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban4);
-
-                    $dataJawabanBenar = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawabanBenar,
-                        'score' => 5
-                    ];
-                    $this->db->insert('jawaban', $dataJawabanBenar);
-                }
-            }
-
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/tambah_soal');
         }
     }
@@ -1663,6 +1136,35 @@ class Administrator extends CI_Controller
         }
     }
 
+    public function tentang_saya()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Profile Saya';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required|trim');
+        $this->form_validation->set_rules('lokasi', 'Lokasi', 'required|trim');
+        $this->form_validation->set_rules('keahlian', 'Keahlian', 'required|trim');
+        $this->form_validation->set_rules('quotes', 'Quotes', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            redirect('Administrator/profile_admin');
+        } else {
+            $pendidikan = $this->input->post('pendidikan');
+            $lokasi = $this->input->post('lokasi');
+            $keahlian = $this->input->post('keahlian');
+            $quotes = $this->input->post('quotes');
+
+            $this->db->set('riwayat_pendidikan', $pendidikan);
+            $this->db->set('lokasi', $lokasi);
+            $this->db->set('keahlian', $keahlian);
+            $this->db->set('quotes', $quotes);
+            $this->db->where('username', $sessionUser);
+            $this->db->update('user');
+            redirect('Administrator/profile_admin');
+        }
+    }
+
     public function tambah_point($id)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
@@ -1752,6 +1254,25 @@ class Administrator extends CI_Controller
         if (unlink($file_name)) {
             echo 'File berhasil dihapus';
         }
+    }
+
+    public function testimoni()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['testimoni'] = $this->User_model->getAllTestimoni();
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/testimoni', $data);
+    }
+
+    public function delete_testimoni($id_testi)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $this->db->where('id_testimoni', $id_testi)->delete('testimoni');
+        redirect('Administrator/testimoni');
     }
 
     public function backup()

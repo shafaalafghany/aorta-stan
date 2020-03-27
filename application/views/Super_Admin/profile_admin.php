@@ -33,12 +33,6 @@
               <p>Tambah Modul</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Rekap Data Modul</p>
-            </a>
-          </li>
         </ul>
       </li>
       <li class="nav-item has-treeview">
@@ -75,6 +69,14 @@
             </a>
           </li>
         </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Leaderboard</p>
+            </a>
+          </li>
+        </ul>
       </li>
       <?php if ($user['role_id'] == 1) { ?>
         <li class="nav-item has-treeview">
@@ -98,12 +100,6 @@
                 <p>Tambah Admin</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Rekap Data Admin</p>
-              </a>
-            </li>
           </ul>
         </li>
       <?php } ?>
@@ -122,10 +118,12 @@
               <p>Daftar Peserta</p>
             </a>
           </li>
+        </ul>
+        <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>testimoni" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Rekap Data Peserta</p>
+              <p>Testimoni</p>
             </a>
           </li>
         </ul>
@@ -139,14 +137,6 @@
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>leaderboard" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Leaderboard</p>
-            </a>
-          </li>
-        </ul>
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -240,32 +230,28 @@
                 <strong><i class="fas fa-user-graduate mr-1"></i> Riwayat Pendidikan</strong>
 
                 <p class="text-muted">
-                  TK Deket Rumah, SDN 1 Maju, SMPN 1 Jaya, SMAN 1 Selalu
+                  <?= $user['riwayat_pendidikan'] ?>
                 </p>
 
                 <hr>
 
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Lokasi</strong>
 
-                <p class="text-muted">Jawa Timur, Indonesia</p>
+                <p class="text-muted"><?= $user['lokasi'] ?></p>
 
                 <hr>
 
                 <strong><i class="fas fa-pencil-alt mr-1"></i> Keahlian</strong>
 
                 <p class="text-muted">
-                  <span class="tag tag-danger">Adobe Illustrator,</span>
-                  <span class="tag tag-success">C++,</span>
-                  <span class="tag tag-info">Javascript,</span>
-                  <span class="tag tag-warning">PHP,</span>
-                  <span class="tag tag-primary">Java</span>
+                  <?= $user['keahlian'] ?>
                 </p>
 
                 <hr>
 
                 <strong><i class="far fa-star mr-1"></i> Qoutes Of The Day</strong>
 
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                <p class="text-muted"><?= $user['quotes'] ?></p>
               </div>
               <!-- /.card-body -->
             </div>
@@ -348,29 +334,29 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="edit_tentangsaya">
-                    <form class="form-horizontal">
+                    <form action="<?= base_url('Administrator/tentang_saya') ?>" method="POST" enctype="multipart/form-data">
                       <div class="form-group row">
-                        <label for="inputEducation" class="col-sm-2 col-form-label">Riwayat Pendidikan</label>
+                        <label for="pendidikan" class="col-sm-2 col-form-label">Riwayat Pendidikan</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="inputEducation"></textarea>
+                          <textarea class="form-control" id="pendidikan" name="pendidikan"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputLocation" class="col-sm-2 col-form-label">Lokasi</label>
+                        <label for="lokasi" class="col-sm-2 col-form-label">Lokasi</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="inputLocation"></textarea>
+                          <textarea class="form-control" id="lokasi" name="lokasi"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Keahlian</label>
+                        <label for="keahlian" class="col-sm-2 col-form-label">Keahlian</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="inputSkills"></textarea>
+                          <textarea class="form-control" id="keahlian" name="keahlian"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputQoutes" class="col-sm-2 col-form-label">Qoutes Of The Day</label>
+                        <label for="quotes" class="col-sm-2 col-form-label">Qoutes Of The Day</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="inputQoutes"></textarea>
+                          <textarea class="form-control" id="quotes" name="quotes"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">

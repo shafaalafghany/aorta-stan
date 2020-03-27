@@ -106,12 +106,29 @@
         redirect('User/');
       } ?>
       <li class="nav-item has-treeview">
-        <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
+        <a href="#" class="nav-link">
           <i class="nav-icon fas fa-users"></i>
           <p>
             Data Peserta
+            <i class="fas fa-angle-left right"></i>
           </p>
         </a>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Daftar Peserta</p>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="<?= base_url('Administrator/') ?>testimoni" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Testimoni</p>
+            </a>
+          </li>
+        </ul>
       </li>
       <li class="nav-header">PENGATURAN</li>
       <li class="nav-item has-treeview">
@@ -327,8 +344,11 @@
                   <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Daftar Admin digunakan untuk melihat siapa saja admin dalam sistem ini.</p>
                   <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Tambah Admin</h6>
                   <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Tambah Admin digunakan untuk menambah admin baru.</p>
-                  <h5 class="card-title">5. Data Peserta</h5>
-                  <p class="card-text">&nbsp; &nbsp; &nbsp; Data Peserta digunakan untuk melihat siapa saja peserta yang terdaftar dalam sistem ini.</p>
+                  <h5 class="card-title">5. Data Peserta</h5><br>
+                  <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Daftar Peserta</h6>
+                  <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Daftar Peserta digunakan untuk melihat siapa saja peserta yang terdaftar dalam sistem ini.</p>
+                  <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Testimoni</h6>
+                  <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fitur ini digunakan untuk melihat dan menghapus testimoni yang diberikan peserta.</p>
                   <h5 class="card-title">6. Tools</h5><br>
                   <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Back Up Database</h6>
                   <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fitur ini digunakan untuk mem-backup semua database sistem.</p>
@@ -337,8 +357,11 @@
                   <h5 class="card-title">8. Log Out</h5>
                   <p class="card-text">&nbsp; &nbsp; &nbsp; Digunakan untuk keluar dari sistem.</p>
                 <?php } else { ?>
-                  <h5 class="card-title">4. Data Peserta</h5>
-                  <p class="card-text">&nbsp; &nbsp; &nbsp; Data Peserta digunakan untuk melihat siapa saja peserta yang terdaftar dalam sistem ini.</p>
+                  <h5 class="card-title">4. Data Peserta</h5><br>
+                  <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Daftar Peserta</h6>
+                  <p class="card-text">&nbsp; &nbsp; &nbsp; Daftar Peserta digunakan untuk melihat siapa saja peserta yang terdaftar dalam sistem ini.</p>
+                  <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Testimoni</h6>
+                  <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fitur ini digunakan untuk melihat dan menghapus testimoni yang diberikan peserta.</p>
                   <h5 class="card-title">5. Tools</h5><br>
                   <h6 class="card-title">&nbsp; &nbsp; &nbsp; - Back Up Database</h6>
                   <p class="card-text">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Fitur ini digunakan untuk mem-backup semua database sistem.</p>

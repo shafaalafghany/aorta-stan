@@ -75,13 +75,29 @@ class User_model extends CI_model
 
 	public function deleteUserById($id)
 	{
+		$hasilUser = $this->db->get_where('hasil_tes', ['id_user' => $id])->result_array();
+		if ($hasilUser) {
+			$this->db->where('id_user', $id)->delete('hasil_tes');
+		}
+
+		$leaderboardUser = $this->db->get_where('leaderboard', ['id_user' => $id])->result_array();
+		if ($leaderboardUser) {
+			$this->db->where('id_user', $id)->delete('leaderboard');
+		}
+
+		$transaksiUser = $this->db->get_where('transaksi_user', ['id_user' => $id])->result_array();
+		if ($transaksiUser) {
+			$this->db->where('id_user', $id)->delete('transaksi_user');
+		}
+
+		$transaksiEvent = $this->db->get_where('transaksi_event', ['id_user' => $id])->result_array();
+		if ($transaksiEvent) {
+			$this->db->where('id_user', $id)->delete('transaksi_event');
+		}
+
 		$this->db->where('role_id', 3);
 		$this->db->where('id', $id);
 		$this->db->delete('user');
-		$this->db->delete('hasil_tes');
-		$this->db->delete('leaderboard');
-		$this->db->delete('transaksi_user');
-		$this->db->delete('transaksi_event');
 	}
 
 	public function getImageUserByEmail($email)
@@ -94,4 +110,9 @@ class User_model extends CI_model
 		return $this->db->select('id')->get_where('user', ['username' => $sessionUser])->row()->id;
 	}
 	// End User
+
+	public function getAllTestimoni()
+	{
+		return $this->db->get('testimoni')->result_array();
+	}
 }

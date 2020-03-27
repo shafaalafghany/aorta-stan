@@ -35,8 +35,8 @@
                     </li>
                   </ul>
                 </li>
-                <li class="nav-item has-treeview menu-open">
-                  <a href="#" class="nav-link active">
+                <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-calendar-week"></i>
                     <p>
                       Event
@@ -51,7 +51,7 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link active">
+                      <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Daftar Soal</p>
                       </a>
@@ -103,8 +103,8 @@
                     </ul>
                   </li>
                 <?php } ?>
-                <li class="nav-item has-treeview">
-                  <a href="#" class="nav-link">
+                <li class="nav-item has-treeview menu-open">
+                  <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                       Data Peserta
@@ -121,7 +121,7 @@
                   </ul>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>testimoni" class="nav-link">
+                      <a href="<?= base_url('Administrator/') ?>testimoni" class="nav-link active">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Testimoni</p>
                       </a>
@@ -169,14 +169,14 @@
           </div>
         <!-- /.sidebar -->
       </aside>
-    <!-- Content Wrapper. Contains page content -->
+   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Daftar Soal</h1>
+              <h1>Daftar Peserta</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -189,29 +189,43 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">List Soal</h3>
+                <h3 class="card-title">Daftar Peserta</h3>
               </div>
+
                 <!-- /.card-body -->
               <div class="card-body">
-                <form method="post" action="<?= base_url('Administrator/'); ?>soal_detail">
-                <div class="form-group">
-                  <label for="optionEvent">Pilih Event</label>
-                  <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
-                    <?php foreach ($event as $loadEvent) { ?>
-                      <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']; ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="optionEvent">Pilih Topik</label>
-                  <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
-                    <?php foreach ($topik as $loadTopik) { ?>
-                      <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <button class="btn btn-primary float-right" type="submit">Submit</button>
-                </form>
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Peserta</th>
+                      <th>Email Peserta</th>
+                      <th>Subjek</th>
+                      <th>Pesan</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                     $i=1; 
+                     foreach ($testimoni as $loadTestimoni) { ?>
+                        <tr>
+                          <td><?= $i; ?></td>
+                          <td><?= $loadTestimoni['nama_user']; ?></td>
+                          <td><?= $loadTestimoni['email_user']; ?></td>
+                          <td><?= $loadTestimoni['subjek']; ?></td>
+                          <td><?= $loadTestimoni['pesan']; ?></td>
+                          <td class="project-actions text-center">
+                            <a class="btn btn-danger btn-sm delete_testimoni" href="<?= base_url('Administrator/'); ?>delete_testimoni/<?= $loadTestimoni['id_testimoni']; ?>">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                            </a>
+                          </td>
+                        </tr>
+                    <?php $i++; } ?>
+                  </tbody>
+                </table>
               </div>
               <!-- /.card-body -->
             </div>
@@ -224,25 +238,18 @@
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="http://sobatkode.com">Sobatkode</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
-    </div>
-  </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
 
   <!-- jQuery -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/jquery/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
+
   <script src="<?= base_url('assets/User/'); ?>js/sweetalert2.all.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="<?= base_url('assets/Admin/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -266,6 +273,32 @@
         "ordering": true,
         "info": true,
         "autoWidth": false,
+      });
+
+      $('.delete_testimoni').on('click', function(e){
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+          title: 'Anda Yakin',
+          text: "Ingin menghapus testimoni ini?",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yakin',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Berhasil',
+              'Testimoni peserta telah dihapus',
+              'success'
+            ).then((result) => {
+              document.location.href = href;
+            })
+          }
+        })
       });
     });
   </script>

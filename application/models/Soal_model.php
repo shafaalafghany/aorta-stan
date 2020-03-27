@@ -79,13 +79,12 @@ class Soal_model extends CI_model
 
 	public function deleteSoal($id_soal)
 	{
+		$jawaban = $this->db->get_where('jawaban', ['id_soal' => $id_soal])->result_array();
+		if ($jawaban) {
+			$this->db->where('id_soal', $id_soal)->delete('jawaban');
+		}
+
 		$this->db->where('id_soal', $id_soal);
 		$this->db->delete('soal');
-	}
-
-	public function deleteJawaban($id)
-	{
-		$this->db->where('id_soal', $id);
-		$this->db->delete('jawaban');
 	}
 }
