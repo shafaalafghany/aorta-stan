@@ -22,7 +22,7 @@
             <p><span>Alamat: </span><a>Jl. Basuki Rahmat, Balong Bendo, Klitik, Kec. Wonoasri, Kab. Madiun</a></p>
           </div>
           <div class="col-md-3">
-            <p><span>Telepon: </span> <a href="https://api.whatsapp.com/send?phone=+6285706472493" target="_blank">085706472493</a></p>
+            <p><span>Telepon: </span> <a href="https://api.whatsapp.com/send?phone=+628985958135" target="_blank">08985958135</a></p>
           </div>
           <div class="col-md-3">
             <p><span>Email: </span> <a href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=aortastan@gmail.com" target="_blank">aortastan@gmail.com</a></p>

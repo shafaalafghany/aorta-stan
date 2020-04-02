@@ -42,7 +42,8 @@ class Event_model extends CI_model
 
 	public function updateEvent($id, $tampung)
 	{
+	    $this->db->set($tampung);
 		$this->db->where('id_event', $id);
-		$this->db->update('event', $tampung);
+		$this->db->update('event');
 	}
 }

@@ -100,20 +100,48 @@ class Administrator extends CI_Controller
 
     public function upload_jurusan($id_leaderboard)
     {
-        $upload_file = $_FILES['file']['name'];
-
-        if ($upload_file) {
-            $config['upload_path'] = './assets/fileJurusan/';
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 51200;
-            $config['overwrite'] = true;
-
-            $this->load->library('upload', $config);
-
-            if ($this->upload->do_upload('file')) {
-                $new_file = $this->upload->data('file_name');
-            } else {
-                echo $this->upload->display_errors();
+        $this->load->helper('file');
+        
+        $file_name = $this->db->select('analisis_jurusan')->get_where('leaderboard', ['id_leaderboard' => $id_leaderboard])->row()->analisis_jurusan;
+        
+        if($file_name){
+            $path = './assets/fileJurusan/' . $file_name ;
+            unlink($path);
+            
+            $upload_file = $_FILES['file']['name'];
+    
+            if ($upload_file) {
+                $config['upload_path'] = './assets/fileJurusan/';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = 51200;
+                $config['overwrite'] = true;
+    
+                $this->load->library('upload', $config);
+    
+                if ($this->upload->do_upload('file')) {
+                    $new_file = $this->upload->data('file_name');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('Administrator/analisis_jurusan/' . $id_leaderboard);
+                }
+            }
+        } else{
+            $upload_file = $_FILES['file']['name'];
+    
+            if ($upload_file) {
+                $config['upload_path'] = './assets/fileJurusan/';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = 51200;
+                $config['overwrite'] = true;
+    
+                $this->load->library('upload', $config);
+    
+                if ($this->upload->do_upload('file')) {
+                    $new_file = $this->upload->data('file_name');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('Administrator/analisis_jurusan/' . $id_leaderboard);
+                }
             }
         }
 
@@ -157,7 +185,8 @@ class Administrator extends CI_Controller
                 if ($this->upload->do_upload('file')) {
                     $new_file = $this->upload->data('file_name');
                 } else {
-                    echo $this->upload->display_errors();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('Administrator/tambah_modul');
                 }
             }
 
@@ -169,6 +198,7 @@ class Administrator extends CI_Controller
             );
 
             $this->db->insert('modul', $tampungData);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu Modul berhasil ditambahkan!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_modul');
         }
     }
@@ -179,7 +209,14 @@ class Administrator extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Modul_model->getAllModul();
 
+        $this->load->helper('file');
+        
+        $file_name = $this->db->select('file')->get_where('modul', ['id_modul' => $id])->row()->file;
+        $path = './assets/file/' . $file_name ;
+        unlink($path);
+
         $this->Modul_model->deleteModul($id);
+        
         redirect('Administrator/daftar_modul');
     }
 
@@ -221,17 +258,77 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/edit_event');
         } else {
-            $dataevent = [
-                'nama_event' => $this->input->post('event'),
-                'deskripsi' => $this->input->post('deskripsi'),
-                'harga' => $this->input->post('harga'),
-                'tgl_mulai' => $this->input->post('mulai'),
-                'tgl_akhir' => $this->input->post('akhir')
-            ];
-
-            $this->Event_model->updateEvent($id_event, $dataevent);
-            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('Administrator/daftar_event');
+            $this->load->helper('file');
+            
+            $file_name = $this->db->select('pembahasan')->get_where('event', ['id_event' => $id_event])->row()->pembahasan;
+            
+            if($file_name){
+                $path = './assets/filePembahasan/' . $file_name ;
+                unlink($path);
+                
+                $upload_file = $_FILES['file']['name'];
+        
+                if ($upload_file) {
+                    $config['upload_path'] = './assets/filePembahasan/';
+                    $config['allowed_types'] = 'pdf';
+                    $config['max_size'] = 51200;
+                    $config['overwrite'] = true;
+        
+                    $this->load->library('upload', $config);
+        
+                    if ($this->upload->do_upload('file')) {
+                        $new_file = $this->upload->data('file_name');
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('Administrator/daftar_event');
+                    }
+                }
+                
+                $dataevent = [
+                    'nama_event' => $this->input->post('event'),
+                    'deskripsi' => $this->input->post('deskripsi'),
+                    'harga' => $this->input->post('harga'),
+                    'tgl_mulai' => $this->input->post('mulai'),
+                    'tgl_akhir' => $this->input->post('akhir'),
+                    'pembahasan' => $new_file
+                ];
+    
+                $this->Event_model->updateEvent($id_event, $dataevent);
+                $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('Administrator/daftar_event');
+                
+            } else {
+                $upload_file = $_FILES['file']['name'];
+        
+                if ($upload_file) {
+                    $config['upload_path'] = './assets/filePembahasan/';
+                    $config['allowed_types'] = 'pdf';
+                    $config['max_size'] = 51200;
+                    $config['overwrite'] = true;
+        
+                    $this->load->library('upload', $config);
+        
+                    if ($this->upload->do_upload('file')) {
+                        $new_file = $this->upload->data('file_name');
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('Administrator/daftar_event');
+                    }
+                }
+                
+                $dataevent = [
+                    'nama_event' => $this->input->post('event'),
+                    'deskripsi' => $this->input->post('deskripsi'),
+                    'harga' => $this->input->post('harga'),
+                    'tgl_mulai' => $this->input->post('mulai'),
+                    'tgl_akhir' => $this->input->post('akhir'),
+                    'pembahasan' => $new_file
+                ];
+    
+                $this->Event_model->updateEvent($id_event, $dataevent);
+                $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                redirect('Administrator/daftar_event');
+            }
         }
     }
 
@@ -326,7 +423,15 @@ class Administrator extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Event_model->getAllEvent();
-
+        
+        $this->load->helper('file');
+        
+        $file_name = $this->db->select('pembahasan')->get_where('event', ['id_event' => $id])->row()->pembahasan;
+        if($file_name){
+            $path = './assets/filePembahasan/' . $file_name ;
+            unlink($path);   
+        }
+        
         $this->Event_model->deleteEvent($id);
         redirect('Administrator/daftar_event');
     }
@@ -1069,6 +1174,7 @@ class Administrator extends CI_Controller
             ];
 
             $this->User_model->insertAdmin($datauser);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu admin berhasil dibuat</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_admin');
         }
     }
@@ -1109,24 +1215,53 @@ class Administrator extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $username = $this->input->post('username');
-
-            $upload_image = $_FILES['image']['name'];
-
-            if ($upload_image) {
-                $config['upload_path'] = './assets/img/profile/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = 2048;
-                $config['overwrite'] = true;
-
-                $this->load->library('upload', $config);
-
-                if ($this->upload->do_upload('image')) {
-                    $new_image = $this->upload->data('file_name');
-                    $this->db->set('image', $new_image);
-                } else {
-                    echo $this->upload->display_errors();
+            
+            $this->load->helper('file');
+        
+            $image = $this->db->select('image')->get_where('user', ['username' => $sessionUser])->row()->image;
+            
+            if($image != "default.png"){
+                $path = './assets/img/profile/' . $image ;
+                unlink($path);
+                
+                $upload_image = $_FILES['image']['name'];
+        
+                if ($upload_image) {
+                    $config['upload_path'] = './assets/img/profile/';
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = 2048;
+                    $config['overwrite'] = true;
+        
+                    $this->load->library('upload', $config);
+        
+                    if ($this->upload->do_upload('image')) {
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf gambar tidak sesuai ketentuan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('Administrator/profile_admin');
+                    }
+                }   
+            }
+            else{
+                $upload_image = $_FILES['image']['name'];
+    
+                if ($upload_image) {
+                    $config['upload_path'] = './assets/img/profile/';
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = 2048;
+                    $config['overwrite'] = true;
+        
+                    $this->load->library('upload', $config);
+        
+                    if ($this->upload->do_upload('image')) {
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf gambar tidak sesuai ketentuan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('Administrator/profile_admin');
+                    }
                 }
-            } else {
             }
 
             $this->db->set('name', $name);
@@ -1200,6 +1335,8 @@ class Administrator extends CI_Controller
             ];
 
             $this->User_model->updatePointUserById($id, $datapoint);
+            
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Point berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_peserta');
         }
     }

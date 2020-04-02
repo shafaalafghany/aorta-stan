@@ -187,6 +187,8 @@
         <div class="row">
           <div class="col-12">
 
+            <?= $this->session->flashdata('message'); ?>
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Daftar Peserta</h3>
@@ -198,7 +200,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Nama Admin</th>
+                      <th>Nama Peserta</th>
                       <th>Email</th>
                       <th>Point</th>
                       <th>Status</th>

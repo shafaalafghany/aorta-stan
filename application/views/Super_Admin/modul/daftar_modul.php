@@ -186,12 +186,14 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
-
+            
+            <?= $this->session->flashdata('message'); ?>
+            
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Daftar Modul</h3>
-            </div>
-
+            </div
+            
             <!-- /.card-body -->
             <div class="card-body">
               <table id="example1" class="table table-bordered table-striped">

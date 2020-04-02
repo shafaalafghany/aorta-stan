@@ -94,6 +94,11 @@
                         <h4 class="alert alert-info">Nilai Total: <?= $hasilUser['nilai_total']; ?></h4>
                         <br>
                     </div>
+                    <div class="text-center">
+                        <h6>Kamu Masuk Jurusan Mana?</h6>
+                        <a class="btn btn-primary float-center col-lg" target="_blank" href="<?= base_url('User/open_pembahasan/' . $event['id_event']); ?>">Lihat Pembahasan</a>
+                        <br>
+                    </div>
                     <?php if (!empty($hasilUser['analisis_jurusan'])) { ?>
                       <div class="text-center">
                         <h6>Kamu Masuk Jurusan Mana?</h6>

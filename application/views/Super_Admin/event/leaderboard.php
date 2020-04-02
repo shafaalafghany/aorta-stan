@@ -186,6 +186,7 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
+            <?= $this->session->flashdata('message'); ?>
 
           <div class="card">
             <div class="card-header">

@@ -187,6 +187,8 @@
       <div class="row">
         <div class="col-12">
 
+          <?= $this->session->flashdata('message'); ?>
+
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">List Semua Event</h3>
@@ -217,12 +219,12 @@
                       <td><?= $loadEvent['tgl_mulai']; ?></td>
                       <td><?= $loadEvent['tgl_akhir']; ?></td>
                       <td class="project-actions">
-                        <a class="badge badge-pill badge-info col-sm-5" href="<?= base_url(); ?>Administrator/edit_event/<?= $loadEvent['id_event']; ?>">
+                        <a class="badge badge-info col-sm" href="<?= base_url(); ?>Administrator/edit_event/<?= $loadEvent['id_event']; ?>">
                           <i class="fas fa-pencil-alt">
                           </i>
                           Edit
                         </a>
-                        <a class="badge badge-pill badge-danger col-sm-5 delete-event" href="<?= base_url(); ?>Administrator/hapus_event/<?= $loadEvent['id_event']; ?>">
+                        <a class="badge badge-danger col-sm delete-event" href="<?= base_url(); ?>Administrator/hapus_event/<?= $loadEvent['id_event']; ?>">
                           <i class="fas fa-trash">
                           </i>
                           Delete

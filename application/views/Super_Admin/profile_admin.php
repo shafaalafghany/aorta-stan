@@ -289,7 +289,7 @@
                       <br>
                       <h5><i class="far fa-star mr-1"></i>Qoutes Of The Day</h5>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
+                        <?= $user['quotes'] ?>
                       </p>
                       <hr>
                     </div>
@@ -338,25 +338,25 @@
                       <div class="form-group row">
                         <label for="pendidikan" class="col-sm-2 col-form-label">Riwayat Pendidikan</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="pendidikan" name="pendidikan"></textarea>
+                          <textarea class="form-control" id="pendidikan" name="pendidikan"><?= $user['riwayat_pendidikan'] ?></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="lokasi" class="col-sm-2 col-form-label">Lokasi</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="lokasi" name="lokasi"></textarea>
+                          <textarea class="form-control" id="lokasi" name="lokasi"><?= $user['lokasi'] ?></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="keahlian" class="col-sm-2 col-form-label">Keahlian</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="keahlian" name="keahlian"></textarea>
+                          <textarea class="form-control" id="keahlian" name="keahlian"><?= $user['keahlian'] ?></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="quotes" class="col-sm-2 col-form-label">Qoutes Of The Day</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="quotes" name="quotes"></textarea>
+                          <textarea class="form-control" id="quotes" name="quotes"><?= $user['quotes'] ?></textarea>
                         </div>
                       </div>
                       <div class="form-group row">

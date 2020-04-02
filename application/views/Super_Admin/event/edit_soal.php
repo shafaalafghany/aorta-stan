@@ -249,7 +249,13 @@
                     foreach ($jawaban as $loadJawab) { ?>
                       <div class="form-group">
                         <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
-                        <textarea type="text" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" class="form-control" disabled="disabled"><?= $loadJawab['jawaban'] ?></textarea>
+                        <div class="card-body pad">
+                          <div class="mb-3">
+                            <textarea class="textarea" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $loadJawab['jawaban'] ?></textarea>
+                          </div>
+                          <p class="text-sm mb-0">
+                          </p>
+                        </div>
                       </div>
                     <?php $i++; } ?>
                     <?php 
@@ -266,7 +272,13 @@
                     }?>
                     <div class="form-group">
                       <label for="inputJwbBenar">Jawaban Benar</label>
-                      <textarea type="text" id="jwbBenar" disabled="disabled" name="jwbBenar" class="form-control"><?= $jwbnBenar; ?></textarea>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" id="jwbBenar" name="jwbBenar" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jwbnBenar ?></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>

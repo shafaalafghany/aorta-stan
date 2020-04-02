@@ -30,7 +30,7 @@
     											<span class="flaticon-visitor"></span>
     										</div>
     										<div class="desc text-left">
-    											<strong class="number" data-number="10000">0</strong>
+    											<strong class="number" data-number="1000">0</strong>
     											<span>Lebih Participant</span>
     										</div>
     									</div>
@@ -43,7 +43,7 @@
     											<span class="flaticon-resume"></span>
     										</div>
     										<div class="desc text-left">
-    											<strong class="number" data-number="1000">0</strong>
+    											<strong class="number" data-number="500">0</strong>
     											<span>Lebih Soal Terbaik</span>
     										</div>
     									</div>

@@ -244,12 +244,12 @@
 
 
                       <td class="project-actions">
-                        <a class="badge badge-pill badge-primary btn-sm" href="<?= base_url(); ?>Administrator/view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
+                        <a class="badge badge-primary col-sm" href="<?= base_url(); ?>Administrator/view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
                           <i class="fas fa-folder">
                           </i>
                           View
                         </a>
-                        <a class="badge badge-pill badge-danger btn-sm delete-soal" href="<?= base_url(); ?>Administrator/hapus_soal/<?= $loadSoal['id_soal']; ?>">
+                        <a class="badge badge-danger col-sm delete-soal" href="<?= base_url(); ?>Administrator/hapus_soal/<?= $loadSoal['id_soal']; ?>">
                           <i class="fas fa-trash">
                           </i>
                           Delete

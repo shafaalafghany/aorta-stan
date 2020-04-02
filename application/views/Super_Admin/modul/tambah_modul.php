@@ -186,6 +186,9 @@
     <section class="content">
       <div class="row">
         <div class="col-12">
+            
+            <?= $this->session->flashdata('message'); ?>
+            
           <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">Formulir Modul</h3>
@@ -195,6 +198,7 @@
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
+            
             <div class="card-body">
               <?= form_open_multipart('Administrator/tambah_modul'); ?>
               <div class="form-group">

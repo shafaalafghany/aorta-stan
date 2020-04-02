@@ -699,23 +699,52 @@ class User extends CI_Controller
             $tentang = $this->input->post('tentang');
             $username = $this->input->post('username');
 
-            $upload_image = $_FILES['image']['name'];
-
-            if ($upload_image) {
-                $config['upload_path'] = './assets/img/profile/';
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size'] = 2048;
-                $config['overwrite'] = true;
-
-                $this->load->library('upload', $config);
-
-                if ($this->upload->do_upload('image')) {
-                    $new_image = $this->upload->data('file_name');
-                    $this->db->set('image', $new_image);
-                } else {
-                    echo $this->upload->display_errors();
+            $this->load->helper('file');
+        
+            $image = $this->db->select('image')->get_where('user', ['username' => $username])->row()->image;
+            
+            if($image != "default.png"){
+                $path = './assets/img/profile/' . $image ;
+                unlink($path);
+                
+                $upload_image = $_FILES['image']['name'];
+        
+                if ($upload_image) {
+                    $config['upload_path'] = './assets/img/profile/';
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = 2048;
+                    $config['overwrite'] = true;
+        
+                    $this->load->library('upload', $config);
+        
+                    if ($this->upload->do_upload('image')) {
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-10" style="margin-left: 8%;" role="alert"><strong>Maaf gambar tidak sesuai ketentuan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('User/profile_saya');
+                    }
+                }   
+            }
+            else{
+                $upload_image = $_FILES['image']['name'];
+    
+                if ($upload_image) {
+                    $config['upload_path'] = './assets/img/profile/';
+                    $config['allowed_types'] = 'gif|jpg|png';
+                    $config['max_size'] = 2048;
+                    $config['overwrite'] = true;
+        
+                    $this->load->library('upload', $config);
+        
+                    if ($this->upload->do_upload('image')) {
+                        $new_image = $this->upload->data('file_name');
+                        $this->db->set('image', $new_image);
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-10" style="margin-left: 8%;" role="alert"><strong>Maaf gambar tidak sesuai ketentuan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('User/profile_saya');
+                    }
                 }
-            } else {
             }
 
             $tampung = array(
@@ -724,6 +753,7 @@ class User extends CI_Controller
             );
             $this->db->where('username', $username);
             $this->db->update('user', $tampung);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-10" style="margin-left: 8%;" role="alert"><strong>Perubahan profile berhasil disimpan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect($this->uri->uri_string());
         }
     }
@@ -804,7 +834,7 @@ class User extends CI_Controller
                 redirect('User/login');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf email tidak terdaftar!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf akun belum terdaftar!</div>');
             redirect('User/login');
         }
     }
@@ -862,9 +892,14 @@ class User extends CI_Controller
             $this->db->insert('user', $datauser);
             $this->db->insert('user_token', $user_token);
 
-            $this->_sendEmail($token, 'verify');
+            $result = $this->_sendEmail($token, 'verify');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun.</div>');
+            if($result){
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun <b>dalam 24 jam</b>. Jika tidak ada pada inbox anda coba cek pada spam.</div>');    
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun. Jika tidak ada pada inbox anda coba cek pada spam. Jika dalam 1 jam tidak ada email verifikasi akun silahkan kontak admin dengan menyertakan email anda.</div>');
+            }
+            
             redirect('User/login');
         }
     }
@@ -889,7 +924,7 @@ class User extends CI_Controller
         $this->email->initialize($config);
         $this->email->set_newline("\r\n");
 
-        $this->email->from('sobatkode@gmail.com', 'Sobatkode.com');
+        $this->email->from('admin@aortastan.com', 'Aortastan.com');
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {
@@ -903,8 +938,9 @@ class User extends CI_Controller
         if ($this->email->send()) {
             return true;
         } else {
-            echo $this->email->print_debugger();
-            die;
+            // echo $this->email->print_debugger();
+            // die;
+            return false;
         }
     }
 
@@ -918,7 +954,7 @@ class User extends CI_Controller
         if ($user) {
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
-                if (time() - $user_token['date_created'] < (60 * 60 * 2)) {
+                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
                     $this->db->set('is_active', 1);
                     $this->db->where('email', $email);
                     $this->db->update('user');
@@ -930,7 +966,7 @@ class User extends CI_Controller
                     $this->db->delete('user', ['email' => $email]);
                     $this->db->delete('user_token', ['email' => $email]);
 
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf aktifasi akun gagal! Token user kadaluarsa.</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf aktifasi akun gagal! Token user kadaluarsa. Silahkan daftarkan kembali akun anda.</div>');
                     redirect('User/login');
                 }
             } else {
@@ -1062,6 +1098,18 @@ class User extends CI_Controller
 
         redirect('User/leaderboard/' . $id . '/' . $id_event);
     }
+    
+    public function open_pembahasan($id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Pembahasan';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $pmbhsnName = $this->db->select('pembahasan')->get_where('event', ['id_event' => $id_event])->row()->pembahasan;
+
+        $tofile = realpath("assets/filePembahasan/" . $pmbhsnName);
+        header('Content-Type: application/pdf');
+        readfile($tofile);
+    }
 
     public function leaderboard($id, $id_event)
     {
@@ -1069,6 +1117,7 @@ class User extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['leader'] = $this->hasil->getLeaderboardByEvent($id_event);
+        $data['event'] = $this->Event_model->getEventById($id_event);
         $data['hasilUser'] = $this->hasil->getLeaderboardByIdAndEvent($id, $id_event);
         $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
         $transaksi = $this->db->get_where('transaksi_user', [

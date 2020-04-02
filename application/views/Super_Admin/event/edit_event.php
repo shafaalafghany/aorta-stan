@@ -220,8 +220,8 @@
               '<div class="alert alert-danger" role="alert"><strong>',
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
             ); ?>
-
-            <form method="POST" action="<?= base_url('Administrator/edit_event/'); ?><?= $event['id_event'] ?>">
+            
+            <?= form_open_multipart('Administrator/edit_event/' . $event['id_event']); ?>
               <div class="card-body">
                 <div class="form-group">
                   <label for="inputName">Nama Event</label>
@@ -252,15 +252,32 @@
                   <label for="inputBerakhir">Waktu Berakhir Event</label>
                   <input type="date" id="akhir" name="akhir" class="form-control" value="<?= $event['tgl_akhir'] ?>">
                 </div>
-                <!-- <div class="form-group">
-                        <label for="exampleInputFile">File input</label>
-                        <div class="input-group">
+                <?php if($event['pembahasan']){ ?>
+                    <div class="form-group">
+                      <label for="inputPembahasan">File Pembahasan Yang Diupload</label>
+                      <input type="text" id="pembahasan" name="pembahasan" class="form-control" disabled="disabled" value="<?= $event['pembahasan'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Ganti Pembahasan</label>
+                        <div class="input-group" style="margin-left: 20px;">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                            <input type="file" id="file" name="file" accept="application/pdf">
                           </div>
                         </div>
-                      </div> -->
+                        <span style="font-size: 14px; margin-left: 20px;">File berekstensi .pdf dan tidak lebih dari 50MB.</span>
+                    </div>
+                <?php } else { ?>
+                    <div class="form-group">
+                        <label for="exampleInputFile">Upload Pembahasan</label>
+                        <div class="input-group" style="margin-left: 20px;">
+                          <div class="custom-file">
+                            <input type="file" id="file" name="file" accept="application/pdf">
+                          </div>
+                        </div>
+                        <span style="font-size: 14px; margin-left: 20px;">File berekstensi .pdf dan tidak lebih dari 50MB.</span>
+                    </div>
+                <?php } ?>
+                
                 <div class="col-12">
                   <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_event">Kembali</a>
                   <button type="submit" class="btn btn-primary float-right">Simpan</button>

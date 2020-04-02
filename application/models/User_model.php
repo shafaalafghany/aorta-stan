@@ -92,7 +92,13 @@ class User_model extends CI_model
 
 		$transaksiEvent = $this->db->get_where('transaksi_event', ['id_user' => $id])->result_array();
 		if ($transaksiEvent) {
-			$this->db->where('id_user', $id)->delete('transaksi_event');
+		$this->db->where('id_user', $id)->delete('transaksi_event');
+		}
+		
+		$email = $this->db->select('email')->get_where('user', ['id' => $id])->row()->email;
+		$userToken = $this->db->get_where('user_token', ['email' => $email])->result_array();
+		if($userToken) {
+		$this->db->where('email', $email)->delete('user_token');
 		}
 
 		$this->db->where('role_id', 3);

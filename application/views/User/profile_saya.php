@@ -37,6 +37,8 @@
         </div>
       </div>
     </section>
+    
+    <?= $this->session->flashdata('message'); ?>
 
     <section class="ftco-section ftco-no-pt">
       <div class="container">
@@ -70,7 +72,7 @@
           </div>
         </div>
     </section>
-
+    
     <section class="ftco-section ftco-no-pt">
       <div class="container">
         <div class="row ftco-animate">

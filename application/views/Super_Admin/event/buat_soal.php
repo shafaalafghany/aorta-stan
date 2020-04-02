@@ -277,23 +277,53 @@
                 <div class="card-body pad">
                   <div class="form-group">
                     <label for="inputJawaban1">Jawaban 1</label>
-                    <textarea type="text" id="jawaban1" name="jawaban1" class="form-control"></textarea>
+                    <div class="card-body pad">
+                      <div class="mb-3">
+                        <textarea class="textarea" placeholder="Place some text here" id="jawaban1" name="jawaban1" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      </div>
+                      <p class="text-sm mb-0">
+                      </p>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="inputJawaban2">Jawaban 2</label>
-                    <textarea type="text" id="jawaban2" name="jawaban2" class="form-control"></textarea>
+                    <div class="card-body pad">
+                      <div class="mb-3">
+                        <textarea class="textarea" placeholder="Place some text here" id="jawaban2" name="jawaban2" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      </div>
+                      <p class="text-sm mb-0">
+                      </p>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="inputJawaban3">Jawaban 3</label>
-                    <textarea type="text" id="jawaban3" name="jawaban3" class="form-control"></textarea>
+                    <div class="card-body pad">
+                      <div class="mb-3">
+                        <textarea class="textarea" placeholder="Place some text here" id="jawaban3" name="jawaban3" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      </div>
+                      <p class="text-sm mb-0">
+                      </p>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="inputJawaban4">Jawaban 4</label>
-                    <textarea type="text" id="jawaban4" name="jawaban4" class="form-control"></textarea>
+                    <div class="card-body pad">
+                      <div class="mb-3">
+                        <textarea class="textarea" placeholder="Place some text here" id="jawaban4" name="jawaban4" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      </div>
+                      <p class="text-sm mb-0">
+                      </p>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="inputJawaban5">Jawaban 5</label>
-                    <textarea type="text" id="jawaban5" name="jawaban5" class="form-control"></textarea>
+                    <div class="card-body pad">
+                      <div class="mb-3">
+                        <textarea class="textarea" placeholder="Place some text here" id="jawaban5" name="jawaban5" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      </div>
+                      <p class="text-sm mb-0">
+                      </p>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="inputJawabanBenar">Jawaban Benar</label>

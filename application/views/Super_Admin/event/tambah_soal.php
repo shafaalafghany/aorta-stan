@@ -185,6 +185,7 @@
       <section class="content">
         <div class="row">
           <div class="col-12">
+              <?= $this->session->flashdata('message'); ?>
             <div class="card card-default">
               <div class="card-header">
                 <h3 class="card-title">Mau nambah untuk event apa?</h3>
@@ -193,7 +194,6 @@
                 </div>
               </div>
               <div class="card-body">
-                <?= $this->session->flashdata('message'); ?>
                 <form method="POST" action="<?= base_url('Administrator/'); ?>buat_soal">
                   <div class="form-group">
                     <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
