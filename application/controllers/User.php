@@ -119,6 +119,45 @@ class User extends CI_Controller
         redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
+    public function tes_psiko($id, $id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes Psikotest';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik_psiko'] = $this->Topik_model->getTopikPsiko();
+        $data['topik_rule_psiko'] = $this->Topik_model->getRuleTopikPsiko();
+
+        $id_topik = $this->Topik_model->getIdTopikPsiko();
+        $topik_rule = $this->Topik_model->getRuleTopikPsiko();
+
+        $harga = $this->Event_model->getHargaEvent($id_event);
+        $point = $this->db->select('point')->get_where('user', ['role_id' => 3, 'username' => $sessionUser])->row()->point;
+
+        if ($point < $harga) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf point anda tidak mencukupi untuk ikut dalam event! Silahkan top up point dulu.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/tryout');
+        } else {
+            $bayar = $point - $harga;
+
+            $tampungBayar = array('point' => $bayar);
+            $this->User_model->updatePointUserByUsername($sessionUser, $tampungBayar);
+        }
+
+        $tgl_transaksi = date_create('now')->format('Y-m-d H:i:s');
+
+        $dataTransaksiUser = [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'tgl_transaksi' => $tgl_transaksi
+        ];
+        $this->db->insert('transaksi_user', $dataTransaksiUser);
+
+        redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
+    }
+
     public function tes_tbi($id, $id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
