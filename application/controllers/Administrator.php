@@ -261,74 +261,74 @@ class Administrator extends CI_Controller
             $this->load->helper('file');
             
             $file_name = $this->db->select('pembahasan')->get_where('event', ['id_event' => $id_event])->row()->pembahasan;
-            
-            if($file_name){
-                $path = './assets/filePembahasan/' . $file_name ;
-                unlink($path);
-                
-                $upload_file = $_FILES['file']['name'];
+            $file = $this->input->post('file');
+            $jumlahJurusan = $this->input->post('optionJurusan');
+            $upload_file = $_FILES['file']['name'];
         
-                if ($upload_file) {
-                    $config['upload_path'] = './assets/filePembahasan/';
-                    $config['allowed_types'] = 'pdf';
-                    $config['max_size'] = 51200;
-                    $config['overwrite'] = true;
-        
-                    $this->load->library('upload', $config);
-        
-                    if ($this->upload->do_upload('file')) {
-                        $new_file = $this->upload->data('file_name');
-                    } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        redirect('Administrator/daftar_event');
-                    }
-                }
-                
-                $dataevent = [
-                    'nama_event' => $this->input->post('event'),
-                    'deskripsi' => $this->input->post('deskripsi'),
-                    'harga' => $this->input->post('harga'),
-                    'tgl_mulai' => $this->input->post('mulai'),
-                    'tgl_akhir' => $this->input->post('akhir'),
-                    'pembahasan' => $new_file
-                ];
+            if ($upload_file) {
+                $config['upload_path'] = './assets/filePembahasan/';
+                $config['allowed_types'] = 'pdf';
+                $config['max_size'] = 51200;
+                $config['overwrite'] = true;
     
-                $this->Event_model->updateEvent($id_event, $dataevent);
-                $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                redirect('Administrator/daftar_event');
-                
+                $this->load->library('upload', $config);
+    
+                if ($this->upload->do_upload('file')) {
+                    $new_file = $this->upload->data('file_name');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    redirect('Administrator/daftar_event');
+                }
+
+                if ($file_name) {
+                    $path = './assets/filePembahasan/' . $file_name ;
+                    unlink($path);
+                }
+
+                if ($jumlahJurusan == 0) {
+                    $dataevent = [
+                        'nama_event' => $this->input->post('event'),
+                        'deskripsi' => $this->input->post('deskripsi'),
+                        'harga' => $this->input->post('harga'),
+                        'tgl_mulai' => $this->input->post('mulai'),
+                        'tgl_akhir' => $this->input->post('akhir'),
+                        'pembahasan' => $new_file
+                    ];
+                } else{
+                    $dataevent = [
+                        'nama_event' => $this->input->post('event'),
+                        'deskripsi' => $this->input->post('deskripsi'),
+                        'harga' => $this->input->post('harga'),
+                        'tgl_mulai' => $this->input->post('mulai'),
+                        'tgl_akhir' => $this->input->post('akhir'),
+                        'jurusan' => $jumlahJurusan,
+                        'pembahasan' => $new_file
+                    ];
+                }
             } else {
-                $upload_file = $_FILES['file']['name'];
-        
-                if ($upload_file) {
-                    $config['upload_path'] = './assets/filePembahasan/';
-                    $config['allowed_types'] = 'pdf';
-                    $config['max_size'] = 51200;
-                    $config['overwrite'] = true;
-        
-                    $this->load->library('upload', $config);
-        
-                    if ($this->upload->do_upload('file')) {
-                        $new_file = $this->upload->data('file_name');
-                    } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        redirect('Administrator/daftar_event');
-                    }
+                if ($jumlahJurusan == 0) {
+                    $dataevent = [
+                        'nama_event' => $this->input->post('event'),
+                        'deskripsi' => $this->input->post('deskripsi'),
+                        'harga' => $this->input->post('harga'),
+                        'tgl_mulai' => $this->input->post('mulai'),
+                        'tgl_akhir' => $this->input->post('akhir')
+                    ];
+                } else{
+                    $dataevent = [
+                        'nama_event' => $this->input->post('event'),
+                        'deskripsi' => $this->input->post('deskripsi'),
+                        'harga' => $this->input->post('harga'),
+                        'tgl_mulai' => $this->input->post('mulai'),
+                        'tgl_akhir' => $this->input->post('akhir'),
+                        'jurusan' => $jumlahJurusan
+                    ];
                 }
-                
-                $dataevent = [
-                    'nama_event' => $this->input->post('event'),
-                    'deskripsi' => $this->input->post('deskripsi'),
-                    'harga' => $this->input->post('harga'),
-                    'tgl_mulai' => $this->input->post('mulai'),
-                    'tgl_akhir' => $this->input->post('akhir'),
-                    'pembahasan' => $new_file
-                ];
-    
-                $this->Event_model->updateEvent($id_event, $dataevent);
-                $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                redirect('Administrator/daftar_event');
             }
+
+            $this->Event_model->updateEvent($id_event, $dataevent);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu event berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/daftar_event');
         }
     }
 
@@ -409,7 +409,8 @@ class Administrator extends CI_Controller
                 'deskripsi' => $this->input->post('deskripsi'),
                 'harga' => $this->input->post('harga'),
                 'tgl_mulai' => $this->input->post('mulai'),
-                'tgl_akhir' => $this->input->post('akhir')
+                'tgl_akhir' => $this->input->post('akhir'),
+                'jurusan' => $this->input->post('optionJurusan')
             ];
 
             $this->Event_model->insertEvent($dataevent);

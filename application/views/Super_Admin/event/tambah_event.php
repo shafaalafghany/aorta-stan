@@ -241,6 +241,16 @@
                   <input type="number" id="harga" name="harga" class="form-control">
                 </div>
                 <div class="form-group">
+                  <label for="optionJurusan">Mau Berapa Pilihan Jurusan?</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionJurusan" name="optionJurusan">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                  </select>
+                </div>
+                <div class="form-group">
                   <label for="inputMulai">Waktu Mulai Event</label>
                   <input type="date" id="mulai" name="mulai" class="form-control">
                 </div>

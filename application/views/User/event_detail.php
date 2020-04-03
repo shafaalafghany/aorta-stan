@@ -58,8 +58,12 @@
                                                     'id_event' => $event['id_event'],
                                                     'id_user' => $user['id']
                                                 ])->row_array();
-                                                if ($transaksi) { ?>
-                                                    <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjutkan Tes</a>
+                                                if ($transaksi) { 
+                                                    if ($transaksi['jurusan1'] != null) { ?>
+                                                        <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjutkan Tes TPA</a>
+                                                    <?php } else{ ?>
+                                                        <a href="<?= base_url('User/'); ?>pilih_jurusan/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lanjutkan Tes</a>
+                                                    <?php } ?>
                                                 <?php } else{ ?>
                                                     <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
                                                 <?php } ?>

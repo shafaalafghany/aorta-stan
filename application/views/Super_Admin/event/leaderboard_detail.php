@@ -209,6 +209,38 @@
                     <label for="inputName">Nama Peserta</label>
                     <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $nama ?>">
                   </div>
+                  <?php $transaksi = $this->db->get_where('transaksi_user', [
+                    'id_user' => $leader['id_user'],
+                    'id_event' => $leader['id_event']
+                  ])->row_array(); ?>
+                  <?php if ($event['jurusan'] == 1) { ?>
+                    <div class="form-group">
+                      <label for="inputName">Jurusan 1</label>
+                      <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $transaksi['jurusan1'] ?>">
+                    </div>
+                  <?php } elseif ($event['jurusan'] == 2) { ?>
+                    <div class="form-group">
+                      <label for="inputName">Jurusan 1</label>
+                      <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $transaksi['jurusan1'] ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputName">Jurusan 2</label>
+                      <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $transaksi['jurusan2'] ?>">
+                    </div>
+                  <?php } else { ?>
+                    <div class="form-group">
+                      <label for="inputName">Jurusan 1</label>
+                      <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $transaksi['jurusan1'] ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputName">Jurusan 2</label>
+                      <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $transaksi['jurusan2'] ?>">
+                    </div>
+                    <div class="form-group">
+                      <label for="inputName">Jurusan 3</label>
+                      <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $transaksi['jurusan3'] ?>">
+                    </div>
+                  <?php }?>
                   
                   <br>
                   <div class="job-post-item-header text-center">

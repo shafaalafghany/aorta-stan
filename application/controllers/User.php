@@ -116,6 +116,57 @@ class User extends CI_Controller
         ];
         $this->db->insert('transaksi_user', $dataTransaksiUser);
 
+        redirect('User/pilih_jurusan/' . $id . '/' . $id_event);
+    }
+
+    public function pilih_jurusan($id, $id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jurusan';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
+        $data['topik_rule_tpa'] = $this->Topik_model->getRuleTopikTPA();
+        $data['transaksiUser'] = $this->db->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row_array();
+
+        $id_topik = $this->Topik_model->getIdTopikTPA();
+        $topik_rule = $this->Topik_model->getRuleTopikTPA();
+
+        $this->load->view('User/templates/header_tryout', $data);
+        $this->load->view('User/pilih_jurusan', $data);
+        $this->load->view('User/templates/footer');
+    }
+
+    public function proses_jurusan($id, $id_event)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tes TPA';
+
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+
+        $id_topik = $this->Topik_model->getIdTopikTPA();
+
+        $id_transaksi = $this->db->select('id_transaksi')->get_where('transaksi_user', [
+            'id_user' => $id,
+            'id_event' => $id_event
+        ])->row()->id_transaksi;
+
+        $jurusan1 = $this->input->post('optionJurusan1');
+        $jurusan2 = $this->input->post('optionJurusan2');
+        $jurusan3 = $this->input->post('optionJurusan3');
+
+        $dataJurusan = [
+            'jurusan1' => $jurusan1,
+            'jurusan2' => $jurusan2,
+            'jurusan3' => $jurusan3
+        ];
+
+        $this->db->where('id_transaksi', $id_transaksi)->update('transaksi_user', $dataJurusan);
         redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 

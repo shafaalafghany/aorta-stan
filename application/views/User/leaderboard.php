@@ -95,8 +95,9 @@
                         <br>
                     </div>
                     <div class="text-center">
-                        <h6>Kamu Masuk Jurusan Mana?</h6>
+                        <h6>Lihat pembahasan tryout tadi yuk!</h6>
                         <a class="btn btn-primary float-center col-lg" target="_blank" href="<?= base_url('User/open_pembahasan/' . $event['id_event']); ?>">Lihat Pembahasan</a>
+                        <br>
                         <br>
                     </div>
                     <?php if (!empty($hasilUser['analisis_jurusan'])) { ?>
@@ -107,7 +108,7 @@
                       </div>
                     <?php } else{ ?>
                       <div class="text-center">
-                        <h6>Silahkan tunggu hasil analisis jurusan kami</h6>
+                        <h6>Penasaran masuk jurusan mana? Silahkan tunggu hasil analisis jurusan kami</h6>
                       </div>
                     <?php } ?>
                 </div>

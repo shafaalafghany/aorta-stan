@@ -202,6 +202,7 @@
                     <th>Nama Event</th>
                     <th>Deskripsi</th>
                     <th>Harga (point)</th>
+                    <th>Jumlah Jurusan</th>
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Berakhir</th>
                     <th>Aksi</th>
@@ -216,6 +217,7 @@
                       <td><?= $loadEvent['nama_event']; ?></td>
                       <td><?= $loadEvent['deskripsi']; ?></td>
                       <td><?= $loadEvent['harga']; ?></td>
+                      <td><?= $loadEvent['jurusan']; ?></td>
                       <td><?= $loadEvent['tgl_mulai']; ?></td>
                       <td><?= $loadEvent['tgl_akhir']; ?></td>
                       <td class="project-actions">

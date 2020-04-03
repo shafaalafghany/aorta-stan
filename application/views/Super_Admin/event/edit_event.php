@@ -252,6 +252,15 @@
                   <label for="inputBerakhir">Waktu Berakhir Event</label>
                   <input type="date" id="akhir" name="akhir" class="form-control" value="<?= $event['tgl_akhir'] ?>">
                 </div>
+                <div class="form-group">
+                  <label for="optionJurusan">Ubah Jumlah Pilihan Jurusan</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionJurusan" name="optionJurusan">
+                      <option value="0">Silahkan Dipilih....</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                  </select>
+                </div>
                 <?php if($event['pembahasan']){ ?>
                     <div class="form-group">
                       <label for="inputPembahasan">File Pembahasan Yang Diupload</label>
