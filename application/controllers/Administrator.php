@@ -345,41 +345,7 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/edit_soal', $data);
         } else {
-            if ($id_topik == 5) {
-                //Form Jawaban
-                $this->form_validation->set_rules('jawabanTkp1', 'jawabanTkp1', 'required|trim', [
-                    'required' => 'Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('jawabanTkp2', 'jawabanTkp2', 'required|trim', [
-                    'required' => 'Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('jawabanTkp3', 'jawabanTkp3', 'required|trim', [
-                    'required' => 'Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('jawabanTkp4', 'jawabanTkp4', 'required|trim', [
-                    'required' => 'Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('jawabanTkp5', 'jawabanTkp5', 'required|trim', [
-                    'required' => 'Jawaban tidak boleh kosong'
-                ]);
-
-                //Form Point
-                $this->form_validation->set_rules('pointJawabanTkp1', 'pointJawabanTkp1', 'required|trim', [
-                    'required' => 'Point Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('pointJawabanTkp2', 'pointJawabanTkp2', 'required|trim', [
-                    'required' => 'Point Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('pointJawabanTkp3', 'pointJawabanTkp3', 'required|trim', [
-                    'required' => 'Point Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('pointJawabanTkp4', 'pointJawabanTkp4', 'required|trim', [
-                    'required' => 'Point Jawaban tidak boleh kosong'
-                ]);
-                $this->form_validation->set_rules('pointJawabanTkp5', 'pointJawabanTkp5', 'required|trim', [
-                    'required' => 'Point Jawaban tidak boleh kosong'
-                ]);
-
+            if ($id_topik >= 3) {
                 $dataSoal = [
                     'id_soal' => $id_soal,
                     'id_topik_tes' => $id_topik,
@@ -387,9 +353,17 @@ class Administrator extends CI_Controller
                     'id_skd' => 3,
                     'soal' => $this->input->post('inputSoal')
                 ];
-                $this->db->where('id_soal', $id_soal);
-                $this->db->update('soal', $dataSoal);
+            } else {
+                $dataSoal = [
+                    'id_soal' => $id_soal,
+                    'id_topik_tes' => $id_topik,
+                    'id_event' => $id_event,
+                    'id_skd' => 0,
+                    'soal' => $this->input->post('inputSoal')
+                ];
             }
+            $this->db->where('id_soal', $id_soal);
+            $this->db->update('soal', $dataSoal);
         }
     }
 
