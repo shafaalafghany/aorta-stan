@@ -371,11 +371,6 @@ class Administrator extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_soal');
         }
-<<<<<<< HEAD
-=======
-        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        redirect('Administrator/daftar_soal');
->>>>>>> 43fc6b579eb93a1696c409398c4db2f008f94c53
     }
 
     public function tambah_event()
@@ -497,10 +492,7 @@ class Administrator extends CI_Controller
         $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
         $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
         $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
-<<<<<<< HEAD
-=======
         $this->form_validation->set_rules('jawaban5', 'jawaban5', 'trim');
->>>>>>> 43fc6b579eb93a1696c409398c4db2f008f94c53
 
         $jawabanBenar = $this->input->post('jawabanBenar');
         $jawaban1 = $this->input->post('jawaban1');
