@@ -197,7 +197,7 @@
             </div>
             <div class="card-body">
               <?= $this->session->flashdata('message'); ?>
-              <form action="<?= base_url('Administrator/') ?>view_soal/<?= $event['id_event'] ?>" method="POST">
+              <form action="<?= base_url('Administrator/') ?>view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>" method="POST">
                 <div class="form-group">
                   <div class="form-group">
                     <label for="inputName">Nama Event</label>
@@ -250,12 +250,8 @@
                       foreach ($jawaban as $loadJawab) { ?>
                         <div class="form-group">
                           <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
-                          <div class="card-body pad">
-                            <div class="mb-3">
-                              <textarea class="textarea" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $loadJawab['jawaban'] ?></textarea>
-                            </div>
-                            <p class="text-sm mb-0">
-                            </p>
+                          <div class="col-md-12" style="border-style: solid; border-width: 1px;">
+                            <?= $loadJawab['jawaban'] ?>
                           </div>
                         </div>
                       <?php $i++;
@@ -274,13 +270,9 @@
                       } ?>
                       <div class="form-group">
                         <label for="inputJwbBenar">Jawaban Benar</label>
-                        <div class="card-body pad">
-                          <div class="mb-3">
-                            <textarea class="textarea" id="jwbBenar" name="jwbBenar" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jwbnBenar ?></textarea>
+                        <div class="col-md-12" style="border-style: solid; border-width: 1px;">
+                            <?= $jwbnBenar; ?>
                           </div>
-                          <p class="text-sm mb-0">
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </div>
