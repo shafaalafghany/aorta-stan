@@ -261,7 +261,7 @@
                       <?php $i++;
                       } ?>
                       <?php
-                      if ($topik['id_topik_tes']) {
+                      if ($topik['id_topik_tes']==1) {
                         $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
                           'id_soal' => $soal['id_soal'],
                           'score' => 4
