@@ -12,21 +12,21 @@
     <section class="ftco-section ftco-no-pt">
       <div class="container">
         <div class="row">
-          <div class="category-wrap ftco-animate mr-3 image-profile" style="margin-left: 2%;">
+          <div class="category-wrap ftco-animate mr-3 image-profile" style="margin-left: 41%; margin-top: -7%;">
             <div class="text-center">
               <img class="image-profile" src="<?= base_url('assets/img/profile/') . $user['image']; ?>" alt="User Image">
             </div>
           </div>
-          <div class="col-md-7 ftco-animate">
-            <div class="heading-section">
-              <h2><?= $user['name']; ?></h2>
+          <div class="col-md-12 ftco-animate">
+            <div class="heading-section text-center">
+              <h2><strong><?= $user['name']; ?></strong></h2>
             </div>
             <div>
-              <p style="color: black;">
-                <span>Terdaftar sejak <?= date("j M Y", strtotime($user['date_created'])); ?></span>
-              </p>
+              <h6 style="color: black;" class="text-center">
+                <span><strong>Terdaftar sejak <?= date("j M Y", strtotime($user['date_created'])); ?></strong></span>
+              </h6>
             </div>
-            <div>
+            <div class="text-center">
               <span class="mr-2"><i class="far fa-envelope"></i></span>
               <span><?= $user['email'] ?></span>
               <br>
@@ -46,27 +46,24 @@
           <div class="column-card ftco-animate">
             <div class="card card-profile">
               <div class="card-body text-center">
-                <h4 class="card-title">Mendapatkan</h4>
-                <h3 class="card-text"><?= $user['point'] ?></h3>
-                <h2 class="card-text">Points</h2>
+                <h1 class="card-text" style="color: #ffffff;"><strong><?= $user['point'] ?></strong></h1>
+                <h2 class="card-text" style="color: #ffffff;"><strong> POINT </strong></h2>
               </div>
             </div>
           </div>
           <div class="column-card ftco-animate">
             <div class="card card-profile">
               <div class="card-body text-center">
-                <h4 class="card-title">Mengikuti</h4>
-                <h3 class="card-text"><?= count($transaksi); ?></h3>
-                <h2 class="card-text">Event</h2>
+                <h1 class="card-text" style="color: #ffffff;"><strong><?= count($transaksi); ?></strong></h1>
+                <h2 class="card-text" style="color: #ffffff;"><strong> EVENT </strong></h2>
               </div>
             </div>
           </div>
           <div class="column-card ftco-animate">
             <div class="card card-profile">
               <div class="card-body text-center">
-                <h4 class="card-title">Modul yang dapat diakses</h4>
-                <h3 class="card-text"><?= count($modul); ?></h3>
-                <h2 class="card-text">Modul</h2>
+                <h1 class="card-text" style="color: #ffffff;"><strong><?= count($modul); ?></strong></h1>
+                <h2 class="card-text" style="color: #ffffff;"><strong> MODUL </strong></h2>
               </div>
             </div>
           </div>
