@@ -362,11 +362,11 @@ class Administrator extends CI_Controller
                     'soal' => $this->input->post('inputSoal')
                 ];
             }
+            $this->db->where('id_soal', $id_soal);
+            $this->db->update('soal', $dataSoal);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/daftar_soal');
         }
-        $this->db->where('id_soal', $id_soal);
-        $this->db->update('soal', $dataSoal);
-        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        redirect('Administrator/daftar_soal');
     }
 
     public function tambah_event()
@@ -488,7 +488,6 @@ class Administrator extends CI_Controller
         $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
         $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
         $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
-        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'required|trim');
 
         $jawabanBenar = $this->input->post('jawabanBenar');
         $jawaban1 = $this->input->post('jawaban1');

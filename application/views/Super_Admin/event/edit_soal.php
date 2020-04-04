@@ -197,7 +197,7 @@
             </div>
             <div class="card-body">
               <?= $this->session->flashdata('message'); ?>
-              <form action="<?= base_url('Administrator/') ?>insert_soal/<?= $event['id_event'] ?>" method="POST">
+              <form action="<?= base_url('Administrator/') ?>view_soal/<?= $event['id_event'] ?>" method="POST">
                 <div class="form-group">
                   <div class="form-group">
                     <label for="inputName">Nama Event</label>
@@ -288,6 +288,7 @@
 
                 <div class="col-12">
                   <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
+                  <button type="submit" class="btn btn-primary float-right">Simpan</button>
                 </div>
               </form>
             </div>
