@@ -322,10 +322,12 @@
                   <?php } ?>
 
                   <div class="col-12">
-                    <?php if (empty($leader['analisis_jurusan'])) { ?>
-                      <a class="btn btn-primary float-right" href="<?= base_url('Administrator/'); ?>analisis_jurusan/<?= $leader['id_leaderboard'] ?>">Tambah Analisis Jurusan</a>
-                    <?php } else { ?>
-                      <a class="btn btn-primary float-right" href="<?= base_url('Administrator/'); ?>analisis_jurusan/<?= $leader['id_leaderboard'] ?>">Ganti Analisis Jurusan</a>
+                    <?php if ($leader['status'] == "LULUS") { ?>
+                      <?php if (empty($leader['analisis_jurusan'])) { ?>
+                        <a class="btn btn-primary float-right" href="<?= base_url('Administrator/'); ?>analisis_jurusan/<?= $leader['id_leaderboard'] ?>">Tambah Analisis Jurusan</a>
+                      <?php } else { ?>
+                        <a class="btn btn-primary float-right" href="<?= base_url('Administrator/'); ?>analisis_jurusan/<?= $leader['id_leaderboard'] ?>">Ganti Analisis Jurusan</a>
+                      <?php } ?>
                     <?php } ?>
                     <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>leaderboard">Kembali</a>
                   </div>

@@ -160,11 +160,36 @@ class User extends CI_Controller
         $jurusan2 = $this->input->post('optionJurusan2');
         $jurusan3 = $this->input->post('optionJurusan3');
 
-        $dataJurusan = [
-            'jurusan1' => $jurusan1,
-            'jurusan2' => $jurusan2,
-            'jurusan3' => $jurusan3
-        ];
+        if ($jurusan1 != 0) {
+            if ($jurusan2 != 0) {
+                if ($jurusan3 != 0) {
+                    $dataJurusan = [
+                        'jurusan1' => $jurusan1,
+                        'jurusan2' => $jurusan2,
+                        'jurusan3' => $jurusan3
+                    ];
+                } else {
+                    $dataJurusan = [
+                        'jurusan1' => $jurusan1,
+                        'jurusan2' => $jurusan2
+                    ];
+                }
+            } else {
+                if ($jurusan3 != 0) {
+                    $dataJurusan = [
+                        'jurusan1' => $jurusan1,
+                        'jurusan3' => $jurusan3
+                    ];
+                } else {
+                    $dataJurusan = [
+                        'jurusan1' => $jurusan1
+                    ];
+                }
+            }
+        } else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Pilihan pertama tidak boleh kosong!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/pilih_jurusan/' . $id . '/' . $id_event);
+        }
 
         $this->db->where('id_transaksi', $id_transaksi)->update('transaksi_user', $dataJurusan);
         redirect('User/tes_detail/' . $id . '/' . $id_event . '/' . $id_topik);
@@ -848,17 +873,19 @@ class User extends CI_Controller
         }
     }
 
-    public function open_jurusan($id_leaderboard)
+    public function reward_tes($id_leaderboard)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Analisis Jurusan';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $jurusan = $this->hasil->getFileJurusanByIdLeader($id_leaderboard);
+        $data['leader'] = $this->db->get_where('leaderboard', [
+            'id_leaderboard' => $id_leaderboard
+        ])->row_array();
 
-        $tofile = realpath("assets/fileJurusan/" . $jurusan);
-        header('Content-Type: application/pdf');
-        header("Content-disposition: attachment; filename=$jurusan"); 
-        readfile($tofile);
+        $this->load->view('User/templates/header_tryout', $data);
+        $this->load->view('User/reward_tes');
+        $this->load->view('User/templates/footer');
     }
 
     public function openModul($id_modul)

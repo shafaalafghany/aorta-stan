@@ -197,14 +197,24 @@
             </div>
             <div class="card-body">
               <?= form_open_multipart('Administrator/upload_jurusan/' . $leader['id_leaderboard']); ?>
-              <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <div class="input-group" style="margin-left: 20px;">
-                  <div class="custom-file">
-                    <input type="file" id="file" name="file" accept="application/pdf">
-                  </div>
-                </div>
-                <span style="font-size: 14px; margin-left: 20px;">File berekstensi .pdf dan tidak lebih dari 50MB.</span>
+                <?php 
+                      $id_leader = $leader['id_leaderboard'];
+                      $nama = $this->db->query("SELECT u.name from user u join leaderboard l on u.id = l.id_user where l.id_leaderboard = $id_leader")->row()->name; ?>
+                      <div class="form-group">
+                        <label for="inputName">Nama Event</label>
+                        <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
+                      </div>
+                      <div class="form-group">
+                        <label for="inputName">Nama Peserta</label>
+                        <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $nama ?>">
+                      </div>
+                  <div class="form-group">
+                <label for="optionJurusan">Masuk jurusan mana peserta ini?</label>
+                <select class="custom-select col-md-12 mb-3" id="optionJurusan" name="optionJurusan">
+                    <option value="<?= $transaksi['jurusan1'] ?>"><?= $transaksi['jurusan1'] ?></option>
+                    <option value="<?= $transaksi['jurusan2'] ?>"><?= $transaksi['jurusan2'] ?></option>
+                    <option value="<?= $transaksi['jurusan3'] ?>"><?= $transaksi['jurusan3'] ?></option>
+                </select>
               </div>
               <div class="col-12">
                 <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/leaderboard'); ?>">Kembali</a>

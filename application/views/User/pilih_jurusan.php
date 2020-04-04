@@ -19,6 +19,7 @@
           <div class="col-md-12 ftco-animate">
             <?= form_open_multipart('User/proses_jurusan/' . $user['id'] . '/' . $event['id_event']); ?>
               <div class="job-post-item p-4" style="text-align: center;">
+                <?= $this->session->flashdata('message'); ?>
                 <?php
                   for ($i=1; $i <= $event['jurusan']; $i++) { ?>
                     <div class="form-group">

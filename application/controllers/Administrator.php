@@ -93,6 +93,15 @@ class Administrator extends CI_Controller
 
         $data['leader'] = $this->Hasil_tes_model->getLeaderboardByIdLeader($id_leaderboard);
 
+        $leaderboard = $this->db->get_where('leaderboard', [
+            'id_leaderboard' => $id_leaderboard
+        ])->row_array();
+        $data['event'] = $this->Event_model->getEventById($leaderboard['id_event']);
+        $data['transaksi'] = $this->db->get_where('transaksi_user', [
+            'id_user' => $leaderboard['id_user'],
+            'id_event' => $leaderboard['id_event']
+        ])->row_array();
+
         $data['judul'] = 'AORTASTAN Try Out Online | Analisis Jurusan';
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/event/analisis_jurusan', $data);  
@@ -100,53 +109,10 @@ class Administrator extends CI_Controller
 
     public function upload_jurusan($id_leaderboard)
     {
-        $this->load->helper('file');
-        
-        $file_name = $this->db->select('analisis_jurusan')->get_where('leaderboard', ['id_leaderboard' => $id_leaderboard])->row()->analisis_jurusan;
-        
-        if($file_name){
-            $path = './assets/fileJurusan/' . $file_name ;
-            unlink($path);
-            
-            $upload_file = $_FILES['file']['name'];
-    
-            if ($upload_file) {
-                $config['upload_path'] = './assets/fileJurusan/';
-                $config['allowed_types'] = 'pdf';
-                $config['max_size'] = 51200;
-                $config['overwrite'] = true;
-    
-                $this->load->library('upload', $config);
-    
-                if ($this->upload->do_upload('file')) {
-                    $new_file = $this->upload->data('file_name');
-                } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    redirect('Administrator/analisis_jurusan/' . $id_leaderboard);
-                }
-            }
-        } else{
-            $upload_file = $_FILES['file']['name'];
-    
-            if ($upload_file) {
-                $config['upload_path'] = './assets/fileJurusan/';
-                $config['allowed_types'] = 'pdf';
-                $config['max_size'] = 51200;
-                $config['overwrite'] = true;
-    
-                $this->load->library('upload', $config);
-    
-                if ($this->upload->do_upload('file')) {
-                    $new_file = $this->upload->data('file_name');
-                } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf file gagal diupload! Pastikan ukuran dan format file sesuai.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    redirect('Administrator/analisis_jurusan/' . $id_leaderboard);
-                }
-            }
-        }
+        $jurusan = $this->input->post('optionJurusan');
 
         $tampungData = array(
-            'analisis_jurusan' => $new_file
+            'analisis_jurusan' => $jurusan
         );
 
         $this->db->set($tampungData)->where('id_leaderboard', $id_leaderboard)->update('leaderboard');

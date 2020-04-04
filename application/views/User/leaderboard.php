@@ -100,16 +100,22 @@
                         <br>
                         <br>
                     </div>
-                    <?php if (!empty($hasilUser['analisis_jurusan'])) { ?>
+                    <?php if ($hasilUser['status'] == "TIDAK LULUS") { ?>
                       <div class="text-center">
-                        <h6>Kamu Masuk Jurusan Mana?</h6>
-                        <a class="btn btn-primary float-center col-lg" target="_blank" href="<?= base_url('User/open_jurusan/' . $hasilUser['id_leaderboard']); ?>">Lihat Jurusan </a>
-                        <br>
+                        <h6>Maaf kamu tidak lulus dalam tryout ini, tetap semangat terus yaa!!</h6>
                       </div>
-                    <?php } else{ ?>
-                      <div class="text-center">
-                        <h6>Penasaran masuk jurusan mana? Silahkan tunggu hasil analisis jurusan kami</h6>
-                      </div>
+                    <?php } else { ?>
+                      <?php if (!empty($hasilUser['analisis_jurusan'])) { ?>
+                        <div class="text-center">
+                          <h6>Kamu Masuk Jurusan Mana?</h6>
+                          <a class="btn btn-success float-center col-lg" href="<?= base_url('User/reward_tes/' . $hasilUser['id_leaderboard']); ?>">Lihat Jurusan </a>
+                          <br>
+                        </div>
+                      <?php } else{ ?>
+                        <div class="text-center">
+                          <h6>Penasaran masuk jurusan mana? Silahkan tunggu hasil analisis jurusan kami</h6>
+                        </div>
+                      <?php } ?>
                     <?php } ?>
                 </div>
     						</div>
