@@ -26,136 +26,18 @@
                       <label for="optionJurusan">Jurusan <?= $i; ?></label>
                       <select class="custom-select col-md-12 mb-3" id="optionJurusan<?= $i; ?>" name="optionJurusan<?= $i; ?>">
                         <option value="0">Silahkan Dipilih....</option>
-                        <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                        <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                        <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                        <option value="D3 Pajak">D3 Pajak</option>
-                        <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                        <option value="D1 Pajak">D1 Pajak</option>
-                        <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                        <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                        <option value="D3 Akuntansi">D3 Akuntansi</option>
+                        <option value="D3 Kebendaharaan Negara">Diploma 3 Kebendaharaan Negara</option>
+                        <option value="D3 Manajemen Aset">Diploma 3 Manajemen Aset</option>
+                        <option value="D1 Kebendaharaan Negara">Diploma 1 Kebendaharaan Negara</option>
+                        <option value="D3 Pajak">Diploma 3 Pajak</option>
+                        <option value="D3 PBB/Penilai">Diploma 3 PBB/Penilai</option>
+                        <option value="D1 Pajak">Diploma 1 Pajak</option>
+                        <option value="D3 Kepabeanan dan Cukai">Diploma 3 Kepabeanan dan Cukai</option>
+                        <option value="D1 Kepabeanan dan Cukai">Diploma 1 Kepabeanan dan Cukai</option>
+                        <option value="D3 Akuntansi">Diploma 3 Akuntansi</option>
                       </select>
                     </div>
                 <?php } ?>
-                    <!-- <?php if ($event['jurusan'] == 1) { ?>
-                        <tr>
-                          <td>
-                            <span class="subadge">
-                              Jurusan 1
-                            </span>
-                            <select class="custom-select col-md-12 mb-3" id="optionJurusan1" name="optionJurusan1">
-                              <option value="0">Silahkan Dipilih....</option>
-                              <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                              <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                              <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                              <option value="D3 Pajak">D3 Pajak</option>
-                              <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                              <option value="D1 Pajak">D1 Pajak</option>
-                              <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                              <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                              <option value="D3 Akuntansi">D3 Akuntansi</option>
-                            </select>
-                          </td>
-                        </tr>
-                    <?php } elseif ($event['jurusan'] ==2 ){ ?>
-                        <tr>
-                          <td>
-                            <span class="subadge">
-                              Jurusan 1
-                            </span>
-                            <select class="custom-select col-md-12 mb-3" id="optionJurusan1" name="optionJurusan1">
-                              <option value="0">Silahkan Dipilih....</option>
-                              <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                              <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                              <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                              <option value="D3 Pajak">D3 Pajak</option>
-                              <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                              <option value="D1 Pajak">D1 Pajak</option>
-                              <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                              <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                              <option value="D3 Akuntansi">D3 Akuntansi</option>
-                            </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span class="subadge">
-                              Jurusan 2
-                            </span>
-                            <select class="custom-select col-md-12 mb-3" id="optionJurusan2" name="optionJurusan2">
-                              <option value="0">Silahkan Dipilih....</option>
-                              <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                              <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                              <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                              <option value="D3 Pajak">D3 Pajak</option>
-                              <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                              <option value="D1 Pajak">D1 Pajak</option>
-                              <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                              <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                              <option value="D3 Akuntansi">D3 Akuntansi</option>
-                            </select>
-                          </td>
-                        </tr>
-                    <?php } elseif ($event['jurusan'] == 3) { ?>
-                        <tr>
-                          <td>
-                            <span class="subadge">
-                              Jurusan 1
-                            </span>
-                            <select class="custom-select col-md-12 mb-3" id="optionJurusan1" name="optionJurusan1">
-                              <option value="0">Silahkan Dipilih....</option>
-                              <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                              <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                              <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                              <option value="D3 Pajak">D3 Pajak</option>
-                              <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                              <option value="D1 Pajak">D1 Pajak</option>
-                              <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                              <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                              <option value="D3 Akuntansi">D3 Akuntansi</option>
-                            </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span class="subadge">
-                              Jurusan 2
-                            </span>
-                            <select class="custom-select col-md-12 mb-3" id="optionJurusan2" name="optionJurusan2">
-                              <option value="0">Silahkan Dipilih....</option>
-                              <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                              <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                              <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                              <option value="D3 Pajak">D3 Pajak</option>
-                              <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                              <option value="D1 Pajak">D1 Pajak</option>
-                              <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                              <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                              <option value="D3 Akuntansi">D3 Akuntansi</option>
-                            </select>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span class="subadge">
-                              Jurusan 3
-                            </span>
-                            <select class="custom-select col-md-12 mb-3" id="optionJurusan3" name="optionJurusan3">
-                              <option value="0">Silahkan Dipilih....</option>
-                              <option value="D3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
-                              <option value="D3 Manajemen Aset">D3 Manajemen Aset</option>
-                              <option value="D1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
-                              <option value="D3 Pajak">D3 Pajak</option>
-                              <option value="D3 PBB/Penilai">D3 PBB/Penilai</option>
-                              <option value="D1 Pajak">D1 Pajak</option>
-                              <option value="D3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
-                              <option value="D1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
-                              <option value="D3 Akuntansi">D3 Akuntansi</option>
-                            </select>
-                          </td>
-                        </tr>
-                    <?php } ?> -->
                 <div class="col-md-12 text-center">
                   <input type="submit" value="Submit" class="btn btn-success" style="width: 100%; height: 100%;">
                 </div>

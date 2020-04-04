@@ -160,9 +160,9 @@ class User extends CI_Controller
         $jurusan2 = $this->input->post('optionJurusan2');
         $jurusan3 = $this->input->post('optionJurusan3');
 
-        if ($jurusan1 != 0) {
-            if ($jurusan2 != 0) {
-                if ($jurusan3 != 0) {
+        if ($jurusan1 != "0") {
+            if ($jurusan2 != "0") {
+                if ($jurusan3 != "0") {
                     $dataJurusan = [
                         'jurusan1' => $jurusan1,
                         'jurusan2' => $jurusan2,
@@ -175,7 +175,7 @@ class User extends CI_Controller
                     ];
                 }
             } else {
-                if ($jurusan3 != 0) {
+                if ($jurusan3 != "0") {
                     $dataJurusan = [
                         'jurusan1' => $jurusan1,
                         'jurusan3' => $jurusan3
@@ -186,7 +186,7 @@ class User extends CI_Controller
                     ];
                 }
             }
-        } else{
+        } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Pilihan pertama tidak boleh kosong!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/pilih_jurusan/' . $id . '/' . $id_event);
         }

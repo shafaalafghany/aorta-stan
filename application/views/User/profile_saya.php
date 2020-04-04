@@ -68,6 +68,7 @@
             </div>
           </div>
         </div>
+      </div>
     </section>
     
     <section class="ftco-section ftco-no-pt">
