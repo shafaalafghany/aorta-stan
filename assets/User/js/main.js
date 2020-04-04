@@ -108,7 +108,7 @@
 	};
 	carousel();
 
-	$('nav .dropdown').hover(function(){
+	$('nav .dropdown').on('click', function(){
 		var $this = $(this);
 		// 	 timer;
 		// clearTimeout(timer);
