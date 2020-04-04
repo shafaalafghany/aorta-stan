@@ -289,7 +289,7 @@
                 
                 <div class="col-12">
                   <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_event">Kembali</a>
-                  <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                  <button type="submit" class="btn btn-primary float-right">Simpan Perubahan Soal</button>
                 </div>
               </div>
             </form>

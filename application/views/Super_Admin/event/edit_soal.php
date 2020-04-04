@@ -213,7 +213,7 @@
                   <label>Soal</label>
                   <div class="card-body pad">
                     <div class="mb-3">
-                      <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" disabled="disabled"><?= $soal['soal'] ?></textarea>
+                      <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $soal['soal'] ?></textarea>
                     </div>
                     <p class="text-sm mb-0">
                       Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
