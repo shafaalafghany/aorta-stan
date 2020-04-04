@@ -488,7 +488,7 @@ class Administrator extends CI_Controller
         $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
         $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
         $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
-        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'required|trim');
+        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'trim');
 
         $jawabanBenar = $this->input->post('jawabanBenar');
         $jawaban1 = $this->input->post('jawaban1');
@@ -566,14 +566,16 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawaban4);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                        $this->db->insert('jawaban', $dataJawaban5);
+                    }
                 } elseif ($jawabanBenar == "jawaban2") {
                     $jawabanBenar = $jawaban2;
 
@@ -613,14 +615,16 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawaban4);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                        $this->db->insert('jawaban', $dataJawaban5);
+                    }
                 } elseif ($jawabanBenar == "jawaban3") {
                     $jawabanBenar = $jawaban3;
 
@@ -660,14 +664,16 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawaban4);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                        $this->db->insert('jawaban', $dataJawaban5);
+                    }
                 } elseif ($jawabanBenar == "jawaban4") {
                     $jawabanBenar = $jawaban4;
 
@@ -707,13 +713,15 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawabanBenar);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                    }
                     $this->db->insert('jawaban', $dataJawaban5);
                 } else {
                     $jawabanBenar = $jawaban5;
