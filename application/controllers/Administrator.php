@@ -353,6 +353,8 @@ class Administrator extends CI_Controller
                     'id_skd' => 3,
                     'soal' => $this->input->post('inputSoal')
                 ];
+                $this->db->where('id_soal', $id_soal);
+                $this->db->update('soal', $dataSoal);
             } else {
                 $dataSoal = [
                     'id_soal' => $id_soal,
@@ -361,12 +363,19 @@ class Administrator extends CI_Controller
                     'id_skd' => 0,
                     'soal' => $this->input->post('inputSoal')
                 ];
+                $this->db->where('id_soal', $id_soal);
+                $this->db->update('soal', $dataSoal);
             }
             $this->db->where('id_soal', $id_soal);
             $this->db->update('soal', $dataSoal);
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_soal');
         }
+<<<<<<< HEAD
+=======
+        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('Administrator/daftar_soal');
+>>>>>>> 43fc6b579eb93a1696c409398c4db2f008f94c53
     }
 
     public function tambah_event()
@@ -488,6 +497,10 @@ class Administrator extends CI_Controller
         $this->form_validation->set_rules('jawaban2', 'jawaban2', 'required|trim');
         $this->form_validation->set_rules('jawaban3', 'jawaban3', 'required|trim');
         $this->form_validation->set_rules('jawaban4', 'jawaban4', 'required|trim');
+<<<<<<< HEAD
+=======
+        $this->form_validation->set_rules('jawaban5', 'jawaban5', 'trim');
+>>>>>>> 43fc6b579eb93a1696c409398c4db2f008f94c53
 
         $jawabanBenar = $this->input->post('jawabanBenar');
         $jawaban1 = $this->input->post('jawaban1');
@@ -565,14 +578,16 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawaban4);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                        $this->db->insert('jawaban', $dataJawaban5);
+                    }
                 } elseif ($jawabanBenar == "jawaban2") {
                     $jawabanBenar = $jawaban2;
 
@@ -612,14 +627,16 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawaban4);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                        $this->db->insert('jawaban', $dataJawaban5);
+                    }
                 } elseif ($jawabanBenar == "jawaban3") {
                     $jawabanBenar = $jawaban3;
 
@@ -659,14 +676,16 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawaban4);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
-                    $this->db->insert('jawaban', $dataJawaban5);
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                        $this->db->insert('jawaban', $dataJawaban5);
+                    }
                 } elseif ($jawabanBenar == "jawaban4") {
                     $jawabanBenar = $jawaban4;
 
@@ -706,13 +725,15 @@ class Administrator extends CI_Controller
                     ];
                     $this->db->insert('jawaban', $dataJawabanBenar);
 
-                    $dataJawaban5 = [
-                        'id_soal' => $getIdSoal,
-                        'id_topik_tes' => $optionTopik,
-                        'id_event' => $id_event,
-                        'jawaban' => $jawaban5,
-                        'score' => -1
-                    ];
+                    if ($jawaban5 != null) {
+                        $dataJawaban5 = [
+                            'id_soal' => $getIdSoal,
+                            'id_topik_tes' => $optionTopik,
+                            'id_event' => $id_event,
+                            'jawaban' => $jawaban5,
+                            'score' => -1
+                        ];
+                    }
                     $this->db->insert('jawaban', $dataJawaban5);
                 } else {
                     $jawabanBenar = $jawaban5;
