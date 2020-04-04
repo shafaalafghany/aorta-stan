@@ -198,35 +198,35 @@
             <div class="card-body">
               <?= $this->session->flashdata('message'); ?>
               <form action="<?= base_url('Administrator/') ?>insert_soal/<?= $event['id_event'] ?>" method="POST">
-              <div class="form-group">
                 <div class="form-group">
-                  <label for="inputName">Nama Event</label>
-                  <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
-                </div>
-                <div class="form-group">
-                  <label for="inputName">Topik Tes</label>
-                  <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $topik['nama_topik_tes'] ?>">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label>Soal</label>
-                <div class="card-body pad">
-                  <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" disabled="disabled"><?= $soal['soal'] ?></textarea>
+                  <div class="form-group">
+                    <label for="inputName">Nama Event</label>
+                    <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
                   </div>
-                  <p class="text-sm mb-0">
-                    Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                  </p>
+                  <div class="form-group">
+                    <label for="inputName">Topik Tes</label>
+                    <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $topik['nama_topik_tes'] ?>">
+                  </div>
                 </div>
-              </div>
 
-              <?php if ($topik['id_topik_tes']==5) { ?>
                 <div class="form-group">
+                  <label>Soal</label>
                   <div class="card-body pad">
-                    <?php 
-                    $i=1;
-                    foreach ($jawaban as $loadJawab) { ?>
+                    <div class="mb-3">
+                      <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" disabled="disabled"><?= $soal['soal'] ?></textarea>
+                    </div>
+                    <p class="text-sm mb-0">
+                      Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
+                    </p>
+                  </div>
+                </div>
+
+                <?php if ($topik['id_topik_tes'] == 5) { ?>
+                  <div class="form-group">
+                    <div class="card-body pad">
+                      <?php
+                      $i = 1;
+                      foreach ($jawaban as $loadJawab) { ?>
                         <div class="form-group" style="display: flex;">
                           <div class="col-md-9">
                             <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i; ?></label>
@@ -234,59 +234,61 @@
                           </div>
                           <div class="col-md-2">
                             <label for="inputPoint<?= $i; ?>">Point Jawaban <?= $i; ?></label>
-                            <input type="number" id="pointJawabanTkp<?= $i; ?>" name="pointJawabanTkp<?= $i; ?>" class="form-control" value="<?= $loadJawab['score'] ?>">
+                            <input type="number" id="pointJawabanTkp<?= $i; ?>" name="pointJawabanTkp<?= $i; ?>" class="form-control" disabled="disabled" value="<?= $loadJawab['score'] ?>">
                           </div>
                         </div>
-                    <?php $i++; } ?>
+                      <?php $i++;
+                      } ?>
+                    </div>
                   </div>
-                </div>
-              <?php } else{ ?>
-                <div class="form-group">
-                  <label>Jawaban</label>
-                  <div class="card-body pad">
-                    <?php 
-                    $i = 1;
-                    foreach ($jawaban as $loadJawab) { ?>
+                <?php } else { ?>
+                  <div class="form-group">
+                    <label>Jawaban</label>
+                    <div class="card-body pad">
+                      <?php
+                      $i = 1;
+                      foreach ($jawaban as $loadJawab) { ?>
+                        <div class="form-group">
+                          <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
+                          <div class="card-body pad">
+                            <div class="mb-3">
+                              <textarea class="textarea" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $loadJawab['jawaban'] ?></textarea>
+                            </div>
+                            <p class="text-sm mb-0">
+                            </p>
+                          </div>
+                        </div>
+                      <?php $i++;
+                      } ?>
+                      <?php
+                      if ($topik['id_topik_tes']) {
+                        $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
+                          'id_soal' => $soal['id_soal'],
+                          'score' => 4
+                        ])->row()->jawaban;
+                      } else {
+                        $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
+                          'id_soal' => $soal['id_soal'],
+                          'score' => 5
+                        ])->row()->jawaban;
+                      } ?>
                       <div class="form-group">
-                        <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
+                        <label for="inputJwbBenar">Jawaban Benar</label>
                         <div class="card-body pad">
                           <div class="mb-3">
-                            <textarea class="textarea" id="jawaban<?= $i ?>" name="jawaban<?= $i ?>" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $loadJawab['jawaban'] ?></textarea>
+                            <textarea class="textarea" id="jwbBenar" name="jwbBenar" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jwbnBenar ?></textarea>
                           </div>
                           <p class="text-sm mb-0">
                           </p>
                         </div>
                       </div>
-                    <?php $i++; } ?>
-                    <?php 
-                    if ($topik['id_topik_tes']) {
-                      $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
-                        'id_soal' => $soal['id_soal'],
-                        'score' => 4
-                      ])->row()->jawaban;
-                    } else{
-                      $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
-                        'id_soal' => $soal['id_soal'],
-                        'score' => 5
-                      ])->row()->jawaban;
-                    }?>
-                    <div class="form-group">
-                      <label for="inputJwbBenar">Jawaban Benar</label>
-                      <div class="card-body pad">
-                        <div class="mb-3">
-                          <textarea class="textarea" id="jwbBenar" name="jwbBenar" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jwbnBenar ?></textarea>
-                        </div>
-                        <p class="text-sm mb-0">
-                        </p>
-                      </div>
                     </div>
                   </div>
+                <?php } ?>
+
+                <div class="col-12">
+                  <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
                 </div>
-              <?php } ?>
-              
-              <div class="col-12">
-                <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
-              </div>
               </form>
             </div>
           </div>
@@ -390,7 +392,7 @@
 
       $('.textarea').summernote({
         height: "250px",
-        callback:{
+        callback: {
           onImageUpload: function(image) {
             uploadImage(image[0]);
           },
@@ -405,7 +407,7 @@
         var data = new FormData();
         data.append("image", image);
         $.ajax({
-          url: "<?= site_url('User/upload_image')?>",
+          url: "<?= site_url('User/upload_image') ?>",
           cache: false,
           contentType: false,
           processData: false,
@@ -422,7 +424,9 @@
 
       function deleteImage(src) {
         $.ajax({
-          data: {src : src},
+          data: {
+            src: src
+          },
           type: "POST",
           url: "<?= site_url('User/delete_image') ?>",
           cache: false,
