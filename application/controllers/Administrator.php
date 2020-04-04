@@ -362,9 +362,11 @@ class Administrator extends CI_Controller
                     'soal' => $this->input->post('inputSoal')
                 ];
             }
-            $this->db->where('id_soal', $id_soal);
-            $this->db->update('soal', $dataSoal);
         }
+        $this->db->where('id_soal', $id_soal);
+        $this->db->update('soal', $dataSoal);
+        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('Administrator/daftar_soal');
     }
 
     public function tambah_event()
