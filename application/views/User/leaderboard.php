@@ -54,7 +54,7 @@
                           <tr>
                             <td scope="row">SKD</td>
                             <td><?= $hasilUser['nilai_skd']; ?></td>
-                            <td><?php if ($leader['nilai_skd'] >= 271 || ($leader['nilai_twk'] && $leader['nilai_tiu'] && $leader['nilai_tkp'])) {
+                            <td><?php if ($hasilUser['nilai_skd'] >= 271 && ($hasilUser['nilai_twk'] >= 65 && $hasilUser['nilai_tiu'] >= 80 && $hasilUser['nilai_tkp'] >= 126)) {
                                   echo "LULUS";
                                 } else {
                                   echo "TIDAK LULUS";
