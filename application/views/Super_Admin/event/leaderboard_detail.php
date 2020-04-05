@@ -277,7 +277,7 @@
                       <tr>
                         <td scope="row">SKD</td>
                         <td><?= $leader['nilai_skd']; ?></td>
-                        <td><?php if ($leader['nilai_skd'] >= 271) {
+                        <td><?php if ($leader['nilai_skd'] >= 271 && ($leader['nilai_twk'] && $leader['nilai_tiu'] && $leader['nilai_tkp'])) {
                           echo "LULUS";
                         } else{
                           echo "TIDAK LULUS";

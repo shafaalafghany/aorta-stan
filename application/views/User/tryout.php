@@ -17,12 +17,14 @@
     			<div class="col-lg">
     				<div class="row">
     					<?= $this->session->flashdata('message'); ?>
-    					<?php foreach ($event as $loadEvent) : ?>
+    					<?php 
+                        $i = 1;
+                        foreach ($event as $loadEvent) : ?>
     						<div class="col-md-12 ftco-animate">
     							<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
     								<div class="one-third mb-4 mb-md-0">
     									<div class="job-post-item-header align-items-center">
-    										<span class="subadge">Try Out <?= $loadEvent['id_event'] ?></span>
+    										<span class="subadge">Try Out <?= $i; ?></span>
     										<h2 class="mr-3 text-black"><?= $loadEvent['nama_event'] ?></h2>
     									</div>
     									<div class="job-post-item-body d-block d-md-flex">
