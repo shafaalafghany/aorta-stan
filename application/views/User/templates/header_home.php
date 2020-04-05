@@ -49,7 +49,7 @@
               <li class="nav-item"><a href="<?= base_url('User/'); ?>testimoni" class="nav-link">Testimoni</a></li>
               <li class="nav-item"><a href="<?= base_url('User/'); ?>contact" class="nav-link">Contact</a></li>
               <li class="nav-item dropdown">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link" data-toggle="dropdown">
                   <div class="user-panel d-flex">
                     <div class="image">
                       <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="rounded-circle" alt="User Image" style="width: 37px; height: 37px; margin-right: 6px;">
