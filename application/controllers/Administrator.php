@@ -1358,9 +1358,11 @@ class Administrator extends CI_Controller
         redirect('Administrator/daftar_peserta');
     }
 
-    public function reset_member($idUser, $idEvent)
+    public function reset_member($idUser)
     {
+        $idEvent = $this->input->post('optionEvent');
         $this->User_model->resetUser($idUser, $idEvent);
+        redirect('Administrator/daftar_peserta');
     }
 
     public function upload_image()
