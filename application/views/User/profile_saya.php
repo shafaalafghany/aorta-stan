@@ -12,7 +12,7 @@
     <section class="ftco-section ftco-no-pt">
       <div class="container">
         <div class="row">
-          <div class="category-wrap ftco-animate mr-3 image-profile" style="margin-left: 41%; margin-top: -7%;">
+          <div class="category-wrap ftco-animate image-profile mx-auto" style="margin-top: -7%;">
             <div class="text-center">
               <img class="image-profile" src="<?= base_url('assets/img/profile/') . $user['image']; ?>" alt="User Image">
             </div>

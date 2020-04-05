@@ -113,7 +113,6 @@
 		// 	 timer;
 		// clearTimeout(timer);
 		$this.addClass('show');
-		$this.find('> a').attr('aria-expanded', true);
 	}, function(){
 		var $this = $(this);
 			// timer;
