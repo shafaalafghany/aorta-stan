@@ -92,13 +92,13 @@ class User_model extends CI_model
 
 		$transaksiEvent = $this->db->get_where('transaksi_event', ['id_user' => $id])->result_array();
 		if ($transaksiEvent) {
-		$this->db->where('id_user', $id)->delete('transaksi_event');
+			$this->db->where('id_user', $id)->delete('transaksi_event');
 		}
-		
+
 		$email = $this->db->select('email')->get_where('user', ['id' => $id])->row()->email;
 		$userToken = $this->db->get_where('user_token', ['email' => $email])->result_array();
-		if($userToken) {
-		$this->db->where('email', $email)->delete('user_token');
+		if ($userToken) {
+			$this->db->where('email', $email)->delete('user_token');
 		}
 
 		$this->db->where('role_id', 3);
@@ -114,6 +114,40 @@ class User_model extends CI_model
 	public function getIdUserByUsername($sessionUser)
 	{
 		return $this->db->select('id')->get_where('user', ['username' => $sessionUser])->row()->id;
+	}
+
+	public function resetUser($idUser, $idEvent)
+	{
+		$hasilUser = $this->db->get_where('hasil_tes', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
+		if ($hasilUser) {
+			$this->db->where('id_user', $idUser)->delete('hasil_tes');
+		}
+
+		$jawabanUser = $this->db->get_where('event_jawaban', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
+		if ($jawabanUser) {
+			$this->db->where('id_user', $idUser)->delete('event_jawaban');
+		}
+
+		$leaderboardUser = $this->db->get_where('leaderboard', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
+		if ($leaderboardUser) {
+			$this->db->where('id_user', $idUser)->delete('leaderboard');
+		}
+
+		$transaksiUser = $this->db->get_where('transaksi_user', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
+		if ($transaksiUser) {
+			$this->db->where('id_user', $idUser)->delete('transaksi_user');
+		}
+
+		$transaksiEvent = $this->db->get_where('transaksi_event', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
+		if ($transaksiEvent) {
+			$this->db->where('id_user', $idUser)->delete('transaksi_event');
+		}
+
+		$updatePoint = $this->db->select('harga')->get_where('event', ['id_event' => $idEvent])->row()->harga;
+		if ($transaksiUser) {
+			$this->db->where('id', $idUser);
+			$this->db->update('user', $updatePoint);
+		}
 	}
 	// End User
 
