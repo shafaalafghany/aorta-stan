@@ -233,10 +233,10 @@
                           </i>
                           View
                         </a>
-                        <!-- <a class="btn btn-danger btn-sm delete_peserta" href="#">
-                          <i class="fas fa-trash">
+                        <!-- <a class="btn btn-danger btn-sm reset" href="#">
+                          <i class="fas fa-wrench">
                           </i>
-                          Delete
+                          Reset Peserta
                         </a> -->
                       </td>
                     </tr>
@@ -294,13 +294,13 @@
         "autoWidth": false,
       });
 
-      $('.delete_peserta').on('click', function(e) {
+      $('.reset').on('click', function(e) {
         e.preventDefault();
         const href = $(this).attr('href');
 
         Swal.fire({
           title: 'Anda Yakin',
-          text: "Ingin menghapus member ini?",
+          text: "Ingin mereset peserta ini? Dengan klik tombol yakin, maka peserta ini dapat mengerjakan ulang tryout dari awal lagi",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -311,7 +311,7 @@
           if (result.value) {
             Swal.fire(
               'Berhasil',
-              'Akun telah dihapus',
+              'Peserta berhasil direset',
               'success'
             ).then((result) => {
               document.location.href = href;

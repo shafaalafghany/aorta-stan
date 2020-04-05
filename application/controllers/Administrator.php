@@ -1190,6 +1190,17 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/peserta/daftar_peserta', $data);
     }
 
+    public function reset_peserta($id)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | reset Peserta';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['peserta'] = $this->User_model->getUserById($id);
+        $data['event'] = $this->Event_model->getAllEvent();
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/peserta/reset_peserta', $data);
+    }
+
     public function profile_admin()
     {
 

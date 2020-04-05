@@ -103,8 +103,8 @@
                     </ul>
                   </li>
                 <?php } ?>
-                <li class="nav-item has-treeview menu-open">
-                  <a href="#" class="nav-link active">
+                <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
                       Data Peserta
@@ -113,7 +113,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link active">
+                      <a href="<?= base_url('Administrator/') ?>daftar_peserta" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Daftar Peserta</p>
                       </a>
@@ -176,7 +176,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Daftar Peserta</h1>
+              <h1>Reset Peserta</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -186,73 +186,65 @@
       <section class="content">
         <div class="row">
           <div class="col-12">
-
-            <?= $this->session->flashdata('message'); ?>
-
-            <div class="card">
+            <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Daftar Peserta</h3>
-              </div>
+                <h3 class="card-title">Reset Peserta</h3>
 
-                <!-- /.card-body -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama Peserta</th>
-                      <th>Email</th>
-                      <th>Point</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php
-                     $i=1; 
-                     foreach ($member as $loadMember) { ?>
-                        <tr>
-                          <td><?= $i; ?></td>
-                          <td><?= $loadMember['name']; ?></td>
-                          <td><?= $loadMember['email']; ?></td>
-                          <td><?= $loadMember['point']; ?></td>
-                          <td><?php if ($loadMember['is_active'] = 1) {
-                            echo "Aktif";
-                          } else { echo "Tidak Aktif"; }?></td>
-                          <td class="project-actions text-center">
-                            <a class="btn btn-warning btn-sm" href="<?= base_url('Administrator/'); ?>tambah_point/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-star">
-                              </i>
-                              Tambah Point
-                            </a>
-                            <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>view_peserta/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                            </a>
-                            <a class="btn btn-info btn-sm" href="<?= base_url('Administrator/'); ?>reset_peserta/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-wrench">
-                              </i>
-                              Reset Peserta
-                            </a>
-                            <a class="btn btn-danger btn-sm delete_peserta" href="<?= base_url('Administrator/'); ?>delete_member/<?= $loadMember['id']; ?>">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                            </a>
-                          </td>
-                        </tr>
-                    <?php $i++; } ?>
-                  </tbody>
-                </table>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                </div>
               </div>
-              <!-- /.card-body -->
+              <?= form_error(
+                'inputPoint',
+                '<div class="alert alert-danger" role="alert"><strong>',
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+              ); ?>
+
+              <form method="POST" action="#">
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="inputName">Nama Peserta</label>
+                    <input type="text" id="inputNama" name="inputNama" class="form-control" disabled="disabled" value="<?= $peserta['name']; ?>">
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="inputStatus">Jenis Modul</label>
+                    <select class="form-control custom-select">
+                      <option selected disabled>Pilih Salah Satu</option>
+                      <option>TKD</option>
+                      <option>Bhs. Inggris</option>
+                      <option>Matematika</option>
+                    </select>
+                  </div> -->
+                  <div class="form-group">
+                    <label for="inputName">Email</label>
+                    <input type="textr" id="inputEmail" name="inputEmail" class="form-control" disabled="disabled" value="<?= $peserta['email']; ?>">
+                  </div>
+                  <label for="optionKategori">Mau reset di event mana?</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
+                    <?php foreach ($event as $loadEvent) { ?>
+                      <option value="<?= $loadEvent['id_event'] ?>"><?= $loadEvent['nama_event'] ?></option>
+                    <?php } ?>
+                  </select>
+                  <!-- <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <div class="input-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                          </div>
+                        </div>
+                      </div> -->
+                  <div class="col-12">
+                    <input type="submit" value="Reset" class="btn btn-danger float-right">
+                    <a class="btn btn-secondary" href="<?= base_url('Administrator/'); ?>daftar_peserta">Batal</a>
+                  </div>
+                </div>
+              </form>
             </div>
             <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </section>
       <!-- /.content -->
     </div>
@@ -292,32 +284,6 @@
         "ordering": true,
         "info": true,
         "autoWidth": false,
-      });
-
-      $('.delete_peserta').on('click', function(e){
-        e.preventDefault();
-        const href = $(this).attr('href');
-
-        Swal.fire({
-          title: 'Anda Yakin',
-          text: "Ingin menghapus member ini?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yakin',
-          cancelButtonText: 'Batal'
-        }).then((result) => {
-          if (result.value) {
-            Swal.fire(
-              'Berhasil',
-              'Satu peserta telah dihapus',
-              'success'
-            ).then((result) => {
-              document.location.href = href;
-            })
-          }
-        })
       });
     });
   </script>
