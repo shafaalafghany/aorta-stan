@@ -143,10 +143,15 @@ class User_model extends CI_model
 			$this->db->where('id_user', $idUser)->delete('transaksi_event');
 		}
 
-		$updatePoint = $this->db->select('harga')->get_where('event', ['id_event' => $idEvent])->row()->harga;
+		$getHarga = $this->db->select('harga')->get_where('event', ['id_event' => $idEvent])->row()->harga;
+		$getPoint = $this->db->select('point')->get_where('user', ['id' => $idUser])->row()->point;
 		if ($transaksiUser) {
+			$tambahPoint = $getPoint + $getHarga;
+			$dataPoint = [
+				'point' => $tambahPoint
+			];
 			$this->db->where('id', $idUser);
-			$this->db->update('user', $updatePoint);
+			$this->db->update('user', $dataPoint);
 		}
 	}
 	// End User
