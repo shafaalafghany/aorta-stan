@@ -330,6 +330,11 @@ class User extends CI_Controller
                         $data['topik'] = $this->Topik_model->getTopikSKD();
                         $data['topik_rule'] = $this->Topik_model->getRuleTopikSKD();
                         $data['soal'] = $this->Soal_model->getSoalSKDbyId($id_event, $id_topik);
+                        $data['soal1'] = $this->Soal_model->getSoalSKDbyIdLimit1($id_event, $id_topik);
+                        $data['soal2'] = $this->Soal_model->getSoalSKDbyIdLimit2($id_event, $id_topik);
+                        $data['soal3'] = $this->Soal_model->getSoalSKDbyIdLimit3($id_event, $id_topik);
+                        $data['soal4'] = $this->Soal_model->getSoalSKDbyIdLimit4($id_event, $id_topik);
+                        $data['soal5'] = $this->Soal_model->getSoalSKDbyIdLimit5($id_event, $id_topik);
 
                         $waktudaftar = time();
 
@@ -465,6 +470,9 @@ class User extends CI_Controller
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
                             $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
+                            $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($id_event, $id_topik);
+                            $data['soal2'] = $this->Soal_model->getSoalByIdLimit2($id_event, $id_topik);
+                            $data['soal3'] = $this->Soal_model->getSoalByIdLimit3($id_event, $id_topik);
 
                             $waktudaftar = time();
 
@@ -496,6 +504,7 @@ class User extends CI_Controller
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
                             $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
+                            $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($id_event, $id_topik);
 
                             $waktudaftar = time();
 

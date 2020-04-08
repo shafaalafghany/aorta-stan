@@ -30,7 +30,10 @@ if ($temp_menit < 60) {
         <div class="row no-gutters slider-text align-items-end justify-content-start">
           <div class="col-md-12 ftco-animate text-center mb-5">
             <p class="breadcrumbs mb-0"><span class="mr-3">Home <i class="ion-ios-arrow-forward"></i></span><span class="mr-3">Try Out <i class="ion-ios-arrow-forward"></i></span> <span>Event</span></p>
-            <h1 class="mb-3 bread"><?= $topik['nama_topik_tes']; ?></h1>
+            <h1 class="mb-3 bread"><?= $topik['nama_topik_tes'] ?></h1>
+            <!-- <div class="mb-3 text-center" style="color: white;">
+              <h1 id="timer" style="color: white;"></h1>
+            </div> -->
           </div>
         </div>
       </div>
@@ -38,17 +41,17 @@ if ($temp_menit < 60) {
 
     <section class="ftco-section bg-light" id="tes">
         <div class="container">
+          <h4 class="text-center" id="timer"></h4>
             <div class="row">
                 <div class="col-lg-8 pr-lg-4">
                     <div class="row ftco-animate">
                         <div class="col-md-12">
-
                           <?php 
                             $i = 1;
                             foreach ($soal as $loadSoal) { ?>
                             <div class="card mySlides" id="slide<?= $i; ?>" name="slide<?= $i; ?>">
                               <div class="card-header">
-                                <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 40px; height: 40px;"><?= $i ?></button></h5>
+                                <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 50px; height: 50px;"><?= $i ?></button></h5>
                               </div>
                               <div class="card-body">
                                 <form class="questionForm" id="q1" data-question="1">
@@ -125,49 +128,193 @@ if ($temp_menit < 60) {
                 </div>
                 <div class="col-lg-4 sidebar">
                   <div class="sidebar-box bg-white p-4 ftco-animate">
-                    <h4 class="heading-sidebar mb-4">Daftar Soal<div class="float-right" id="timer"></div></h4>
+                    <h4 class="heading-sidebar mb-4">Daftar Soal<div class="float-right timeDaftar" id="timer"></div></h4>
                     <form>
-                      <?php $i = 1;
-                        foreach ($soal as $loadSoal) { ?>
-                          <?php
-                              $query = $this->db->get_where('event_jawaban', [
-                                'id_user' => $user['id'],
-                                'id_topik' => $loadSoal['id_topik_tes'],
-                                'id_event' => $event['id_event'],
-                                'id_soal' => $loadSoal['id_soal']
-                              ]);
-                              $cek = $query->row_array();
-
-                              if ($cek > 0) {
-                                $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
-                                  'id_user' => $user['id'],
-                                  'id_topik' => $loadSoal['id_topik_tes'],
-                                  'id_event' => $event['id_event'],
-                                  'id_soal' => $loadSoal['id_soal']
-                                ]);
-                                $check = $query->row()->btn_ragu;
-                                if ($check == 1) {
-                                  $cek = 'btn-warning';
-                                } elseif ($check == 0) {
-                                  $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
+                      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+                        <?php if (count($soal) == 45) { ?>
+                          <div class="carousel-inner" style="margin-left: 32px;">
+                            <div class="carousel-item list1 active">
+                              <?php $i=1;
+                                foreach ($soal1 as $loadSoal1) {
+                                  $query = $this->db->get_where('event_jawaban', [
                                     'id_user' => $user['id'],
-                                    'id_topik' => $loadSoal['id_topik_tes'],
+                                    'id_topik' => $loadSoal1['id_topik_tes'],
                                     'id_event' => $event['id_event'],
-                                    'id_soal' => $loadSoal['id_soal']
+                                    'id_soal' => $loadSoal1['id_soal']
                                   ]);
-                                  $cekJwbn = $query->row()->id_jawaban;
-                                  if ($cekJwbn > 0) {
-                                    $cek = 'btn-success';
-                                  } else{
+                                  $cek = $query->row_array();
+
+                                  if ($cek > 0) {
+                                    $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
+                                      'id_user' => $user['id'],
+                                      'id_topik' => $loadSoal1['id_topik_tes'],
+                                      'id_event' => $event['id_event'],
+                                      'id_soal' => $loadSoal1['id_soal']
+                                    ]);
+                                    $check = $query->row()->btn_ragu;
+                                    if ($check == 1) {
+                                      $cek = 'btn-warning';
+                                    } elseif ($check == 0) {
+                                      $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
+                                        'id_user' => $user['id'],
+                                        'id_topik' => $loadSoal1['id_topik_tes'],
+                                        'id_event' => $event['id_event'],
+                                        'id_soal' => $loadSoal1['id_soal']
+                                      ]);
+                                      $cekJwbn = $query->row()->id_jawaban;
+                                      if ($cekJwbn > 0) {
+                                        $cek = 'btn-success';
+                                      } else{
+                                        $cek = 'btn-outline-primary';
+                                      }
+                                    }
+                                  } else {
                                     $cek = 'btn-outline-primary';
                                   }
-                                }
-                              } else {
-                                $cek = 'btn-outline-primary';
-                              }
-                            ?>
-                          <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
-                      <?php $i++; } ?>
+                                ?>
+                                <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
+                              <?php $i++; } ?>
+                            </div>
+                            <div class="carousel-item list2">
+                              <?php $i=21;
+                                foreach ($soal2 as $loadSoal2) {
+                                  $query = $this->db->get_where('event_jawaban', [
+                                    'id_user' => $user['id'],
+                                    'id_topik' => $loadSoal2['id_topik_tes'],
+                                    'id_event' => $event['id_event'],
+                                    'id_soal' => $loadSoal2['id_soal']
+                                  ]);
+                                  $cek = $query->row_array();
+
+                                  if ($cek > 0) {
+                                    $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
+                                      'id_user' => $user['id'],
+                                      'id_topik' => $loadSoal2['id_topik_tes'],
+                                      'id_event' => $event['id_event'],
+                                      'id_soal' => $loadSoal2['id_soal']
+                                    ]);
+                                    $check = $query->row()->btn_ragu;
+                                    if ($check == 1) {
+                                      $cek = 'btn-warning';
+                                    } elseif ($check == 0) {
+                                      $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
+                                        'id_user' => $user['id'],
+                                        'id_topik' => $loadSoal2['id_topik_tes'],
+                                        'id_event' => $event['id_event'],
+                                        'id_soal' => $loadSoal2['id_soal']
+                                      ]);
+                                      $cekJwbn = $query->row()->id_jawaban;
+                                      if ($cekJwbn > 0) {
+                                        $cek = 'btn-success';
+                                      } else{
+                                        $cek = 'btn-outline-primary';
+                                      }
+                                    }
+                                  } else {
+                                    $cek = 'btn-outline-primary';
+                                  }
+                                ?>
+                                <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
+                              <?php $i++; } ?>
+                            </div>
+                            <div class="carousel-item list3">
+                              <?php $i=41;
+                                foreach ($soal3 as $loadSoal3) {
+                                  $query = $this->db->get_where('event_jawaban', [
+                                    'id_user' => $user['id'],
+                                    'id_topik' => $loadSoal3['id_topik_tes'],
+                                    'id_event' => $event['id_event'],
+                                    'id_soal' => $loadSoal3['id_soal']
+                                  ]);
+                                  $cek = $query->row_array();
+
+                                  if ($cek > 0) {
+                                    $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
+                                      'id_user' => $user['id'],
+                                      'id_topik' => $loadSoal3['id_topik_tes'],
+                                      'id_event' => $event['id_event'],
+                                      'id_soal' => $loadSoal3['id_soal']
+                                    ]);
+                                    $check = $query->row()->btn_ragu;
+                                    if ($check == 1) {
+                                      $cek = 'btn-warning';
+                                    } elseif ($check == 0) {
+                                      $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
+                                        'id_user' => $user['id'],
+                                        'id_topik' => $loadSoal3['id_topik_tes'],
+                                        'id_event' => $event['id_event'],
+                                        'id_soal' => $loadSoal3['id_soal']
+                                      ]);
+                                      $cekJwbn = $query->row()->id_jawaban;
+                                      if ($cekJwbn > 0) {
+                                        $cek = 'btn-success';
+                                      } else{
+                                        $cek = 'btn-outline-primary';
+                                      }
+                                    }
+                                  } else {
+                                    $cek = 'btn-outline-primary';
+                                  }
+                                ?>
+                                <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
+                              <?php $i++; } ?>
+                            </div>
+                          </div>
+                          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" style="margin-left: -30px; color: black; width: 50px;">
+                            <span class="fas fa-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" style="margin-right: -30px; color: black; width: 50px;">
+                            <span class="fas fa-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        <?php } elseif (count($soal) == 20) { ?>
+                          <div class="carousel-inner" style="margin-left: 32px;">
+                            <div class="carousel-item active">
+                              <?php $i=1;
+                                foreach ($soal1 as $loadSoal1) {
+                                  $query = $this->db->get_where('event_jawaban', [
+                                    'id_user' => $user['id'],
+                                    'id_topik' => $loadSoal1['id_topik_tes'],
+                                    'id_event' => $event['id_event'],
+                                    'id_soal' => $loadSoal1['id_soal']
+                                  ]);
+                                  $cek = $query->row_array();
+
+                                  if ($cek > 0) {
+                                    $query = $this->db->select('btn_ragu')->get_where('event_jawaban', [
+                                      'id_user' => $user['id'],
+                                      'id_topik' => $loadSoal1['id_topik_tes'],
+                                      'id_event' => $event['id_event'],
+                                      'id_soal' => $loadSoal1['id_soal']
+                                    ]);
+                                    $check = $query->row()->btn_ragu;
+                                    if ($check == 1) {
+                                      $cek = 'btn-warning';
+                                    } elseif ($check == 0) {
+                                      $query = $this->db->select('id_jawaban')->get_where('event_jawaban', [
+                                        'id_user' => $user['id'],
+                                        'id_topik' => $loadSoal1['id_topik_tes'],
+                                        'id_event' => $event['id_event'],
+                                        'id_soal' => $loadSoal1['id_soal']
+                                      ]);
+                                      $cekJwbn = $query->row()->id_jawaban;
+                                      if ($cekJwbn > 0) {
+                                        $cek = 'btn-success';
+                                      } else{
+                                        $cek = 'btn-outline-primary';
+                                      }
+                                    }
+                                  } else {
+                                    $cek = 'btn-outline-primary';
+                                  }
+                                ?>
+                                <button type="button" class="btn <?= $cek; ?> mr-4 mb-3 daftar-soal" id="nomor<?= $i; ?>" name="nomor<?= $i; ?>" style="width: 40px; height: 40px;" onclick="klikNomor(<?= $i; ?>)"><?= $i; ?></button>
+                              <?php $i++; } ?>
+                            </div>
+                          </div>
+                        <?php } ?>
+                      </div>
                     </form>
                     <hr>
                     <a href="<?= base_url('User/'); ?>koreksi/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes'] ?>" class="btn btn-success col-md-12 selesai">Submit Jawaban</a>
@@ -247,12 +394,12 @@ if ($temp_menit < 60) {
                           var frmSelesai = $(".selesai").attr('href');
                           Swal.fire({
                             title: 'Waktu Habis!',
-                            text: "Waktu pengerjaan soal sudah habis, silahkan tekan OK.",
-                            icon: 'error'
+                            text: "Waktu pengerjaan soal sudah habis!!",
+                            icon: 'error',
+                            timer: 1500,
+                            showConfirmButton: false
                           }).then((result) => {
-                            if (result.value) {
                               document.location.href = frmSelesai;
-                            }
                           })
                       }
                   }
@@ -294,16 +441,29 @@ if ($temp_menit < 60) {
         var ragu = $('.ragu');
         var nomor = $('.nomor');
         var daftarSoal = $('.daftar-soal');
+        var list1 = $('.list1');
+        var list2 = $('.list2');
+        var list3 = $('.list3');
+
+        /*if (n >= 21 && n <= 40) {list1.removeClass('active'); list3.removeClass('active') list2.addClass('active');}
+        else if (n >= 41 && n <= 60) {list1.removeClass('active'); list2.removeClass('active') list3.addClass('active');}
+        else if (n >= 1 && n <= 20) {list1.addClass('active'); list2.removeClass('active') list3.removeClass('active');}*/
 
         if (n == x.length) {next[maxIndex - 1].style.display = "none";}
         if (n == 1) {
           prev[slideIndex - 1].style.display = "none";
           $('#nomor'+n).addClass('active');
         }
+
+        if (n >= 21 && n <= 40) {list2.addClass('active'); list1.removeClass('active')}
+        else if (n >= 41 && n <= 60) {list3.addClass('active');}
+        else if (n >= 1 && n <= 20) {list1.addClass('active');}
+
         for (i = 0; i < x.length; i++) {
           x[i].style.display = "none";
         }
         x[slideIndex-1].style.display = "block";
+        $('#timer').style.display = "block";
       }
 
       function prevSoal(n) {
