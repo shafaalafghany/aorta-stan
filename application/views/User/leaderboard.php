@@ -139,8 +139,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="job-post-item-body d-block d-md-flex align-items-center">
-                      <table class="table table-bordered align-items-center text-center">
+                    <div class="job-post-item-body align-items-center">
+                      <table id="example1" class="table table-bordered align-items-center text-center" style="width: 100%;">
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">No</th>
@@ -148,9 +148,9 @@
                             <th scope="col">Nilai TPA</th>
                             <th scope="col">Nilai TBI</th>
                             <th scope="col">Nilai SKD</th>
-                            <th scope="col">Nilai TWK</th>
-                            <th scope="col">Nilai TIU</th>
-                            <th scope="col">Nilai TKP</th>
+                            <th id="twk" scope="col">Nilai TWK</th>
+                            <th id="tiu" scope="col">Nilai TIU</th>
+                            <th id="tkp" scope="col">Nilai TKP</th>
                             <th scope="col">Nilai Total</th>
                           </tr>
                         </thead>
@@ -174,9 +174,9 @@
                               <td><?= $loadLeader['nilai_tpa']; ?></td>
                               <td><?= $loadLeader['nilai_tbi']; ?></td>
                               <td><?= $loadLeader['nilai_skd']; ?></td>
-                              <td><?= $loadLeader['nilai_twk']; ?></td>
-                              <td><?= $loadLeader['nilai_tiu']; ?></td>
-                              <td><?= $loadLeader['nilai_tkp']; ?></td>
+                              <td id="twk"><?= $loadLeader['nilai_twk']; ?></td>
+                              <td id="tiu"><?= $loadLeader['nilai_tiu']; ?></td>
+                              <td id="tkp"><?= $loadLeader['nilai_tkp']; ?></td>
                               <td><?= $loadLeader['nilai_total']; ?></td>
                             </tr>
                           <?php $i++;

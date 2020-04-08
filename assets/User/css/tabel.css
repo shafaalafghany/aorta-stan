@@ -1,0 +1,37 @@
+@media (max-width: 576px) {
+  #twk{
+    display: none;
+  }  
+  #tiu{
+    display: none;
+  }
+  #tkp{
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  #tkp{
+    display: none;
+  }
+}
+
+/*@media (min-width: 992px) {
+  .dropdown-menu-lg-left {
+    right: auto;
+    left: 0; }
+  .dropdown-menu-lg-right {
+    right: 0;
+    left: auto; }
+  nav ul ul li:hover > ul,
+  nav ul li:hover > ul { display: none; } }
+
+@media (min-width: 1200px) {
+  .dropdown-menu-xl-left {
+    right: auto;
+    left: 0; }
+  .dropdown-menu-xl-right {
+    right: 0;
+    left: auto; }
+  nav ul ul li:hover > ul,
+  nav ul li:hover > ul { display: none; } */}

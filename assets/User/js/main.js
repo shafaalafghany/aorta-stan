@@ -112,12 +112,24 @@
 		var $this = $(this);
 		// 	 timer;
 		// clearTimeout(timer);
+		$('.navbar-toggler').removeClass('collapsed');
+		$('.navbar-toggler').attr('aria-expanded', true);
+		$('.navbar-collapse').addClass('show');
 		$this.addClass('show');
+		$('.nav-link').attr('aria-expanded', true);
+		// $this.find('.dropdown-menu').addClass('animated-fast fadeInUp show');
+		$('.dropdown-menu').addClass('show');
 	}, function(){
 		var $this = $(this);
 			// timer;
 		// timer = setTimeout(function(){
-			$this.removeClass('show');
+		$('.navbar-toggler').addClass('collapsed');
+		$('.navbar-toggler').attr('aria-expanded', false);
+		$('.navbar-collapse').removeClass('show');
+		$this.removeClass('show');
+		$('.nav-link').attr('aria-expanded', false);
+		// $this.find('.dropdown-menu').removeClass('animated-fast fadeInUp show');
+		$('.dropdown-menu').removeClass('show');
 		// }, 100);
 	});
 

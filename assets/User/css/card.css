@@ -17,6 +17,18 @@
 		display: block;
 		margin-bottom: 20px;
 	}
+
+	.sebelumnya{
+		align-self: center;
+	}
+
+	.ragu-ragu{
+		align-self: center;
+	}
+
+	.selanjutnya{
+		align-self: center;
+	}
 }
 
 .card{

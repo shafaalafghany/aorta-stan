@@ -63,6 +63,21 @@
 <script src="<?= base_url('assets/User/'); ?>js/main.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/logout.js"></script>
 <script src="<?= base_url('assets/User/'); ?>js/tes.js"></script>
+<script src="<?= base_url('assets/Admin/') ?>plugins/datatables/jquery.dataTables.js"></script>
+<script src="<?= base_url('assets/Admin/') ?>plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script type="text/javascript">
+    $(function() {
+      $("#example1").DataTable();
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+      });
+    });
+</script>
 </body>
 
 </html>
