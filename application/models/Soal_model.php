@@ -62,6 +62,18 @@ class Soal_model extends CI_model
 		return $this->db->query("SELECT * from jawaban where id_soal = $id_soal")->result_array();
 	}
 
+	public function getJawabanByIdSoalAndJawaban($id_soal, $id_jawaban)
+	{
+		return $this->db->query("SELECT * from jawaban where id_soal = $id_soal and id_jawaban = $id_jawaban")->row_array();
+	}
+
+	public function updateJawaban($id_jawaban, $dataJawaban)
+	{
+		$this->db->set($dataJawaban);
+		$this->db->where('id_jawaban',$id_jawaban);
+		$this->db->update('jawaban');
+	}
+
 	public function getSoalSKDbyId($id_event, $id_topik)
 	{
 		return $this->db->query("SELECT * from soal where id_event = $id_event and id_skd = $id_topik")->result_array();

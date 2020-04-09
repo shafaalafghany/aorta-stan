@@ -328,7 +328,7 @@ class Administrator extends CI_Controller
 
     public function view_soal($id_event, $id_topik, $id_soal)
     {
-        $data['judul'] = 'AORTASTAN Try Out Online | Contact';
+        $data['judul'] = 'AORTASTAN Try Out Online | View Soal';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Event_model->getEventById($id_event);
@@ -354,6 +354,84 @@ class Administrator extends CI_Controller
 
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_soal');
+        }
+    }
+
+    public function pilih_jawaban($id_event, $id_topik, $id_soal)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+
+        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
+        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoal($id_soal);
+
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/event/pilih_jawaban', $data);
+    }
+
+    public function proses_edit($id_event, $id_topik, $id_soal)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+
+        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
+        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoal($id_soal);
+
+        $optionJawaban = $this->input->post('optionJawaban');
+
+        if ($optionJawaban != 0) {
+            redirect('Administrator/edit_jawaban/' . $id_event . '/' . $id_topik . '/' . $id_soal . '/' . $optionJawaban);
+        } else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Pilih dulu jawaban yang ingin diedit!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/pilih_jawaban/' . $id_event . '/' . $id_topik . '/' . $id_soal);
+        }
+    }
+
+    public function edit_jawaban($id_event, $id_topik, $id_soal, $id_jawaban)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+
+        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
+        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoalAndJawaban($id_soal, $id_jawaban);
+
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/event/edit_jawaban', $data);
+    }
+
+    public function update_jawaban($id_event, $id_topik, $id_soal, $id_jawaban)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['event'] = $this->Event_model->getEventById($id_event);
+        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+
+        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
+        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoalAndJawaban($id_soal, $id_jawaban);
+
+        $inputJawaban = $this->input->post('inputJawaban');
+
+        if ($inputJawaban != $data['jawaban']) {
+            $dataJawaban = [
+                'jawaban' => $inputJawaban
+            ];
+
+            $this->Soal_model->updateJawaban($id_jawaban, $dataJawaban);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu jawaban berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/daftar_soal');
+        } else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Tidak ada perubahan apapun</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/edit_jawaban/' . $id_event . '/' . $id_topik . '/' . $id_soal . '/' . $id_jawaban);
         }
     }
 

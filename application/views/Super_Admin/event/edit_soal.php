@@ -274,13 +274,14 @@
                             <?= $jwbnBenar; ?>
                           </div>
                       </div>
+                      <a href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Mau edit jawaban? Klik disini</a>
                     </div>
                   </div>
                 <?php } ?>
 
                 <div class="col-12">
                   <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
-                  <button type="submit" class="btn btn-primary float-right">Simpan</button>
+                  <button type="submit" class="btn btn-primary float-right">Simpan Perubahan Soal</button>
                 </div>
               </form>
             </div>

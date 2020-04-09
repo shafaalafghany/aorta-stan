@@ -176,7 +176,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Daftar Soal</h1>
+              <h1>Pilih Jawaban</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -186,28 +186,23 @@
       <section class="content">
         <div class="row">
           <div class="col-12">
-            <?= $this->session->flashdata('message'); ?>
+
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">List Soal</h3>
+                <h3 class="card-title">Pilih Jawaban Yang Ingin Diedit</h3>
               </div>
                 <!-- /.card-body -->
               <div class="card-body">
-                <form method="post" action="<?= base_url('Administrator/'); ?>soal_detail">
+                <form method="post" action="<?= base_url('Administrator/'); ?>proses_edit/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">
                 <div class="form-group">
-                  <label for="optionEvent">Pilih Event</label>
-                  <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
-                    <?php foreach ($event as $loadEvent) { ?>
-                      <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event']; ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="optionEvent">Pilih Topik</label>
-                  <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
-                    <?php foreach ($topik as $loadTopik) { ?>
-                      <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes']; ?></option>
-                    <?php } ?>
+                  <label for="optionJawaban">Mau Edit Jawaban Mana?</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionJawaban" name="optionJawaban">
+                    <option value="0">Pilih Jawaban...</option>
+                    <?php 
+                    $i = 1;
+                    foreach ($jawaban as $loadJawaban) { ?>
+                      <option value="<?= $loadJawaban['id_jawaban']; ?>">Jawaban <?= $i; ?></option>
+                    <?php $i++; } ?>
                   </select>
                 </div>
                 <button class="btn btn-primary float-right" type="submit">Submit</button>

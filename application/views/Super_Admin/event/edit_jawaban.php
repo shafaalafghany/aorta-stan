@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link">
+            <a href="<?= base_url('Administrator/') ?>daftar_soal" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Daftar Soal</p>
             </a>
@@ -63,7 +63,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link active">
+            <a href="<?= base_url('Administrator/') ?>tambah_soal" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p> Tambah Soal</p>
             </a>
@@ -176,77 +176,19 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Buat Soal</h1>
+            <h1>Edit Soal</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Main content -->
-    <section class="content" id="detailEvent">
-      <div class="row">
-        <div class="col-12">
-          <div class="callout callout-warning">
-            <h5><i class="fas fa-info"></i> Petunjuk Pembuatan Soal:</h5>
-            - Gunakan tulisan biasa tidak berbentuk tabel, jika copy paste dari aplikasi lain pastikan terlebih dahulu dalam bentuk tulisan biasa sehingga disistem nantinya tidak terdeteksi hal-hal yang lain yang akan mempengaruhi tampilan saat tryout.
-            <br>
-            - Gunakan fitur gambar untuk keperluan soal yang memang khusus terdapat gambar didalamnya, jika hanya tulisan jangan ikut di convert dalam bentuk gambar, hal tersebut akan mempengaruhi dalam tampilan tryout.
-            <br>
-            - Jika menggunakan fitur gambar dimohon untuk memperkecil ukuran gambar agar tidak telalu besar dengan cara klik gambar tersebut kemudian geser tepi gambar atau border sesuai ukuran yang pas yaitu maksimal lebarnya 4 cm atau 472.
-            <br>
-            - Ukuran font bisa diatur sesuai keinginan yaitu dibagian style (pojok kiri atas text editor).
-          </div>
-          <div class="card card-default">
-            <div class="card-header">
-              <h3 class="card-title">Buat Soal Untuk Event</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputName">Nama Event</label>
-                <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
-              </div>
-              <!-- <div class="form-group">
-                  <label for="inputStatus">Jenis Modul</label>
-                  <select class="form-control custom-select">
-                    <option selected disabled>Pilih Salah Satu</option>
-                    <option>TKD</option>
-                    <option>Bhs. Inggris</option>
-                    <option>Matematika</option>
-                  </select>
-                </div> -->
-              <div class="form-group">
-                <label for="inputProjectLeader">Deskripsi</label>
-                <textarea id="inputDescription" class="form-control" rows="4" disabled="disabled"><?= $event['deskripsi'] ?></textarea>
-              </div>
-              <div class="form-group">
-                <label for="inputMulai">Waktu Mulai Event</label>
-                <input type="date" id="inputMulai" name="inputMulai" disabled="disabled" class="form-control" value="<?= $event['tgl_mulai'] ?>">
-              </div>
-              <div class="form-group">
-                <label for="inputBerakhir">Waktu Berakhir Event</label>
-                <input type="date" id="inputBerakhir" name="inputBerakhir" disabled="disabled" class="form-control" value="<?= $event['tgl_akhir'] ?>">
-              </div>
-              <!-- <div class="col-12">
-                  <input type="submit" value="Submit" class="btn btn-primary float-right swalDefaultSuccess">
-                </div> -->
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-    </section>
+    <?= $this->session->flashdata('message'); ?>
     <!-- /.content -->
     <section class="content" id="tambahSoalTPA">
       <div class="row">
         <div class="col-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Buat Soal</h3>
+              <h3 class="card-title">Edit Soal</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -255,192 +197,40 @@
             </div>
             <div class="card-body">
               <?= $this->session->flashdata('message'); ?>
-              <form action="<?= base_url('Administrator/') ?>insert_soal/<?= $event['id_event'] ?>" method="POST">
-              <div class="form-group">
-                <div class="callout callout-info">
-                  <h5><i class="fas fa-info"></i> Note:</h5>
-                  Untuk pembuatan soal TKP silahkan isi form dibawah form ini!
-                </div>
-                <br>
-                <label for="optionEvent">Pilih Topik Soal</label>
-                <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
-                  <?php foreach ($fourTopik as $loadFourTopik) { ?>
-                    <option value="<?= $loadFourTopik['id_topik_tes']; ?>"><?= $loadFourTopik['nama_topik_tes']; ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Soal</label>
-                <div class="card-body pad">
-                  <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoal" name="inputSoal" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  </div>
-                  <p class="text-sm mb-0">
-                    Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                  </p>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label>Jawaban</label>
-                <div class="card-body pad">
+              <form action="<?= base_url('Administrator/') ?>update_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>/<?= $jawaban['id_jawaban'] ?>" method="POST">
+                <div class="form-group">
                   <div class="form-group">
-                    <label for="inputJawaban1">Jawaban 1</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban1" name="jawaban1" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
+                    <label for="inputName">Nama Event</label>
+                    <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
                   </div>
                   <div class="form-group">
-                    <label for="inputJawaban2">Jawaban 2</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban2" name="jawaban2" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
+                    <label for="inputName">Topik Tes</label>
+                    <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $topik['nama_topik_tes'] ?>">
                   </div>
                   <div class="form-group">
-                    <label for="inputJawaban3">Jawaban 3</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban3" name="jawaban3" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban4">Jawaban 4</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban4" name="jawaban4" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban5">Jawaban 5</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban5" name="jawaban5" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawabanBenar">Jawaban Benar</label>
-                    <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
-                      <option value="jawaban1">Jawaban 1</option>
-                      <option value="jawaban2">Jawaban 2</option>
-                      <option value="jawaban3">Jawaban 3</option>
-                      <option value="jawaban4">Jawaban 4</option>
-                      <option value="jawaban5">Jawaban 5</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <input type="submit" value="Tambah" class="btn btn-primary float-right">
-              </div>
-              </form>
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-    </section>
-
-    <section class="content" id="tambahSoalSKD3">
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Soal Kelompok TKP</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <form action="<?= base_url('Administrator/') ?>buat_soal_tkp/<?= $event['id_event'] ?>" method="POST">
-              <div class="form-group">
-                <div class="card-body pad">
-                  <label>Soal</label>
-                  <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTKP" name="inputSoalTKP" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  </div>
-                  <p class="text-sm mb-0">
-                    Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                  </p>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="card-body pad">
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban1">Jawaban 1</label>
-                      <textarea type="text" id="jawabanTkp1" name="jawabanTkp1" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint1">Point Jawaban 1</label>
-                      <input type="number" id="pointJawabanTkp1" name="pointJawabanTkp1" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban2">Jawaban 2</label>
-                      <textarea type="text" id="jawabanTkp2" name="jawabanTkp2" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint2">Point Jawaban 2</label>
-                      <input type="number" id="pointJawabanTkp2" name="pointJawabanTkp2" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban3">Jawaban 3</label>
-                      <textarea type="text" id="jawabanTkp3" name="jawabanTkp3" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint3">Point Jawaban 3</label>
-                      <input type="number" id="pointJawabanTkp3" name="pointJawabanTkp3" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban4">Jawaban 4</label>
-                      <textarea type="text" id="jawabanTkp4" name="jawabanTkp4" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint4">Point Jawaban 4</label>
-                      <input type="number" id="pointJawabanTkp4" name="pointJawabanTkp4" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban5">Jawaban 5</label>
-                      <textarea type="text" id="jawabanTkp5" name="jawabanTkp5" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint5">Point Jawaban 5</label>
-                      <input type="number" id="pointJawabanTkp5" name="pointJawabanTkp5" class="form-control">
+                    <label for="inputSoal">Soal</label>
+                    <div class="col-md-12" style="border-style: solid; border-width: 1px;">
+                      <?= $soal['soal'] ?>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <input type="submit" value="Tambah" class="btn btn-primary float-right">
-              </div>
+
+                <div class="form-group">
+                  <label>Jawaban</label>
+                  <div class="card-body pad">
+                    <div class="mb-3">
+                      <textarea class="textarea" placeholder="Place some text here" id="inputJawaban" name="inputJawaban" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jawaban['jawaban'] ?></textarea>
+                    </div>
+                    <p class="text-sm mb-0">
+                      Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Kembali</a>
+                  <button type="submit" class="btn btn-primary float-right">Simpan Perubahan Jawaban</button>
+                </div>
               </form>
             </div>
           </div>
@@ -544,7 +334,7 @@
 
       $('.textarea').summernote({
         height: "250px",
-        callback:{
+        callback: {
           onImageUpload: function(image) {
             uploadImage(image[0]);
           },
@@ -559,7 +349,7 @@
         var data = new FormData();
         data.append("image", image);
         $.ajax({
-          url: "<?= site_url('User/upload_image')?>",
+          url: "<?= site_url('User/upload_image') ?>",
           cache: false,
           contentType: false,
           processData: false,
@@ -576,7 +366,9 @@
 
       function deleteImage(src) {
         $.ajax({
-          data: {src : src},
+          data: {
+            src: src
+          },
           type: "POST",
           url: "<?= site_url('User/delete_image') ?>",
           cache: false,
