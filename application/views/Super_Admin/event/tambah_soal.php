@@ -188,7 +188,7 @@
               <?= $this->session->flashdata('message'); ?>
             <div class="card card-default">
               <div class="card-header">
-                <h3 class="card-title">Mau nambah untuk event apa?</h3>
+                <h3 class="card-title">Pilih Kategori Event dan Topik</h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"></button>
                 </div>
@@ -196,13 +196,22 @@
               <div class="card-body">
                 <form method="POST" action="<?= base_url('Administrator/'); ?>buat_soal">
                   <div class="form-group">
+                    <label for="optionEvent">Pilih Event</label>
                     <select class="custom-select col-md-12 mb-3" id="optionEvent" name="optionEvent">
                       <?php foreach ($event as $loadEvent) { ?>
                         <option value="<?= $loadEvent['id_event']; ?>"><?= $loadEvent['nama_event'] ?></option>
                       <?php } ?>
                     </select>
-                    <button class="btn btn-primary float-right" type="submit">Pilih Event</button>
                   </div>
+                  <div class="form-group">
+                    <label for="optionEvent">Pilih Topik Tes</label>
+                    <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
+                      <?php foreach ($topik as $loadTopik) { ?>
+                        <option value="<?= $loadTopik['id_topik_tes']; ?>"><?= $loadTopik['nama_topik_tes'] ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                  <button class="btn btn-primary float-right" type="submit">Submit</button>
                 </form>
               </div>
             </div>

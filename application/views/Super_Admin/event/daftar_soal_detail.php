@@ -237,9 +237,16 @@
                           'score' => 4
                         ])->row_array(); ?>
                         <td><?= $jawabanBenar['jawaban']; ?></td>
-                      <?php } else {
-                        $jawabanBenar = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal'], 'score' => 5])->row_array(); ?>
+                      <?php } elseif ($topik['id_topik_tes'] == 6) {
+                        $jawabanBenar = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal'], 'score' => 1])->row_array(); ?>
                         <td><?= $jawabanBenar['jawaban']; ?></td>
+                      <?php } else {
+                        $jawabanBenar = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal'], 'score' => 5])->row_array();
+                        if ($jawabanBenar) { ?>
+                           <td><?= $jawabanBenar['jawaban']; ?></td>
+                        <?php } else{ ?>
+                          <td><div class="btn btn-warning">Tidak ada jawaban yang berpoint 5, silahkan cek jawabannya lagi</div></td>
+                        <?php } ?>
                       <?php } ?>
 
 

@@ -186,6 +186,16 @@
     <section class="content" id="detailEvent">
       <div class="row">
         <div class="col-12">
+          <div class="callout callout-warning">
+            <h5><i class="fas fa-info"></i> Petunjuk Pembuatan Soal:</h5>
+            - Gunakan tulisan biasa tidak berbentuk tabel, jika copy paste dari aplikasi lain pastikan terlebih dahulu dalam bentuk tulisan biasa sehingga disistem nantinya tidak terdeteksi hal-hal yang lain yang akan mempengaruhi tampilan saat tryout.
+            <br>
+            - Gunakan fitur gambar untuk keperluan soal yang memang khusus terdapat gambar didalamnya, jika hanya tulisan jangan ikut di convert dalam bentuk gambar, hal tersebut akan mempengaruhi dalam tampilan tryout.
+            <br>
+            - Jika menggunakan fitur gambar dimohon untuk memperkecil ukuran gambar agar tidak telalu besar dengan cara klik gambar tersebut kemudian geser tepi gambar atau border sesuai ukuran yang pas yaitu maksimal lebarnya 4 cm atau 472.
+            <br>
+            - Ukuran font bisa diatur sesuai keinginan yaitu dibagian style (pojok kiri atas text editor).
+          </div>
           <div class="card card-default">
             <div class="card-header">
               <h3 class="card-title">Buat Soal Untuk Event</h3>
@@ -245,19 +255,12 @@
             </div>
             <div class="card-body">
               <?= $this->session->flashdata('message'); ?>
-              <form action="<?= base_url('Administrator/') ?>insert_soal/<?= $event['id_event'] ?>" method="POST">
+              <form action="<?= base_url('Administrator/') ?>insert_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>" method="POST">
               <div class="form-group">
-                <div class="callout callout-info">
-                  <h5><i class="fas fa-info"></i> Note:</h5>
-                  Untuk pembuatan soal TKP silahkan isi form dibawah form ini!
+                <div class="form-group">
+                  <label for="inputBerakhir">Topik Soal</label>
+                  <input type="text" id="inputTopik" name="inputTopik" disabled="disabled" class="form-control" value="<?= $topik['nama_topik_tes']; ?>">
                 </div>
-                <br>
-                <label for="optionEvent">Pilih Topik Soal</label>
-                <select class="custom-select col-md-12 mb-3" id="optionTopik" name="optionTopik">
-                  <?php foreach ($fourTopik as $loadFourTopik) { ?>
-                    <option value="<?= $loadFourTopik['id_topik_tes']; ?>"><?= $loadFourTopik['nama_topik_tes']; ?></option>
-                  <?php } ?>
-                </select>
               </div>
 
               <div class="form-group">
@@ -272,162 +275,183 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <label>Jawaban</label>
-                <div class="card-body pad">
-                  <div class="form-group">
-                    <label for="inputJawaban1">Jawaban 1</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban1" name="jawaban1" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+              <?php if ($topik['id_topik_tes'] == 5) { ?>
+                <div class="form-group">
+                  <div class="card-body pad">
+                    <div class="form-group" style="display: flex;">
+                      <div class="col-md-9">
+                        <label for="inputJawaban1">Jawaban 1</label>
+                        <textarea type="text" id="jawabanTkp1" name="jawabanTkp1" class="form-control"></textarea>
                       </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban2">Jawaban 2</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban2" name="jawaban2" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      <div class="col-md-2">
+                        <label for="inputPoint1">Point Jawaban 1</label>
+                        <input type="number" id="pointJawabanTkp1" name="pointJawabanTkp1" class="form-control">
                       </div>
-                      <p class="text-sm mb-0">
-                      </p>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban3">Jawaban 3</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban3" name="jawaban3" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <div class="form-group" style="display: flex;">
+                      <div class="col-md-9">
+                        <label for="inputJawaban2">Jawaban 2</label>
+                        <textarea type="text" id="jawabanTkp2" name="jawabanTkp2" class="form-control"></textarea>
                       </div>
-                      <p class="text-sm mb-0">
-                      </p>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban4">Jawaban 4</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban4" name="jawaban4" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                      <div class="col-md-2">
+                        <label for="inputPoint2">Point Jawaban 2</label>
+                        <input type="number" id="pointJawabanTkp2" name="pointJawabanTkp2" class="form-control">
                       </div>
-                      <p class="text-sm mb-0">
-                      </p>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawaban5">Jawaban 5</label>
-                    <div class="card-body pad">
-                      <div class="mb-3">
-                        <textarea class="textarea" placeholder="Place some text here" id="jawaban5" name="jawaban5" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    <div class="form-group" style="display: flex;">
+                      <div class="col-md-9">
+                        <label for="inputJawaban3">Jawaban 3</label>
+                        <textarea type="text" id="jawabanTkp3" name="jawabanTkp3" class="form-control"></textarea>
                       </div>
-                      <p class="text-sm mb-0">
-                      </p>
+                      <div class="col-md-2">
+                        <label for="inputPoint3">Point Jawaban 3</label>
+                        <input type="number" id="pointJawabanTkp3" name="pointJawabanTkp3" class="form-control">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputJawabanBenar">Jawaban Benar</label>
-                    <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
-                      <option value="jawaban1">Jawaban 1</option>
-                      <option value="jawaban2">Jawaban 2</option>
-                      <option value="jawaban3">Jawaban 3</option>
-                      <option value="jawaban4">Jawaban 4</option>
-                      <option value="jawaban5">Jawaban 5</option>
-                    </select>
+                    <div class="form-group" style="display: flex;">
+                      <div class="col-md-9">
+                        <label for="inputJawaban4">Jawaban 4</label>
+                        <textarea type="text" id="jawabanTkp4" name="jawabanTkp4" class="form-control"></textarea>
+                      </div>
+                      <div class="col-md-2">
+                        <label for="inputPoint4">Point Jawaban 4</label>
+                        <input type="number" id="pointJawabanTkp4" name="pointJawabanTkp4" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group" style="display: flex;">
+                      <div class="col-md-9">
+                        <label for="inputJawaban5">Jawaban 5</label>
+                        <textarea type="text" id="jawabanTkp5" name="jawabanTkp5" class="form-control"></textarea>
+                      </div>
+                      <div class="col-md-2">
+                        <label for="inputPoint5">Point Jawaban 5</label>
+                        <input type="number" id="pointJawabanTkp5" name="pointJawabanTkp5" class="form-control">
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-12">
-                <input type="submit" value="Tambah" class="btn btn-primary float-right">
-              </div>
-              </form>
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>
-    </section>
-
-    <section class="content" id="tambahSoalSKD3">
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Soal Kelompok TKP</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <form action="<?= base_url('Administrator/') ?>buat_soal_tkp/<?= $event['id_event'] ?>" method="POST">
-              <div class="form-group">
-                <div class="card-body pad">
-                  <label>Soal</label>
-                  <div class="mb-3">
-                    <textarea class="textarea" placeholder="Place some text here" id="inputSoalTKP" name="inputSoalTKP" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                  </div>
-                  <p class="text-sm mb-0">
-                    Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                  </p>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="card-body pad">
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
+              <?php } elseif ($topik['id_topik_tes'] == 2) { ?>
+                <div class="form-group">
+                  <label>Jawaban</label>
+                  <div class="card-body pad">
+                    <div class="form-group">
                       <label for="inputJawaban1">Jawaban 1</label>
-                      <textarea type="text" id="jawabanTkp1" name="jawabanTkp1" class="form-control"></textarea>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban1" name="jawaban1" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
                     </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint1">Point Jawaban 1</label>
-                      <input type="number" id="pointJawabanTkp1" name="pointJawabanTkp1" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
+                    <div class="form-group">
                       <label for="inputJawaban2">Jawaban 2</label>
-                      <textarea type="text" id="jawabanTkp2" name="jawabanTkp2" class="form-control"></textarea>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban2" name="jawaban2" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
                     </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint2">Point Jawaban 2</label>
-                      <input type="number" id="pointJawabanTkp2" name="pointJawabanTkp2" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
+                    <div class="form-group">
                       <label for="inputJawaban3">Jawaban 3</label>
-                      <textarea type="text" id="jawabanTkp3" name="jawabanTkp3" class="form-control"></textarea>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban3" name="jawaban3" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
                     </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint3">Point Jawaban 3</label>
-                      <input type="number" id="pointJawabanTkp3" name="pointJawabanTkp3" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
+                    <div class="form-group">
                       <label for="inputJawaban4">Jawaban 4</label>
-                      <textarea type="text" id="jawabanTkp4" name="jawabanTkp4" class="form-control"></textarea>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban4" name="jawaban4" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
                     </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint4">Point Jawaban 4</label>
-                      <input type="number" id="pointJawabanTkp4" name="pointJawabanTkp4" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group" style="display: flex;">
-                    <div class="col-md-9">
-                      <label for="inputJawaban5">Jawaban 5</label>
-                      <textarea type="text" id="jawabanTkp5" name="jawabanTkp5" class="form-control"></textarea>
-                    </div>
-                    <div class="col-md-2">
-                      <label for="inputPoint5">Point Jawaban 5</label>
-                      <input type="number" id="pointJawabanTkp5" name="pointJawabanTkp5" class="form-control">
+                    <div class="form-group">
+                      <label for="inputJawabanBenar">Jawaban Benar</label>
+                      <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
+                        <option value="jawaban1">Jawaban 1</option>
+                        <option value="jawaban2">Jawaban 2</option>
+                        <option value="jawaban3">Jawaban 3</option>
+                        <option value="jawaban4">Jawaban 4</option>
+                      </select>
                     </div>
                   </div>
                 </div>
-              </div>
+              <?php } else { ?>
+                <div class="form-group">
+                  <label>Jawaban</label>
+                  <div class="card-body pad">
+                    <div class="form-group">
+                      <label for="inputJawaban1">Jawaban 1</label>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban1" name="jawaban1" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputJawaban2">Jawaban 2</label>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban2" name="jawaban2" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputJawaban3">Jawaban 3</label>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban3" name="jawaban3" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputJawaban4">Jawaban 4</label>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban4" name="jawaban4" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputJawaban5">Jawaban 5</label>
+                      <div class="card-body pad">
+                        <div class="mb-3">
+                          <textarea class="textarea" placeholder="Place some text here" id="jawaban5" name="jawaban5" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        </div>
+                        <p class="text-sm mb-0">
+                        </p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputJawabanBenar">Jawaban Benar</label>
+                      <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
+                        <option value="jawaban1">Jawaban 1</option>
+                        <option value="jawaban2">Jawaban 2</option>
+                        <option value="jawaban3">Jawaban 3</option>
+                        <option value="jawaban4">Jawaban 4</option>
+                        <option value="jawaban5">Jawaban 5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              <?php } ?>
               <div class="col-12">
                 <input type="submit" value="Tambah" class="btn btn-primary float-right">
               </div>
@@ -438,7 +462,6 @@
         </div>
       </div>
     </section>
-
   </div>
   <!-- /.content-wrapper -->
 
