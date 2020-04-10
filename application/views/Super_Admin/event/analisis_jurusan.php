@@ -211,9 +211,16 @@
                   <div class="form-group">
                 <label for="optionJurusan">Masuk jurusan mana peserta ini?</label>
                 <select class="custom-select col-md-12 mb-3" id="optionJurusan" name="optionJurusan">
-                    <option value="<?= $transaksi['jurusan1'] ?>"><?= $transaksi['jurusan1'] ?></option>
-                    <option value="<?= $transaksi['jurusan2'] ?>"><?= $transaksi['jurusan2'] ?></option>
-                    <option value="<?= $transaksi['jurusan3'] ?>"><?= $transaksi['jurusan3'] ?></option>
+                    <option value="Tidak Masuk ke Jurusan">Tidak Masuk ke Jurusan</option>
+                    <option value="Diploma 3 Kebendaharaan Negara">D3 Kebendaharaan Negara</option>
+                    <option value="Diploma 3 Manajemen Aset">D3 Manajemen Aset</option>
+                    <option value="Diploma 1 Kebendaharaan Negara">D1 Kebendaharaan Negara</option>
+                    <option value="Diploma 3 Pajak">D3 Pajak</option>
+                    <option value="Diploma 3 PBB/Penilai">D3 PBB/Penilai</option>
+                    <option value="Diploma 1 Pajak">D1 Pajak</option>
+                    <option value="Diploma 3 Kepabeanan dan Cukai">D3 Kepabeanan dan Cukai</option>
+                    <option value="Diploma 1 Kepabeanan dan Cukai">D1 Kepabeanan dan Cukai</option>
+                    <option value="Diploma 3 Akuntansi">D3 Akuntansi</option>
                 </select>
               </div>
               <div class="col-12">

@@ -94,12 +94,15 @@
                       <h4 class="alert alert-info">Nilai Total: <?= $hasilUser['nilai_total']; ?></h4>
                       <br>
                     </div>
-                    <div class="text-center">
-                      <h6>Lihat pembahasan tryout tadi yuk!</h6>
-                      <a class="btn btn-primary float-center col-lg" target="_blank" href="<?= base_url('User/open_pembahasan/' . $event['id_event']); ?>">Lihat Pembahasan</a>
-                      <br>
-                      <br>
-                    </div>
+                    <?php if($event['pembahasan'] == null){ ?>
+                        <div class="text-center">
+                            <h6>Ingin tau pembahasan tryout? Tunggu sebentar ya</h6>
+                        </div>
+                    <?php } else { ?>
+                        <div class="text-center">
+                            <h6>Pembahasan sudah bisa dilihat didepan!</h6>
+                        </div>
+                    <?php } ?>
                     <?php if ($hasilUser['status'] == "TIDAK LULUS") { ?>
                       <div class="text-center">
                         <h6>Maaf kamu tidak lulus dalam tryout ini, tetap semangat terus yaa!!</h6>
