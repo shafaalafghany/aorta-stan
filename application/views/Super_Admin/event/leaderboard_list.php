@@ -198,6 +198,13 @@
                 <label for="inputName">Nama Event</label>
                 <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
               </div>
+              <?php if ($leader) { ?>
+                <a class="btn btn-danger btn-sm float-right reset-ulang-event" href="<?= base_url('Administrator/'); ?>reset_data_event/<?= $event['id_event']; ?>">
+                  <i class="fas fa-trash">
+                  </i>
+                  Reset Ulang Semua Peserta
+                </a>
+              <?php } ?>
 
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -312,6 +319,32 @@
             Swal.fire(
               'Berhasil',
               'Peserta berhasil direset',
+              'success'
+            ).then((result) => {
+              document.location.href = href;
+            })
+          }
+        })
+      });
+
+      $('.reset-ulang-event').on('click', function(e) {
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+          title: 'Anda Yakin',
+          text: "Ingin mereset semua peserta dalam event ini? Dengan klik tombol yakin, maka semua peserta dalam event ini akan hilang.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yakin',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Berhasil',
+              'Semua data peserta berhasil direset',
               'success'
             ).then((result) => {
               document.location.href = href;

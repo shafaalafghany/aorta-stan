@@ -215,17 +215,30 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Jawaban</label>
-                  <div class="card-body pad">
-                    <div class="mb-3">
-                      <textarea class="textarea" placeholder="Place some text here" id="inputJawaban" name="inputJawaban" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jawaban['jawaban'] ?></textarea>
+                <?php if ($topik['id_topik_tes'] == 5) { ?>
+                  <div class="form-group" style="display: flex;">
+                    <div class="col-md-9">
+                      <label for="inputJawaban">Jawaban</label>
+                      <textarea type="text" id="jawabanTkp" name="jawabanTkp" class="form-control"><?= $jawaban['jawaban'] ?></textarea>
                     </div>
-                    <p class="text-sm mb-0">
-                      Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
-                    </p>
+                    <div class="col-md-2">
+                      <label for="inputPoint1">Point Jawaban</label>
+                      <input type="number" id="pointTkp" name="pointTkp" class="form-control" value="<?= $jawaban['score'] ?>">
+                    </div>
                   </div>
-                </div>
+                <?php } else { ?>
+                  <div class="form-group">
+                    <label>Jawaban</label>
+                    <div class="card-body pad">
+                      <div class="mb-3">
+                        <textarea class="textarea" placeholder="Place some text here" id="inputJawaban" name="inputJawaban" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $jawaban['jawaban'] ?></textarea>
+                      </div>
+                      <p class="text-sm mb-0">
+                        Input soal pada editor diatas, untuk gambar bisa langsung di import melalui editor diatas
+                      </p>
+                    </div>
+                  </div>
+                <?php }?>
 
                 <div class="col-12">
                   <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Kembali</a>

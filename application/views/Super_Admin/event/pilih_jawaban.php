@@ -205,6 +205,7 @@
                     <?php $i++; } ?>
                   </select>
                 </div>
+                <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Batal</a>
                 <button class="btn btn-primary float-right" type="submit">Submit</button>
                 </form>
               </div>

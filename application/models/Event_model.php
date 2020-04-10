@@ -46,4 +46,32 @@ class Event_model extends CI_model
 		$this->db->where('id_event', $id);
 		$this->db->update('event');
 	}
+
+	public function resetDataEvent($idEvent)
+	{
+		$hasilUser = $this->db->get_where('hasil_tes', ['id_event' => $idEvent])->result_array();
+		if ($hasilUser) {
+			$this->db->where('id_event', $idEvent)->delete('hasil_tes');
+		}
+
+		$jawabanUser = $this->db->get_where('event_jawaban', ['id_event' => $idEvent])->result_array();
+		if ($jawabanUser) {
+			$this->db->where('id_event', $idEvent)->delete('event_jawaban');
+		}
+
+		$leaderboardUser = $this->db->get_where('leaderboard', ['id_event' => $idEvent])->result_array();
+		if ($leaderboardUser) {
+			$this->db->where('id_event', $idEvent)->delete('leaderboard');
+		}
+
+		$transaksiUser = $this->db->get_where('transaksi_user', ['id_event' => $idEvent])->result_array();
+		if ($transaksiUser) {
+			$this->db->where('id_event', $idEvent)->delete('transaksi_user');
+		}
+
+		$transaksiEvent = $this->db->get_where('transaksi_event', ['id_event' => $idEvent])->result_array();
+		if ($transaksiEvent) {
+			$this->db->where('id_event', $idEvent)->delete('transaksi_event');
+		}
+	}
 }

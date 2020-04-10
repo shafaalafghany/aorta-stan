@@ -239,6 +239,7 @@
                         </div>
                       <?php $i++;
                       } ?>
+                      <a href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Mau edit jawaban? Klik disini</a>
                     </div>
                   </div>
                 <?php } else { ?>
@@ -261,6 +262,11 @@
                         $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
                           'id_soal' => $soal['id_soal'],
                           'score' => 4
+                        ])->row()->jawaban;
+                      } elseif ($topik['id_topik_tes'] == 6) {
+                        $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
+                          'id_soal' => $soal['id_soal'], 
+                          'score' => 1
                         ])->row()->jawaban;
                       } else {
                         $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [

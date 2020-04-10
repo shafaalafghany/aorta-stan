@@ -120,27 +120,37 @@ class User_model extends CI_model
 	{
 		$hasilUser = $this->db->get_where('hasil_tes', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
 		if ($hasilUser) {
-			$this->db->where('id_user', $idUser)->delete('hasil_tes');
+			$this->db->where('id_user', $idUser);
+			$this->db->where('id_event', $idEvent);
+			$this->db->delete('hasil_tes');
 		}
 
 		$jawabanUser = $this->db->get_where('event_jawaban', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
 		if ($jawabanUser) {
-			$this->db->where('id_user', $idUser)->delete('event_jawaban');
+			$this->db->where('id_user', $idUser);
+			$this->db->where('id_event', $idEvent);
+			$this->db->delete('event_jawaban');
 		}
 
 		$leaderboardUser = $this->db->get_where('leaderboard', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
 		if ($leaderboardUser) {
-			$this->db->where('id_user', $idUser)->delete('leaderboard');
+			$this->db->where('id_user', $idUser);
+			$this->db->where('id_event', $idEvent);
+			$this->db->delete('leaderboard');
 		}
 
 		$transaksiUser = $this->db->get_where('transaksi_user', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
 		if ($transaksiUser) {
-			$this->db->where('id_user', $idUser)->delete('transaksi_user');
+			$this->db->where('id_user', $idUser);
+			$this->db->where('id_event', $idEvent);
+			$this->db->delete('transaksi_user');
 		}
 
 		$transaksiEvent = $this->db->get_where('transaksi_event', ['id_user' => $idUser, 'id_event' => $idEvent])->result_array();
 		if ($transaksiEvent) {
-			$this->db->where('id_user', $idUser)->delete('transaksi_event');
+			$this->db->where('id_user', $idUser);
+			$this->db->where('id_event', $idEvent);
+			$this->db->delete('transaksi_event');
 		}
 
 		$getHarga = $this->db->select('harga')->get_where('event', ['id_event' => $idEvent])->row()->harga;
