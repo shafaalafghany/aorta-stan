@@ -33,7 +33,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <span class="subadge">Passing Grade</span>
+                      <span class="subadge">Skor Minimal</span>
                       <h4 class="mr-3 text-black"><?= $topik['ambang_score'] ?></h4>
                     </td>
                   </tr>
@@ -43,33 +43,10 @@
                       <h4 class="mr-3 text-black"><?= $hasil['hasil'] ?></h4>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <span class="subadge">Status</span>
-                      <h4 class="mr-3 text-black">
-                        <?php if ($hasil['hasil'] < $topik['ambang_score']) {
-                          echo "TIDAK LULUS";
-                        } else {
-                          echo "LULUS";
-                        }?>
-                      </h4>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
               <div class="col-md-12 text-center">
-
-                <?php if ($topik['id_topik_tes'] == 1) { ?>
-                  <?php if (count($hasilSemuaTes) == 1) { ?>
-                    <a href="<?= base_url('User/'); ?>tes_tbi/<?= $user['id'] ?>/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lanjutkan Ke Tes TBI</a>                 
-                  <?php } elseif (count($hasilSemuaTes) == 2) {?>
-                    <a href="<?= base_url('User/'); ?>tes_skd/<?= $user['id'] ?>/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lanjutkan Ke Tes SKD</a>
-                  <?php }?>
-                <?php } elseif ($topik['id_topik_tes'] == 2){
-                  if (count($hasilSemuaTes) == 2) { ?>
-                    <a href="<?= base_url('User/'); ?>tes_skd/<?= $user['id'] ?>/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Lanjutkan Ke Tes SKD</a>
-                  <?php } ?>
-                <?php } ?>
+                <a href="<?= base_url('User/'); ?>proses_leader/<?= $user['id'] ?>/<?= $event['id_event']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kembali ke Leaderboard</a>
               </div>
             </div>
           </div><!-- end -->

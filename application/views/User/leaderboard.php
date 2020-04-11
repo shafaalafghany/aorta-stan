@@ -120,6 +120,16 @@
                         </div>
                       <?php } ?>
                     <?php } ?>
+                    <?php if ($hasilUser['nilai_psikotes'] == null) { ?>
+                      <?php if ($soalPsiko) { ?>
+                        <br>
+                        <div class="text-center">
+                          <h6>Mau Lanjut Psikotes?</h6>
+                          <a class="btn btn-success float-center col-lg" href="<?= base_url('User/tes_detail_psiko/' . $user['id'] . '/' . $event['id_event'] . '/6'); ?>">Lanjut Psikotes</a>
+                          <br>
+                        </div>
+                      <?php } ?>
+                    <?php } ?>
                   </div>
                 </div>
               </div><!-- end -->
@@ -155,6 +165,9 @@
                             <th id="tiu" scope="col">Nilai TIU</th>
                             <th id="tkp" scope="col">Nilai TKP</th>
                             <th scope="col">Nilai Total</th>
+                            <?php if ($soalPsiko) { ?>
+                              <th scope="col">Nilai Psikotes</th>
+                            <?php } ?>
                           </tr>
                         </thead>
                         <tbody>
@@ -181,6 +194,13 @@
                               <td id="tiu"><?= $loadLeader['nilai_tiu']; ?></td>
                               <td id="tkp"><?= $loadLeader['nilai_tkp']; ?></td>
                               <td><?= $loadLeader['nilai_total']; ?></td>
+                              <?php if ($soalPsiko) { ?>
+                                <?php if ($loadLeader['nilai_psikotes'] == null) { ?>
+                                  <td>Belum Mengerjakan</td>
+                                <?php } else { ?>
+                                  <td><?= $loadLeader['nilai_psikotes']; ?></td>
+                                <?php } ?>
+                              <?php } ?>
                             </tr>
                           <?php $i++;
                           } ?>

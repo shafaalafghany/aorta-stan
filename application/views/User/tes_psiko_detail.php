@@ -22,13 +22,7 @@
                 <tbody>
                   <tr>
                     <td>
-                      <span class="subadge">
-                        <?php if ($topik['id_topik_tes'] == 1) {
-                          echo "Tes 1";
-                        } elseif ($topik['id_topik_tes'] == 2) {
-                          echo "Tes 2";
-                        } ?>
-                      </span>
+                      <span class="subadge">Nama Tes</span>
                       <h4 class="mr-3 text-black"><?= $topik['nama_topik_tes'] ?></h4>
                     </td>
                   </tr>
@@ -59,7 +53,7 @@
                 </tbody>
               </table>
               <div class="col-md-12 text-center">
-                  <a href="<?= base_url('User/'); ?>kerjakan_tes/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
+                  <a href="<?= base_url('User/'); ?>kerjakan_tes_psiko/<?= $user['id']; ?>/<?= $event['id_event']; ?>/<?= $topik['id_topik_tes']; ?>" class="btn btn-success" style="width: 100%; height: 100%;" id="mulai_tes">Kerjakan</a>
               </div>
             </div>
           </div><!-- end -->
