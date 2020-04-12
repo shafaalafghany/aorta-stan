@@ -61,7 +61,7 @@ class Soal_model extends CI_model
 	{
 		return $this->db->query("SELECT * from jawaban where id_soal = $id_soal")->result_array();
 	}
-	
+
 	public function getJawabanByIdSoalAndJawaban($id_soal, $id_jawaban)
 	{
 		return $this->db->query("SELECT * from jawaban where id_soal = $id_soal and id_jawaban = $id_jawaban")->row_array();
@@ -70,7 +70,7 @@ class Soal_model extends CI_model
 	public function updateJawaban($id_jawaban, $dataJawaban)
 	{
 		$this->db->set($dataJawaban);
-		$this->db->where('id_jawaban',$id_jawaban);
+		$this->db->where('id_jawaban', $id_jawaban);
 		$this->db->update('jawaban');
 	}
 
@@ -78,7 +78,7 @@ class Soal_model extends CI_model
 	{
 		return $this->db->query("SELECT * from soal where id_event = $id_event and id_skd = $id_topik")->result_array();
 	}
-	
+
 	public function getSoalSKDbyIdLimit1($id_event, $id_topik)
 	{
 		return $this->db->query("SELECT * from soal where id_event = $id_event and id_skd = $id_topik limit 20")->result_array();
@@ -124,7 +124,7 @@ class Soal_model extends CI_model
 		$this->db->where('id_soal', $id_soal);
 		$this->db->delete('soal');
 	}
-	
+
 	public function getSoalByIdLimit1($id_event, $id_topik)
 	{
 		return $this->db->query("SELECT * from soal s where s.id_topik_tes = $id_topik and s.id_event = $id_event limit 20")->result_array();
@@ -139,7 +139,6 @@ class Soal_model extends CI_model
 	{
 		return $this->db->query("SELECT * from soal s where s.id_topik_tes = $id_topik and s.id_event = $id_event limit 20 OFFSET 40")->result_array();
 	}
-	
 	public function getSoalByIdLimit4($id_event, $id_topik)
 	{
 		return $this->db->query("SELECT * from soal s where s.id_topik_tes = $id_topik and s.id_event = $id_event limit 20 OFFSET 60")->result_array();

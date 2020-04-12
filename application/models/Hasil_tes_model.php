@@ -9,13 +9,13 @@ class Hasil_tes_model extends CI_Model
 
     public function getHasil($id, $id_event, $id_topik)
     {
-    	return $this->db->get_where('hasil_tes', [
-    		'id_user' => $id,
-    		'id_event' => $id_event,
-    		'id_topik' => $id_topik
-    	])->row_array();
+        return $this->db->get_where('hasil_tes', [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'id_topik' => $id_topik
+        ])->row_array();
     }
-    
+
     public function getHasilByIdEventTopik($id, $id_event, $id_topik)
     {
         return $this->db->get_where('hasil_tes', [
@@ -25,14 +25,6 @@ class Hasil_tes_model extends CI_Model
         ])->row_array();
     }
 
-    public function getHasilByIdAndEvent($id, $id_event)
-    {
-        return $this->db->get_where('hasil_tes', [
-            'id_user' => $id,
-            'id_event' => $id_event
-        ])->result_array();
-    }
-    
     public function getHasilTwkByIdEvent($id, $id_event)
     {
         return $this->db->get_where('hasil_tes', [
@@ -41,7 +33,7 @@ class Hasil_tes_model extends CI_Model
             'id_topik' => 3
         ])->result_array();
     }
-    
+
     public function getHasilTiuByIdEvent($id, $id_event)
     {
         return $this->db->get_where('hasil_tes', [
@@ -50,7 +42,7 @@ class Hasil_tes_model extends CI_Model
             'id_topik' => 4
         ])->result_array();
     }
-    
+
     public function getHasilTkpByIdEvent($id, $id_event)
     {
         return $this->db->get_where('hasil_tes', [
@@ -104,7 +96,7 @@ class Hasil_tes_model extends CI_Model
             'id_topik' => 5
         ])->row()->hasil;
     }
-    
+
     public function getHasilPsikoByIdAndEvent($id, $id_event)
     {
         return $this->db->select('hasil')->get_where('hasil_tes', [
