@@ -223,7 +223,7 @@
                             <a class="btn btn-warning btn-sm" href="<?= base_url('Administrator/'); ?>tambah_point/<?= $loadMember['id']; ?>">
                               <i class="fas fa-star">
                               </i>
-                              Tambah Point
+                              Atur Point
                             </a>
                             <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>view_peserta/<?= $loadMember['id']; ?>">
                               <i class="fas fa-folder">

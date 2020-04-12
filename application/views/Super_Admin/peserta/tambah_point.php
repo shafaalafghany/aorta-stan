@@ -176,7 +176,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Tambah Point</h1>
+              <h1>Atur Point</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -188,7 +188,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Tambah Point</h3>
+                <h3 class="card-title">Atur Point</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -220,6 +220,11 @@
                     <label for="inputName">Email</label>
                     <input type="textr" id="inputEmail" name="inputEmail" class="form-control" disabled="disabled" value="<?= $member['email']; ?>">
                   </div>
+                  <label for="optionKategori">Pilih Kategori</label>
+                  <select class="custom-select col-md-12 mb-3" id="optionKategori" name="optionKategori">
+                    <option value="1">Tambah Point</option>
+                    <option value="2">Kurangi Point</option>
+                  </select>
                   <div class="form-group">
                     <label for="inputName">Masukkan Point</label>
                     <input type="number" id="inputPoint" name="inputPoint" class="form-control">

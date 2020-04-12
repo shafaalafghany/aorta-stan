@@ -265,7 +265,7 @@
                         ])->row()->jawaban;
                       } elseif ($topik['id_topik_tes'] == 6) {
                         $jwbnBenar = $this->db->select('jawaban')->get_where('jawaban', [
-                          'id_soal' => $soal['id_soal'], 
+                          'id_soal' => $soal['id_soal'],
                           'score' => 1
                         ])->row()->jawaban;
                       } else {
@@ -278,7 +278,7 @@
                         <label for="inputJwbBenar">Jawaban Benar</label>
                         <div class="col-md-12" style="border-style: solid; border-width: 1px;">
                             <?= $jwbnBenar; ?>
-                          </div>
+                        </div>
                       </div>
                       <a href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Mau edit jawaban? Klik disini</a>
                     </div>

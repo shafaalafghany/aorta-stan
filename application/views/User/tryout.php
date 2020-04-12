@@ -17,9 +17,9 @@
     			<div class="col-lg">
     				<div class="row">
     					<?= $this->session->flashdata('message'); ?>
-    					<?php 
-                        $i = 1;
-                        foreach ($event as $loadEvent) : ?>
+    					<?php
+    					$i = 1;
+    					foreach ($event as $loadEvent) : ?>
     						<div class="col-md-12 ftco-animate">
     							<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
     								<div class="one-third mb-4 mb-md-0">
@@ -44,7 +44,7 @@
     								</div>
     							</div>
     						</div><!-- end -->
-    					<?php endforeach; ?>
+    					<?php $i++; endforeach; ?>
     				</div>
     			</div>
     		</div>

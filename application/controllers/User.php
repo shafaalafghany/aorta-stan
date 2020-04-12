@@ -74,6 +74,14 @@ class User extends CI_Controller
         $data['topik_tpa'] = $this->Topik_model->getTopikTPA();
         $data['topik_tbi'] = $this->Topik_model->getTopikTBI();
         $data['topik_skd'] = $this->Topik_model->getTopikSKD();
+        $data['topik_psiko'] = $this->Topik_model->getTopikPsiko();
+        $data['soalPsiko'] = $this->Soal_model->getSoalPsikoByEvent($id_event);
+        
+        if($data['user']){
+            $id_user = $this->db->select('id')->get_where('user', ['username' => $sessionUser])->row()->id;
+            
+            $data['leader'] = $this->hasil->getLeaderboardByIdAndEvent($id_user, $id_event);
+        }
 
         $this->load->view('User/templates/header_tryout', $data);
         $this->load->view('User/event_detail', $data);
@@ -118,7 +126,7 @@ class User extends CI_Controller
 
         redirect('User/pilih_jurusan/' . $id . '/' . $id_event);
     }
-
+    
     public function pilih_jurusan($id, $id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jurusan';
@@ -186,7 +194,7 @@ class User extends CI_Controller
                     ];
                 }
             }
-        } else {
+        } else{
             $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Pilihan pertama tidak boleh kosong!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('User/pilih_jurusan/' . $id . '/' . $id_event);
         }
@@ -354,7 +362,7 @@ class User extends CI_Controller
         if ($sessionUser) {
             if ($id == $userID) {
                 if ($transaksi) {
-                    if ($hasil_tes == null) {
+                    if (count($hasil_tes) == null) {
                         if ($id_topik == 1) {
                             $data['event'] = $this->Event_model->getEventById($id_event);
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
@@ -408,7 +416,7 @@ class User extends CI_Controller
             redirect('User/login');
         }
     }
-
+    
     public function tes_detail_psiko($idUser, $idEvent, $idTopik)
     {
         $nama = $this->Topik_model->getNamaTopikById($idTopik);
@@ -422,29 +430,29 @@ class User extends CI_Controller
             'id_event' => $idEvent
         ])->row_array();
         $userID = $this->User_model->getIdUserByUsername($sessionUser);
-        $leaderboard = $this->Hasil_tes_model->getLeaderboardByIdAndEvent($idUser, $idEvent);
+        $leaderboard = $this->hasil->getLeaderboardByIdAndEvent($idUser, $idEvent);
 
         if ($sessionUser) {
             if ($idUser == $userID) {
                 if ($transaksi) {
-                    if ($hasil_tes == null) {
-                        if ($leaderboard) {
+                    if ($leaderboard) {
+                        if ($leaderboard['nilai_psikotes'] == null) {
                             $data['event'] = $this->Event_model->getEventById($idEvent);
-                            $data['topik'] = $this->Topik_model->getTopikById($idUser);
+                            $data['topik'] = $this->Topik_model->getTopikById($idTopik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($idTopik);
                             $data['topik_skd'] = $this->Topik_model->getTopikSKD();
 
                             $data['judul'] = 'AORTASTAN Try Out Online | ' . $nama;
 
                             $this->load->view('User/templates/header_tes', $data);
-                            $this->load->view('User/tes_detail', $data);
+                            $this->load->view('User/tes_psiko_detail', $data);
                             $this->load->view('User/templates/footer_tes');
-                        } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu seluruh tes sebelumnya!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        } else{
+                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
-                        };
+                        }
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu seluruh tes sebelumnya!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
                 } else {
@@ -469,6 +477,7 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
         $hasil_tes = $this->hasil->getHasilByIdAndEvent($id, $id_event);
+        $hasil_tes_topik = $this->hasil->getHasilByIdEventTopik($id, $id_event, $id_topik);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
             'id_event' => $id_event
@@ -477,75 +486,80 @@ class User extends CI_Controller
         if ($sessionUser) {
             if ($id == $userID) {
                 if ($transaksi) {
-                    if ($hasil_tes == null) {
-                        if ($id_topik == 1) {
-                            $data['event'] = $this->Event_model->getEventById($id_event);
-                            $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-                            $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-                            $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
-                            $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($id_event, $id_topik);
-                            $data['soal2'] = $this->Soal_model->getSoalByIdLimit2($id_event, $id_topik);
-                            $data['soal3'] = $this->Soal_model->getSoalByIdLimit3($id_event, $id_topik);
-
-                            $waktudaftar = time();
-
-                            $dataTransaksi = [
-                                'id_topik' => $id_topik,
-                                'id_event' => $id_event,
-                                'id_user' => $id,
-                                'waktu_daftar' => $waktudaftar
-                            ];
-                            $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
-
-                            $this->session->unset_userdata('id_event');
-                            $this->session->unset_userdata('id_topik');
-                            $this->session->unset_userdata('id_user');
-                            $this->session->unset_userdata('waktu_daftar');
-
-                            $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
-
-                            $this->load->view('User/templates/header_tes', $data);
-                            $this->load->view('User/tes/kerjakan_tes', $data);
-                            $this->load->view('User/templates/footer_tes');
-                        } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                            redirect('User/tryout');
-                        };
-                    } elseif (count($hasil_tes) == 1) {
-                        if ($id_topik == 2) {
-                            $data['event'] = $this->Event_model->getEventById($id_event);
-                            $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-                            $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
-                            $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
-                            $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($id_event, $id_topik);
-
-                            $waktudaftar = time();
-
-                            $dataTransaksi = [
-                                'id_topik' => $id_topik,
-                                'id_event' => $id_event,
-                                'id_user' => $id,
-                                'waktu_daftar' => $waktudaftar
-                            ];
-                            $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
-
-                            $this->session->unset_userdata('id_event');
-                            $this->session->unset_userdata('id_topik');
-                            $this->session->unset_userdata('id_user');
-                            $this->session->unset_userdata('waktu_daftar');
-
-                            $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
-
-                            $this->load->view('User/templates/header_tes', $data);
-                            $this->load->view('User/tes/kerjakan_tes', $data);
-                            $this->load->view('User/templates/footer_tes');
-                        } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TBI!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                            redirect('User/tryout');
-                        }
-                    } else {
+                    if($hasil_tes_topik){
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        redirect('User/tryout');
+                        redirect('User/event/' . $id_event);
+                    } else {
+                        if (count($hasil_tes) == null) {
+                            if ($id_topik == 1) {
+                                $data['event'] = $this->Event_model->getEventById($id_event);
+                                $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                                $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                                $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
+                                $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($id_event, $id_topik);
+                                $data['soal2'] = $this->Soal_model->getSoalByIdLimit2($id_event, $id_topik);
+                                $data['soal3'] = $this->Soal_model->getSoalByIdLimit3($id_event, $id_topik);
+    
+                                $waktudaftar = time();
+    
+                                $dataTransaksi = [
+                                    'id_topik' => $id_topik,
+                                    'id_event' => $id_event,
+                                    'id_user' => $id,
+                                    'waktu_daftar' => $waktudaftar
+                                ];
+                                $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+    
+                                $this->session->unset_userdata('id_event');
+                                $this->session->unset_userdata('id_topik');
+                                $this->session->unset_userdata('id_user');
+                                $this->session->unset_userdata('waktu_daftar');
+    
+                                $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+    
+                                $this->load->view('User/templates/header_tes', $data);
+                                $this->load->view('User/tes/kerjakan_tes', $data);
+                                $this->load->view('User/templates/footer_tes');
+                            } else {
+                                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TPA!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                                redirect('User/event/' . $id_event);
+                            };
+                        } elseif (count($hasil_tes) == 1) {
+                            if ($id_topik == 2) {
+                                $data['event'] = $this->Event_model->getEventById($id_event);
+                                $data['topik'] = $this->Topik_model->getTopikById($id_topik);
+                                $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
+                                $data['soal'] = $this->Soal_model->getSoalById($id_event, $id_topik);
+                                $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($id_event, $id_topik);
+    
+                                $waktudaftar = time();
+    
+                                $dataTransaksi = [
+                                    'id_topik' => $id_topik,
+                                    'id_event' => $id_event,
+                                    'id_user' => $id,
+                                    'waktu_daftar' => $waktudaftar
+                                ];
+                                $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+    
+                                $this->session->unset_userdata('id_event');
+                                $this->session->unset_userdata('id_topik');
+                                $this->session->unset_userdata('id_user');
+                                $this->session->unset_userdata('waktu_daftar');
+    
+                                $data['transaksi'] = $this->Kerjakan_model->getKerjakan($id_event, $id_topik, $id);
+    
+                                $this->load->view('User/templates/header_tes', $data);
+                                $this->load->view('User/tes/kerjakan_tes', $data);
+                                $this->load->view('User/templates/footer_tes');
+                            } else {
+                                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu tes TBI!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                                redirect('User/event/' . $id_event);
+                            }
+                        } else {
+                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                            redirect('User/event/' . $id_event);
+                        }
                     }
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar di event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
@@ -560,7 +574,7 @@ class User extends CI_Controller
             redirect('User/login');
         }
     }
-
+    
     public function kerjakan_tes_psiko($idUser, $idEvent, $idTopik)
     {
         $nama = $this->Topik_model->getNamaTopikById($idTopik);
@@ -568,53 +582,60 @@ class User extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
 
-        $hasil_tes = $this->hasil->getHasilByIdAndEvent($idUser, $idTopik);
+        $hasil_tes_topik = $this->hasil->getHasilByIdEventTopik($idUser, $idEvent, $idTopik);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $idUser,
             'id_event' => $idEvent
         ])->row_array();
         $userID = $this->User_model->getIdUserByUsername($sessionUser);
-        $leaderboard = $this->Hasil_tes_model->getLeaderboardByIdAndEvent($idUser, $idEvent);
+        $leaderboard = $this->hasil->getLeaderboardByIdAndEvent($idUser, $idEvent);
 
         if ($sessionUser) {
             if ($idUser == $userID) {
                 if ($transaksi) {
-                    if ($hasil_tes == null) {
-                        if ($leaderboard) {
-                            $data['event'] = $this->Event_model->getEventById($idEvent);
-                            $data['topik'] = $this->Topik_model->getTopikById($idTopik);
-                            $data['topik_rule'] = $this->Topik_model->getRuleTopikById($idTopik);
-                            $data['soal'] = $this->Soal_model->getSoalById($idEvent, $idTopik);
-                            $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($idEvent, $idTopik);
-                            $data['soal2'] = $this->Soal_model->getSoalByIdLimit2($idEvent, $idTopik);
-                            $data['soal3'] = $this->Soal_model->getSoalByIdLimit3($idEvent, $idTopik);
-
-                            $waktudaftar = time();
-
-                            $dataTransaksi = [
-                                'id_topik' => $idTopik,
-                                'id_event' => $idEvent,
-                                'id_user' => $idUser,
-                                'waktu_daftar' => $waktudaftar
-                            ];
-                            $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
-
-                            $this->session->unset_userdata('id_event');
-                            $this->session->unset_userdata('id_topik');
-                            $this->session->unset_userdata('id_user');
-                            $this->session->unset_userdata('waktu_daftar');
-
-                            $data['transaksi'] = $this->Kerjakan_model->getKerjakan($idEvent, $idTopik, $idUser);
-
-                            $this->load->view('User/templates/header_tes', $data);
-                            $this->load->view('User/tes/kerjakan_tes', $data);
-                            $this->load->view('User/templates/footer_tes');
-                        } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu seluruh tes sebelumnya!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    if ($leaderboard) {
+                        if ($hasil_tes_topik) {
+                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
-                        };
+                        } else {
+                            if ($leaderboard['nilai_psikotes'] == null) {
+                                $data['event'] = $this->Event_model->getEventById($idEvent);
+                                $data['topik'] = $this->Topik_model->getTopikById($idTopik);
+                                $data['topik_rule'] = $this->Topik_model->getRuleTopikById($idTopik);
+                                $data['soal'] = $this->Soal_model->getSoalById($idEvent, $idTopik);
+                                $data['soal1'] = $this->Soal_model->getSoalByIdLimit1($idEvent, $idTopik);
+                                $data['soal2'] = $this->Soal_model->getSoalByIdLimit2($idEvent, $idTopik);
+                                $data['soal3'] = $this->Soal_model->getSoalByIdLimit3($idEvent, $idTopik);
+                                $data['soal4'] = $this->Soal_model->getSoalByIdLimit3($idEvent, $idTopik);
+                                $data['soal5'] = $this->Soal_model->getSoalByIdLimit3($idEvent, $idTopik);
+
+                                $waktudaftar = time();
+
+                                $dataTransaksi = [
+                                    'id_topik' => $idTopik,
+                                    'id_event' => $idEvent,
+                                    'id_user' => $idUser,
+                                    'waktu_daftar' => $waktudaftar
+                                ];
+                                $this->Kerjakan_model->sessionKerjakan($dataTransaksi);
+
+                                $this->session->unset_userdata('id_event');
+                                $this->session->unset_userdata('id_topik');
+                                $this->session->unset_userdata('id_user');
+                                $this->session->unset_userdata('waktu_daftar');
+
+                                $data['transaksi'] = $this->Kerjakan_model->getKerjakan($idEvent, $idTopik, $idUser);
+
+                                $this->load->view('User/templates/header_tes', $data);
+                                $this->load->view('User/tes/kerjakan_psikotes', $data);
+                                $this->load->view('User/templates/footer_tes');
+                            } else {
+                                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                                redirect('User/tryout');
+                            }
+                        }
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan dulu seluruh tes sebelumnya!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
                 } else {
@@ -635,29 +656,43 @@ class User extends CI_Controller
     {
         $this->load->model('Kerjakan_model', 'kerjakan');
         $jawaban = $_POST;
-        $dataJawaban = [
-            'id_user' => $jawaban['idp'],
-            'id_topik' => $jawaban['topik'],
-            'id_event' => $jawaban['eve'],
-            'id_soal' => $jawaban['soal'],
-            'id_jawaban' => $jawaban['jwb']
-        ];
-        $this->kerjakan->jawabsoal($dataJawaban);
+        $hasil_tes_topik = $this->hasil->getHasilByIdEventTopik($jawaban['idp'], $jawaban['eve'], $jawaban['topik']);
+        
+        if($hasil_tes_topik){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/event/' . $jawaban['eve']);
+        } else {
+            $dataJawaban = [
+                'id_user' => $jawaban['idp'],
+                'id_topik' => $jawaban['topik'],
+                'id_event' => $jawaban['eve'],
+                'id_soal' => $jawaban['soal'],
+                'id_jawaban' => $jawaban['jwb']
+            ];
+            $this->kerjakan->jawabsoal($dataJawaban);
+        }
     }
 
     public function ragu()
     {
         $this->load->model('Kerjakan_model', 'kerjakan');
         $klikRagu = $_POST;
-        $dataRagu = [
-            'id_user' => $klikRagu['idp'],
-            'id_topik' => $klikRagu['topik'],
-            'id_event' => $klikRagu['eve'],
-            'id_soal' => $klikRagu['soal'],
-            'btn_ragu' => $klikRagu['ragu']
-        ];
-        $this->kerjakan->klikragu($dataRagu);
-        return true;
+        $hasil_tes_topik = $this->hasil->getHasilByIdEventTopik($klikRagu['idp'], $klikRagu['eve'], $klikRagu['topik']);
+        
+        if($hasil_tes_topik){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/event/' . $klikRagu['eve']);
+        } else {
+            $dataRagu = [
+                'id_user' => $klikRagu['idp'],
+                'id_topik' => $klikRagu['topik'],
+                'id_event' => $klikRagu['eve'],
+                'id_soal' => $klikRagu['soal'],
+                'btn_ragu' => $klikRagu['ragu']
+            ];
+            $this->kerjakan->klikragu($dataRagu);
+            return true;
+        }
     }
 
     public function testimoni()
@@ -699,6 +734,7 @@ class User extends CI_Controller
     public function koreksi($id, $id_event, $id_topik)
     {
         $dataJawaban = $this->Kerjakan_model->koreksi($id, $id_event, $id_topik);
+        $hasil_tes_topik = $this->hasil->getHasilByIdEventTopik($id, $id_event, $id_topik);
 
         $total_benar = 0;
         foreach ($dataJawaban as $jawab) {
@@ -712,14 +748,19 @@ class User extends CI_Controller
             'hasil' => $total_benar
         ];
 
-        $this->hasil->insertHasil($dataHasil);
+        if($hasil_tes_topik){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/event/' . $id_event);
+        } else{
+            $this->hasil->insertHasil($dataHasil);
 
-        $this->Kerjakan_model->hapuscache($id, $id_topik, $id_event);
-
-        if ($id_topik == 6) {
-            redirect('User/hasil_tes_psiko/' . $id . '/' . $id_event . '/' . $id_topik);
-        } else {
-            redirect('User/hasil_tes/' . $id . '/' . $id_event . '/' . $id_topik);
+            $this->Kerjakan_model->hapuscache($id, $id_topik, $id_event);
+    
+            if ($id_topik == 6) {
+                redirect('User/hasil_tes_psiko/' . $id . '/' . $id_event . '/' . $id_topik);
+            } else {
+                redirect('User/hasil_tes/' . $id . '/' . $id_event . '/' . $id_topik);
+            }
         }
     }
 
@@ -728,54 +769,61 @@ class User extends CI_Controller
         $jawabanTwk = $this->Kerjakan_model->koreksiTwk($id, $id_event);
         $jawabanTiu = $this->Kerjakan_model->koreksiTiu($id, $id_event);
         $jawabanTkp = $this->Kerjakan_model->koreksiTkp($id, $id_event);
+        $hasil_tes_twk = $this->hasil->getHasilTwkByIdEvent($id, $id_event);
+        $hasil_tes_tiu = $this->hasil->getHasilTiuByIdEvent($id, $id_event);
+        $hasil_tes_tkp = $this->hasil->getHasilTkpByIdEvent($id, $id_event);
 
 
-
-        $total_benar_twk = 0;
-        foreach ($jawabanTwk as $jawabTwk) {
-            $total_benar_twk = $total_benar_twk + $jawabTwk['score'];
+        if($hasil_tes_twk || $hasil_tes_tiu || $hasil_tes_tkp){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda sudah melakukan tes tersebut!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('User/event/' . $id_event);
+        } else{
+            $total_benar_twk = 0;
+            foreach ($jawabanTwk as $jawabTwk) {
+                $total_benar_twk = $total_benar_twk + $jawabTwk['score'];
+            }
+            $dataHasilTwk = [
+                'id_topik' => 3,
+                'id_event' => $id_event,
+                'id_user' => $id,
+                'hasil' => $total_benar_twk
+            ];
+            $this->hasil->insertHasil($dataHasilTwk);
+            $this->Kerjakan_model->hapuscachetwk($id, $id_event);
+    
+    
+    
+            $total_benar_tiu = 0;
+            foreach ($jawabanTiu as $jawabTiu) {
+                $total_benar_tiu = $total_benar_tiu + $jawabTiu['score'];
+            }
+            $dataHasilTiu = [
+                'id_topik' => 4,
+                'id_event' => $id_event,
+                'id_user' => $id,
+                'hasil' => $total_benar_tiu
+            ];
+    
+            $this->hasil->insertHasil($dataHasilTiu);
+            $this->Kerjakan_model->hapuscachetiu($id, $id_event);
+    
+    
+    
+            $total_benar_tkp = 0;
+            foreach ($jawabanTkp as $jawabTkp) {
+                $total_benar_tkp = $total_benar_tkp + $jawabTkp['score'];
+            }
+            $dataHasilTiu = [
+                'id_topik' => 5,
+                'id_event' => $id_event,
+                'id_user' => $id,
+                'hasil' => $total_benar_tkp
+            ];
+            $this->hasil->insertHasil($dataHasilTiu);
+            $this->Kerjakan_model->hapuscachetkp($id, $id_event);
+    
+            redirect('User/hasil_skd/' . $id . '/' . $id_event . '/' . $id_topik);
         }
-        $dataHasilTwk = [
-            'id_topik' => 3,
-            'id_event' => $id_event,
-            'id_user' => $id,
-            'hasil' => $total_benar_twk
-        ];
-        $this->hasil->insertHasil($dataHasilTwk);
-        $this->Kerjakan_model->hapuscachetwk($id, $id_event);
-
-
-
-        $total_benar_tiu = 0;
-        foreach ($jawabanTiu as $jawabTiu) {
-            $total_benar_tiu = $total_benar_tiu + $jawabTiu['score'];
-        }
-        $dataHasilTiu = [
-            'id_topik' => 4,
-            'id_event' => $id_event,
-            'id_user' => $id,
-            'hasil' => $total_benar_tiu
-        ];
-
-        $this->hasil->insertHasil($dataHasilTiu);
-        $this->Kerjakan_model->hapuscachetiu($id, $id_event);
-
-
-
-        $total_benar_tkp = 0;
-        foreach ($jawabanTkp as $jawabTkp) {
-            $total_benar_tkp = $total_benar_tkp + $jawabTkp['score'];
-        }
-        $dataHasilTiu = [
-            'id_topik' => 5,
-            'id_event' => $id_event,
-            'id_user' => $id,
-            'hasil' => $total_benar_tkp
-        ];
-        $this->hasil->insertHasil($dataHasilTiu);
-        $this->Kerjakan_model->hapuscachetkp($id, $id_event);
-
-        redirect('User/hasil_skd/' . $id . '/' . $id_event . '/' . $id_topik);
     }
 
     public function hasil_tes($id, $id_event, $id_topik)
@@ -793,7 +841,7 @@ class User extends CI_Controller
             if ($id == $userID) {
                 if ($transaksi) {
                     if ($hasil_tes > 0) {
-                        if ($id_topik > 0 && $id_topik <= 2) {
+                        if ($id_topik == 1 || $id_topik == 2) {
                             $data['event'] = $this->Event_model->getEventById($id_event);
                             $data['topik'] = $this->Topik_model->getTopikById($id_topik);
                             $data['topik_rule'] = $this->Topik_model->getRuleTopikById($id_topik);
@@ -878,39 +926,45 @@ class User extends CI_Controller
             redirect('User/login');
         }
     }
-
+    
     public function hasil_tes_psiko($idUser, $idEvent, $idTopik)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Tes Psikotes';
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $hasil_tes = $this->hasil->getHasilByIdAndEvent($idUser, $idEvent);
+        $hasil_tes = $this->hasil->getHasilByIdEventTopik($idUser, $idEvent, $idTopik);
         $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $idUser,
             'id_event' => $idEvent
         ])->row_array();
         $userID = $this->User_model->getIdUserByUsername($sessionUser);
+        $leaderboard = $this->hasil->getLeaderboardByIdAndEvent($idUser, $idEvent);
 
         if ($sessionUser) {
             if ($idUser == $userID) {
                 if ($transaksi) {
-                    if ($hasil_tes == 6) {
-                        if ($idTopik == 6) {
-                            $data['event'] = $this->Event_model->getEventById($idEvent);
-                            $data['topik'] = $this->Topik_model->getTopikById($idTopik);
-                            $data['topik_rule'] = $this->Topik_model->getRuleTopikById($idTopik);
-                            $data['hasil'] = $this->hasil->getHasil($idUser, $idEvent, $idTopik);
-                            $data['hasilSemuaTes'] = $this->hasil->getHasilByIdAndEvent($idUser, $idEvent);
+                    if ($leaderboard) {
+                        if ($hasil_tes) {
+                            if ($idTopik == 6) {
+                                $data['event'] = $this->Event_model->getEventById($idEvent);
+                                $data['topik'] = $this->Topik_model->getTopikById($idTopik);
+                                $data['topik_rule'] = $this->Topik_model->getRuleTopikById($idTopik);
+                                $data['hasil'] = $this->hasil->getHasil($idUser, $idEvent, $idTopik);
+                                $data['hasilSemuaTes'] = $this->hasil->getHasilByIdAndEvent($idUser, $idEvent);
 
-                            $this->load->view('User/templates/header_tes', $data);
-                            $this->load->view('User/hasil_tes', $data);
-                            $this->load->view('User/templates/footer_tes');
+                                $this->load->view('User/templates/header_tes', $data);
+                                $this->load->view('User/hasil_tes_psiko', $data);
+                                $this->load->view('User/templates/footer_tes');
+                            } else {
+                                $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Halaman tidak ditemukan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                                redirect('User/tryout');
+                            }
                         } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Halaman tidak ditemukan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan tes psiko dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         }
                     } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum memiliki hasil pada tes tersebut</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan tes-tes sebelumnya dulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/tryout');
                     }
                 } else {
@@ -959,23 +1013,23 @@ class User extends CI_Controller
             $username = $this->input->post('username');
 
             $this->load->helper('file');
-
+        
             $image = $this->db->select('image')->get_where('user', ['username' => $username])->row()->image;
-
-            if ($image != "default.png") {
-                $path = './assets/img/profile/' . $image;
+            
+            if($image != "default.png"){
+                $path = './assets/img/profile/' . $image ;
                 unlink($path);
-
+                
                 $upload_image = $_FILES['image']['name'];
-
+        
                 if ($upload_image) {
                     $config['upload_path'] = './assets/img/profile/';
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = 2048;
                     $config['overwrite'] = true;
-
+        
                     $this->load->library('upload', $config);
-
+        
                     if ($this->upload->do_upload('image')) {
                         $new_image = $this->upload->data('file_name');
                         $this->db->set('image', $new_image);
@@ -983,18 +1037,19 @@ class User extends CI_Controller
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-10" style="margin-left: 8%;" role="alert"><strong>Maaf gambar tidak sesuai ketentuan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('User/profile_saya');
                     }
-                }
-            } else {
+                }   
+            }
+            else{
                 $upload_image = $_FILES['image']['name'];
-
+    
                 if ($upload_image) {
                     $config['upload_path'] = './assets/img/profile/';
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = 2048;
                     $config['overwrite'] = true;
-
+        
                     $this->load->library('upload', $config);
-
+        
                     if ($this->upload->do_upload('image')) {
                         $new_image = $this->upload->data('file_name');
                         $this->db->set('image', $new_image);
@@ -1094,7 +1149,7 @@ class User extends CI_Controller
                 redirect('User/login');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf akun belum terdaftar!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maaf akun belum terdaftar! Silahkan daftar terlebih dahulu.</div>');
             redirect('User/login');
         }
     }
@@ -1154,12 +1209,12 @@ class User extends CI_Controller
 
             $result = $this->_sendEmail($token, 'verify');
 
-            if ($result) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun <b>dalam 24 jam</b>. Jika tidak ada pada inbox anda coba cek pada spam.</div>');
+            if($result){
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun <b>dalam 24 jam</b>. Jika tidak ada pada inbox anda coba cek pada spam.</div>');    
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun. Jika tidak ada pada inbox anda coba cek pada spam. Jika dalam 1 jam tidak ada email verifikasi akun silahkan kontak admin dengan menyertakan email anda.</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat! Silahkan cek email anda untuk verifikasi akun <b>dalam 24 jam</b>. Jika tidak ada pada inbox anda coba cek pada spam. Jika dalam 1 jam tidak ada email verifikasi akun silahkan kontak admin dengan menyertakan email anda.</div>');
             }
-
+            
             redirect('User/login');
         }
     }
@@ -1175,7 +1230,7 @@ class User extends CI_Controller
         $config['protocol'] = 'smtp';
         $config['smtp_crypto'] = 'ssl';
         $config['smtp_host'] = 'sylveon.rapidplex.com';
-        $config['smtp_user'] = 'admin@aortastan.com';
+        $config['smtp_user'] = 'adminaorta@aortastan.com';
         $config['smtp_pass'] = 'AortaStan123';
         $config['smtp_port'] = 465;
         $config['mailtype'] = 'html';
@@ -1184,7 +1239,7 @@ class User extends CI_Controller
         $this->email->initialize($config);
         $this->email->set_newline("\r\n");
 
-        $this->email->from('admin@aortastan.com', 'Aortastan.com');
+        $this->email->from('adminaorta@aortastan.com', 'Aortastan.com');
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {
@@ -1327,38 +1382,96 @@ class User extends CI_Controller
 
     public function proses_leader($id, $id_event)
     {
-        $tpa = $this->hasil->getHasilTpaByIdAndEvent($id, $id_event);
-        $tbi = $this->hasil->getHasilTbiByIdAndEvent($id, $id_event);
-        $twk = $this->hasil->getHasilTwkByIdAndEvent($id, $id_event);
-        $tiu = $this->hasil->getHasilTiuByIdAndEvent($id, $id_event);
-        $tkp = $this->hasil->getHasilTkpByIdAndEvent($id, $id_event);
-        $skd = $twk + $tiu + $tkp;
-        $total = $tpa + $tbi + $skd;
-
-        $status = "";
-        if ($tpa >= 67 && $tbi >= 30 && $twk >= 65 && $tiu >= 80 && $tkp >= 126 && $skd >= 271) {
-            $status = "LULUS";
-        } else {
-            $status = "TIDAK LULUS";
-        }
-
-        $dataLeader = [
+        $transaksi = $this->db->get_where('transaksi_user', [
             'id_user' => $id,
-            'id_event' => $id_event,
-            'nilai_tpa' => $tpa,
-            'nilai_tbi' => $tbi,
-            'nilai_twk' => $twk,
-            'nilai_tiu' => $tiu,
-            'nilai_tkp' => $tkp,
-            'nilai_skd' => $skd,
-            'nilai_total' => $total,
-            'status' => $status
-        ];
-        $this->hasil->insertLeader($dataLeader);
-
-        redirect('User/leaderboard/' . $id . '/' . $id_event);
+            'id_event' => $id_event
+        ])->row_array();
+        $hasil_tes_psiko = $this->hasil->getHasilByIdEventTopik($id, $id_event, 6);
+        
+        if($transaksi){
+            if ($hasil_tes_psiko) {
+                $psiko = $this->hasil->getHasilPsikoByIdAndEvent($id, $id_event);
+                $dataPsiko = [
+                    'nilai_psikotes' => $psiko
+                ];
+                $nilai_psiko = $this->db->select('nilai_psikotes')->get_where('leaderboard', [
+                    'id_user' => $id,
+                    'id_event' => $id_event
+                ])->row()->nilai_psikotes;
+                if ($nilai_psiko == null) {
+                    $this->db->set($dataPsiko);
+                    $this->db->where('id_user', $id);
+                    $this->db->where('id_event', $id_event);
+                    $this->db->update('leaderboard');
+                }
+            }
+            $tpa = $this->hasil->getHasilTpaByIdAndEvent($id, $id_event);
+            $tbi = $this->hasil->getHasilTbiByIdAndEvent($id, $id_event);
+            $twk = $this->hasil->getHasilTwkByIdAndEvent($id, $id_event);
+            $tiu = $this->hasil->getHasilTiuByIdAndEvent($id, $id_event);
+            $tkp = $this->hasil->getHasilTkpByIdAndEvent($id, $id_event);
+            
+            if($tpa == null){
+                $tpa = 0;
+            }
+            
+            if($tbi == null){
+                $tbi = 0;
+            }
+            
+            if($twk == null){
+                $twk = 0;
+            }
+            
+            if($tiu == null){
+                $tiu = 0;
+            }
+            
+            if($tkp == null){
+                $tkp = 0;
+            }
+            
+            $skd = $twk + $tiu + $tkp;
+            $total = $tpa + $tbi + $skd;
+    
+            $status = "";
+            if ($tpa >= 67 && $tbi >= 30 && $twk >= 65 && $tiu >= 80 && $tkp >= 126 && $skd >= 271) {
+                $status = "LULUS";
+            } else {
+                $status = "TIDAK LULUS";
+            }
+    
+            $dataLeader = [
+                'id_user' => $id,
+                'id_event' => $id_event,
+                'nilai_tpa' => $tpa,
+                'nilai_tbi' => $tbi,
+                'nilai_twk' => $twk,
+                'nilai_tiu' => $tiu,
+                'nilai_tkp' => $tkp,
+                'nilai_skd' => $skd,
+                'nilai_total' => $total,
+                'status' => $status
+            ];
+            $this->hasil->insertLeader($dataLeader);
+                
+            $getEventJawaban = $this->db->get_where('event_jawaban', [
+                'id_user' => $id,
+                'id_event' => $id_event
+            ])->result_array();
+            
+            if($getEventJawaban){
+                $this->db->where('id_user', $id);
+                $this->db->where('id_event', $id_event);
+                $this->db->delete('event_jawaban');
+            }
+    
+            redirect('User/leaderboard/' . $id . '/' . $id_event);   
+        } else {
+            redirect('User/leaderboard/' . $id . '/' . $id_event);
+        }
     }
-
+    
     public function open_pembahasan($id_event)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | Pembahasan';
@@ -1384,26 +1497,38 @@ class User extends CI_Controller
             'id_user' => $id,
             'id_event' => $id_event
         ])->row_array();
+        $cekMulai = $this->db->select('tgl_mulai')->get_where('event', ['id_event' => $id_event])->row()->tgl_mulai;
+        $cekAkhir = $this->db->select('tgl_akhir')->get_where('event', ['id_event' => $id_event])->row()->tgl_akhir;
+        $waktuSekarang = date("Y-m-d");
+        $leaderEvent = $this->hasil->getLeaderboardByIdAndEvent($id, $id_event);
         $userID = $this->User_model->getIdUserByUsername($sessionUser);
+        $data['soalPsiko'] = $this->Soal_model->getSoalPsikoByEvent($id_event);
         if ($sessionUser) {
             if ($id == $userID) {
                 if ($transaksi) {
-                    if (count($hasil_tes) == 5) {
-                        if ($data['hasilUser']) {
+                    if($leaderEvent){
+                        $this->load->view('User/templates/header_tryout', $data);
+                        $this->load->view('User/leaderboard');
+                        $this->load->view('User/templates/footer');
+                    } else{
+                        if (count($hasil_tes) == 5) {
                             $this->load->view('User/templates/header_tryout', $data);
                             $this->load->view('User/leaderboard');
                             $this->load->view('User/templates/footer');
                         } else {
-                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Maaf data anda tidak ada! Silahkan klik Lihat Leaderboard pada halaman Event Detail.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan tes TPA, TBI, dan SKD terlebih dahulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                             redirect('User/tryout');
                         }
-                    } else {
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Selesaikan tes TPA, TBI, dan SKD terlebih dahulu!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        redirect('User/tryout');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar dalam event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    redirect('User/tryout');
+                    if($cekAkhir<=$waktuSekarang){
+                        $this->load->view('User/templates/header_tryout', $data);
+                        $this->load->view('User/leaderboard');
+                        $this->load->view('User/templates/footer');
+                    } else{
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda belum terdaftar dalam event ini!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        redirect('User/tryout');   
+                    }
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12 text-center" role="alert"><strong>Anda tidak memiliki akses untuk kesana!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');

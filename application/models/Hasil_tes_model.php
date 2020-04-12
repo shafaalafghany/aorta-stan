@@ -9,6 +9,15 @@ class Hasil_tes_model extends CI_Model
 
     public function getHasil($id, $id_event, $id_topik)
     {
+    	return $this->db->get_where('hasil_tes', [
+    		'id_user' => $id,
+    		'id_event' => $id_event,
+    		'id_topik' => $id_topik
+    	])->row_array();
+    }
+    
+    public function getHasilByIdEventTopik($id, $id_event, $id_topik)
+    {
         return $this->db->get_where('hasil_tes', [
             'id_user' => $id,
             'id_event' => $id_event,
@@ -21,6 +30,33 @@ class Hasil_tes_model extends CI_Model
         return $this->db->get_where('hasil_tes', [
             'id_user' => $id,
             'id_event' => $id_event
+        ])->result_array();
+    }
+    
+    public function getHasilTwkByIdEvent($id, $id_event)
+    {
+        return $this->db->get_where('hasil_tes', [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'id_topik' => 3
+        ])->result_array();
+    }
+    
+    public function getHasilTiuByIdEvent($id, $id_event)
+    {
+        return $this->db->get_where('hasil_tes', [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'id_topik' => 4
+        ])->result_array();
+    }
+    
+    public function getHasilTkpByIdEvent($id, $id_event)
+    {
+        return $this->db->get_where('hasil_tes', [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'id_topik' => 5
         ])->result_array();
     }
 
@@ -68,6 +104,15 @@ class Hasil_tes_model extends CI_Model
             'id_topik' => 5
         ])->row()->hasil;
     }
+    
+    public function getHasilPsikoByIdAndEvent($id, $id_event)
+    {
+        return $this->db->select('hasil')->get_where('hasil_tes', [
+            'id_user' => $id,
+            'id_event' => $id_event,
+            'id_topik' => 6
+        ])->row()->hasil;
+    }
 
     // Leaderboard
     public function insertLeader($data)
@@ -85,7 +130,7 @@ class Hasil_tes_model extends CI_Model
 
     public function getLeaderboardByEvent($id_event)
     {
-        $query = $this->db->query("SELECT * from leaderboard l where l.id_event = $id_event order by l.nilai_total DESC, l.status ASC");
+        $query = $this->db->query("SELECT * from leaderboard l where l.id_event = $id_event order by l.status ASC, l.nilai_total DESC");
         return $query->result_array();
     }
 

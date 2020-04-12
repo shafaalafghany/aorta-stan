@@ -107,7 +107,7 @@
 
 	};
 	carousel();
-
+	
 	$('nav .dropdown').click(function(){
 	    console.log('Udah diklik nihh');
         var $this = $(this);
@@ -123,32 +123,6 @@
           console.log('Masuk else nihh');
         }
      });
-
-	/*$('nav .dropdown').on('click', function(){
-		var $this = $(this);
-		// 	 timer;
-		// clearTimeout(timer);
-		$('.navbar-toggler').removeClass('collapsed');
-		$('.navbar-toggler').attr('aria-expanded', true);
-		$('.navbar-collapse').addClass('show');
-		$this.addClass('show');
-		$('.nav-link').attr('aria-expanded', true);
-		// $this.find('.dropdown-menu').addClass('animated-fast fadeInUp show');
-		$('.dropdown-menu').addClass('show');
-	}, function(){
-		var $this = $(this);
-			// timer;
-		// timer = setTimeout(function(){
-		$('.navbar-toggler').addClass('collapsed');
-		$('.navbar-toggler').attr('aria-expanded', false);
-		$('.navbar-collapse').removeClass('show');
-		$this.removeClass('show');
-		$('.nav-link').attr('aria-expanded', false);
-		// $this.find('.dropdown-menu').removeClass('animated-fast fadeInUp show');
-		$('.dropdown-menu').removeClass('show');
-		// }, 100);
-	});*/
-
 
 	$('#dropdown04').on('show.bs.dropdown', function () {
 	  console.log('show');
@@ -193,27 +167,6 @@
 		});
 	};
 	scrollWindow();
-
-	var isMobile = {
-		Android: function() {
-			return navigator.userAgent.match(/Android/i);
-		},
-			BlackBerry: function() {
-			return navigator.userAgent.match(/BlackBerry/i);
-		},
-			iOS: function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-		},
-			Opera: function() {
-			return navigator.userAgent.match(/Opera Mini/i);
-		},
-			Windows: function() {
-			return navigator.userAgent.match(/IEMobile/i);
-		},
-			any: function() {
-			return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-		}
-	};
 
 	var counter = function() {
 		
@@ -292,10 +245,6 @@
 		    window.location.hash = hash;
 		  });
 
-
-		  /*if ( navToggler.is(':visible') ) {
-		  	navToggler.click();
-		  }*/
 		});
 		$('body').on('activate.bs.scrollspy', function () {
 		  console.log('nice');

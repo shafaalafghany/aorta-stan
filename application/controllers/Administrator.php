@@ -68,6 +68,7 @@ class Administrator extends CI_Controller
         $optionEvent = $this->input->post('optionEvent');
         $data['event'] = $this->Event_model->getEventById($optionEvent);
         $data['leader'] = $this->Hasil_tes_model->getLeaderboardByEvent($optionEvent);
+        $data['soalPsiko'] = $this->Soal_model->getSoalPsikoByEvent($optionEvent);
 
         $data['judul'] = 'AORTASTAN Try Out Online | Leaderboard';
         $this->load->view('Super_Admin/templates/header_admin', $data);
@@ -81,6 +82,7 @@ class Administrator extends CI_Controller
 
         $data['event'] = $this->Event_model->getEventById($id_event);
         $data['leader'] = $this->Hasil_tes_model->getLeaderboardByIdLeader($id_leaderboard);
+        $data['soalPsiko'] = $this->Soal_model->getSoalPsikoByEvent($id_event);
 
         $data['judul'] = 'AORTASTAN Try Out Online | Leaderboard Detail';
         $this->load->view('Super_Admin/templates/header_admin', $data);
@@ -105,13 +107,13 @@ class Administrator extends CI_Controller
 
         $data['judul'] = 'AORTASTAN Try Out Online | Analisis Jurusan';
         $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/event/analisis_jurusan', $data);
+        $this->load->view('Super_Admin/event/analisis_jurusan', $data);  
     }
 
     public function upload_jurusan($id_leaderboard)
     {
         $jurusan = $this->input->post('optionJurusan');
-
+        
         $tampungData = array(
             'analisis_jurusan' => $jurusan
         );
@@ -119,7 +121,7 @@ class Administrator extends CI_Controller
         $this->db->set($tampungData)->where('id_leaderboard', $id_leaderboard)->update('leaderboard');
         redirect('Administrator/leaderboard');
     }
-
+    
     public function reset_data_event($id_event)
     {
         $this->Event_model->resetDataEvent($id_event);
@@ -183,13 +185,13 @@ class Administrator extends CI_Controller
         $data['event'] = $this->Modul_model->getAllModul();
 
         $this->load->helper('file');
-
+        
         $file_name = $this->db->select('file')->get_where('modul', ['id_modul' => $id])->row()->file;
-        $path = './assets/file/' . $file_name;
+        $path = './assets/file/' . $file_name ;
         unlink($path);
 
         $this->Modul_model->deleteModul($id);
-
+        
         redirect('Administrator/daftar_modul');
     }
 
@@ -232,20 +234,20 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/event/edit_event');
         } else {
             $this->load->helper('file');
-
+            
             $file_name = $this->db->select('pembahasan')->get_where('event', ['id_event' => $id_event])->row()->pembahasan;
             $file = $this->input->post('file');
             $jumlahJurusan = $this->input->post('optionJurusan');
             $upload_file = $_FILES['file']['name'];
-
+        
             if ($upload_file) {
                 $config['upload_path'] = './assets/filePembahasan/';
                 $config['allowed_types'] = 'pdf';
                 $config['max_size'] = 51200;
                 $config['overwrite'] = true;
-
+    
                 $this->load->library('upload', $config);
-
+    
                 if ($this->upload->do_upload('file')) {
                     $new_file = $this->upload->data('file_name');
                 } else {
@@ -254,7 +256,7 @@ class Administrator extends CI_Controller
                 }
 
                 if ($file_name) {
-                    $path = './assets/filePembahasan/' . $file_name;
+                    $path = './assets/filePembahasan/' . $file_name ;
                     unlink($path);
                 }
 
@@ -267,7 +269,7 @@ class Administrator extends CI_Controller
                         'tgl_akhir' => $this->input->post('akhir'),
                         'pembahasan' => $new_file
                     ];
-                } else {
+                } else{
                     $dataevent = [
                         'nama_event' => $this->input->post('event'),
                         'deskripsi' => $this->input->post('deskripsi'),
@@ -287,7 +289,7 @@ class Administrator extends CI_Controller
                         'tgl_mulai' => $this->input->post('mulai'),
                         'tgl_akhir' => $this->input->post('akhir')
                     ];
-                } else {
+                } else{
                     $dataevent = [
                         'nama_event' => $this->input->post('event'),
                         'deskripsi' => $this->input->post('deskripsi'),
@@ -495,15 +497,15 @@ class Administrator extends CI_Controller
         $sessionUser = $this->session->userdata('username');
         $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
         $data['event'] = $this->Event_model->getAllEvent();
-
+        
         $this->load->helper('file');
-
+        
         $file_name = $this->db->select('pembahasan')->get_where('event', ['id_event' => $id])->row()->pembahasan;
-        if ($file_name) {
-            $path = './assets/filePembahasan/' . $file_name;
-            unlink($path);
+        if($file_name){
+            $path = './assets/filePembahasan/' . $file_name ;
+            unlink($path);   
         }
-
+        
         $this->Event_model->deleteEvent($id);
         redirect('Administrator/daftar_event');
     }
@@ -714,7 +716,7 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/daftar_peserta', $data);
     }
-
+    
     public function reset_peserta($id)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | reset Peserta';
@@ -742,25 +744,25 @@ class Administrator extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $username = $this->input->post('username');
-
+            
             $this->load->helper('file');
-
+        
             $image = $this->db->select('image')->get_where('user', ['username' => $sessionUser])->row()->image;
-
-            if ($image != "default.png") {
-                $path = './assets/img/profile/' . $image;
+            
+            if($image != "default.png"){
+                $path = './assets/img/profile/' . $image ;
                 unlink($path);
-
+                
                 $upload_image = $_FILES['image']['name'];
-
+        
                 if ($upload_image) {
                     $config['upload_path'] = './assets/img/profile/';
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = 2048;
                     $config['overwrite'] = true;
-
+        
                     $this->load->library('upload', $config);
-
+        
                     if ($this->upload->do_upload('image')) {
                         $new_image = $this->upload->data('file_name');
                         $this->db->set('image', $new_image);
@@ -768,18 +770,19 @@ class Administrator extends CI_Controller
                         $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Maaf gambar tidak sesuai ketentuan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         redirect('Administrator/profile_admin');
                     }
-                }
-            } else {
+                }   
+            }
+            else{
                 $upload_image = $_FILES['image']['name'];
-
+    
                 if ($upload_image) {
                     $config['upload_path'] = './assets/img/profile/';
                     $config['allowed_types'] = 'gif|jpg|png';
                     $config['max_size'] = 2048;
                     $config['overwrite'] = true;
-
+        
                     $this->load->library('upload', $config);
-
+        
                     if ($this->upload->do_upload('image')) {
                         $new_image = $this->upload->data('file_name');
                         $this->db->set('image', $new_image);
@@ -853,16 +856,31 @@ class Administrator extends CI_Controller
         } else {
             $pointUser = $this->User_model->getPointUserById($id);
             $inputPoint = $this->input->post('inputPoint');
+            $kategori = $this->input->post('optionKategori');
+            
+            if($kategori == 1){
+                $tambahPoint = $pointUser + $inputPoint;
 
-            $tambahPoint = $pointUser + $inputPoint;
+                $datapoint = [
+                    'point' => $tambahPoint
+                ];
+                
+                $this->User_model->updatePointUserById($id, $datapoint);
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Point berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            } else {
+                $kurangiPoint = $pointUser - $inputPoint;
 
-            $datapoint = [
-                'point' => $tambahPoint
-            ];
-
-            $this->User_model->updatePointUserById($id, $datapoint);
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Point berhasil ditambahkan</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $datapoint = [
+                    'point' => $kurangiPoint
+                ];
+                
+                $this->User_model->updatePointUserById($id, $datapoint);
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Point berhasil dikurangi</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+            
+            
             redirect('Administrator/daftar_peserta');
         }
     }
@@ -876,17 +894,18 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/templates/header_admin', $data);
         $this->load->view('Super_Admin/peserta/view_peserta', $data);
     }
-
-    public function delete_member($id)
-    {
-        $this->User_model->deleteUserById($id);
-        redirect('Administrator/daftar_peserta');
-    }
-
+    
     public function reset_member($idUser)
     {
         $idEvent = $this->input->post('optionEvent');
         $this->User_model->resetUser($idUser, $idEvent);
+        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu peserta berhasil direset.</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('Administrator/daftar_peserta');
+    }
+
+    public function delete_member($id)
+    {
+        $this->User_model->deleteUserById($id);
         redirect('Administrator/daftar_peserta');
     }
 

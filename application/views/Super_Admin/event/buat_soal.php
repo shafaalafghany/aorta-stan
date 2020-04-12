@@ -188,12 +188,12 @@
         <div class="col-12">
           <div class="callout callout-warning">
             <h5><i class="fas fa-info"></i> Petunjuk Pembuatan Soal:</h5>
-            - Gunakan tulisan biasa tidak berbentuk tabel, jika copy paste dari aplikasi lain pastikan terlebih dahulu dalam bentuk tulisan biasa sehingga disistem nantinya tidak terdeteksi hal-hal yang lain yang akan mempengaruhi tampilan saat tryout.
-            <br>
+            - Gunakan tulisan biasa tidak berbentuk tabel atau semacamnya, jika copy paste dari aplikasi lain pastikan terlebih dahulu dalam bentuk tulisan biasa sehingga disistem nantinya tidak terdeteksi hal-hal yang lain yang akan mempengaruhi tampilan saat tryout.
+            <br><br>
             - Gunakan fitur gambar untuk keperluan soal yang memang khusus terdapat gambar didalamnya, jika hanya tulisan jangan ikut di convert dalam bentuk gambar, hal tersebut akan mempengaruhi dalam tampilan tryout.
-            <br>
+            <br><br>
             - Jika menggunakan fitur gambar dimohon untuk memperkecil ukuran gambar agar tidak telalu besar dengan cara klik gambar tersebut kemudian geser tepi gambar atau border sesuai ukuran yang pas yaitu maksimal lebarnya 4 cm atau 472.
-            <br>
+            <br><br>
             - Ukuran font bisa diatur sesuai keinginan yaitu dibagian style (pojok kiri atas text editor).
           </div>
           <div class="card card-default">
@@ -462,6 +462,7 @@
         </div>
       </div>
     </section>
+
   </div>
   <!-- /.content-wrapper -->
 

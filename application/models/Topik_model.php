@@ -111,10 +111,10 @@ class Topik_model extends CI_model
 	{
 		return $this->db->query("SELECT * from rule_tes rt left join topik_tes t on rt.id_rule_tes = t.id_rule where t.id_topik_tes = 5")->row_array();
 	}
-
-	//PSIKOTEST
-
-    public function getTopikPsiko()
+	
+	//PSIKOTES
+	
+	public function getTopikPsiko()
     {
         return $this->db->get_where('topik_tes', ['id_topik_tes' => 6])->row_array();
     }

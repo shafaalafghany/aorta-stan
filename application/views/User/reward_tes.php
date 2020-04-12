@@ -16,8 +16,8 @@
     		<div class="row">
     			<div class="col-lg">
     				<div class="row">
-    					<div class="col-md-12 ftco-animate">
-                            <?php if ($leader['analisis_jurusan'] == "Tidak Masuk ke Jurusan") { ?>
+    				    <div class="col-md-12 ftco-animate">
+    						<?php if ($leader['analisis_jurusan'] == "Tidak Masuk ke Jurusan") { ?>
                                 <div class="job-post-item p-4 align-items-center" style="border-style: solid; border-width: 10px; border-color: black; background: url('../../assets/User/images/reward2.png'); background-repeat: no-repeat; background-size: 100% 100%; background-position: center; object-position: 0.5">
                                     <div class=" mb-4 mb-md-0">
                                         <div class="job-post-item-header text-center">

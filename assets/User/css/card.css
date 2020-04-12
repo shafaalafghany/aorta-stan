@@ -1,38 +1,26 @@
-.column-card {
+.column-card{
 	width: 33%;
 	float: left;
 	padding: 0px 10px;
 	text-align: center;
 }
 
-.row-card::after {
+.row-card::after{
 	content: "";
 	display: table;
 	clear: both;
 }
 
-@media screen and (max-width: 600px) {
-	.column-card {
+@media screen and (max-width: 600px){
+	.column-card{
 		width: 100%;
 		display: block;
 		margin-bottom: 20px;
 	}
-
-	.sebelumnya {
-		align-self: center;
-	}
-
-	.ragu-ragu {
-		align-self: center;
-	}
-
-	.selanjutnya {
-		align-self: center;
-	}
 }
 
-.card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+.card{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
 	max-width: 400px;
 	margin: auto;
 	background: #60cdec;

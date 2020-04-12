@@ -46,7 +46,7 @@ class Event_model extends CI_model
 		$this->db->where('id_event', $id);
 		$this->db->update('event');
 	}
-
+	
 	public function resetDataEvent($idEvent)
 	{
 		$hasilUser = $this->db->get_where('hasil_tes', ['id_event' => $idEvent])->result_array();

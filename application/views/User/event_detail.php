@@ -16,11 +16,11 @@
     		<div class="row">
     			<div class="col-lg">
     				<div class="row">
+    				    <?= $this->session->flashdata('message'); ?>
     					<div class="col-md-12 ftco-animate">
     						<div class="job-post-item p-4 d-block d-lg-flex align-items-center">
     							<div class="one-third mb-4 mb-md-0">
     								<div class="job-post-item-header align-items-center">
-    									<span class="subadge">Try Out <?= $event['id_event'] ?></span>
     									<h2 class="mr-3 text-black"><?= $event['nama_event'] ?></h2>
     								</div>
     								<div class="job-post-item-body d-block d-md-flex">
@@ -35,7 +35,7 @@
     								</div>
     							</div>
 
-    							<div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+    							<div class="one-forth d-lg-flex align-items-center">
                                     <?php if (!empty($user)) { ?>
                                         <?php $hasil = $this->db->get_where('hasil_tes', [
                                             'id_event' => $event['id_event'],
@@ -46,8 +46,8 @@
                                         $cekTglAkhir = $this->db->select('tgl_akhir')->get_where('event', ['id_event' => $event['id_event']])->row()->tgl_akhir;
                                         $waktu = date("Y-m-d");
 
-                                        if ($waktu >= $cekTglMulai && $waktu <= $cekTglAkhir) {
-                                            if (count($hasil) == 1) { ?>
+                                        if ($waktu >= $cekTglMulai && $waktu < $cekTglAkhir) { ?>
+                                            <?php if (count($hasil) == 1) { ?>
                                                 <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/2" class="btn btn-primary py-2">Lanjut Tes TBI</a>
                                             <?php } elseif (count($hasil) == 2) { ?>
                                                 <a href="<?= base_url('User/'); ?>tes_skd/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lanjut Tes SKD</a>
@@ -58,19 +58,23 @@
                                                     'id_event' => $event['id_event'],
                                                     'id_user' => $user['id']
                                                 ])->row_array();
-                                                if ($transaksi) { 
-                                                    if ($transaksi['jurusan1'] != null) { ?>
-                                                        <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjutkan Tes TPA</a>
+                                                if($leader){ ?>
+                                                    <a href="<?= base_url('User/'); ?>proses_leader/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lihat Leaderboard</a>
+                                                <?php } else { ?>
+                                                    <?php if ($transaksi) { 
+                                                        if ($transaksi['jurusan1'] != null) { ?>
+                                                            <a href="<?= base_url('User/'); ?>tes_detail/<?= $user['id']; ?>/<?= $event['id_event']; ?>/1" class="btn btn-primary py-2">Lanjutkan Tes TPA</a>
+                                                        <?php } else{ ?>
+                                                            <a href="<?= base_url('User/'); ?>pilih_jurusan/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lanjutkan Tes</a>
+                                                        <?php } ?>
                                                     <?php } else{ ?>
-                                                        <a href="<?= base_url('User/'); ?>pilih_jurusan/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2">Lanjutkan Tes</a>
+                                                        <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
                                                     <?php } ?>
-                                                <?php } else{ ?>
-                                                    <a href="<?= base_url('User/'); ?>tes_tpa/<?= $user['id']; ?>/<?= $event['id_event']; ?>" class="btn btn-primary py-2 mulai-event">Mulai Event</a>
                                                 <?php } ?>
                                             <?php } ?>
                                         <?php } elseif ($waktu < $cekTglMulai) { ?>
                                             <a href="#" class="btn btn-info py-2">Event Belum Dimulai</a>
-                                        <?php } elseif ($waktu > $cekTglAkhir){ ?>
+                                        <?php } elseif ($waktu >= $cekTglAkhir){ ?>
                                             <a href="#" class="btn btn-danger py-2">Event Sudah Kadaluarsa</a>
                                         <?php } ?>
                                     <?php }
@@ -83,6 +87,21 @@
 
                         <div class="col-md-12 ftco-animate">
                           <div class="job-post-item bg-white p-4 d-block">
+                            <?php if ($user){ ?>
+                                <?php if ($waktu >= $cekTglAkhir){ ?>
+                                    <a href="<?= base_url('User/'); ?>proses_leader/<?= $user['id']; ?>/<?= $event['id_event']; ?>" style="margin-bottom: 5px;" class="btn btn-primary py-2">Leaderboard Event</a>
+                                <?php } ?>
+                                <?php if($leader){ ?>
+                                    <?php if ($leader['status'] == "LULUS") { ?>
+                                      <?php if (!empty($leader['analisis_jurusan'])) { ?>
+                                          <a style="margin-bottom: 5px;" class="btn btn-success py-2" href="<?= base_url('User/reward_tes/' . $leader['id_leaderboard']); ?>">Lihat Jurusan </a>
+                                      <?php } ?>
+                                    <?php } ?>
+                                    <?php if($event['pembahasan']){ ?>
+                                        <a class="btn btn-success py-2" target="_blank" href="<?= base_url('User/open_pembahasan/' . $event['id_event']); ?>">Lihat Pembahasan</a>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
                             <h2 class="mb-5"><strong>Detail Event</strong></h2>
                             <form action="#" class="contact-form mb-3">
                               <div class="form-group">
@@ -112,6 +131,12 @@
                                     <label class="mr-3"><?= $topik_skd['nama_skd']; ?>
                                     <h4 class="mr-3"><?= $topik_skd['waktu'] ?> menit</h4></label>
                                 </div>
+                                <?php if($soalPsiko){ ?>
+                                    <div style="margin-left: 20px;">
+                                        <label class="mr-3"><?= $topik_psiko['nama_topik_tes']; ?>
+                                        <h4 class="mr-3"><?= $topik_psiko['waktu'] ?> menit</h4></label>
+                                    </div>
+                                <?php } ?>
                               </div>
                               <div class="form-group">
                                 <label class="mb-3">Tanggal Dimulai 

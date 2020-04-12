@@ -56,10 +56,10 @@
                     <td>
                       <span class="subadge">Status SKD</span>
                       <h4 class="mr-3 text-black">
-                        <?php if ($hasil < $topik_skd['ambang_score']) {
-                          echo "TIDAK LULUS";
-                        } else {
+                        <?php if ($hasil >= $topik_skd['ambang_score'] && $hasil_twk['hasil'] >= $topik_twk['ambang_score'] && $hasil_tiu['hasil'] >= $topik_tiu['ambang_score'] && $hasil_tkp['hasil'] >= $topik_tkp['ambang_score']) {
                           echo "LULUS";
+                        } else {
+                          echo "TIDAK LULUS";
                         }?>
                       </h4>
                     </td>
@@ -68,10 +68,10 @@
                     <td>
                       <span class="subadge">Status TWK</span>
                       <h4 class="mr-3 text-black">
-                        <?php if ($hasil_twk['hasil'] < $topik_skd['ambang_score']) {
-                          echo "TIDAK LULUS";
-                        } else {
+                        <?php if ($hasil_twk['hasil'] >= $topik_twk['ambang_score']) {
                           echo "LULUS";
+                        } else {
+                          echo "TIDAK LULUS";
                         }?>
                       </h4>
                     </td>
@@ -80,10 +80,10 @@
                     <td>
                       <span class="subadge">Status TIU</span>
                       <h4 class="mr-3 text-black">
-                        <?php if ($hasil_tiu['hasil'] < $topik_skd['ambang_score']) {
-                          echo "TIDAK LULUS";
-                        } else {
+                        <?php if ($hasil_tiu['hasil'] >= $topik_tiu['ambang_score']) {
                           echo "LULUS";
+                        } else {
+                          echo "TIDAK LULUS";
                         }?>
                       </h4>
                     </td>
@@ -92,10 +92,10 @@
                     <td>
                       <span class="subadge">Status TKP</span>
                       <h4 class="mr-3 text-black">
-                        <?php if ($hasil_tkp['hasil'] < $topik_skd['ambang_score']) {
-                          echo "TIDAK LULUS";
-                        } else {
+                        <?php if ($hasil_tkp['hasil'] >= $topik_tkp['ambang_score']) {
                           echo "LULUS";
+                        } else {
+                          echo "TIDAK LULUS";
                         }?>
                       </h4>
                     </td>

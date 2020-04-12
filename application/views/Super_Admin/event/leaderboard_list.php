@@ -176,7 +176,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Daftar Peserta</h1>
+            <h1>Leaderboard</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -189,7 +189,7 @@
 
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Daftar Peserta</h3>
+              <h3 class="card-title">Leaderboard List</h3>
             </div>
 
             <!-- /.card-body -->
@@ -198,6 +198,7 @@
                 <label for="inputName">Nama Event</label>
                 <input type="text" id="inputName" class="form-control" disabled="disabled" value="<?= $event['nama_event'] ?>">
               </div>
+              
               <?php if ($leader) { ?>
                 <a class="btn btn-danger btn-sm float-right reset-ulang-event" href="<?= base_url('Administrator/'); ?>reset_data_event/<?= $event['id_event']; ?>">
                   <i class="fas fa-trash">
@@ -215,6 +216,9 @@
                     <th>Nilai TBI</th>
                     <th>Nilai SKD</th>
                     <th>Nilai Total</th>
+                    <?php if ($soalPsiko) { ?>
+                      <th scope="col">Nilai Psikotes</th>
+                    <?php } ?>
                     <th>Status</th>
                     <th>Aksi</th>
                   </tr>
@@ -233,6 +237,13 @@
                       <td><?= $loadLeader['nilai_tbi']; ?></td>
                       <td><?= $loadLeader['nilai_skd']; ?></td>
                       <td><?= $loadLeader['nilai_total']; ?></td>
+                      <?php if ($soalPsiko) { ?>
+                        <?php if ($loadLeader['nilai_psikotes'] == null) { ?>
+                          <td>Belum Mengerjakan</td>
+                        <?php } else { ?>
+                          <td><?= $loadLeader['nilai_psikotes']; ?></td>
+                        <?php } ?>
+                      <?php } ?>
                       <td><?= $loadLeader['status']; ?></td>
                       <td class="project-actions text-center">
                         <a class="btn btn-primary btn-sm" href="<?= base_url('Administrator/'); ?>leader_detail/<?= $event['id_event']; ?>/<?= $loadLeader['id_leaderboard']; ?>">
@@ -240,10 +251,10 @@
                           </i>
                           View
                         </a>
-                        <!-- <a class="btn btn-danger btn-sm reset" href="#">
-                          <i class="fas fa-wrench">
+                        <!-- <a class="btn btn-danger btn-sm delete_peserta" href="#">
+                          <i class="fas fa-trash">
                           </i>
-                          Reset Peserta
+                          Delete
                         </a> -->
                       </td>
                     </tr>
@@ -301,13 +312,13 @@
         "autoWidth": false,
       });
 
-      $('.reset').on('click', function(e) {
+      $('.delete_peserta').on('click', function(e) {
         e.preventDefault();
         const href = $(this).attr('href');
 
         Swal.fire({
           title: 'Anda Yakin',
-          text: "Ingin mereset peserta ini? Dengan klik tombol yakin, maka peserta ini dapat mengerjakan ulang tryout dari awal lagi",
+          text: "Ingin menghapus member ini?",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -318,7 +329,7 @@
           if (result.value) {
             Swal.fire(
               'Berhasil',
-              'Peserta berhasil direset',
+              'Akun telah dihapus',
               'success'
             ).then((result) => {
               document.location.href = href;
@@ -326,7 +337,7 @@
           }
         })
       });
-
+      
       $('.reset-ulang-event').on('click', function(e) {
         e.preventDefault();
         const href = $(this).attr('href');

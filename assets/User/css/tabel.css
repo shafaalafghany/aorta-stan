@@ -11,6 +11,9 @@
 }
 
 @media (max-width: 768px) {
+  #tiu{
+    display: none;
+  }
   #tkp{
     display: none;
   }

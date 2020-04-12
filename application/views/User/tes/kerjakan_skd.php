@@ -38,7 +38,7 @@ if ($temp_menit < 60) {
 
     <section class="ftco-section bg-light" id="tes">
         <div class="container">
-          <h3 class="text-center" id="timer"></h3>
+          <h4 class="text-center" id="timer"></h4>
             <div class="row">
                 <div class="col-lg-8 pr-lg-4">
                     <div class="row ftco-animate">
@@ -48,7 +48,7 @@ if ($temp_menit < 60) {
                             foreach ($soal as $loadSoal) { ?>
                             <div class="card mySlides" id="slide<?= $i; ?>" name="slide<?= $i; ?>">
                               <div class="card-header">
-                                <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 50px; height: 50px;"><?= $i ?></button></h5>
+                                <h5>Soal No: <button type="button" class="btn btn-primary ml-2" style="width: 45px; height: 45px;"><?= $i ?></button></h5>
                               </div>
                               <div class="card-body">
                                 <form class="questionForm" id="q1" data-question="1">
@@ -73,15 +73,15 @@ if ($temp_menit < 60) {
                                               $checked = '';
                                           }
                                         ?>
-                                        <label class="btn btn-default">
-                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
+                                        <label class="btn btn-default d-flex">
+                                          <input onchange="klikJwbn(<?= $i; ?>)" id="jwbnSoal<?= $i; ?>" name="jwbnSoal<?= $i; ?>" class="jawab mr-2" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-idp="<?= $user['id']; ?>" data-jawaban="<?= $jwb['id_jawaban']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" type="radio" value="<?= $jwb['id_jawaban']; ?>" <?= $checked; ?>> <?= $jwb['jawaban']; ?>
                                         </label>
                                         <br>
                                     <?php endforeach; ?>
                                 </form>
                               </div>
                               <div class="card-footer text-muted">
-                                <button class="btn btn-info col-md-3 ml-2 mr-5 prev float-left" id="prev<?= $i; ?>" name="prev<?= $i; ?>" onclick="prevSoal(<?= $i; ?>)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
+                                <button style="margin-right: 80px; margin-bottom: 7px;" class="btn btn-info col-md-3 prev float-left" id="prev<?= $i; ?>" name="prev<?= $i; ?>" onclick="prevSoal(<?= $i; ?>)"><i class="fas fa-chevron-left"></i> Soal Sebelumnya</button>
                                 <?php $jawaban = $this->db->get_where('jawaban', ['id_soal' => $loadSoal['id_soal']])->result_array(); ?>
                                     <?php
                                       foreach ($jawaban as $jwb) : ?>
@@ -114,7 +114,7 @@ if ($temp_menit < 60) {
                                             $cek = '';
                                           }
                                        endforeach; ?>
-                                <label class="btn btn-warning text-white col-md-3 ml-4"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-nomor="<?= $i; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
+                                <label class="btn btn-warning text-white col-md-3"><input class="btnRagu" type="checkbox" id="btn-ragu-<?= $i; ?>" name="btn-ragu-<?= $i; ?>" data-ragu="<?= $ragu; ?>" data-eve="<?= $event['id_event']; ?>" data-soal="<?= $loadSoal['id_soal']; ?>" data-nomor="<?= $i; ?>" data-idp="<?= $user['id']; ?>" data-topik="<?= $loadSoal['id_topik_tes']; ?>" <?= $cek; ?>> Ragu-Ragu</label>
                                 <button class="btn btn-primary col-md-3 ml-5 next float-right" id="next<?= $i; ?>" name="next<?= $i; ?>" onclick="nextSoal(<?= $i; ?>)">Soal Selanjutnya <i class="fas fa-chevron-right"></i></button>
                               </div>
                             </div>
