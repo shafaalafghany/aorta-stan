@@ -79,29 +79,31 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-user-shield"></i>
-              <p>
-                Data Admin
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?= base_url('Administrator/') ?>daftar_admin" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daftar Admin</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= base_url('Administrator/') ?>tambah_admin" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tambah Admin</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          <?php if ($user['role_id'] == 1) { ?>
+            <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user-shield"></i>
+                <p>
+                  Data Admin
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?= base_url('Administrator/') ?>daftar_admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Admin</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?= base_url('Administrator/') ?>tambah_admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tambah Admin</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          <?php } ?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -128,8 +130,8 @@
             </ul>
           </li>
           <li class="nav-header">PENGATURAN</li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-wrench"></i>
               <p>
                 Tools
@@ -138,7 +140,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?= base_url('Administrator/') ?>topup" class="nav-link">
+                <a href="<?= base_url('Administrator/') ?>topup" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Setting Top Up</p>
                 </a>
@@ -183,7 +185,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Tambah Administrator</h1>
+              <h1>Tambah Aturan Top Up</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->
@@ -195,61 +197,26 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Formulir Tambah Admin</h3>
+                <h3 class="card-title">Formulir Tambah Top Up</h3>
               </div>
-              <?= form_error(
-                'username',
-                '<div class="alert alert-danger" role="alert"><strong>',
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
-              ); ?>
-              <?= form_error(
-                'email',
-                '<div class="alert alert-danger" role="alert"><strong>',
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
-              ); ?>
-              <?= form_error(
-                'password1',
-                '<div class="alert alert-danger" role="alert"><strong>',
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
-              ); ?>
 
-              <form method="POST" action="<?= base_url('Administrator/tambah_admin'); ?>">
+              <form method="POST" action="<?= base_url('Administrator/tambah_topup'); ?>">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="inputUsername">Username</label>
-                    <input type="text" id="username" class="form-control" name="username" value="<?= set_value('username'); ?>">
+                    <label for="inputHarga">Harga</label>
+                    <input type="number" id="harga" class="form-control" name="harga" value="<?= set_value('harga'); ?>">
                   </div>
                   <div class="form-group">
-                    <label for="inputName">Nama</label>
-                    <input type="text" id="name" class="form-control" name="name" value="<?= set_value('name'); ?>">
+                    <label for="inputPoint">Point</label>
+                    <input type="number" id="point" class="form-control" name="point" value="<?= set_value('point'); ?>">
                   </div>
                   <div class="form-group">
-                    <label for="inputEmail">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" value="<?= set_value('email'); ?>">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail">No.Telepon</label>
-                    <input type="number" id="telepon" class="form-control" name="telepon" value="<?= set_value('telepon'); ?>">
-                  </div>
-                  <!-- <div class="form-group">
-            <label for="inputStatus">Status</label>
-            <select class="form-control custom-select">
-              <option selected disabled>Select one</option>
-              <option>On Hold</option>
-              <option>Canceled</option>
-              <option>Success</option>
-            </select>
-          </div> -->
-                  <div class="form-group">
-                    <label for="inputPassword">Password</label>
-                    <input type="password" id="password1" class="form-control" name="password1">
-                  </div>
-                  <div class="form-group">
-                    <label for="inputUlangiPassword">Ulangi Password</label>
-                    <input type="password" id="password2" class="form-control" name="password2">
+                    <label for="inputHemat">Harga Hemat</label>
+                    <input type="number" id="hemat" class="form-control" name="hemat" value="<?= set_value('hemat'); ?>">
                   </div>
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary float-right swalDefaultSuccess">Tambah Admin</button>
+                    <a href="<?= base_url('Administrator/topup'); ?>" class="btn btn-secondary float-left">Batal</a>
+                    <button type="submit" class="btn btn-primary float-right swalDefaultSuccess">Tambah</button>
                   </div>
                 </div>
               </form>

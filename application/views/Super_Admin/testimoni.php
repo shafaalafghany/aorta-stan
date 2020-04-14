@@ -139,6 +139,14 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
+                      <a href="<?= base_url('Administrator/') ?>topup" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Setting Top Up</p>
+                      </a>
+                    </li>
+                  </ul>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
                       <a href="<?= base_url('Administrator/') ?>backup" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Back Up Database</p>

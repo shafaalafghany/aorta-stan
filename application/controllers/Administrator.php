@@ -980,4 +980,85 @@ class Administrator extends CI_Controller
 
         force_download('backup_database_aortastan.gz', $backup);
     }
+
+    public function topup()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Top Up';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['topup'] = $this->db->get('topup')->result_array();
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/tools/topup', $data);
+    }
+
+    public function tambah_topup()
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Tambah Top Up';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['topup'] = $this->db->get('topup')->result_array();
+
+        $this->form_validation->set_rules('harga', 'Harga', 'required|trim');
+        $this->form_validation->set_rules('point', 'Point', 'required|trim');
+        $this->form_validation->set_rules('hemat', 'Hemat', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('Super_Admin/templates/header_admin', $data);
+            $this->load->view('Super_Admin/tools/tambah_topup', $data);
+        } else {
+            $dataTopup = [
+                'harga' => htmlspecialchars($this->input->post('harga', true)),
+                'point' => htmlspecialchars($this->input->post('point', true)),
+                'harga_hemat' => htmlspecialchars($this->input->post('hemat', true))
+            ];
+
+            $this->db->insert('topup', $dataTopup);
+            $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu aturan top up berhasil ditambahkan </strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            redirect('Administrator/topup');
+        }
+    }
+
+    public function delete_topup($id_topup)
+    {
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        
+        $this->db->where('id_topup', $id_topup);
+        $this->db->delete('topup');
+        redirect('Administrator/topup');
+    }
+
+    public function edit_topup($id_topup)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Edit Top Up';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $data['topup'] = $this->db->get_where('topup', [
+            'id_topup' => $id_topup
+        ])->row_array();
+
+        $this->load->view('Super_Admin/templates/header_admin', $data);
+        $this->load->view('Super_Admin/tools/edit_topup', $data);
+    }
+
+    public function update_topup($id_topup)
+    {
+        $data['judul'] = 'AORTASTAN Try Out Online | Daftar Peserta';
+        $sessionUser = $this->session->userdata('username');
+        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
+        $harga = $this->input->post('harga');
+        $point = $this->input->post('point');
+        $hemat = $this->input->post('hemat');
+
+        $dataTopup = [
+            'harga' => $harga,
+            'point' => $point,
+            'harga_hemat' => $hemat
+        ];
+
+        $this->db->set($dataTopup)->where('id_topup', $id_topup)->update('topup');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu aturan top up berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+        redirect('Administrator/topup');
+    }
 }
