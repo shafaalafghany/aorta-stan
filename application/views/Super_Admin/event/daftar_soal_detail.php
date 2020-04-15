@@ -253,13 +253,17 @@
                         if ($jawabanBenar) { ?>
                            <td><?= $jawabanBenar['jawaban']; ?></td>
                         <?php } else{ ?>
-                          <td><div class="btn btn-warning">Tidak ada jawaban yang berpoint 5, silahkan cek jawabannya lagi</div></td>
+                          <?php if ($topik['id_topik_tes'] == 5) { ?>
+                            <td><div class="btn btn-warning">Tidak ada jawaban yang berpoint 5, silahkan cek jawabannya lagi</div></td>
+                          <?php } else{ ?>
+                            <td><div class="btn btn-warning">Tidak ada jawaban benar, silahkan cek jawabannya lagi</div></td>
+                          <?php } ?>
                         <?php } ?>
                       <?php } ?>
 
 
                       <td class="project-actions">
-                        <a class="badge badge-primary col-sm" href="<?= base_url(); ?>Administrator/view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
+                        <a class="badge badge-primary col-sm" href="<?= base_url(); ?>Administrator/edit_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $loadSoal['id_soal']; ?>">
                           <i class="fas fa-folder">
                           </i>
                           View

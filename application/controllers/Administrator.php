@@ -335,7 +335,7 @@ class Administrator extends CI_Controller
         $this->load->view('Super_Admin/event/daftar_soal_detail', $data);
     }
 
-    public function view_soal($id_event, $id_topik, $id_soal)
+    public function edit_soal($id_event, $id_topik, $id_soal)
     {
         $data['judul'] = 'AORTASTAN Try Out Online | View Soal';
         $sessionUser = $this->session->userdata('username');
@@ -354,6 +354,25 @@ class Administrator extends CI_Controller
             $this->load->view('Super_Admin/templates/header_admin', $data);
             $this->load->view('Super_Admin/event/edit_soal', $data);
         } else {
+            $jawabanBenar = $this->input->post('jawabanBenar');
+            $jawaban1 = $this->input->post('jawaban1');
+            $jawaban2 = $this->input->post('jawaban2');
+            $jawaban3 = $this->input->post('jawaban3');
+            $jawaban4 = $this->input->post('jawaban4');
+            $jawaban5 = $this->input->post('jawaban5');
+
+            $jawabanTkp1 = $this->input->post('jawabanTkp1');
+            $jawabanTkp2 = $this->input->post('jawabanTkp2');
+            $jawabanTkp3 = $this->input->post('jawabanTkp3');
+            $jawabanTkp4 = $this->input->post('jawabanTkp4');
+            $jawabanTkp5 = $this->input->post('jawabanTkp5');
+
+            $pointTkp1 = $this->input->post('pointTkp1');
+            $pointTkp2 = $this->input->post('pointTkp2');
+            $pointTkp3 = $this->input->post('pointTkp3');
+            $pointTkp4 = $this->input->post('pointTkp4');
+            $pointTkp5 = $this->input->post('pointTkp5');
+
             $dataSoal = [
                 'soal' => $this->input->post('inputSoal')
             ];
@@ -361,91 +380,25 @@ class Administrator extends CI_Controller
             $this->db->where('id_soal', $id_soal);
             $this->db->update('soal');
 
+            $getJawaban = $this->db->get_where('jawaban', [
+                'id_event' => $id_event,
+                'id_topik_tes' => $id_topik,
+                'id_soal' => $id_soal
+            ])->result_array();
+
+            if ($id_topik == 1) {
+                $this->Jawaban_model->updateJawabanTpa($id_event, $id_topik, $id_soal, $getJawaban, $jawaban1, $jawaban2, $jawaban3, $jawaban4, $jawaban5, $jawabanBenar);
+            } elseif ($id_topik == 5) {
+                $this->Jawaban_model->updateJawabanTkp($id_event, $id_topik, $id_soal, $getJawaban, $jawabanTkp1, $jawabanTkp2, $jawabanTkp3, $jawabanTkp4, $jawabanTkp5, $pointTkp1, $pointTkp2, $pointTkp3, $pointTkp4, $pointTkp5);
+            } elseif ($id_topik == 6) {
+                $this->Jawaban_model->updateJawabanPsiko($id_event, $id_topik, $id_soal, $getJawaban, $jawaban1, $jawaban2, $jawaban3, $jawaban4, $jawaban5, $jawabanBenar);
+            } else{
+                $this->Jawaban_model->updateJawabanSelainTpaDanPsiko($id_event, $id_topik, $id_soal, $getJawaban, $jawaban1, $jawaban2, $jawaban3, $jawaban4, $jawaban5, $jawabanBenar);
+            }
+
             $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu soal berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             redirect('Administrator/daftar_soal');
         }
-    }
-
-    public function pilih_jawaban($id_event, $id_topik, $id_soal)
-    {
-        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-
-        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
-        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoal($id_soal);
-
-        $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/event/pilih_jawaban', $data);
-    }
-
-    public function proses_edit($id_event, $id_topik, $id_soal)
-    {
-        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-
-        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
-        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoal($id_soal);
-
-        $optionJawaban = $this->input->post('optionJawaban');
-
-        if ($optionJawaban != 0) {
-            redirect('Administrator/edit_jawaban/' . $id_event . '/' . $id_topik . '/' . $id_soal . '/' . $optionJawaban);
-        } else{
-            $this->session->set_flashdata('message', '<div class="alert alert-danger col-md-12" role="alert"><strong>Pilih dulu jawaban yang ingin diedit!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            redirect('Administrator/pilih_jawaban/' . $id_event . '/' . $id_topik . '/' . $id_soal);
-        }
-    }
-
-    public function edit_jawaban($id_event, $id_topik, $id_soal, $id_jawaban)
-    {
-        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-
-        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
-        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoalAndJawaban($id_soal, $id_jawaban);
-
-        $this->load->view('Super_Admin/templates/header_admin', $data);
-        $this->load->view('Super_Admin/event/edit_jawaban', $data);
-    }
-
-    public function update_jawaban($id_event, $id_topik, $id_soal, $id_jawaban)
-    {
-        $data['judul'] = 'AORTASTAN Try Out Online | Pilih Jawaban';
-        $sessionUser = $this->session->userdata('username');
-        $data['user'] = $this->User_model->sessionUserMasuk($sessionUser);
-        $data['event'] = $this->Event_model->getEventById($id_event);
-        $data['topik'] = $this->Topik_model->getTopikById($id_topik);
-
-        $data['soal'] = $this->Soal_model->getSoalByIdSoal($id_soal);
-        $data['jawaban'] = $this->Soal_model->getJawabanByIdSoalAndJawaban($id_soal, $id_jawaban);
-
-        $inputJawaban = $this->input->post('inputJawaban');
-        $jawabanTkp = $this->input->post('jawabanTkp');
-        $pointTkp = $this->input->post('pointTkp');
-
-        if ($id_topik == 5) {
-            $dataJawaban = [
-                'jawaban' => $jawabanTkp,
-                'score' => $pointTkp
-            ];
-        } else{
-            $dataJawaban = [
-                'jawaban' => $inputJawaban
-            ];
-        }
-
-        $this->Soal_model->updateJawaban($id_jawaban, $dataJawaban);
-        $this->session->set_flashdata('message', '<div class="alert alert-success col-md-12" role="alert"><strong>Satu jawaban berhasil diperbarui</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-        redirect('Administrator/daftar_soal');
     }
 
     public function tambah_event()

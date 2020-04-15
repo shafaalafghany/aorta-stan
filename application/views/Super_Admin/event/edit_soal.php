@@ -205,7 +205,7 @@
             </div>
             <div class="card-body">
               <?= $this->session->flashdata('message'); ?>
-              <form action="<?= base_url('Administrator/') ?>view_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>" method="POST">
+              <form action="<?= base_url('Administrator/') ?>edit_soal/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>" method="POST">
                 <div class="form-group">
                   <div class="form-group">
                     <label for="inputName">Nama Event</label>
@@ -238,16 +238,15 @@
                         <div class="form-group" style="display: flex;">
                           <div class="col-md-9">
                             <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i; ?></label>
-                            <textarea type="text" id="jawabanTkp<?= $i; ?>" name="jawabanTkp<?= $i; ?>" class="form-control" disabled="disabled"><?= $loadJawab['jawaban'] ?></textarea>
+                            <textarea type="text" id="jawabanTkp<?= $i; ?>" name="jawabanTkp<?= $i; ?>" class="form-control"><?= $loadJawab['jawaban'] ?></textarea>
                           </div>
                           <div class="col-md-2">
                             <label for="inputPoint<?= $i; ?>">Point Jawaban <?= $i; ?></label>
-                            <input type="number" id="pointJawabanTkp<?= $i; ?>" name="pointJawabanTkp<?= $i; ?>" class="form-control" disabled="disabled" value="<?= $loadJawab['score'] ?>">
+                            <input type="number" id="pointTkp<?= $i; ?>" name="pointTkp<?= $i; ?>" class="form-control" value="<?= $loadJawab['score'] ?>">
                           </div>
                         </div>
                       <?php $i++;
                       } ?>
-                      <a href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Mau edit jawaban? Klik disini</a>
                     </div>
                   </div>
                 <?php } else { ?>
@@ -258,9 +257,13 @@
                       $i = 1;
                       foreach ($jawaban as $loadJawab) { ?>
                         <div class="form-group">
-                          <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i ?></label>
-                          <div class="col-md-12" style="border-style: solid; border-width: 1px;">
-                            <?= $loadJawab['jawaban'] ?>
+                          <label for="inputJawaban<?= $i; ?>">Jawaban <?= $i; ?></label>
+                          <div class="card-body pad">
+                            <div class="mb-3">
+                              <textarea class="textarea" placeholder="Place some text here" id="jawaban<?= $i; ?>" name="jawaban<?= $i; ?>" style="width: 100%; height: 300px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"><?= $loadJawab['jawaban'] ?></textarea>
+                            </div>
+                            <p class="text-sm mb-0">
+                            </p>
                           </div>
                         </div>
                       <?php $i++;
@@ -288,14 +291,22 @@
                             <?= $jwbnBenar; ?>
                         </div>
                       </div>
-                      <a href="<?= base_url('Administrator/'); ?>pilih_jawaban/<?= $event['id_event'] ?>/<?= $topik['id_topik_tes'] ?>/<?= $soal['id_soal'] ?>">Mau edit jawaban? Klik disini</a>
-                    </div>
+                      <div class="form-group">
+                      <label for="inputJawabanBenar">Ubah Opsi Jawaban Benar</label>
+                      <select class="custom-select col-md-12 mb-3" id="jawabanBenar" name="jawabanBenar">
+                        <option value="0">Pilih Jawaban...</option>
+                        <?php 
+                        $i = 1;
+                        foreach ($jawaban as $loadJawaban) { ?>
+                          <option value="jawaban<?= $i; ?>">Jawaban <?= $i; ?></option>
+                        <?php $i++; } ?>
+                      </select>
                   </div>
                 <?php } ?>
 
                 <div class="col-12">
                   <a class="btn btn-secondary float-left" href="<?= base_url('Administrator/'); ?>daftar_soal">Kembali</a>
-                  <button type="submit" class="btn btn-primary float-right">Simpan Perubahan Soal</button>
+                  <button type="submit" class="btn btn-primary float-right">Simpan Perubahan</button>
                 </div>
               </form>
             </div>
