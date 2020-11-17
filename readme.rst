@@ -1,5 +1,3 @@
 #######################
-SobatKode.com Project 9
+Aorta Stan - Accelerate Your Future
 #######################
-
-This is SobatKode Project 9
