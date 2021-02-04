@@ -1235,8 +1235,8 @@ class User extends CI_Controller
         $config['protocol'] = 'smtp';
         $config['smtp_crypto'] = 'ssl';
         $config['smtp_host'] = 'sylveon.rapidplex.com';
-        $config['smtp_user'] = 'admin@domain.com';
-        $config['smtp_pass'] = 'password';
+        $config['smtp_user'] = 'user@domainmu.com';
+        $config['smtp_pass'] = 'passwordmu';
         $config['smtp_port'] = 465;
         $config['mailtype'] = 'html';
         $config['charset'] = 'utf-8';
